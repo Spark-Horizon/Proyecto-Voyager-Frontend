@@ -1,8 +1,9 @@
+import { Compiler } from "../components/ide/Compiler"
 
-export const IDEPage = () => {
+export const IdePage = () => {
   return (
     <div>
-      <p>Hola Team :D</p>
+      <Compiler />
     </div>
   )
 }

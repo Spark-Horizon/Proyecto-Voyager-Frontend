@@ -1,2 +1,2 @@
-export { IDEPage } from './idePage';
-export { LandingPage } from './landingPage';
+export { IdePage } from './IdePage';
+export { LandingPage } from './LandingPage';
