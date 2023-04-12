@@ -1,4 +1,4 @@
-import { Navbar } from "../components/navbars/navbar"
+import { Navbar } from "../components/navbars/indexNavbars"
 
 import '../styles/landingPage.css'
 
