@@ -1,7 +1,7 @@
 
-export const CustomButton = ({text, func, color}) => {
+export const CustomButton = ({text, func}) => {
     return (
-        <button 
+        <button
             className="btn btn-primary"
             onClick={ func }
         >{text}</button>
