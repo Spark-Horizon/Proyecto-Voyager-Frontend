@@ -1,4 +1,4 @@
-import { CustomButton } from '../buttons/indexCustomButtons'
+import { CustomButton } from '../buttons/indexButtons'
 
 export const Navbar = () => {
     const testFunc = () => {

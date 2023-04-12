@@ -1,6 +1,6 @@
-import { Navbar } from "../components/Navbars/Navbar"
+import { Navbar } from "../components/navbars/navbar"
 
-import '../styles/LandingPage.css'
+import '../styles/landingPage.css'
 
 export const LandingPage = () => {
     return (
