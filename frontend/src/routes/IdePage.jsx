@@ -1,4 +1,4 @@
-import { Compiler } from "../components/ide/Compiler"
+import { Compiler } from "../components/IDE/Compiler"
 
 export const IdePage = () => {
   return (
