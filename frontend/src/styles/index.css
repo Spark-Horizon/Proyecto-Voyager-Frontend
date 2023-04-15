@@ -2,3 +2,12 @@
   margin: 0;
   padding: 0;
 }
+
+/*Colour palette*/
+:root{
+  --blue1: #1CC6EC;
+  --blue2: #0D93CC;
+  --blue3: #096B95;
+  --warning-color: #F24444;
+  --bckg-color: #051923;
+}
