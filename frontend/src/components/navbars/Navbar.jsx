@@ -8,7 +8,7 @@ export const Navbar = () => {
         <nav className='navbar' id='navbar-landing'>
             <div className='container-fluid navbarContent'>
 
-                <a className="navbar-brand" href="/landing">ICode</a>
+                <a className="navbar-brand" href="/landing">iCode</a>
 
                 <div className="links">
                     <ul className='container-cc'>
@@ -27,8 +27,8 @@ export const Navbar = () => {
                     </ul>
 
                     <div className="container-cc buttons">
-                        <CustomButton text={"Crear cuenta"} func={() => window.location.replace('/signin')} />
-                        <CustomButton text={"Iniciar sesión"} func={() => window.location.replace('/signup')} />
+                        <CustomButton text={"Crear cuenta"} func={() => window.location.replace('/signup')} />
+                        <CustomButton text={"Iniciar sesión"} func={() => window.location.replace('/signin')} />
                     </div>
                 </div>
             </div>

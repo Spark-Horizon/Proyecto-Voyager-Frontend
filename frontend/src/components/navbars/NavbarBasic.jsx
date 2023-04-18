@@ -3,19 +3,16 @@
 import logo from '../../assets/svg/isotipo_color.svg';
 
 export const NavbarBasic = () => {
-  const handleLogoClick = () => {
-    alert('FUNCIONA!');
-  };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#" onClick={handleLogoClick}>
+<nav className="navbar" id='navbar-basic'>
+    <div className="container-fluid navbarContent">
+        <a className="navbar-brand container-c" href="/landing">
           <img src={logo} alt="Logo" width="40" height="40" className="d-inline-block align-text-top me-2" />
           iCode
         </a>
-      </div>
-    </nav>
+    </div>
+</nav>
   );
 };
 

@@ -1,13 +1,15 @@
 .navbar-brand{
-    font-size: 1.3em;
+    font-size: 1.3rem;
     font-weight: bold;
 }
-
+.navbar-brand:hover{
+    color: #f0f0f0;
+}
 .navbarContent a{
     color: #f0f0f0;
     transition: all 0.5s ease;
 }
-.navbarContent a:hover{
+.navbarContent .links a:hover{
     color: var(--light-blue);
 }
 /*Componente: Navbar.jsx*/
@@ -44,4 +46,20 @@
 #navbar-landing .navbarContent ul > li{
     margin-right: 15px;
     margin-left: 15px;
+}
+
+/*Componente NavbarBasic.jsx*/
+#navbar-basic{
+    background-color: var(--bckg-color);
+}
+#navbar-basic .navbarContent{
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+#navbar-basic .navbarContent .navbar-brand{
+    color: var(#f0f0f0);
+    margin: 0;
 }
