@@ -40,6 +40,7 @@ export const SignUp = () => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
+    setStep(step + 1);
   };
 
   const isEmailValid = () => {
@@ -54,10 +55,12 @@ export const SignUp = () => {
     <div>
       <NavbarBasic />
       <section id="signUpForm" className='container-cc'>
+
         <form onSubmit={handleSignUp}>
 
           {step === 1 && (
             <div>
+
               <div className="text-center mb-4">
                 <h3 className="mb-0">Registro</h3>
                 <span>Selecciona si eres profesor o estudiante</span>
@@ -80,7 +83,15 @@ export const SignUp = () => {
                       type={'btn mt-3 btnSecondary'}
                       text={'Inicia sesión'}
                       func={() => window.location.replace('/signin')}/>
-                </div>
+              </div>
+
+              <div className="select next-back mt-5">
+                <CustomButton
+                  type={'btn mt-3 btnPrimary'}
+                  text={'Regresar a inicio'}
+                  func={() => window.location.replace('/landing')}/>
+              </div>
+
             </div>
           )}
 
@@ -117,10 +128,12 @@ export const SignUp = () => {
 
           {step === 3 && (
             <div>
+
               <div className="text-center mb-4">
                 <h3 className="mb-0">Registro</h3>
                 <span>Completa tu información personal</span>
               </div>
+
               <div className="form-group mb-4">
                 <label htmlFor="name" className="text-center">Nombre(s)</label>
                 <input
@@ -132,6 +145,7 @@ export const SignUp = () => {
                   required
                 />
               </div>
+
               <div className="form-group mb-4">
                 <label htmlFor="lastName1" className="text-center">Apellido paterno</label>
                 <input
@@ -143,6 +157,7 @@ export const SignUp = () => {
                   required
                 />
               </div>
+
               <div className="form-group mb-4">
                 <label htmlFor="lastName2" className="text-center">Apellido materno</label>
                 <input
@@ -214,24 +229,47 @@ export const SignUp = () => {
 
           {step === 5 && (
             <div>
+
               <div className="text-center mb-4">
                 <h3 className="mb-0">Registro</h3>
                 <span>Confirma tus datos</span>
               </div>
-            <div className="text-left mb-4">
-                <p className="fs-5">Nombre completo:</p>
-                <p className="fs-6">{name} {lastName1} {lastName2}</p>
-                <p className="fs-5">Correo electrónico:</p>
-                <p className="fs-6">{email}</p>
-                <p className="fs-5">Tipo de usuario:</p>
-                <p className="fs-6">{isTeacher ? 'Profesor' : 'Estudiante'}</p>
-            </div>
-                <button type="button" className="btn btn-secondary mr-3" onClick={handlePrevStep}>Atrás</button>
-                <button type="submit" className="btn btn-primary">Registrarse</button>
+              
+              <div className="text-left mb-4">
+                  <p className="fs-5">Nombre completo:</p>
+                  <p className="fs-6">{name} {lastName1} {lastName2}</p>
+                  <p className="fs-5">Correo electrónico:</p>
+                  <p className="fs-6">{email}</p>
+                  <p className="fs-5">Tipo de usuario:</p>
+                  <p className="fs-6">{isTeacher ? 'Profesor' : 'Estudiante'}</p>
+              </div>
+
+                <button type="submit" className="btn btn-primary mt-2">Registrarse</button>
+                <button type="button" className="btn btn-secondary mt-3" onClick={handlePrevStep}>Atrás</button>
+
             </div>
           )}
 
+          {step === 6 && (
+            <div>
+
+            <div className="text-center mb-2">
+              <h3 className="mb-0">¡Gracias por registrarte!</h3>
+              <span>Se te ha enviado un correo de verificación</span>
+            </div>
+
+            <div className="container-cc mt-3">
+              <CustomButton
+                type={'btn mt-3 btnPrimary'}
+                text={'Regresar a inicio'}
+                func={() => window.location.replace('/landing')}/>
+            </div>
+
+          </div>
+          )}
+
         </form>
+
       </section>
     </div>
   );

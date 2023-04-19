@@ -44,3 +44,8 @@ form .text-danger{
 .next-back button{
     width: fit-content;
 }
+
+/*ResetPassword.jsx*/
+#resetPasswordForm{
+    height: 90vh;
+}

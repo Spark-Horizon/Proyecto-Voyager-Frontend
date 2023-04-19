@@ -40,13 +40,24 @@ export const SignIn = () => {
             <div className="text-start mt-2">
               <a href="/resetPassword" className="text-primary text-decoration-none fs-7">Olvidé mi contraseña</a>
             </div>
+
             <CustomButton type={'btn mt-3 btnPrimary'} text={'Iniciar Sesión'} func={handleSignIn}></CustomButton>
 
           </div>
 
           <div className="text-center mt-5">
+
             <span>¿No tienes una cuenta?</span>
+
             <CustomButton type={'btn mt-3 btnSecondary'} text='Registrate' func={() => window.location.replace('/signup')}></CustomButton>
+          
+          </div>
+
+          <div className="select next-back mt-5">
+                <CustomButton
+                  type={'btn mt-3 btnPrimary'}
+                  text={'Regresar a inicio'}
+                  func={() => window.location.replace('/landing')}/>
           </div>
 
         </form>
