@@ -27,8 +27,8 @@ export const Navbar = () => {
                     </ul>
 
                     <div className="container-cc buttons">
-                        <CustomButton text={"Crear cuenta"} func={() => window.location.replace('/signup')} />
-                        <CustomButton text={"Iniciar sesión"} func={() => window.location.replace('/signin')} />
+                        <CustomButton type={'btn'} text={"Crear cuenta"} func={() => window.location.replace('/signup')} />
+                        <CustomButton type={'btn'} text={"Iniciar sesión"} func={() => window.location.replace('/signin')} />
                     </div>
                 </div>
             </div>

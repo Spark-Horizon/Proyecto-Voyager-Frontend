@@ -25,6 +25,7 @@
     margin: 0;
 }
 #navbar-landing .buttons > button{
+    color: #f0f0f0;
     margin-left: 15px;
     background-color: var(--bckg-color);
     border-color: var(--strong-blue);
