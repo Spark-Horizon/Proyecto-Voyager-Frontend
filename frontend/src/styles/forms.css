@@ -1,4 +1,5 @@
 form{
+    min-width: 35%;
     padding: 30px 40px;
     border-color: #d6d6d6;
     border-width: 1px;
@@ -40,9 +41,6 @@ form button{
 /*SignUp.jsx*/
 #signUpForm{
     height: 90vh;
-}
-#signUpForm form{
-    min-width: 40%;
 }
 .select{
     display: flex;
