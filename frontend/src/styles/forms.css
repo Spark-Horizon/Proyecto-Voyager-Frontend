@@ -9,6 +9,11 @@ form button{
     transition: all ease 0.5s;
     width: 100%;
 }
+@media screen and (max-width: 600px) {
+    form {
+      width: 90%; /* Usa el ancho completo de la ventana */
+    }
+}
 /*SignIn.jsx*/
 #signInForm{
     height: 90vh;
@@ -23,7 +28,7 @@ form button{
 #signInForm .btnSecondary{
     color: #686868;
     border-color: #686868;
-    border-width: 2px;
+    border-width: 1px;
 }
 #signInForm .btnSecondary:hover{
     color: #f0f0f0;
