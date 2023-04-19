@@ -40,7 +40,6 @@ export const SignUp = () => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    alert('FUNCIONA UnUnt');
   };
 
   const isEmailValid = () => {
