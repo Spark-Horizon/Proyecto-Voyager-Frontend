@@ -65,6 +65,12 @@ export const SignUp = () => {
                       <button type="button" className="btn btn-primary mr-3" onClick={handleTeacherClick}>Profesor</button>
                       <button type="button" className="btn btn-primary" onClick={handleStudentClick}>Estudiante</button>
                     </div>
+                    <div className="text-center mt-4">
+                          <span className="fs-5">¿Ya tienes una cuenta?</span>
+                      </div>
+                      <button type="button" className="btn btn-outline-secondary mx-auto mt-3 w-100" onClick={() => window.location.replace('/signin')}>
+                          <span className="fs-5">Inicia sesión</span>
+                      </button>
                   </div>
                 )}
                 {step === 2 && (
