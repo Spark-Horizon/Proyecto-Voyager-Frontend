@@ -22,7 +22,7 @@ export const SignIn = () => {
         <form>
 
           <div className="text-center mb-4">
-            <h2 className="h3 mb-0">Iniciar sesión</h2>
+            <h3 className="mb-0">Iniciar sesión</h3>
             <span>Ingresa tus datos para acceder</span>
           </div>
 
