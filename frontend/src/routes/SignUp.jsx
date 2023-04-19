@@ -116,87 +116,97 @@ export const SignUp = () => {
           {step === 3 && (
             <div>
               <div className="text-center mb-4">
-                <h1 className="h3 mb-0">Registro</h1>
-                <p className="lead">Completa tu información personal</p>
+                <h3 className="mb-0">Registro</h3>
+                <span>Completa tu información personal</span>
               </div>
               <div className="form-group mb-4">
-                <label htmlFor="name" className="text-center fs-4">Nombre(s)</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  value={name} 
-                  onChange={(e) => setName(e.target.value)} 
-                  className="form-control" 
-                  placeholder="Nombre(s)" 
-                  required 
+                <label htmlFor="name" className="text-center">Nombre(s)</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="form-control"
+                  required
                 />
               </div>
               <div className="form-group mb-4">
-                <label htmlFor="lastName1" className="text-center fs-4">Apellido paterno</label>
-                <input 
-                  type="text" 
-                  id="lastName1" 
-                  value={lastName1} 
-                  onChange={(e) => setLastName1(e.target.value)} 
-                  className="form-control" 
-                  placeholder="Apellido paterno" 
-                  required 
+                <label htmlFor="lastName1" className="text-center">Apellido paterno</label>
+                <input
+                  type="text"
+                  id="lastName1"
+                  value={lastName1}
+                  onChange={(e) => setLastName1(e.target.value)}
+                  className="form-control"
+                  required
                 />
               </div>
               <div className="form-group mb-4">
-                <label htmlFor="lastName2" className="text-center fs-4">Apellido materno</label>
-                <input 
-                  type="text" 
-                  id="lastName2" 
-                  value={lastName2} 
-                  onChange={(e) => setLastName2(e.target.value)} 
-                  className="form-control" 
-                  placeholder="Apellido materno" 
-                  required 
+                <label htmlFor="lastName2" className="text-center">Apellido materno</label>
+                <input
+                  type="text"
+                  id="lastName2"
+                  value={lastName2}
+                  onChange={(e) => setLastName2(e.target.value)}
+                  className="form-control"
+                  required
                 />
               </div>
-              <button 
-                type="button" 
-                className="btn btn-secondary mr-3" 
-                onClick={handlePrevStep}
-              >
-                Atrás
-              </button>
-              <button 
-                type="button" 
-                className="btn btn-primary" 
-                onClick={handleNextStep}
-              >
-                Siguiente
-              </button>
+
+              <div className="select next-back mt-5">
+                <CustomButton
+                  type={'btn btnSecondary'}
+                  text={'Atrás'}
+                  func={handlePrevStep}/>
+                <CustomButton
+                  type={'btn  btnPrimary btn-primary'}
+                  text={'Siguiente'}
+                  func={handleNextStep}/>
+              </div>
+
             </div>
           )}
 
           {step === 4 && (
             <div>
+
               <div className="text-center mb-4">
-                <h1 className="h3 mb-0">Registro</h1>
-                <p className="lead">Crea una contraseña</p>
+                <h3 className="mb-0">Registro</h3>
+                <span>Crea una contraseña</span>
               </div>
-            <div className="form-group mb-4">
-                <label htmlFor="password" className="text-center fs-4">Contraseña</label>
-                <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" placeholder="Contraseña" required />
-            </div>
-            <div className="form-group mb-4">
-                <label htmlFor="confirmPassword" className="text-center fs-4">Confirma tu contraseña</label>
-                <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="form-control" placeholder="Confirmar contraseña" required />
-                {!isPasswordValid() && (
-                  <div className="text-danger">Las contraseñas no coinciden</div>
-                )}
-            </div>
-            <div className="form-check mb-4">
-                <input type="checkbox" id="terms" checked={terms} onChange={(e) => setTerms(e.target.checked)} className="form-check-input" />
-                <label htmlFor="terms" className="form-check-label">
-                Acepto los términos y condiciones
-                </label>
-            </div>
-                <button type="button" className="btn btn-secondary mr-3" onClick={handlePrevStep}>Atrás</button>
-                <button type="button" className="btn btn-primary" onClick={handleNextStep} disabled={!isPasswordValid() || !terms}>Siguiente</button>
+
+              <div className="form-group mb-4">
+                  <label htmlFor="password" className="text-center">Contraseña</label>
+                  <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" placeholder="**********" required />
+              </div>
+
+              <div className="form-group mb-4">
+                  <label htmlFor="confirmPassword" className="text-center">Confirma tu contraseña</label>
+                  <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="form-control" placeholder="**********" required />
+                  {!isPasswordValid() && (
+                    <div className="text-danger">Las contraseñas no coinciden</div>
+                  )}
+              </div>
+
+              <div className="form-check mb-4">
+                  <input type="checkbox" id="terms" checked={terms} onChange={(e) => setTerms(e.target.checked)} className="form-check-input" />
+                  <label htmlFor="terms" className="form-check-label">
+                  Acepto los términos y condiciones
+                  </label>
+              </div>
+
+              <div className="select next-back mt-5">
+                <CustomButton
+                  type={'btn btnSecondary'}
+                  text={'Atrás'}
+                  func={handlePrevStep}/>
+                <CustomButton
+                  type={'btn  btnPrimary btn-primary'}
+                  text={'Siguiente'}
+                  func={handleNextStep}
+                  disabled={!isPasswordValid() || !terms}/>
+              </div>
+
             </div>
           )}
 
