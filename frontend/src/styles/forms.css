@@ -4,6 +4,7 @@ form{
     border-width: 1px;
     border-style: solid;
     border-radius: 15px;
+    transition: all ease 0.5s;
 }
 form button{
     transition: all ease 0.5s;
@@ -14,25 +15,47 @@ form button{
       width: 90%;
     }
 }
-/*SignIn.jsx*/
-#signInForm{
-    height: 90vh;
-}
-#signInForm .btnPrimary{
+.btnPrimary{
     background-color: var(--middle-blue);
     color: #f0f0f0;
 }
-#signInForm .btnPrimary:hover{
+.btnPrimary:hover{
     background-color: var(--strong-blue);
+    color: #f0f0f0;
 }
-#signInForm .btnSecondary{
+.btnSecondary{
     color: #686868;
     border-color: #686868;
     border-width: 1px;
 }
-#signInForm .btnSecondary:hover{
+.btnSecondary:hover{
     color: #f0f0f0;
     background-color: #686868;
 }
+/*SignIn.jsx*/
+#signInForm{
+    height: 90vh;
+}
 
 /*SignUp.jsx*/
+#signUpForm{
+    height: 90vh;
+}
+#signUpForm form{
+    min-width: 40%;
+}
+.select{
+    display: flex;
+    justify-content: space-between;
+}
+.select .btnResize{
+    margin: 5px;
+    flex-basis: 50%;
+    transition: flex-basis 0.3s ease-in-out;
+}
+.select .btnResize:hover{
+    flex-basis: 80%;
+}
+.next-back button{
+    width: fit-content;
+}
