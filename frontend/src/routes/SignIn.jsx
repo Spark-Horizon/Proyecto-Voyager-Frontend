@@ -11,7 +11,7 @@ export const SignIn = () => {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    alert('FUNCIONA!');
+    window.location.replace('/studentPage');
   };
 
   return (
@@ -38,7 +38,7 @@ export const SignIn = () => {
             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" placeholder="**********" required />
 
             <div className="text-start mt-2">
-              <a href="/landing" className="text-primary text-decoration-none fs-7">Olvidé mi contraseña</a>
+              <a href="/resetPassword" className="text-primary text-decoration-none fs-7">Olvidé mi contraseña</a>
             </div>
             <CustomButton type={'btn mt-3 btnPrimary'} text={'Iniciar Sesión'} func={handleSignIn}></CustomButton>
 
