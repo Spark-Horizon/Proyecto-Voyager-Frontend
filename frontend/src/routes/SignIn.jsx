@@ -3,6 +3,7 @@ import { NavbarBasic } from '../components/navbars/NavbarBasic';
 import { CustomButton } from '../components/buttons/indexButtons';
 
 import '../styles/forms.css'
+import '../styles/buttons.css'
 
 export const SignIn = () => {
   const [email, setEmail] = useState('');

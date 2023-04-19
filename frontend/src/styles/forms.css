@@ -19,23 +19,7 @@ form .text-danger{
       width: 90%;
     }
 }
-.btnPrimary{
-    background-color: var(--middle-blue);
-    color: #f0f0f0;
-}
-.btnPrimary:hover{
-    background-color: var(--strong-blue);
-    color: #f0f0f0;
-}
-.btnSecondary{
-    color: #686868;
-    border-color: #686868;
-    border-width: 1px;
-}
-.btnSecondary:hover{
-    color: #f0f0f0;
-    background-color: #686868;
-}
+
 /*SignIn.jsx*/
 #signInForm{
     height: 90vh;

@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { NavbarBasic } from '../components/navbars/NavbarBasic';
 import { CustomButton } from '../components/buttons/indexButtons';
 
+import '../styles/fonts.css'
+import '../styles/buttons.css'
+
 export const SignUp = () => {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
@@ -213,8 +216,8 @@ export const SignUp = () => {
           {step === 5 && (
             <div>
               <div className="text-center mb-4">
-                <h1 className="h3 mb-0">Registro</h1>
-                <p className="lead">Confirma tus datos</p>
+                <h3 className="mb-0">Registro</h3>
+                <span>Confirma tus datos</span>
               </div>
             <div className="text-left mb-4">
                 <p className="fs-5">Nombre completo:</p>
