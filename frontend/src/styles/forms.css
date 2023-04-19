@@ -11,7 +11,7 @@ form button{
 }
 @media screen and (max-width: 600px) {
     form {
-      width: 90%; /* Usa el ancho completo de la ventana */
+      width: 90%;
     }
 }
 /*SignIn.jsx*/
