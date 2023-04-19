@@ -1,4 +1,19 @@
-.compiler {
+.compiler-container {
     width: 800px;
     height: 500px;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+}
+
+.compiler {
+    height: 90%;
+}
+
+.compiler-buttons-container {
+
+}
+
+.submit {
+    width: 10%;
 }
