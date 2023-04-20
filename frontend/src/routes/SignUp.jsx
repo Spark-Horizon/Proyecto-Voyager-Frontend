@@ -48,8 +48,26 @@ export const SignUp = () => {
   };
 
   const isPasswordValid = () => {
+    if (password === '' || confirmPassword === '') {
+      return false;
+    }
     return password === confirmPassword;
   };
+
+  const isNameValid = () => {
+    const nameRegex = /^[A-Za-z]+$/;
+    return nameRegex.test(name);
+  }
+  
+  const isLastName1Valid = () => {
+    const lastName1Regex = /^[A-Za-z]+$/;
+    return lastName1Regex.test(lastName1);
+  }
+
+  const isLastName2Valid = () => {
+    const lastName2Regex = /^[A-Za-z]+$/;
+    return lastName2Regex.test(lastName2);
+  }
 
   return (
     <div>
@@ -78,11 +96,11 @@ export const SignUp = () => {
               </div>
 
               <div className="text-center mt-4">
-                    <span>¿Ya tienes una cuenta?</span>
-                    <CustomButton
-                      type={'btn mt-3 btnSecondary'}
-                      text={'Inicia sesión'}
-                      func={() => window.location.replace('/signin')}/>
+                <span>¿Ya tienes una cuenta?</span>
+                <CustomButton
+                  type={'btn mt-3 btnSecondary'}
+                  text={'Inicia sesión'}
+                  func={() => window.location.replace('/signin')}/>
               </div>
 
               <div className="select next-back mt-5">
@@ -178,7 +196,8 @@ export const SignUp = () => {
                 <CustomButton
                   type={'btn  btnPrimary btn-primary'}
                   text={'Siguiente'}
-                  func={handleNextStep}/>
+                  func={handleNextStep}
+                  disabled={!isNameValid() || isLastName1Valid || isLastName2Valid}/>
               </div>
 
             </div>
