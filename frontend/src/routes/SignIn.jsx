@@ -14,6 +14,15 @@ export const SignIn = () => {
     window.location.replace('/studentPage');
   };
 
+  const isEmailValid = () => {
+    return email.indexOf('@') !== -1;
+  };
+
+  const isPasswordValid = () => {
+    const passwordRegex = /^[^\s]+$/;
+    return passwordRegex.test(password);
+  };
+  
   return (
     <div>
       <NavbarBasic />
@@ -41,15 +50,22 @@ export const SignIn = () => {
               <a href="/resetPassword" className="text-primary text-decoration-none fs-7">Olvidé mi contraseña</a>
             </div>
 
-            <CustomButton type={'btn mt-3 btnPrimary'} text={'Iniciar Sesión'} func={handleSignIn}></CustomButton>
+            <CustomButton
+                  type={'btn mt-3 btnPrimary'}
+                  text={'Iniciar sesión'}
+                  func={handleSignIn}
+                  disabled={!isPasswordValid() || !isEmailValid()}/>
 
           </div>
 
-          <div className="text-center mt-5">
+          <div className="text-center mt-3">
 
             <span>¿No tienes una cuenta?</span>
 
-            <CustomButton type={'btn mt-3 btnSecondary'} text='Registrate' func={() => window.location.replace('/signup')}></CustomButton>
+            <CustomButton 
+                  type={'btn mt-3 btnSecondary'} 
+                  text={'Registrate'} 
+                  func={() => window.location.replace('/signup')}/>
           
           </div>
 

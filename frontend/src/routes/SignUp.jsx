@@ -197,7 +197,7 @@ export const SignUp = () => {
                   type={'btn  btnPrimary btn-primary'}
                   text={'Siguiente'}
                   func={handleNextStep}
-                  disabled={!isNameValid() || isLastName1Valid || isLastName2Valid}/>
+                  disabled={!isNameValid() || !isLastName1Valid() || !isLastName2Valid()}/>
               </div>
 
             </div>
