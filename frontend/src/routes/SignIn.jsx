@@ -51,7 +51,7 @@ export const SignIn = () => {
             </div>
 
             <CustomButton
-                  type={'btn mt-3 btnPrimary'}
+                  type={'btn mt-3 btn-primary btnPrimary'}
                   text={'Iniciar sesión'}
                   func={handleSignIn}
                   disabled={!isPasswordValid() || !isEmailValid()}/>
