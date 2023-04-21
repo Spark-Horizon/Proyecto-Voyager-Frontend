@@ -1,8 +1,7 @@
 
-export const CustomButton = ({text, func, type, customClass, disabled}) => {
+export const CustomButton = ({text, func, type, disabled}) => {
     return (
         <button
-            className={`${customClass} btn btn-primary`}
             className={ type }
             onClick={ func }
             disabled={ disabled}
