@@ -4,7 +4,7 @@ export const CustomButton = ({text, func, type, disabled}) => {
         <button
             className={ type }
             onClick={ func }
-            disabled={ disabled}
+            disabled={ disabled }
             >{text}</button>
     )
 }

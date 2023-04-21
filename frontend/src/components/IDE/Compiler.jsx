@@ -15,8 +15,8 @@ export const Compiler = () => {
         <>
             <div className='compiler-container'>
                 <div className="compiler-buttons-container">
-                    <CustomButton text={"Run"} func={ fetchSubmissionData } customClass={"run"} />
-                    <CustomButton text={"Submit"} func={ fetchSubmissionData } customClass={"submit"} />
+                    <CustomButton text={"Run"} func={ fetchSubmissionData } type={"run btn btn-primary"} />
+                    <CustomButton text={"Submit"} func={ fetchSubmissionData } type={"submit btn btn-primary"} />
                 </div>
                 <CodeEditor
                     value={code}
