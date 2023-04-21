@@ -1,0 +1,51 @@
+form{
+    min-width: 35%;
+    padding: 30px 40px;
+    border-color: #d6d6d6;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 15px;
+    transition: all ease 0.5s;
+}
+form button{
+    transition: all ease 0.5s;
+    width: 100%;
+}
+form .text-danger{
+    color: var(--warning-color);
+}
+@media screen and (max-width: 600px) {
+    form {
+      width: 90%;
+    }
+}
+
+/*SignIn.jsx*/
+#signInForm{
+    height: 90vh;
+}
+
+/*SignUp.jsx*/
+#signUpForm{
+    height: 90vh;
+}
+.select{
+    display: flex;
+    justify-content: space-between;
+}
+.select .btnResize{
+    margin: 5px;
+    flex-basis: 50%;
+    transition: flex-basis 0.3s ease-in-out;
+}
+.select .btnResize:hover{
+    flex-basis: 80%;
+}
+.next-back button{
+    width: fit-content;
+}
+
+/*ResetPassword.jsx*/
+#resetPasswordForm{
+    height: 90vh;
+}

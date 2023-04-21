@@ -1,0 +1,98 @@
+.navbar-brand{
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.navbar-brand:hover{
+    color: #f0f0f0;
+}
+.navbarContent a{
+    color: #f0f0f0;
+    transition: all 0.5s ease;
+}
+.navbarContent .links a:hover{
+    color: var(--light-blue);
+}
+/*Componente: Navbar.jsx*/
+#navbar-landing .navbarContent{
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+#navbar-landing .navbarContent .navbar-brand{
+    color: var(--light-blue);
+    margin: 0;
+}
+#navbar-landing .buttons > button{
+    color: #f0f0f0;
+    margin-left: 15px;
+    background-color: var(--bckg-color);
+    border-color: var(--strong-blue);
+    transition: all 0.5s ease;
+}
+#navbar-landing .buttons > button:hover{
+    background-color: var(--strong-blue);
+    border-color: var(--strong-blue);
+}
+#navbar-landing .navbarContent .links{
+    display: flex;
+}
+#navbar-landing .navbarContent .links > ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+#navbar-landing .navbarContent ul > li{
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+/*Componente NavbarBasic.jsx*/
+#navbar-basic{
+    background-color: var(--bckg-color);
+}
+#navbar-basic .navbarContent{
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+#navbar-basic .navbarContent .navbar-brand{
+    color: var(#f0f0f0);
+    margin: 0;
+}
+
+/*Componente NavbarStudent.jsx*/
+#navbar-student .navbarContent{
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+#navbar-student .navbarContent .navbar-brand{
+    color: var(--light-blue);
+    margin: 0;
+}
+#navbar-student .navbarContent .links{
+    display: flex;
+}
+#navbar-student .navbarContent .links > ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+#navbar-student .navbarContent ul > li{
+    margin-right: 15px;
+    margin-left: 15px;
+}
+#navbar-student .userName{
+    color: #f0f0f0;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-left: 30px;
+}

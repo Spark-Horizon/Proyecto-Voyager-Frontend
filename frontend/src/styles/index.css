@@ -1,4 +1,56 @@
+@import url('./fonts.css');
+
 * {
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
+}
+
+body{
+  font-family: 'Inter', sans-serif;
+}
+
+/*Colour palette*/
+:root{
+  --light-blue: #1CC6EC;
+  --middle-blue: #0D93CC;
+  --strong-blue: #096B95;
+  --warning-color: #F24444;
+  --bckg-color: #051923;
+}
+
+/*Scrollbar*/
+::-webkit-scrollbar {
+  width: 15px;
+}
+::-webkit-scrollbar-track {
+  background: #424242;
+}
+::-webkit-scrollbar-thumb {
+  background: #686868;
+  transition: all 0.5s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7B7B7B;
+}
+
+/*Common classes*/
+.container-c{
+  display: flex;
+  align-items: center;
+}
+.container-cc{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container-cl{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+.container-cr{
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
