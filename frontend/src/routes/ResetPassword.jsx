@@ -23,7 +23,8 @@ export const ResetPassword = () => {
   };
 
   const isEmailValid = () => {
-    return email.indexOf('@') !== -1;
+    const tecMxEmailRegex = /^[\w-.]+@tec\.mx$/;
+    return tecMxEmailRegex.test(email);
   };
 
   return (

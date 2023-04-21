@@ -44,13 +44,21 @@ export const SignUp = () => {
   };
 
   const isEmailValid = () => {
-    return email.indexOf('@') !== -1;
+    const tecMxEmailRegex = /^[\w-.]+@tec\.mx$/;
+    return tecMxEmailRegex.test(email);
   };
+  
 
   const isPasswordValid = () => {
     if (password === '' || confirmPassword === '') {
       return false;
     }
+  
+    const passwordRegex = /^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,16}$/;
+    if (!passwordRegex.test(password)) {
+      return false;
+    }
+  
     return password === confirmPassword;
   };
 
@@ -118,7 +126,7 @@ export const SignUp = () => {
 
               <div className="text-center mb-5">
                 <h3 className="mb-0">Registro</h3>
-                <span>Ingresa tu correo electrónico</span>
+                <span>Ingresa tu correo electrónico institucional</span>
               </div>
 
               <div className="form-group mb-4">
@@ -208,7 +216,7 @@ export const SignUp = () => {
 
               <div className="text-center mb-4">
                 <h3 className="mb-0">Registro</h3>
-                <span>Crea una contraseña</span>
+                <span>Crea una contraseña de entre 8 y 16 caracteres</span>
               </div>
 
               <div className="form-group mb-4">

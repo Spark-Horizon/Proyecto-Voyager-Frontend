@@ -15,13 +15,14 @@ export const SignIn = () => {
   };
 
   const isEmailValid = () => {
-    return email.indexOf('@') !== -1;
+    const tecMxEmailRegex = /^[\w-.]+@tec\.mx$/;
+    return tecMxEmailRegex.test(email);
   };
-
+  
   const isPasswordValid = () => {
-    const passwordRegex = /^[^\s]+$/;
+    const passwordRegex = /^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,16}$/;
     return passwordRegex.test(password);
-  };
+  };  
   
   return (
     <div>
