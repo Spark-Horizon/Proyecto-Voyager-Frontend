@@ -1,13 +1,17 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { NavbarBasic } from '../components/navbars/NavbarBasic';
 import { CustomButton } from '../components/buttons/indexButtons';
+import { useAuth } from '../hooks/AuthContext';
+
 import '../styles/fonts.css';
 import '../styles/buttons.css';
 
 export const ResetPassword = () => {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
-
+  const { resetPassword } = useAuth()
+  
   const handleNextStep = (e) => {
     e.preventDefault();
     setStep(step + 1);
@@ -18,8 +22,14 @@ export const ResetPassword = () => {
     setStep(step - 1);
   };
 
-  const handleResetPassword = (e) => {
+  async function handleResetPassword(e) {
     e.preventDefault();
+    try{
+      await resetPassword(email);
+    } catch{
+      console.log('Failed to reset password')
+    }
+    setStep(step + 1);
   };
 
   const isEmailValid = () => {
@@ -54,15 +64,16 @@ export const ResetPassword = () => {
                 <CustomButton
                   type={'btn mt-3 btnPrimary'}
                   text={'Restablecer contraseña'}
-                  func={handleNextStep}
+                  func={handleResetPassword}
                   disabled={!isEmailValid()}/>
               </div>
 
               <div className="select next-back mt-3">
-                <CustomButton
-                  type={'btn mt-3 btnPrimary'}
-                  text={'Regresar a inicio'}
-                  func={() => window.location.replace('/landing')}/>
+                <Link to='/'>
+                  <CustomButton
+                    type={'btn mt-3 btnPrimary'}
+                    text={'Regresar a inicio'}/>
+                </Link>
               </div>
 
             </div>
@@ -84,10 +95,11 @@ export const ResetPassword = () => {
               </div>
 
               <div className="select next-back mt-3">
-                <CustomButton
-                  type={'btn mt-3 btnPrimary'}
-                  text={'Regresar a inicio'}
-                  func={() => window.location.replace('/landing')}/>
+                <Link to='/'>
+                  <CustomButton
+                    type={'btn mt-3 btnPrimary'}
+                    text={'Regresar a inicio'}/>
+                </Link>
               </div>
 
             </div>

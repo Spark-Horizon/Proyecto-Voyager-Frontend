@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { NavbarBasic } from '../components/navbars/NavbarBasic';
 import { CustomButton } from '../components/buttons/indexButtons';
+import { useAuth } from '../hooks/AuthContext';
 
 import '../styles/fonts.css'
 import '../styles/buttons.css'
 
-export const SignUp = () => {
+export const SignUp = (props) => {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -15,6 +17,9 @@ export const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [terms, setTerms] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const { signup } = useAuth()
 
   const handleNextStep = (e) => {
     e.preventDefault();
@@ -38,8 +43,15 @@ export const SignUp = () => {
     setStep(step + 1);
   };
 
-  const handleSignUp = (e) => {
+  async function handleSignUp(e) {
     e.preventDefault();
+    try{
+      setLoading(true);
+      await signup(email, password);
+    } catch {
+      console.log("Failed to create account");
+    }
+    setLoading(false);
     setStep(step + 1);
   };
 
@@ -105,17 +117,19 @@ export const SignUp = () => {
 
               <div className="text-center mt-4">
                 <span>¿Ya tienes una cuenta?</span>
-                <CustomButton
-                  type={'btn mt-3 btnSecondary'}
-                  text={'Inicia sesión'}
-                  func={() => window.location.replace('/signin')}/>
+                <Link to='/signin'>
+                  <CustomButton
+                    type={'btn mt-3 btnSecondary'}
+                    text={'Inicia sesión'}/>
+                </Link>
               </div>
 
               <div className="select next-back mt-5">
-                <CustomButton
-                  type={'btn mt-3 btnPrimary'}
-                  text={'Regresar a inicio'}
-                  func={() => window.location.replace('/landing')}/>
+                <Link to='/'>
+                  <CustomButton
+                    type={'btn mt-3 btnPrimary'}
+                    text={'Regresar a inicio'}/>
+                </Link>
               </div>
 
             </div>
@@ -271,28 +285,10 @@ export const SignUp = () => {
                   <p className="fs-6">{isTeacher ? 'Profesor' : 'Estudiante'}</p>
               </div>
 
-                <button type="submit" className="btn btn-primary mt-2">Registrarse</button>
+                <button type="submit" disabled={loading} className="btn btn-primary mt-2">Registrarse</button>
                 <button type="button" className="btn btn-secondary mt-3" onClick={handlePrevStep}>Atrás</button>
 
             </div>
-          )}
-
-          {step === 6 && (
-            <div>
-
-            <div className="text-center mb-2">
-              <h3 className="mb-0">¡Gracias por registrarte!</h3>
-              <span>Se te ha enviado un correo de verificación</span>
-            </div>
-
-            <div className="container-cc mt-3">
-              <CustomButton
-                type={'btn mt-3 btnPrimary'}
-                text={'Regresar a inicio'}
-                func={() => window.location.replace('/landing')}/>
-            </div>
-
-          </div>
           )}
 
         </form>

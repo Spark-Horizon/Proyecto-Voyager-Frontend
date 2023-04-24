@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { NavbarBasic } from '../components/navbars/NavbarBasic';
 import { CustomButton } from '../components/buttons/indexButtons';
+import { useAuth } from '../hooks/AuthContext';
 
 import '../styles/forms.css'
 import '../styles/buttons.css'
@@ -8,10 +10,21 @@ import '../styles/buttons.css'
 export const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
+  const { signin } = useAuth()
 
-  const handleSignIn = (e) => {
+  async function handleSignIn(e) {
     e.preventDefault();
-    window.location.replace('/studentPage');
+    try{
+      setLoading(true);
+      await signin(email, password);
+      navigate('/home');
+    } catch {
+      setError('Incorrect email or password');
+    }
+    setLoading(false);
   };
 
   const isEmailValid = () => {
@@ -35,6 +48,7 @@ export const SignIn = () => {
           <div className="text-center mb-4">
             <h3 className="mb-0">Iniciar sesión</h3>
             <span>Ingresa tus datos para acceder</span>
+            {error && <div className="text-danger">{error}</div>}
           </div>
 
           <div className="form-group">
@@ -48,33 +62,31 @@ export const SignIn = () => {
             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" placeholder="**********" required />
 
             <div className="text-start mt-2">
-              <a href="/resetPassword" className="text-primary text-decoration-none fs-7">Olvidé mi contraseña</a>
+              <Link to='/resetPassword' className="text-primary text-decoration-none fs-7">Olvidé mi contraseña</Link>
             </div>
 
             <CustomButton
-                  type={'btn mt-3 btn-primary btnPrimary'}
-                  text={'Iniciar sesión'}
-                  func={handleSignIn}
-                  disabled={!isPasswordValid() || !isEmailValid()}/>
-
+              type={'btn mt-3 btn-primary btnPrimary'}
+              text={'Iniciar sesión'}
+              func={handleSignIn}
+              disabled={!isPasswordValid() || !isEmailValid()}/>
           </div>
 
           <div className="text-center mt-3">
-
             <span>¿No tienes una cuenta?</span>
-
-            <CustomButton 
-                  type={'btn mt-3 btnSecondary'} 
-                  text={'Registrate'} 
-                  func={() => window.location.replace('/signup')}/>
-          
+            <Link to='/signup'>
+              <CustomButton 
+                type={'btn mt-3 btnSecondary'} 
+                text={'Registrate'}/>
+            </Link>
           </div>
 
           <div className="select next-back mt-5">
-                <CustomButton
-                  type={'btn mt-3 btnPrimary'}
-                  text={'Regresar a inicio'}
-                  func={() => window.location.replace('/landing')}/>
+            <Link to='/'>
+              <CustomButton
+                type={'btn mt-3 btnPrimary'}
+                text={'Regresar a inicio'}/>
+            </Link>
           </div>
 
         </form>
