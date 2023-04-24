@@ -1,27 +1,24 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { NavbarBasic } from '../components/navbars/NavbarBasic';
-import { CustomButton } from '../components/buttons/indexButtons';
+import { Link } from 'react-router-dom';
+import { CustomNavbar } from '../components/CustomNavbar';
+import { CustomButton } from '../components/CustomButton';
 import { useAuth } from '../hooks/AuthContext';
 
 import '../styles/fonts.css';
 import '../styles/buttons.css';
 
 export const ResetPassword = () => {
+
+  // Estados del componente
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const { resetPassword } = useAuth()
-  
-  const handleNextStep = (e) => {
-    e.preventDefault();
-    setStep(step + 1);
-  };
 
+  // Funcionalidades del componente
   const handlePrevStep = (e) => {
     e.preventDefault();
     setStep(step - 1);
   };
-
   async function handleResetPassword(e) {
     e.preventDefault();
     try{
@@ -31,15 +28,25 @@ export const ResetPassword = () => {
     }
     setStep(step + 1);
   };
-
   const isEmailValid = () => {
     const tecMxEmailRegex = /^[\w-.]+@tec\.mx$/;
     return tecMxEmailRegex.test(email);
   };
 
+  // Links y componentes de Navbar
+  const links = [
+    { text: 'Link1', url: '/' },
+    { text: 'Link2', url: '/' },
+    { text: 'Link3', url: '/' },
+  ];
+  const components = [
+      {component: <Link><CustomButton text={'botón1'}/></Link>},
+      {component: <Link><CustomButton text={'botón2'}/></Link>}
+  ];
+
   return (
     <div>
-      <NavbarBasic />
+      <CustomNavbar links={links} components={components}/>
       <section id="resetPasswordForm" className='container-cc'>
 
         <form onSubmit={handleResetPassword}>

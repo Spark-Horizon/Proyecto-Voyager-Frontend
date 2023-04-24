@@ -1,45 +1,47 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { NavbarBasic } from '../components/navbars/NavbarBasic';
-import { CustomButton } from '../components/buttons/indexButtons';
+import { CustomNavbar } from '../components/CustomNavbar';
+import { CustomButton } from '../components/CustomButton';
 import { useAuth } from '../hooks/AuthContext';
 
 import '../styles/forms.css'
 import '../styles/buttons.css'
 
 export const SignIn = () => {
+
+  // Estados del componente
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
   const { signin } = useAuth()
 
+  // Funcionalidades del componente
   async function handleSignIn(e) {
     e.preventDefault();
     try{
-      setLoading(true);
       await signin(email, password);
       navigate('/home');
     } catch {
       setError('Incorrect email or password');
     }
-    setLoading(false);
   };
-
   const isEmailValid = () => {
     const tecMxEmailRegex = /^[\w-.]+@tec\.mx$/;
     return tecMxEmailRegex.test(email);
   };
-  
   const isPasswordValid = () => {
     const passwordRegex = /^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,16}$/;
     return passwordRegex.test(password);
-  };  
+  };
+
+  // Links y componentes de Navbar
+  const links = [];
+  const components = [];
   
   return (
     <div>
-      <NavbarBasic />
+      <CustomNavbar links={links} components={components}/>
 
       <section id="signInForm" className='container-cc'>
 

@@ -1,4 +1,4 @@
-import { CustomButton } from '../buttons/indexButtons'
+import { CustomButton } from './CustomButton'
 
 export const Footer = () => {
   const handleButtonClick = () => {

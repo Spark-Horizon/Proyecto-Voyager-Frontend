@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { NavbarBasic } from '../components/navbars/NavbarBasic';
-import { CustomButton } from '../components/buttons/indexButtons';
+import { CustomNavbar } from '../components/CustomNavbar';
+import { CustomButton } from '../components/CustomButton';
 import { useAuth } from '../hooks/AuthContext';
 
 import '../styles/fonts.css'
 import '../styles/buttons.css'
 
 export const SignUp = (props) => {
+
+  // Estados del componente
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -18,31 +20,27 @@ export const SignUp = (props) => {
   const [terms, setTerms] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const { signup } = useAuth()
 
+  // Funcionalidades del componente
   const handleNextStep = (e) => {
     e.preventDefault();
     setStep(step + 1);
   };
-
   const handlePrevStep = (e) => {
     e.preventDefault();
     setStep(step - 1);
   };
-
   const handleTeacherClick = (e) => {
     e.preventDefault();
     setIsTeacher(true);
     setStep(step + 1);
   };
-
   const handleStudentClick = (e) => {
     e.preventDefault();
     setIsTeacher(false);
     setStep(step + 1);
   };
-
   async function handleSignUp(e) {
     e.preventDefault();
     try{
@@ -54,13 +52,10 @@ export const SignUp = (props) => {
     setLoading(false);
     setStep(step + 1);
   };
-
   const isEmailValid = () => {
     const tecMxEmailRegex = /^[\w-.]+@tec\.mx$/;
     return tecMxEmailRegex.test(email);
   };
-  
-
   const isPasswordValid = () => {
     if (password === '' || confirmPassword === '') {
       return false;
@@ -73,25 +68,26 @@ export const SignUp = (props) => {
   
     return password === confirmPassword;
   };
-
   const isNameValid = () => {
     const nameRegex = /^[A-Za-z]+$/;
     return nameRegex.test(name);
-  }
-  
+  };
   const isLastName1Valid = () => {
     const lastName1Regex = /^[A-Za-z]+$/;
     return lastName1Regex.test(lastName1);
-  }
-
+  };
   const isLastName2Valid = () => {
     const lastName2Regex = /^[A-Za-z]+$/;
     return lastName2Regex.test(lastName2);
-  }
+  };
+
+  // Links y componentes de Navbar
+  const links = [];
+  const components = [];
 
   return (
     <div>
-      <NavbarBasic />
+      <CustomNavbar links={links} components={components}/>
       <section id="signUpForm" className='container-cc'>
 
         <form onSubmit={handleSignUp}>
