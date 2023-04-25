@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import '../styles/navbar.css'
 
 export const CustomNavbar = (props) => {
-    const { links, components } = props
     return (
         <nav className="customNavbar container-cc">
 

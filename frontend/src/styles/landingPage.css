@@ -1,5 +1,5 @@
 .landing-page {
-    background-color: var(--bckg-color);
+    background-color: #000000;
     display: flex;
     flex-direction: column;
 }
