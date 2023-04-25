@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+import '../styles/navbar.css'
 
 export const CustomNavbar = (props) => {
     const { links, components } = props
     return (
-        <nav className="customNavbar">
+        <nav className="customNavbar container-cc">
 
             <div className="navContent container-fluid">
                 <Link to='/' className="brand">iCode</Link>
@@ -18,7 +19,7 @@ export const CustomNavbar = (props) => {
 
                 <div className="navComponents container-cc">
                 {props.components.map((c, index) => (
-                    <div key={index}>{c.component}</div>
+                    <div className='navComponent' key={index}>{c.component}</div>
                 ))}
                 </div>
 

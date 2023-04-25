@@ -34,15 +34,8 @@ export const ResetPassword = () => {
   };
 
   // Links y componentes de Navbar
-  const links = [
-    { text: 'Link1', url: '/' },
-    { text: 'Link2', url: '/' },
-    { text: 'Link3', url: '/' },
-  ];
-  const components = [
-      {component: <Link><CustomButton text={'botón1'}/></Link>},
-      {component: <Link><CustomButton text={'botón2'}/></Link>}
-  ];
+  const links = [];
+  const components = [];
 
   return (
     <div>

@@ -12,14 +12,15 @@ export const LandingPage = () => {
         { text: 'Link1', url: '/' },
         { text: 'Link2', url: '/' },
         { text: 'Link3', url: '/' },
+        { text: 'Link4', url: '/' },
     ];
     const components = [
-        {component: <Link><CustomButton text={'botón1'}/></Link>},
-        {component: <Link><CustomButton text={'botón2'}/></Link>}
+        {component: <Link to='/signin'><CustomButton type='btn btnPrimary' text={'Iniciar sesión'}/></Link>},
+        {component: <Link to='/signup'><CustomButton type='btn btnPrimary' text={'Crear cuenta'}/></Link>}
     ]
 
     return (
-        <section className="landing-page">
+        <section className="landing-page" id='landingPage'>
             <CustomNavbar links={links} components={components}/>
             <div className="content">
             </div>
