@@ -77,7 +77,7 @@ export const SignUp = (props) => {
     const tecSMxEmailRegex = /^(a0)|(A0)\w{7,}@tec\.mx$/;
     return tecSMxEmailRegex.test(Semail);
   };
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,16}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*([\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])).*[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,18}$/;
   const isPasswordValid = () => {
     if (password === '' || confirmPassword === '') {
       return false;
@@ -272,11 +272,11 @@ export const SignUp = (props) => {
 
               <div className="text-center mb-6">
                 <h3 className="mb-0">Registro</h3>
-                <span>Crea una contraseña de entre 6 y 16 caracteres usando</span>
+                <span>Crea una contraseña de entre 6 y 18 caracteres usando</span>
               </div>
 
               <div className="text-center mb-4">
-                <span> mayúsculas, minúsculas, números y símbolos</span>
+                <span> mayúsculas, minúsculas, números y/o símbolos</span>
               </div>
 
               <div className="form-group mb-4">
@@ -290,7 +290,7 @@ export const SignUp = (props) => {
                 {!isPasswordValid() && (
                   <>
                     {(password.length < 6 || password.length > 18) && <div className="text-danger">La contraseña debe tener mínimo 6 y máximo 18 caracteres</div>}
-                    {!passwordRegex.test(password) && <div className="text-danger">La contraseña debe tener al menos un símbolo, número, minúscula y mayúscula</div>}
+                    {!passwordRegex.test(password) && <div className="text-danger">La contraseña debe tener al menos una minúscula una mayúscula y un símbolo o número</div>}
                     {password !== confirmPassword && <div className="text-danger">Las contraseñas no coinciden</div>}
                   </>
                 )}
