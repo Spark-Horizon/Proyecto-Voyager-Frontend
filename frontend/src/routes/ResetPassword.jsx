@@ -12,11 +12,6 @@ export const ResetPassword = () => {
   const [email, setEmail] = useState('');
   const { resetPassword } = useAuth()
   
-  const handleNextStep = (e) => {
-    e.preventDefault();
-    setStep(step + 1);
-  };
-
   const handlePrevStep = (e) => {
     e.preventDefault();
     setStep(step - 1);
