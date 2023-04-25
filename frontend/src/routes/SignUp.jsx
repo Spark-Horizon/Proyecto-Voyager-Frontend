@@ -21,6 +21,7 @@ export const SignUp = (props) => {
   const [terms, setTerms] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const { signup } = useAuth()
 
   // Funcionalidades del componente
@@ -63,13 +64,13 @@ export const SignUp = (props) => {
       setLoading(true);
       await signup(Temail || Semail, password);
     } catch {
+      setError('Ese correo ya tiene una cuenta asignada');
       console.log("Fallo al registrar la cuenta");
     }
     setLoading(false);
-    setStep(step + 1);
   };
   const isTeacherEmailValid = () => {
-    const tecTMxEmailRegex = /^[\w-.]+@tec\.mx$/;
+    const tecTMxEmailRegex = /^(?!A0)(?!a0)[\w-.]+@tec\.mx$/;
     return tecTMxEmailRegex.test(Temail);
   };
   const isStudentEmailValid = () => {
@@ -325,6 +326,7 @@ export const SignUp = (props) => {
               <div className="text-center mb-4">
                 <h3 className="mb-0">Registro</h3>
                 <span>Confirma tus datos</span>
+                {error && <div className="text-danger">{error}</div>}
               </div>
               
               <div className="text-left mb-4">

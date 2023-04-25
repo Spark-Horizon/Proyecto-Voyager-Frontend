@@ -27,7 +27,7 @@ export const SignIn = () => {
     }
   };
   const isTeacherEmailValid = () => {
-    const tecMxEmailRegex = /^[\w-.]+@tec\.mx$/;
+    const tecMxEmailRegex = /^(?!A0)(?!a0)[\w-.]+@tec\.mx$/;
     return tecMxEmailRegex.test(email);
   };
   const isStudentEmailValid = () => {
