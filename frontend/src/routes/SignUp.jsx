@@ -11,7 +11,8 @@ export const SignUp = (props) => {
 
   // Estados del componente
   const [step, setStep] = useState(1);
-  const [email, setEmail] = useState('');
+  const [Temail, setTEmail] = useState('');
+  const [Semail, setSEmail] = useState('');
   const [name, setName] = useState('');
   const [lastName1, setLastName1] = useState('');
   const [lastName2, setLastName2] = useState('');
@@ -23,12 +24,27 @@ export const SignUp = (props) => {
   const { signup } = useAuth()
 
   // Funcionalidades del componente
+  const resetFields = () => {
+    setTEmail('');
+    setSEmail('');
+    setName('');
+    setLastName1('');
+    setLastName2('');
+    setPassword('');
+    setConfirmPassword('');
+    setTerms(false);
+    setIsTeacher(false);
+    setLoading(false);
+  };
   const handleNextStep = (e) => {
     e.preventDefault();
     setStep(step + 1);
   };
   const handlePrevStep = (e) => {
     e.preventDefault();
+    if (step === 2) {
+      resetFields();
+    }
     setStep(step - 1);
   };
   const handleTeacherClick = (e) => {
@@ -45,39 +61,41 @@ export const SignUp = (props) => {
     e.preventDefault();
     try{
       setLoading(true);
-      await signup(email, password);
+      await signup(Temail || Semail, password);
     } catch {
-      console.log("Failed to create account");
+      console.log("Fallo al registrar la cuenta");
     }
     setLoading(false);
     setStep(step + 1);
   };
-  const isEmailValid = () => {
-    const tecMxEmailRegex = /^[\w-.]+@tec\.mx$/;
-    return tecMxEmailRegex.test(email);
+  const isTeacherEmailValid = () => {
+    const tecTMxEmailRegex = /^[\w-.]+@tec\.mx$/;
+    return tecTMxEmailRegex.test(Temail);
   };
+  const isStudentEmailValid = () => {
+    const tecSMxEmailRegex = /^a0\w{7,}@tec\.mx$/;
+    return tecSMxEmailRegex.test(Semail);
+  };
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,16}$/;
   const isPasswordValid = () => {
     if (password === '' || confirmPassword === '') {
       return false;
     }
-  
-    const passwordRegex = /^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,16}$/;
     if (!passwordRegex.test(password)) {
       return false;
-    }
-  
+    } 
     return password === confirmPassword;
   };
   const isNameValid = () => {
-    const nameRegex = /^[A-Za-z]+$/;
+    const nameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
     return nameRegex.test(name);
   };
   const isLastName1Valid = () => {
-    const lastName1Regex = /^[A-Za-z]+$/;
+    const lastName1Regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
     return lastName1Regex.test(lastName1);
   };
   const isLastName2Valid = () => {
-    const lastName2Regex = /^[A-Za-z]+$/;
+    const lastName2Regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
     return lastName2Regex.test(lastName2);
   };
 
@@ -141,9 +159,36 @@ export const SignUp = (props) => {
 
               <div className="form-group mb-4">
                 <label htmlFor="email" className="text-center">Correo electrónico</label>
-                <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="your.email@tec.mx" required />
-                {!isEmailValid() && (
-                  <div className="text-danger">El correo electrónico es inválido</div>
+                {isTeacher ? (
+                  <>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      value={Temail} 
+                      onChange={(e) => setTEmail(e.target.value)} 
+                      className="form-control" 
+                      placeholder="your.email@tec.mx" 
+                      required 
+                    />
+                    {!isTeacherEmailValid() && (
+                      <div className="text-danger">El correo electrónico es inválido</div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      value={Semail} 
+                      onChange={(e) => setSEmail(e.target.value)} 
+                      className="form-control" 
+                      placeholder="your.email@tec.mx" 
+                      required 
+                    />
+                    {!isStudentEmailValid() && (
+                      <div className="text-danger">El correo electrónico es inválido</div>
+                    )}
+                  </>
                 )}
               </div>
 
@@ -156,7 +201,7 @@ export const SignUp = (props) => {
                   type={'btn  btnPrimary btn-primary'}
                   text={'Siguiente'}
                   func={handleNextStep}
-                  disabled={!isEmailValid()}/>
+                  disabled={!isTeacherEmailValid() && !isStudentEmailValid()}/>
               </div>
 
             </div>
@@ -224,9 +269,13 @@ export const SignUp = (props) => {
           {step === 4 && (
             <div>
 
-              <div className="text-center mb-4">
+              <div className="text-center mb-6">
                 <h3 className="mb-0">Registro</h3>
-                <span>Crea una contraseña de entre 8 y 16 caracteres</span>
+                <span>Crea una contraseña de entre 6 y 16 caracteres usando</span>
+              </div>
+
+              <div className="text-center mb-4">
+                <span> mayúsculas, minúsculas, números y símbolos</span>
               </div>
 
               <div className="form-group mb-4">
@@ -235,12 +284,18 @@ export const SignUp = (props) => {
               </div>
 
               <div className="form-group mb-4">
-                  <label htmlFor="confirmPassword" className="text-center">Confirma tu contraseña</label>
-                  <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="form-control" placeholder="**********" required />
-                  {!isPasswordValid() && (
-                    <div className="text-danger">Las contraseñas no coinciden</div>
-                  )}
+                <label htmlFor="confirmPassword" className="text-center">Confirma tu contraseña</label>
+                <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="form-control" placeholder="**********" required />
+                {!isPasswordValid() && (
+                  <>
+                    {(password.length < 6 || password.length > 18) && <div className="text-danger">La contraseña debe tener mínimo 6 y máximo 18 caracteres</div>}
+                    {!passwordRegex.test(password) && <div className="text-danger">La contraseña debe tener al menos un símbolo, número, minúscula y mayúscula</div>}
+                    {password !== confirmPassword && <div className="text-danger">Las contraseñas no coinciden</div>}
+                  </>
+                )}
               </div>
+
+
 
               <div className="form-check mb-4">
                   <input type="checkbox" id="terms" checked={terms} onChange={(e) => setTerms(e.target.checked)} className="form-check-input" />
@@ -276,7 +331,7 @@ export const SignUp = (props) => {
                   <p className="fs-5">Nombre completo:</p>
                   <p className="fs-6">{name} {lastName1} {lastName2}</p>
                   <p className="fs-5">Correo electrónico:</p>
-                  <p className="fs-6">{email}</p>
+                  <p className="fs-6">{Temail || Semail}</p>
                   <p className="fs-5">Tipo de usuario:</p>
                   <p className="fs-6">{isTeacher ? 'Profesor' : 'Estudiante'}</p>
               </div>

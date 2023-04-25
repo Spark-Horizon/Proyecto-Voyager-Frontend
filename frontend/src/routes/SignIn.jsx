@@ -26,12 +26,16 @@ export const SignIn = () => {
       setError('Incorrect email or password');
     }
   };
-  const isEmailValid = () => {
+  const isTeacherEmailValid = () => {
     const tecMxEmailRegex = /^[\w-.]+@tec\.mx$/;
     return tecMxEmailRegex.test(email);
   };
+  const isStudentEmailValid = () => {
+    const tecMxEmailRegex = /^a0\w{7,}@tec\.mx$/;
+    return tecMxEmailRegex.test(email);
+  };
   const isPasswordValid = () => {
-    const passwordRegex = /^[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,16}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,16}$/;
     return passwordRegex.test(password);
   };
 
@@ -71,7 +75,7 @@ export const SignIn = () => {
               type={'btn mt-3 btn-primary btnPrimary'}
               text={'Iniciar sesión'}
               func={handleSignIn}
-              disabled={!isPasswordValid() || !isEmailValid()}/>
+              disabled={!isPasswordValid() || !isTeacherEmailValid() && !isStudentEmailValid()}/>
           </div>
 
           <div className="text-center mt-3">
