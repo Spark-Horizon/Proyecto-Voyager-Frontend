@@ -31,7 +31,7 @@ export const SignIn = () => {
     return tecMxEmailRegex.test(email);
   };
   const isStudentEmailValid = () => {
-    const tecMxEmailRegex = /^a0\w{7,}@tec\.mx$/;
+    const tecMxEmailRegex = /^(a0)|(A0)\w{7,}@tec\.mx$/;
     return tecMxEmailRegex.test(email);
   };
   const isPasswordValid = () => {

@@ -74,7 +74,7 @@ export const SignUp = (props) => {
     return tecTMxEmailRegex.test(Temail);
   };
   const isStudentEmailValid = () => {
-    const tecSMxEmailRegex = /^a0\w{7,}@tec\.mx$/;
+    const tecSMxEmailRegex = /^(a0)|(A0)\w{7,}@tec\.mx$/;
     return tecSMxEmailRegex.test(Semail);
   };
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,16}$/;
