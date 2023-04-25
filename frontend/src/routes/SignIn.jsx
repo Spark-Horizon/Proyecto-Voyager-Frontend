@@ -26,18 +26,6 @@ export const SignIn = () => {
       setError('Incorrect email or password');
     }
   };
-  const isTeacherEmailValid = () => {
-    const tecMxEmailRegex = /^(?!A0)(?!a0)[\w-.]+@tec\.mx$/;
-    return tecMxEmailRegex.test(email);
-  };
-  const isStudentEmailValid = () => {
-    const tecMxEmailRegex = /^a0\w{7,}@tec\.mx$/;
-    return tecMxEmailRegex.test(email);
-  };
-  const isPasswordValid = () => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,16}$/;
-    return passwordRegex.test(password);
-  };
 
   // Links y componentes de Navbar
   const links = [];
@@ -74,8 +62,7 @@ export const SignIn = () => {
             <CustomButton
               type={'btn mt-3 btn-primary btnPrimary'}
               text={'Iniciar sesión'}
-              func={handleSignIn}
-              disabled={!isPasswordValid() || !isTeacherEmailValid() && !isStudentEmailValid()}/>
+              func={handleSignIn}/>
           </div>
 
           <div className="text-center mt-3">
