@@ -1,10 +1,7 @@
-import { CustomButton } from '../buttons/CustomButton';
-import { useRunSubmit } from '../../hooks/useRunSubmit';
+import { CustomButton } from '../CustomButton';
 import { Console } from './Console';
 
-export const OutputPanel = ({code, tests, driver, id, compInfo, stdOut, stdErr}) => {
-    const { setSubmitData, fetchSubmissionData } = useRunSubmit();
-
+export const OutputPanel = ({code, tests, driver, id, compInfo, stdOut, stdErr, setSubmitData, fetchSubmissionData}) => {
     const submitCode = async () => {
         const submitData = {
             code,
@@ -24,7 +21,7 @@ export const OutputPanel = ({code, tests, driver, id, compInfo, stdOut, stdErr})
                 func={ submitCode } 
                 customClass={"submit"} 
             />
-            <Console stdOut={stdOut}/>
+            <Console stdOut={stdOut || stdErr || compInfo}/>
         </div>
     )
 }
