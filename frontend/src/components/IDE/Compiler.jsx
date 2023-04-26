@@ -3,7 +3,7 @@ import '../../styles/Compiler.css'
 
 import { useState } from 'react';
 
-import { CustomButton } from '../buttons/CustomButton';
+import { CustomButton } from '../CustomButton';
 import { useSubmit } from '../../hooks/useSubmit';
 
 

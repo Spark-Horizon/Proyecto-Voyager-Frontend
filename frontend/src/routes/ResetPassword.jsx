@@ -1,34 +1,45 @@
 import { useState } from 'react';
-import { NavbarBasic } from '../components/navbars/NavbarBasic';
-import { CustomButton } from '../components/buttons/indexButtons';
+import { Link } from 'react-router-dom';
+import { CustomNavbar } from '../components/CustomNavbar';
+import { CustomButton } from '../components/CustomButton';
+import { useAuth } from '../hooks/AuthContext';
+
 import '../styles/fonts.css';
 import '../styles/buttons.css';
 
 export const ResetPassword = () => {
+
+  // Estados del componente
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
+  const { resetPassword } = useAuth()
 
-  const handleNextStep = (e) => {
-    e.preventDefault();
-    setStep(step + 1);
-  };
-
+  // Funcionalidades del componente
   const handlePrevStep = (e) => {
     e.preventDefault();
     setStep(step - 1);
   };
-
-  const handleResetPassword = (e) => {
+  async function handleResetPassword(e) {
     e.preventDefault();
+    try{
+      await resetPassword(email);
+    } catch{
+      console.log('Failed to reset password')
+    }
+    setStep(step + 1);
+  };
+  const isEmailValid = () => {
+    const tecMxEmailRegex = /^[\w-.]+@tec\.mx$/;
+    return tecMxEmailRegex.test(email);
   };
 
-  const isEmailValid = () => {
-    return email.indexOf('@') !== -1;
-  };
+  // Links y componentes de Navbar
+  const links = [];
+  const components = [];
 
   return (
     <div>
-      <NavbarBasic />
+      <CustomNavbar links={links} components={components}/>
       <section id="resetPasswordForm" className='container-cc'>
 
         <form onSubmit={handleResetPassword}>
@@ -53,15 +64,16 @@ export const ResetPassword = () => {
                 <CustomButton
                   type={'btn mt-3 btnPrimary'}
                   text={'Restablecer contraseña'}
-                  func={handleNextStep}
+                  func={handleResetPassword}
                   disabled={!isEmailValid()}/>
               </div>
 
               <div className="select next-back mt-3">
-                <CustomButton
-                  type={'btn mt-3 btnPrimary'}
-                  text={'Regresar a inicio'}
-                  func={() => window.location.replace('/landing')}/>
+                <Link to='/'>
+                  <CustomButton
+                    type={'btn mt-3 btnPrimary'}
+                    text={'Regresar a inicio'}/>
+                </Link>
               </div>
 
             </div>
@@ -83,10 +95,11 @@ export const ResetPassword = () => {
               </div>
 
               <div className="select next-back mt-3">
-                <CustomButton
-                  type={'btn mt-3 btnPrimary'}
-                  text={'Regresar a inicio'}
-                  func={() => window.location.replace('/landing')}/>
+                <Link to='/'>
+                  <CustomButton
+                    type={'btn mt-3 btnPrimary'}
+                    text={'Regresar a inicio'}/>
+                </Link>
               </div>
 
             </div>

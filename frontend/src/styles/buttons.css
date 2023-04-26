@@ -15,3 +15,16 @@
     color: #f0f0f0;
     background-color: #686868;
 }
+
+/*Landing page buttons*/
+#landingPage nav .btnPrimary{
+    color: #f0f0f0;
+    background-color: #ffffff00;
+    border-color: #f0f0f0;
+    border-width: 1px;
+}
+#landingPage nav .btnPrimary:hover{
+    color: #f0f0f0;
+    background-color: var(--strong-blue);
+    border-color: var(--strong-blue);
+}
