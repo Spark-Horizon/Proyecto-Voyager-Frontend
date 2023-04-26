@@ -1,40 +1,48 @@
 import CodeEditor from '@uiw/react-textarea-code-editor';
+import MonacoEditor from '@uiw/react-monacoeditor';
+
 import '../../styles/Compiler.css'
 
-import { useState } from 'react';
+import { CustomButton } from '../buttons/CustomButton';
+import { useRunSubmit } from '../../hooks/useRunSubmit';
 
-import { CustomButton } from '../CustomButton';
-import { useSubmit } from '../../hooks/useSubmit';
-
-
-export const Compiler = () => {
-    const [code, setCode] = useState(`def main():\n    return 0`);
-    const { stdOut, error, fetchSubmissionData } = useSubmit(code);
+export const Compiler = ({tests, driver, setCode, code, setSubmitData, fetchSubmissionData}) => {
+    // Use effect that fetches data from the backend
+    // useEffect(() => {
+        
+    // }, [])
     
+    const runCode = () => {
+        const runData = {
+            code: code,
+            tests: tests,
+            driver: driver
+        }
+
+        setSubmitData(runData);
+        fetchSubmissionData(`http://3.15.39.127:3000/compiler/problem/run`, 'post');
+    }
+
     return (
         <>
-            <div className='compiler-container'>
+            <div className='compiler-main-container'>
                 <div className="compiler-buttons-container">
-                    <CustomButton text={"Run"} func={ fetchSubmissionData } type={"run btn btn-primary"} />
-                    <CustomButton text={"Submit"} func={ fetchSubmissionData } type={"submit btn btn-primary"} />
+                    <CustomButton 
+                        text={"Run"} 
+                        func={ runCode } 
+                        customClass={"run"} 
+                    />
                 </div>
-                <CodeEditor
-                    value={code}
-                    language="py"
-                    placeholder="Please enter Python code."
-                    onChange={(evn) => setCode(evn.target.value)}
-                    data-color-mode="dark"
-                    padding={10}
-                    style={{
-                        fontSize: 12,
-                        borderRadius: '0px 0px 10px 10px',
-                        fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+                <MonacoEditor
+                    language="python"
+                    onChange={(newValue, e) => {
+                        setCode(newValue)
+                    }}
+                    options={{
+                        theme: 'vs-dark',
                     }}
                 />
             </div>
-            {
-                stdOut && <p>{stdOut}</p>
-            }
         </>
     )
 }
