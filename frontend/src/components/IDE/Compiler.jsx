@@ -1,10 +1,8 @@
-import CodeEditor from '@uiw/react-textarea-code-editor';
 import MonacoEditor from '@uiw/react-monacoeditor';
 
 import '../../styles/Compiler.css'
 
-import { CustomButton } from '../buttons/CustomButton';
-import { useRunSubmit } from '../../hooks/useRunSubmit';
+import { CustomButton } from '../CustomButton';
 
 export const Compiler = ({tests, driver, setCode, code, setSubmitData, fetchSubmissionData}) => {
     // Use effect that fetches data from the backend
