@@ -1,12 +1,27 @@
 import { Routes, Route } from 'react-router-dom';
-import { LandingPage, IdePage } from '../routes/indexRoutes';
+import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, ResetPassword } from '../routes/indexRoutes';
+import { useAuth, AuthProvider } from '../hooks/AuthContext';
 
 function App() {
   return (
-    <Routes>
-      <Route path='/landing' element={<LandingPage />}/>
-      <Route path='/compiler' element={<IdePage />}/>
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path='/'
+          element={<PrivateRoute logged={false} children={<LandingPage />} link='/home'/>}
+        />
+        <Route path='/home'
+          element={<PrivateRoute logged={true} children={<StudentPage />} link='/'/>}
+        />
+        <Route path='/signin'
+          element={<PrivateRoute logged={false} children={<SignIn />} link='/home'/>}
+        />
+        <Route path='/signup'
+          element={<PrivateRoute logged={false} children={<SignUp />} link='/home'/>}
+        />
+        <Route path='/resetPassword' element={<ResetPassword />}/>
+        <Route path='/compiler' element={<IdePage />}/>
+      </Routes>
+    </AuthProvider>
   );
 }
 

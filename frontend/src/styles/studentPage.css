@@ -1,5 +1,5 @@
-.landing-page {
-    background-color: #000000;
+.student-page {
+    background-color: var(--bckg-color);
     display: flex;
     flex-direction: column;
 }

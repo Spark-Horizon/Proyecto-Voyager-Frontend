@@ -3,19 +3,20 @@ import '../../styles/Compiler.css'
 
 import { useState } from 'react';
 
-import { CustomButton } from '../buttons/CustomButton';
+import { CustomButton } from '../CustomButton';
 import { useSubmit } from '../../hooks/useSubmit';
 
 
 export const Compiler = () => {
-    const [code, setCode] = useState(`function add(a, b) {\n  return a + b;\n}`);
+    const [code, setCode] = useState(`def main():\n    return 0`);
     const { stdOut, error, fetchSubmissionData } = useSubmit(code);
     
     return (
         <>
             <div className='compiler-container'>
                 <div className="compiler-buttons-container">
-                    <CustomButton text={"Submit"} func={ fetchSubmissionData } customClass={"submit"} />
+                    <CustomButton text={"Run"} func={ fetchSubmissionData } type={"run btn btn-primary"} />
+                    <CustomButton text={"Submit"} func={ fetchSubmissionData } type={"submit btn btn-primary"} />
                 </div>
                 <CodeEditor
                     value={code}
@@ -23,12 +24,10 @@ export const Compiler = () => {
                     placeholder="Please enter Python code."
                     onChange={(evn) => setCode(evn.target.value)}
                     data-color-mode="dark"
-                    padding={15}
-                    className="compiler"
+                    padding={10}
                     style={{
-                        overflow: 'scroll',
                         fontSize: 12,
-                        borderRadius: '20px',
+                        borderRadius: '0px 0px 10px 10px',
                         fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
                     }}
                 />

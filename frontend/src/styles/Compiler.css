@@ -10,10 +10,34 @@
     height: 90%;
 }
 
-.compiler-buttons-container {
+.compiler > textarea {
+    overflow-y: scroll;
+}
 
+.compiler-buttons-container {
+    display: flex;
 }
 
 .submit {
-    width: 10%;
+    border-radius: 0px 10px 0px 0px;
+    border: none;
+    background-color: rgb(255, 162, 0);
+    color: rgb(150, 96, 1);
+    width: 50%;
+}
+
+.run {
+    border-radius: 10px 0px 0px 0px;
+    color: rgb(151, 137, 4);
+    border: none;
+    background-color: rgb(243, 219, 4);
+    width: 50%;
+}
+
+.submit:hover {
+    background-color: rgb(255, 162, 0);
+}
+
+.run:hover {
+    background-color: rgb(243, 219, 4);
 }

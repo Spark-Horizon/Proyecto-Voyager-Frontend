@@ -1,0 +1,41 @@
+.customNavbar{
+    height: 60px;
+    background-color: var(--bckg-color);
+}
+.navContent{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navContent ul {
+    margin: 0;
+}
+.brand{
+    color: #f0f0f0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 10px;
+    text-decoration: none; 
+}
+.navLinks{
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.navLinks a{
+    font-size: 1rem;
+    color: #f0f0f0;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+.navLinks a:hover{
+    color: var(--light-blue);
+}
+.navItem{
+    margin: 0px 20px
+}
+.navComponent{
+    margin-left: 15px;
+}
