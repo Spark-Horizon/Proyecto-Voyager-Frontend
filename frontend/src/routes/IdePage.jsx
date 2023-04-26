@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Compiler } from "../components/IDE/Compiler"
 import { CustomNavbar } from "../components/CustomNavbar"
 import { Compiler } from "../components/IDE/Compiler"
 import { OutputPanel } from "../components/IDE/OutputPanel";
@@ -49,6 +49,8 @@ export const IdePage = () => {
           compInfo={compInfo} 
           stdOut={stdOut}
           stdErr={stdErr}
+          setSubmitData={setSubmitData}
+          fetchSubmissionData={fetchSubmissionData}
         />
       </div>
     </div>
