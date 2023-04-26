@@ -9,7 +9,6 @@ export const CRUD = () => {
 
   // Estados del componente
   const [rows, setRows] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState('');
 
   // Funcionalidades del componente
   const handleDelete = (id) => {
@@ -23,7 +22,9 @@ export const CRUD = () => {
   const components = [];
 
   // Opciones de filtro
-  const filterOptions = ['Título', 'Autor', 'Subtema', 'Tipo', 'Dificultad', 'Aprobado'];
+
+  // Opciones de cada columna
+  const columnOptions = ['', '', '', '', '', '', ''];
 
   return (
     <div>
@@ -37,29 +38,57 @@ export const CRUD = () => {
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Título</th>
-                <th scope="col">Autor</th>
-                <th scope="col">Subtema</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Dificultad</th>
-                <th scope="col">Aprobado</th>
                 <th scope="col">
                   <select
                     className="form-select form-select-sm"
                     aria-label="Filtro"
-                    value={selectedFilter}
-                    onChange={(e) => setSelectedFilter(e.target.value)}>
-
-                    <option value="" disabled>Filtrar por:</option>
-                        {filterOptions.map((option, index) => (
-                            <option key={index} value={option}>{option}</option>
-                        ))}
+                    value={columnOptions[1]}
+                    onChange={(e) => columnOptions[1] = e.target.value}>
+                    <option value="">Autor</option>
                   </select>
                 </th>
+                <th scope="col">
+                  <select
+                    className="form-select form-select-sm"
+                    aria-label="Filtro"
+                    value={columnOptions[2]}
+                    onChange={(e) => columnOptions[2] = e.target.value}>
+                    <option value="">Subtema</option>
+                  </select>
+                </th>
+                <th scope="col">
+                  <select
+                    className="form-select form-select-sm"
+                    aria-label="Filtro"
+                    value={columnOptions[3]}
+                    onChange={(e) => columnOptions[3] = e.target.value}>
+                    <option value="">Tipo</option>
+                  </select>
+                </th>
+                <th scope="col">
+                  <select
+                    className="form-select form-select-sm"
+                    aria-label="Filtro"
+                    value={columnOptions[4]}
+                    onChange={(e) => columnOptions[4] = e.target.value}>
+                    <option value="">Dificultad</option>
+                  </select>
+                </th>
+                <th scope="col">
+                  <select
+                    className="form-select form-select-sm"
+                    aria-label="Filtro"
+                    value={columnOptions[5]}
+                    onChange={(e) => columnOptions[5] = e.target.value}>
+                    <option value="">Aprobado</option>
+                  </select>
+                </th>
+                <th scope="col"></th>
               </tr>
             </thead>
 
             <tbody>
-              {rows.filter((row) => selectedFilter === '' || row[selectedFilter] !==selectedFilter).map((row) => (
+              {rows.filter((row) => true).map((row) => (
                 <tr key={row.id}>
                     <td>{row.col1}</td>
                     <td>{row.col2}</td>
@@ -74,8 +103,7 @@ export const CRUD = () => {
                         text={'Editar'}/>
                     <CustomButton
                         type={'btn btn-danger btn-sm'}
-                        text={'Borrar'}
-                        func={() => handleDelete(row.id)} />
+                        text={'Borrar'}/>
                     </td>
                 </tr>
                 ))}
@@ -83,8 +111,7 @@ export const CRUD = () => {
           </table>
             <CustomButton
                 type={'btn btn-primary btn-block'}
-                text={'Añadir fila'}
-                func={() => setRows([...rows, {id: rows.length + 1, col1: rows.length + 1, col2: '', col3: '', col4: '', col5: '', col6: '', col7: ''}])} />
+                text={'Añadir fila'}/>
         </div>
       </section>
 
