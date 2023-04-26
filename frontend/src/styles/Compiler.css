@@ -1,22 +1,56 @@
-.compiler-container {
+/* [GLOBAL] */
+:root {
+    --compiler-components-height: 550px;
+}
+
+/* [COMPILER COMPONENT] */
+.compiler-main-container {
+    height: var(--compiler-components-height);
     width: 800px;
-    height: 500px;
     border: 1px solid red;
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
 }
 
-.compiler {
-    height: 90%;
-}
-
-.compiler > textarea {
+.compiler-container {
+    background-color: rgb(22, 27, 34);
+    width: 100%;
+    min-height: 100%;
     overflow-y: scroll;
 }
 
 .compiler-buttons-container {
     display: flex;
 }
+
+/* [OUTPUT PANEL] */
+.output-panel-main-container {
+    background-color: blue;
+    width: 200px;
+    height: var(--compiler-components-height);
+}
+
+/* [TEST CASES PANEL] */
+
+/* [CONSOLE PANEL] */
+.compiler-console {
+    width: 100%;
+    height: 100px;
+    background-color: black;
+}
+
+/* [BUTTONS] */
+.run {
+    border-radius: 10px 0px 0px 0px;
+    color: rgb(151, 137, 4);
+    border: none;
+    background-color: rgb(243, 219, 4);
+    width: 50%;
+}
+
+.run:hover {
+    background-color: rgb(243, 219, 4);
+}
+
 
 .submit {
     border-radius: 0px 10px 0px 0px;
@@ -26,18 +60,6 @@
     width: 50%;
 }
 
-.run {
-    border-radius: 10px 0px 0px 0px;
-    color: rgb(151, 137, 4);
-    border: none;
-    background-color: rgb(243, 219, 4);
-    width: 50%;
-}
-
 .submit:hover {
     background-color: rgb(255, 162, 0);
-}
-
-.run:hover {
-    background-color: rgb(243, 219, 4);
 }
