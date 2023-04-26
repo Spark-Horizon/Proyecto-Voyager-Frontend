@@ -1,0 +1,53 @@
+.code-instructions {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .code-instructions h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .code-instructions p {
+    margin: 10px 0;
+  }
+  
+  .code-instructions-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .code-instructions-topic {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 20px;
+  }
+  
+  .code-instructions-difficulty {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .code-instructions-tests {
+    border-collapse: collapse;
+    margin: 10px 0;
+  }
+  
+  .code-instructions-tests th,
+  .code-instructions-tests td {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .code-instructions-tests th {
+    font-weight: bold;
+    background-color: #eee;
+  }
+  
+  .code-instructions-author {
+    font-size: 12px;
+    margin-top: 10px;
+    text-align: right;
+  }
+    
