@@ -34,8 +34,12 @@
 /* [CONSOLE PANEL] */
 .compiler-console {
     width: 100%;
-    height: 100px;
+    height: 300px;
     background-color: black;
+    font-family: system-ui;
+    padding: 10px;
+    word-wrap: break-word;
+    color: #fff;
 }
 
 /* [BUTTONS] */
