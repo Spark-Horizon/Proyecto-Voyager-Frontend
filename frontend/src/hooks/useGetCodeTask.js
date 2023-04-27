@@ -1,4 +1,4 @@
-import { getCodeTask } from "../helpers/getCodingTask.js";
+import { getCodeTask } from "../helpers/indexHelpers.js";
 import { useState, useEffect } from 'react';
 
 export const useGetCodeTask = (problem_id) => {
