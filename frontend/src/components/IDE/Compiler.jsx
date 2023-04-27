@@ -4,6 +4,9 @@ import '../../styles/Compiler.css'
 
 import { CustomButton } from '../CustomButton';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL; // Utiliza `backendUrl` en lugar de la dirección IP o el dominio directamente.
+
+
 export const Compiler = ({tests, driver, setCode, code, setSubmitData, fetchSubmissionData}) => {
     // Use effect that fetches data from the backend
     // useEffect(() => {
@@ -18,7 +21,7 @@ export const Compiler = ({tests, driver, setCode, code, setSubmitData, fetchSubm
         }
 
         setSubmitData(runData);
-        fetchSubmissionData(`http://3.15.39.127:3000/compiler/problem/run`, 'post');
+        fetchSubmissionData(`http://${backendUrl}:3000/compiler/problem/run`, 'post');
     }
 
     return (
