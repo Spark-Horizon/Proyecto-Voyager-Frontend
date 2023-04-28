@@ -1,5 +1,9 @@
 import { CustomButton } from '../CustomButton';
 import { Console } from './Console';
+// Utiliza `backendUrl` en lugar de la dirección IP o el dominio directamente.
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+
 
 export const OutputPanel = ({code, tests, driver, id, compInfo, stdOut, stdErr, setSubmitData, fetchSubmissionData}) => {
     const submitCode = async () => {
@@ -11,7 +15,7 @@ export const OutputPanel = ({code, tests, driver, id, compInfo, stdOut, stdErr, 
         }
 
         setSubmitData(submitData);
-        fetchSubmissionData(`http://3.15.39.127:3000/compiler/problem/${id}/submit`, 'post');
+        fetchSubmissionData(`http://${backendUrl}:3000/compiler/problem/${id}/submit`, 'post');
     }
 
     return (
