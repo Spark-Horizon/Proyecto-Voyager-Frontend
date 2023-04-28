@@ -7,18 +7,18 @@
 .compiler-main-container {
     height: var(--compiler-components-height);
     width: 800px;
-    border: 1px solid red;
+    border-radius: 5px 5px 5px 5px;
+    margin-right: 40px;
     overflow: hidden;
 }
 
-.compiler-container {
-    background-color: rgb(22, 27, 34);
-    width: 100%;
-    min-height: 100%;
-    overflow-y: scroll;
-}
-
 .compiler-buttons-container {
+    background: linear-gradient(90deg, rgba(12, 202, 161, 0.25) 0%, rgba(0, 51, 255, 0.25) 100%);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 7px );
+    -webkit-backdrop-filter: blur( 7px );
+    border-radius: 5px 5px 0px 0px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
     display: flex;
 }
 
@@ -44,11 +44,11 @@
 
 /* [BUTTONS] */
 .run {
-    border-radius: 10px 0px 0px 0px;
-    color: rgb(151, 137, 4);
+    background-color: transparent;
+    border-radius: 5px 5px 0px 0px;
+    color: #fff;
     border: none;
-    background-color: rgb(243, 219, 4);
-    width: 50%;
+    width: 100%;
 }
 
 .run:hover {

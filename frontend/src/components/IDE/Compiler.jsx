@@ -28,11 +28,12 @@ export const Compiler = ({tests, driver, setCode, code, setSubmitData, fetchSubm
                     <CustomButton 
                         text={"Run"} 
                         func={ runCode } 
-                        customClass={"run"} 
+                        type={"run"} 
                     />
                 </div>
                 <MonacoEditor
                     language="python"
+                    className='test'
                     onChange={(newValue, e) => {
                         setCode(newValue)
                     }}
