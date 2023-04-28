@@ -4,6 +4,7 @@ import { CustomNavbar } from "../components/CustomNavbar"
 import { Compiler } from "../components/IDE/Compiler"
 import { OutputPanel } from "../components/IDE/OutputPanel";
 import { useRunSubmit } from "../hooks/useRunSubmit";
+import { TestCases } from '../components/IDE/TestCases';
 
 import '../styles/idePage.css';
 
@@ -51,6 +52,9 @@ export const IdePage = () => {
           stdErr={stdErr}
           setSubmitData={setSubmitData}
           fetchSubmissionData={fetchSubmissionData}
+        />
+        <TestCases
+          tests={tests}
         />
       </div>
     </div>
