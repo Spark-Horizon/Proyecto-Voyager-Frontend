@@ -53,9 +53,9 @@ export const useGetCRUDTask = (fil1, fil2, fil3, fil4, fil5, order, hier) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const archivo = await getCRUDTask(fil1, fil2, fil3, fil4, fil5, order, hier);
-                console.log(archivo);
-                const { id_resultado, titulo, autor, subtema, tipo_resultado, dificultad, autorizado_resultado } = archivo;
+                const resultado = await getCRUDTask(fil1, fil2, fil3, fil4, fil5, order, hier);
+                console.log(resultado);
+                const { id_resultado, titulo, autor, subtema, tipo_resultado, dificultad, autorizado_resultado } = resultado;
                 setProblemData({ id_resultado, titulo, autor, subtema, tipo_resultado, dificultad, autorizado_resultado });
             } catch (error) {
                 setError(error);

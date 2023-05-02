@@ -28,6 +28,8 @@ export const CRUD = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
 
   const { data } = useGetCRUDTask(fil1, fil2, fil3, fil4, fil5, order, hier);
 
+  console.log(data);
+
   if (!data) {
     return <div>Cargando...</div>;
   }

@@ -20,19 +20,20 @@ export const getTask = async (problem_id) => {
 };
 
 export const getCRUDTask = async (fil1, fil2, fil3, fil4, fil5, order, hier) => {
+  console.log(`http://localhost:3001/CRUD/${fil1}/${fil2}/${fil3}/${fil4}/${fil5}/${order}/${hier}`);
   try {
     const options = {
       method: "get",
-      url: `http://localhost:3000/CRUD/${fil1,fil2,fil3,fil4,fil5,order,hier}`,
+      url: `http://localhost:3001/CRUD/${fil1}/${fil2}/${fil3}/${fil4}/${fil5}/${order}/${hier}`,
       headers: {
         "Content-Type": "application/json",
       },
     };
 
     const response = await axios(options);
-    const { archivo } = response.data;
+    const { resultado } = response.data;
 
-    return archivo;
+    return resultado;
   } catch (error) {
     throw error;
   }
