@@ -5,7 +5,12 @@ import { CustomButton } from '../CustomButton';
 export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
   // Estados del componente
   const [rows, setRows] = useState([]);
-  const [columnOptions, setColumnOptions] = useState(['']);
+  const [columnOptions, setColumnOptions] = useState([]);
+  const [autorOptions, setAutorOptions] = useState([]);
+  const [subtemaOptions, setSubtemaOptions] = useState([]);
+  const [tipoOptions, setTipoOptions] = useState([]);
+  const [dificultadOptions, setDificultadOptions] = useState([]);
+  const [autorizacionOptions, setAutorizacionOptions] = useState([]);
 
   // Funcionalidades del componente
   const handleDelete = (id) => {
@@ -28,26 +33,26 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
   console.log(data_dificultad);
   console.log(data_autorizacion);
 
-
   if (!data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
     return <div>Cargando...</div>;
   }
-
-  //const columnOptions = ['', '', '', '', '', ''];
 
   return (
     <div className="table-responsive">
       <table className="table table-hover">
         <thead>
           <tr>
+
             <th scope="col">ID:</th>
             <th scope="col">Título:</th>
+
             <th scope="col">
               <select
-                className="form-select form-select-sm"
+                className="form-select form-select-sm multiselect-dropdown"
                 aria-label="Filtro"
-                value={columnOptions[0]}
-                onChange={(autorvar) => setColumnOptions([autorvar.target.value])}>
+                multiple
+                value={autorOptions}
+                onChange={(autorvar) => setAutorOptions(Array.from(autorvar.target.selectedOptions, option => option.value))} >
                 <option value="">Autor: </option>
                 {data_autor.map((row) => (
                   <option key={row['?column?']} value={row['?column?']}>
@@ -58,11 +63,12 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
             </th>
 
             <th scope="col">
-            <select
-                className="form-select form-select-sm"
+              <select
+                className="form-select form-select-sm multiselect-dropdown"
                 aria-label="Filtro"
-                value={columnOptions[0]}
-                onChange={(subtemavar) => setColumnOptions([subtemavar.target.value])}>
+                multiple
+                value={subtemaOptions}
+                onChange={(subtemavar) => setSubtemaOptions(Array.from(subtemavar.target.selectedOptions, option => option.value))}>
                 <option value="">Subtema: </option>
                 {data_subtema.map((row) => (
                   <option key={row.nombre} value={row.nombre}>
@@ -74,11 +80,12 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
 
             <th scope="col">
               <select
-                className="form-select form-select-sm"
+                className="form-select form-select-sm multiselect-dropdown"
                 aria-label="Filtro"
-                value={columnOptions[0]}
-                onChange={(tipovar) => setColumnOptions([tipovar.target.value])}>
-                <option value="">Tipo: </option>
+                multiple
+                value={tipoOptions}  
+                onChange={(tipovar) => setTipoOptions(Array.from(tipovar.target.selectedOptions, option => option.value))}>
+                <option value="">Tipo: </option>  
                 {data_tipo.map((row) => (
                   <option key={row.tipo} value={row.tipo}>
                     {row.tipo}
@@ -89,10 +96,11 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
 
             <th scope="col">
               <select
-                className="form-select form-select-sm"
+                className="form-select form-select-sm multiselect-dropdown"
                 aria-label="Filtro"
-                value={columnOptions[0]}
-                onChange={(dificultadvar) => setColumnOptions([dificultadvar.target.value])}>
+                multiple
+                value={dificultadOptions}
+                onChange={(dificultadvar) => setDificultadOptions(Array.from(dificultadvar.target.selectedOptions, option => option.value))}>
                 <option value="">Dificultad: </option>
                 {data_dificultad.map((row) => (
                   <option key={row['?column?']} value={row['?column?']}>
@@ -103,11 +111,12 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
             </th>
 
             <th scope="col">
-            <select
-                className="form-select form-select-sm"
+              <select
+                className="form-select form-select-sm multiselect-dropdown"
                 aria-label="Filtro"
-                value={columnOptions[0]}
-                onChange={(autorizadovar) => setColumnOptions([autorizadovar.target.value])}>
+                multiple
+                value={autorizacionOptions}
+                onChange={(autorizadovar) => setAutorizacionOptions(Array.from(autorizadovar.target.selectedOptions, option => option.value))}>
                 <option value="">Aprobación: </option>
                 {data_autorizacion.map((row) => (
                   <option key={row.autorizado} value={row.autorizado}>
@@ -117,7 +126,46 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
               </select>
             </th>
 
-            <th scope="col"></th>
+            <th scope="col">
+              <section id="crudPage" className='container-cc'>
+                <div>
+                <select
+                  className="form-select form-select-sm"
+                  aria-label="Filtro"
+                  value={columnOptions[0]}
+                  onChange={(e) => columnOptions[0] = e.target.value}>
+                  <option value="">Orden</option>
+                  <optgroup label="Ascendente">
+                    <option value="Option 1">ID</option>
+                    <option value="Option 2">Título</option>
+                    <option value="Option 3">Autor</option>
+                    <option value="Option 4">Subtema</option>
+                    <option value="Option 5">Tipo</option>
+                    <option value="Option 6">Dificultad</option>
+                    <option value="Option 7">Aprobado</option>
+                  </optgroup>
+                  <optgroup label="Descendente">
+                    <option value="Option 8">ID</option>
+                    <option value="Option 9">Título</option>
+                    <option value="Option 10">Autor</option>
+                    <option value="Option 11">Subtema</option>
+                    <option value="Option 12">Tipo</option>
+                    <option value="Option 13">Dificultad</option>
+                    <option value="Option 14">Aprobado</option>
+                  </optgroup>
+                </select>
+                </div>
+              </section>
+            </th>
+
+            <th scope="col">
+              <CustomButton type={'btn btn-primary btn-block'} text={'Aplicar filtros'} />
+            </th>
+
+            <th scope="col">
+              <CustomButton type={'btn btn-primary btn-block btn-success'} text={'Añadir ejercicio'}/>
+            </th>
+
           </tr>
         </thead>
 
@@ -138,10 +186,8 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
           </tr>
             ))}
         </tbody>
+
       </table>
-      <CustomButton
-        type={'btn btn-primary btn-block'}
-        text={'Añadir fila'}/>
     </div>
   );
 };
