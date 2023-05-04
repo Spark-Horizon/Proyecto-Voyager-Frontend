@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getCodeTask = async (problem_id) => {
+export const getTask = async (problem_id) => {
   try {
     const options = {
       method: "get",

@@ -1,4 +1,4 @@
-import { useGetCodeTask } from '../../hooks/useGetCodeTask.js';
+import { useGetCodeTask } from '../../hooks/useGetTask.js';
 import '../../styles/codeInstructions.css';
 
 export const CodeInstructions = ({ problem_id }) => {
