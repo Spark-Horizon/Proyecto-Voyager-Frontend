@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, ResetPassword } from '../routes/indexRoutes';
+import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, ResetPassword, MOPage } from '../routes/indexRoutes';
 import { useAuth, AuthProvider } from '../hooks/AuthContext';
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
         />
         <Route path='/resetPassword' element={<ResetPassword />}/>
         <Route path='/compiler' element={<IdePage />}/>
+        <Route path='/MOPage' element={<MOPage />}/>
       </Routes>
     </AuthProvider>
   );

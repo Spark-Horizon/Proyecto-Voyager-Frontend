@@ -1,4 +1,5 @@
 export { IdePage } from './IdePage';
+export { MOPage } from './MOPage';
 export { LandingPage } from './LandingPage';
 export { SignIn } from './SignIn';
 export { SignUp } from './SignUp';

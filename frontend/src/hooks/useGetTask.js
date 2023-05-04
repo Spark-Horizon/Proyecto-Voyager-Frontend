@@ -1,4 +1,4 @@
-import { getCodeTask, getMOTask } from "../helpers/indexHelpers.js";
+import { getTask } from "../helpers/getTask.js";
 import { useState, useEffect } from 'react';
 
 export const useGetCodeTask = (problem_id) => {
@@ -8,7 +8,7 @@ export const useGetCodeTask = (problem_id) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const archivo = await getCodeTask(problem_id);
+                const archivo = await getTask(problem_id);
                 console.log(archivo);
                 const { id, author, title, description, topic, difficulty, driver, tests } = archivo;
                 setProblemData({ id, author, title, description, topic, difficulty, driver, tests });
@@ -30,7 +30,7 @@ export const useGetMOTask = (problem_id) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const archivo = await getMOTask(problem_id);
+                const archivo = await getTask(problem_id);
                 console.log(archivo);
                 const { id, author, title, description, topic, difficulty, answer, hint, options } = archivo;
                 setProblemData({ id, author, title, description, topic, difficulty, answer, hint, options });
