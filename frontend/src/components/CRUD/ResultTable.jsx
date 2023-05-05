@@ -6,11 +6,24 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
   // Estados del componente
   const [rows, setRows] = useState([]);
   const [columnOptions, setColumnOptions] = useState([]);
-  const [autorOptions, setAutorOptions] = useState([]);
-  const [subtemaOptions, setSubtemaOptions] = useState([]);
-  const [tipoOptions, setTipoOptions] = useState([]);
-  const [dificultadOptions, setDificultadOptions] = useState([]);
-  const [autorizacionOptions, setAutorizacionOptions] = useState([]);
+  const [autorOptions, setAutorOptions] = useState(['X']);
+  const [subtemaOptions, setSubtemaOptions] = useState(['X']);
+  const [tipoOptions, setTipoOptions] = useState(['X']);
+  const [dificultadOptions, setDificultadOptions] = useState(['X']);
+  const [autorizacionOptions, setAutorizacionOptions] = useState(['X']);
+  const [filtroOptions, setFiltroOptions] = useState(['id_resultado']);
+  const [hierOptions, setHierOptions] = useState(['ASC']);
+
+  const handleReset = (e) => {
+    e.preventDefault();
+    setAutorOptions(['X']);
+    setSubtemaOptions(['X']);
+    setTipoOptions(['X']);
+    setDificultadOptions(['X']);
+    setAutorizacionOptions(['X']);
+    setFiltroOptions(['X']);
+    setHierOptions(['X']);
+  }
 
   // Funcionalidades del componente
   const handleDelete = (id) => {
@@ -19,7 +32,7 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
     }
   }
 
-  const { data_result } = useGetCRUDTask(fil1, fil2, fil3, fil4, fil5, order, hier);
+  const { data_result } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions);
   const { data_autor } = useGetFilAutorTask();
   const { data_subtema } = useGetFilSubtemaTask();
   const { data_tipo } = useGetFilTipoTask();
@@ -32,6 +45,13 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
   console.log(data_tipo);
   console.log(data_dificultad);
   console.log(data_autorizacion);
+
+  console.log('webos', autorOptions);
+  console.log('webos', subtemaOptions);
+  console.log('webos', tipoOptions);
+  console.log('webos', dificultadOptions);
+  console.log('webos', autorizacionOptions);
+
 
   if (!data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
     return <div>Cargando...</div>;
@@ -132,26 +152,35 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
                 <select
                   className="form-select form-select-sm"
                   aria-label="Filtro"
-                  value={columnOptions[0]}
-                  onChange={(e) => columnOptions[0] = e.target.value}>
+                  value={filtroOptions}
+                  onChange={(filtrovar) => {
+                    setFiltroOptions(Array.from(filtrovar.target.selectedOptions, option => option.value))
+                    const selectedOption = filtrovar.target.selectedOptions[0];
+                    if (selectedOption.parentElement.label === "Ascendente") {
+                      setHierOptions(['ASC']);
+                    } else if (selectedOption.parentElement.label === "Descendente") {
+                      setHierOptions(['DESC']);
+                    }
+                  }}
+                >
                   <option value="">Orden</option>
                   <optgroup label="Ascendente">
-                    <option value="Option 1">ID</option>
-                    <option value="Option 2">Título</option>
-                    <option value="Option 3">Autor</option>
-                    <option value="Option 4">Subtema</option>
-                    <option value="Option 5">Tipo</option>
-                    <option value="Option 6">Dificultad</option>
-                    <option value="Option 7">Aprobado</option>
+                    <option value="id_resultado">ID</option>
+                    <option value="titulo">Título</option>
+                    <option value="autor">Autor</option>
+                    <option value="subtema">Subtema</option>
+                    <option value="tipo_resultado">Tipo</option>
+                    <option value="dificultad">Dificultad</option>
+                    <option value="autorizado_resultado">Aprobado</option>
                   </optgroup>
                   <optgroup label="Descendente">
-                    <option value="Option 8">ID</option>
-                    <option value="Option 9">Título</option>
-                    <option value="Option 10">Autor</option>
-                    <option value="Option 11">Subtema</option>
-                    <option value="Option 12">Tipo</option>
-                    <option value="Option 13">Dificultad</option>
-                    <option value="Option 14">Aprobado</option>
+                    <option value="id_resultado">ID</option>
+                    <option value="titulo">Título</option>
+                    <option value="autor">Autor</option>
+                    <option value="subtema">Subtema</option>
+                    <option value="tipo_resultado">Tipo</option>
+                    <option value="dificultad">Dificultad</option>
+                    <option value="autorizado_resultado">Aprobado</option>
                   </optgroup>
                 </select>
                 </div>
@@ -159,7 +188,7 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
             </th>
 
             <th scope="col">
-              <CustomButton type={'btn btn-primary btn-block'} text={'Aplicar filtros'} />
+              <CustomButton type={'btn btn-primary btn-block'} text={'Reiniciar filtros'} onClick={() => handleReset()}/>
             </th>
 
             <th scope="col">
