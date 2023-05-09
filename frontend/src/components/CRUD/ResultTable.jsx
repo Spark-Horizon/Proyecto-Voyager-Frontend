@@ -16,13 +16,14 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
 
   const handleReset = (e) => {
     e.preventDefault();
+    console.log("LO HA PRESIONAO")
     setAutorOptions(['X']);
     setSubtemaOptions(['X']);
     setTipoOptions(['X']);
     setDificultadOptions(['X']);
     setAutorizacionOptions(['X']);
-    setFiltroOptions(['X']);
-    setHierOptions(['X']);
+    setFiltroOptions(['id_resultado']);
+    setHierOptions(['ASC']);
   }
 
   // Funcionalidades del componente
@@ -38,20 +39,6 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
   const { data_tipo } = useGetFilTipoTask();
   const { data_dificultad } = useGetFilDificultadTask();
   const { data_autorizacion } = useGetFilAutorizacionTask();
-
-  console.log(data_result);
-  console.log(data_autor);
-  console.log(data_subtema);
-  console.log(data_tipo);
-  console.log(data_dificultad);
-  console.log(data_autorizacion);
-
-  console.log('webos', autorOptions);
-  console.log('webos', subtemaOptions);
-  console.log('webos', tipoOptions);
-  console.log('webos', dificultadOptions);
-  console.log('webos', autorizacionOptions);
-
 
   if (!data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
     return <div>Cargando...</div>;
@@ -188,7 +175,10 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
             </th>
 
             <th scope="col">
-              <CustomButton type={'btn btn-primary btn-block'} text={'Reiniciar filtros'} onClick={() => handleReset()}/>
+              <CustomButton 
+              type={'btn btn-primary btn-block'} 
+              text={'Reiniciar filtros'} 
+              func={handleReset}/>
             </th>
 
             <th scope="col">
