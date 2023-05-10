@@ -113,3 +113,22 @@ export const getFilAutorizacionTask = async () => {
     throw error;
   }
 };
+
+export const getDeleteExcercise = async (id) => {
+  try {
+    const options = {
+      method: "get",
+      url: `http://localhost:3001/CRUD/delete/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

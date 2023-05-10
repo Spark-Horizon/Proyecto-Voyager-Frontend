@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { useGetCRUDTask, useGetFilAutorTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask, useGetFilAutorizacionTask } from '../../hooks/useGetCRUDTask.js';
+import { useState, useEffect } from 'react';
+import { useGetCRUDTask, useGetFilAutorTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask, useGetFilAutorizacionTask, useGetDeleteExcercise } from '../../hooks/useGetCRUDTask.js';
 import { CustomButton } from '../CustomButton';
+import { getDeleteExcercise }  from '../../helpers/getCRUDTask.js';
 
 export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
-  // Estados del componente
-  const [rows, setRows] = useState([]);
-  const [columnOptions, setColumnOptions] = useState([]);
+  
+  const [dataResult, setDataResult] = useState([]);
   const [autorOptions, setAutorOptions] = useState(['X']);
   const [subtemaOptions, setSubtemaOptions] = useState(['X']);
   const [tipoOptions, setTipoOptions] = useState(['X']);
@@ -13,10 +13,25 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
   const [autorizacionOptions, setAutorizacionOptions] = useState(['X']);
   const [filtroOptions, setFiltroOptions] = useState(['id_resultado']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
+  
+  const { data_result } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions);
+  const { data_autor } = useGetFilAutorTask();
+  const { data_subtema } = useGetFilSubtemaTask();
+  const { data_tipo } = useGetFilTipoTask();
+  const { data_dificultad } = useGetFilDificultadTask();
+  const { data_autorizacion } = useGetFilAutorizacionTask();
+  
+  // Estados del componente
+  const [rows, setRows] = useState([]);
+  const [columnOptions, setColumnOptions] = useState([]);
+  
+  
+  useEffect(() => {
+    setDataResult(data_result);
+  }, [data_result]);
 
   const handleReset = (e) => {
     e.preventDefault();
-    console.log("LO HA PRESIONAO")
     setAutorOptions(['X']);
     setSubtemaOptions(['X']);
     setTipoOptions(['X']);
@@ -26,19 +41,14 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
     setHierOptions(['ASC']);
   }
 
-  // Funcionalidades del componente
-  const handleDelete = (id) => {
-    if (window.confirm("¿Estás seguro de que deseas borrar esta fila?")) {
-      setRows(rows.filter(row => row.id !== id));
+  const handleDeletion = (id_hand) => (e) => {
+    e.preventDefault();
+    if (window.confirm("¿Estás seguro de que deseas borrar este ejercicio?")) {
+      getDeleteExcercise(id_hand);
+      const newDataResult = dataResult.filter(row => row.id_resultado !== id_hand);
+      setDataResult(newDataResult);
     }
   }
-
-  const { data_result } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions);
-  const { data_autor } = useGetFilAutorTask();
-  const { data_subtema } = useGetFilSubtemaTask();
-  const { data_tipo } = useGetFilTipoTask();
-  const { data_dificultad } = useGetFilDificultadTask();
-  const { data_autorizacion } = useGetFilAutorizacionTask();
 
   if (!data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
     return <div>Cargando...</div>;
@@ -188,8 +198,8 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
           </tr>
         </thead>
 
-        <tbody>
-        {data_result.map((row) => (
+        <tbody >
+        {dataResult.map((row) => (
           <tr key={row.id_resultado}>
             <td>{row.id_resultado}</td>
             <td>{row.titulo}</td>
@@ -199,13 +209,18 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
             <td>{row.dificultad}</td>
             <td>{row.autorizado_resultado ? "Aprobado" : "Rechazado"}</td>
             <td>
-              <CustomButton type={'btn btn-primary btn-sm mr-2'} text={'Editar'} />
-              <CustomButton type={'btn btn-danger btn-sm'} text={'Borrar'} onClick={() => handleDelete(row.id_resultado)} />
+              <CustomButton 
+                type={'btn btn-primary btn-sm mr-2'} 
+                text={'Editar'} 
+                onClick={() => console.log("WEEEEEEEBOS")}/>
+              <CustomButton 
+                type={'btn btn-danger btn-sm'} 
+                text={'Borrar'} 
+                func={handleDeletion(row.id_resultado)}/>
             </td>
           </tr>
             ))}
         </tbody>
-
       </table>
     </div>
   );
