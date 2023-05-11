@@ -11,14 +11,26 @@ import '../styles/idePage.css';
 
 export const IdePage = () => {
   const [driver, setDriver] = useState('main_test'); 
-  const [tests, setTests] = useState([{
-    input: '1, 2',
-    output: '3'
-  }]); 
+  const [tests, setTests] = useState(
+    [
+      {
+          "input": "5,4",
+          "output": "9"
+      },
+      {
+          "input": "3,4",
+          "output": "7"
+      },
+      {
+          "input": "3,3",
+          "output": "6"
+      }
+    ]
+  ); 
   const [code, setCode] = useState('');
   const [id, setId] = useState(0);
 
-  const { compInfo, stdOut, stdErr, axiosError, setSubmitData, fetchSubmissionData } = useRunSubmit();
+  const { compInfo, stdOut, stdErr, testsData, axiosError, submitData, setSubmitData, fetchSubmissionData } = useRunSubmit();
 
   // Links y componentes de Navbar
   const links = [
@@ -39,6 +51,7 @@ export const IdePage = () => {
           driver={driver}
           setCode={setCode} 
           code={code} 
+          submitData={submitData}
           setSubmitData={setSubmitData}
           fetchSubmissionData={fetchSubmissionData}
         />
@@ -54,7 +67,7 @@ export const IdePage = () => {
           fetchSubmissionData={fetchSubmissionData}
         />
         <TestCases
-          tests={tests}
+          tests={testsData}
         />
       </div>
     </div>
