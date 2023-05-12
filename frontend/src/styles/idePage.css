@@ -1,4 +1,4 @@
-.ide-main-container {
+.idepage-main-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -6,4 +6,15 @@
     width: 100%;
     height: calc(100vh - 60px);
     background-color: rgb(20, 20, 20);
+}
+
+.ide-outputpanel-main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
+    padding: 30px;
+    background-color: aliceblue;
+    height: 100%;
 }

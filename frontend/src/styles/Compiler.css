@@ -1,128 +1,135 @@
 /* [GLOBAL] */
 :root {
-    --compiler-components-height: 550px;
+  --compiler-components-height: 550px;
 }
 
 /* [COMPILER COMPONENT] */
 .compiler-main-container {
-    height: var(--compiler-components-height);
-    width: 800px;
-    border-radius: 5px 5px 5px 5px;
-    margin-right: 40px;
-    overflow: hidden;
-}
-
-.compiler-buttons-container {
-    background: linear-gradient(90deg, rgba(12, 202, 161, 0.25) 0%, rgba(0, 51, 255, 0.25) 100%);
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 7px );
-    -webkit-backdrop-filter: blur( 7px );
-    border-radius: 5px 5px 0px 0px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
-    display: flex;
+  height: var(--compiler-components-height);
+  width: 100%;
+  height: 60%;
+  margin-bottom: 20px;
+  border-radius: 5px 5px 5px 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* [OUTPUT PANEL] */
 .output-panel-main-container {
-    background-color: blue;
-    width: 200px;
-    height: var(--compiler-components-height);
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  height: 40%;
+  width: 100%;
 }
 
 /* [TEST CASES PANEL] */
 
 /* [CONSOLE PANEL] */
 .compiler-console {
-    width: 100%;
-    height: 300px;
-    background-color: black;
-    font-family: system-ui;
-    padding: 10px;
-    word-wrap: break-word;
-    color: #fff;
+  width: 100%;
+  height: 30%;
+  background-color: black;
+  font-family: system-ui;
+  padding: 10px;
+  word-wrap: break-word;
+  color: #fff;
 }
 
 /* [BUTTONS] */
+.compiler-buttons-container {
+  background: linear-gradient(90deg, rgba(12, 202, 161, 0.25) 0%, rgba(0, 51, 255, 0.25) 100%);
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 7px );
+  -webkit-backdrop-filter: blur( 7px );
+  border-radius: 5px 5px 0px 0px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  display: flex;
+  height: 10%;
+  width: 100%;
+}
+
 .run {
-    background-color: transparent;
-    border-radius: 5px 5px 0px 0px;
-    color: #fff;
-    border: none;
-    width: 100%;
+  background-color: transparent;
+  border-radius: 5px 5px 0px 0px;
+  color: #fff;
+  border: none;
+  width: 25%;
 }
 
 .run:hover {
-    background-color: rgb(243, 219, 4);
+  background-color: rgb(243, 219, 4);
 }
 
-
 .submit {
-    border-radius: 0px 10px 0px 0px;
-    border: none;
-    background-color: rgb(255, 162, 0);
-    color: rgb(150, 96, 1);
-    width: 50%;
+  border: none;
+  background-color: rgb(255, 162, 0);
+  width: 25%;
 }
 
 .submit:hover {
-    background-color: rgb(255, 162, 0);
+  background-color: rgb(255, 162, 0);
 }
 
 /* [TEST CASES] */
 /* Contenedor principal */
 .test-cases {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #2d2d2d;
-    padding: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-    margin: 1rem auto;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60%;
+  flex-wrap: wrap;
+  background-color: #2d2d2d;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
   
-  /* Título principal */
-  .test-cases h1 {
-    font-size: 1.5rem;
-    color: #f5f5f5;
-    margin-bottom: 1rem;
-  }
-  
-  /* Contenedor de cada testcase */
-  .test-case {
-    width: 100%;
-    padding: 1rem;
-    background-color: #383838;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Estilos para testcases que pasaron */
-  .test-passed {
-    border-left: 5px solid #4caf50;
-  }
-  
-  /* Estilos para testcases que fallaron */
-  .test-failed {
-    border-left: 5px solid #f44336;
-  }
-  
-  /* Subtítulos */
-  .test-case h2 {
-    font-size: 1.2rem;
-    color: #f5f5f5;
-    margin-bottom: 0.5rem;
-  }
-  
-  /* Detalles del testcase */
-  .test-case-details p {
-    margin: 0.5rem 0;
-    font-size: 0.9rem;
-    color: #aaa;
-  }
-  
-  .test-case-details p strong {
-    color: #f5f5f5;
-  }
+/* Título principal */
+.test-cases h1 {
+  font-size: 1rem;
+  color: #f5f5f5;
+  margin-bottom: 1rem;
+}
+
+/* Contenedor de cada testcase */
+.test-case {
+  min-width: 150px;
+  padding: 1rem;
+  background-color: #383838;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para testcases que pasaron */
+.test-passed {
+  border-left: 5px solid #4caf50;
+}
+
+/* Estilos para testcases que fallaron */
+.test-failed {
+  border-left: 5px solid #f44336;
+}
+
+/* Subtítulos */
+.test-case h2 {
+  font-size: 0.7rem;
+  color: #f5f5f5;
+  margin-bottom: 0.5rem;
+}
+
+/* Detalles del testcase */
+.test-case-details p {
+  display: none;
+  margin: 0.5rem 0;
+  font-size: 0.6rem;
+  color: #aaa;
+}
+
+.test-case-details p strong {
+  color: #f5f5f5;
+}

@@ -3,8 +3,8 @@ export const TestCases = ({ tests }) => {
     <div className="test-cases">
       <h1>Testcases</h1>
       {tests && tests.map((test, index) => {
-        const passed = test.passed ? 'Passed' : 'Failed';
-        const statusClass = test.passed ? 'test-passed' : 'test-failed';
+        let passed = test.passed ? 'Passed ✅' : 'Failed ❌';
+        let statusClass = test.passed ? 'test-passed' : 'test-failed';
 
         return (
           <div key={`testcase-${index}`} className={`test-case ${statusClass}`}>

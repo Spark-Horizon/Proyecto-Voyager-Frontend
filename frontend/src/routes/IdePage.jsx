@@ -14,16 +14,16 @@ export const IdePage = () => {
   const [tests, setTests] = useState(
     [
       {
-          "input": "5,4",
-          "output": "9"
+        "input": "5,4",
+        "output": "9"
       },
       {
-          "input": "3,4",
-          "output": "7"
+        "input": "3,4",
+        "output": "7"
       },
       {
-          "input": "3,3",
-          "output": "6"
+        "input": "3,3",
+        "output": "6"
       }
     ]
   ); 
@@ -38,6 +38,7 @@ export const IdePage = () => {
     { text: 'Link2', url: '/' },
     { text: 'Link3', url: '/' },
   ];
+
   const components = [
       {component: <Link></Link>},
   ];
@@ -45,30 +46,30 @@ export const IdePage = () => {
   return (
     <div>
       <CustomNavbar links={links} components={components}/>
-      <div className="ide-main-container">
-        <Compiler 
-          tests={tests} 
-          driver={driver}
-          setCode={setCode} 
-          code={code} 
-          submitData={submitData}
-          setSubmitData={setSubmitData}
-          fetchSubmissionData={fetchSubmissionData}
-        />
-        <OutputPanel 
-          code={code} 
-          tests={tests} 
-          driver={driver} 
-          id={id} 
-          compInfo={compInfo} 
-          stdOut={stdOut}
-          stdErr={stdErr}
-          setSubmitData={setSubmitData}
-          fetchSubmissionData={fetchSubmissionData}
-        />
-        <TestCases
-          tests={testsData}
-        />
+      <div className="idepage-main-container">
+        <div className="ide-outputpanel-main-container">
+          <Compiler 
+            tests={tests} 
+            driver={driver}
+            setCode={setCode} 
+            code={code} 
+            submitData={submitData}
+            setSubmitData={setSubmitData}
+            fetchSubmissionData={fetchSubmissionData}
+          />
+          <OutputPanel 
+            code={code} 
+            tests={tests} 
+            testsData={testsData}
+            driver={driver} 
+            id={id} 
+            compInfo={compInfo} 
+            stdOut={stdOut}
+            stdErr={stdErr}
+            setSubmitData={setSubmitData}
+            fetchSubmissionData={fetchSubmissionData}
+          />
+        </div>
       </div>
     </div>
   )
