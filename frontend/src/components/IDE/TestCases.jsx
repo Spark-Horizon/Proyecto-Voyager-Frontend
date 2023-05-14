@@ -11,8 +11,8 @@ export const TestCases = ({ tests }) => {
             <h2>Testcase {index + 1}: {passed}</h2>
             <div className="test-case-details">
               <p><strong>Input:</strong> {test.input}</p>
-              <p><strong>Expected Output:</strong> {test.expectedOutput}</p>
-              <p><strong>Actual Output:</strong> {test.actualOutput}</p>
+              {!test.passed && <p><strong>Expected Output:</strong> {test.expectedOutput}</p>}
+              {!test.passed && <p><strong>Actual Output:</strong> {test.actualOutput}</p>}
             </div>
           </div>
         )
@@ -20,4 +20,5 @@ export const TestCases = ({ tests }) => {
     </div>
   );
 };
+
 
