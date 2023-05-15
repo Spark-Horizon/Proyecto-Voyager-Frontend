@@ -1,6 +1,7 @@
 .btnPrimary{
     background-color: var(--middle-blue);
     color: #f0f0f0;
+    transition: all ease .5s;
 }
 .btnPrimary:hover{
     background-color: var(--strong-blue);

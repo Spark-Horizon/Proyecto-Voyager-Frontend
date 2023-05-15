@@ -28,7 +28,7 @@ export const StudentPage = ({user}) => {
   // Links y componentes de Navbar
   const links = [];
   const components = [
-    {component: <CustomButton type={'btn'} text={'Cerrar sesión'} func={handleLogout}/>},
+    {component: <CustomButton type={'btn btn-sm btnPrimary'} text={'Cerrar sesión'} func={handleLogout}/>},
   ];
 
   return (
@@ -36,7 +36,10 @@ export const StudentPage = ({user}) => {
 
         <CustomNavbar links={links} components={components}/>
 
-        <div className="content">
+        <div className="container-cc startSection">
+          <span>
+            <h2><Link to='/compiler' className='gradient'>Resuelve</Link> tu primer ejercicio</h2>
+          </span>
         </div>
 
         <Footer />

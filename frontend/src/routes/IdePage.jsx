@@ -2,6 +2,7 @@ import { CodeInstructions } from "../components/IDE/CodeInstructions"
 import { Link } from 'react-router-dom';
 
 import { CustomNavbar } from "../components/CustomNavbar"
+import { CustomButton } from '../components/CustomButton'
 import { Compiler } from "../components/IDE/Compiler"
 import { OutputPanel } from "../components/IDE/OutputPanel";
 import { useRunSubmit } from "../hooks/useRunSubmit";
@@ -47,15 +48,9 @@ export const IdePage = () => {
   const { compInfo, stdOut, stdErr, testsData, axiosError, submitData, setSubmitData, fetchSubmissionData } = useRunSubmit();
 
   // Links y componentes de Navbar
-  const links = [
-    { text: 'Link1', url: '/' },
-    { text: 'Link2', url: '/' },
-    { text: 'Link3', url: '/' },
-  ];
+  const links = [];
 
-  const components = [
-      {component: <Link></Link>},
-  ];
+  const components = [];
 
   const codeId = "TC1028_21_C_10";
   
