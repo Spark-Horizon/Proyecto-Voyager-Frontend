@@ -1,43 +1,150 @@
-.compiler-container {
-    width: 800px;
-    height: 500px;
-    border: 1px solid red;
-    display: flex;
-    flex-direction: column;
+/* [GLOBAL] */
+:root {
+  --adjust-bar-height: 10px;
+  --main-gray: #383838;
 }
 
-.compiler {
-    height: 90%;
+/* [COMPILER COMPONENT] */
+.compiler-main-container {
+  width: 100%;
+  display: flex;
+  height: 60%;
+  overflow: hidden;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.compiler > textarea {
-    overflow-y: scroll;
+/* [OUTPUT PANEL] */
+.output-panel-main-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
+  height: calc(40% - var(--adjust-bar-height));
 }
 
+/* [TEST CASES PANEL] */
+/* [CONSOLE PANEL] */
+.compiler-console {
+  width: 100%;
+  height: 40%;
+  background-color: black;
+  font-family: system-ui;
+  padding: 10px;
+  word-wrap: break-word;
+  color: #fff;
+  overflow-y: scroll;
+}
+
+/* [BUTTONS] */
 .compiler-buttons-container {
-    display: flex;
-}
-
-.submit {
-    border-radius: 0px 10px 0px 0px;
-    border: none;
-    background-color: rgb(255, 162, 0);
-    color: rgb(150, 96, 1);
-    width: 50%;
+  background: linear-gradient(90deg, rgba(12, 202, 161, 0.25) 0%, rgba(0, 51, 255, 0.25) 100%);
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 7px );
+  -webkit-backdrop-filter: blur( 7px );
+  border-radius: 5px 5px 0px 0px;
+  justify-content: flex-end;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  display: flex;
+  height: 15%;
+  width: 100%;
 }
 
 .run {
-    border-radius: 10px 0px 0px 0px;
-    color: rgb(151, 137, 4);
-    border: none;
-    background-color: rgb(243, 219, 4);
-    width: 50%;
-}
-
-.submit:hover {
-    background-color: rgb(255, 162, 0);
+  background-color: var(--main-gray);
+  color: #fff;
+  font-size: 13px;
+  width: fit-content;
+  height: 100%;
+  border-radius: 10px;
+  border: none;
+  width: 10%;
+  margin-right: 10px;
 }
 
 .run:hover {
-    background-color: rgb(243, 219, 4);
+  background-color: rgb(243, 219, 4);
+}
+
+.submit {
+  background-color: var(--main-gray);
+  color: #fff;
+  font-size: 13px;
+  width: fit-content;
+  height: 100%;
+  border-radius: 10px;
+  border: none;
+  width: 10%;
+}
+
+.submit:hover {
+  background-color: rgb(255, 162, 0);
+}
+
+/* [TEST CASES] */
+/* Contenedor principal */
+.test-cases {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 55%;
+  flex-wrap: wrap;
+  background-color: #2d2d2d;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+  
+/* Título principal */
+.test-cases h1 {
+  font-size: 1rem;
+  color: #f5f5f5;
+  margin-bottom: 1rem;
+}
+
+/* Contenedor de cada testcase */
+.test-case {
+  min-width: 150px;
+  padding: 1rem;
+  background-color: #383838;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para testcases que pasaron */
+.test-passed {
+  border-left: 5px solid #4caf50;
+}
+
+/* Estilos para testcases que fallaron */
+.test-failed {
+  border-left: 5px solid #f44336;
+}
+
+/* Subtítulos */
+.test-case h2 {
+  font-size: 0.7rem;
+  color: #f5f5f5;
+  margin-bottom: 0.5rem;
+}
+
+/* Detalles del testcase */
+.test-case-details p {
+  display: none;
+  margin: 0.5rem 0;
+  font-size: 0.6rem;
+  color: #aaa;
+}
+
+.test-case-details p strong {
+  color: #f5f5f5;
+}
+
+/* [ADJUSTER] */
+.adjuster {
+  background-color: black;
+  height: var(--adjust-bar-height);
+  width: 100%;
 }

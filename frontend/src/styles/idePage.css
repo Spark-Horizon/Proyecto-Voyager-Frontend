@@ -1,7 +1,25 @@
-.ide-main-container {
-    background-color: red;
+/* [MAIN IDE PAGE CSS] */
+:root {
+    --ide-components-padding: 30px;
+}
+
+.idepage-main-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-color: rgb(20, 20, 20);
+}
+
+.ide-outputpanel-main-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: 70%;
+    padding: var(--ide-components-padding);
+    background-color: aliceblue;
+    height: 100%;
 }
