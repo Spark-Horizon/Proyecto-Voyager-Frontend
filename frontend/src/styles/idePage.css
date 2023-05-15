@@ -2,7 +2,6 @@
 :root {
     --ide-components-padding: 30px;
 }
-
 .idepage-main-container {
     display: flex;
     flex-direction: row;
@@ -12,7 +11,6 @@
     height: calc(100vh - 60px);
     background-color: rgb(20, 20, 20);
 }
-
 .ide-outputpanel-main-container {
     display: flex;
     align-items: center;
