@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import MonacoEditor from '@uiw/react-monacoeditor';
-import '../../styles/Compiler.css';
-import { CustomButton } from '../CustomButton';
 
-export const Compiler = ({ setCode }) => {
+export const Compiler = ({ setCode, ideHeight }) => {
   return (
     <div className='compiler-main-container'>
       <MonacoEditor
