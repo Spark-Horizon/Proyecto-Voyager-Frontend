@@ -1,3 +1,8 @@
+/* [MAIN IDE PAGE CSS] */
+:root {
+    --ide-components-padding: 30px;
+}
+
 .idepage-main-container {
     display: flex;
     flex-direction: row;
@@ -11,10 +16,10 @@
 .ide-outputpanel-main-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: column;
     width: 70%;
-    padding: 30px;
+    padding: var(--ide-components-padding);
     background-color: aliceblue;
     height: 100%;
 }
