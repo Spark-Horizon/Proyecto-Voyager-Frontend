@@ -1,6 +1,7 @@
 .customNavbar{
-    height: 60px;
-    background-color: var(--bckg-color);
+    height: 50px;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 1), rgba(255, 255, 255, 0));
 }
 .navContent{
     width: 100%;
@@ -13,10 +14,13 @@
 }
 .brand{
     color: #f0f0f0;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     margin-right: 10px;
     text-decoration: none; 
+}
+.navProps{
+    display: flex;
 }
 .navLinks{
     list-style: none;
@@ -25,7 +29,7 @@
     padding: 0;
 }
 .navLinks a{
-    font-size: 1rem;
+    font-size: 14px;
     color: #f0f0f0;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
@@ -34,8 +38,63 @@
     color: var(--light-blue);
 }
 .navItem{
-    margin: 0px 20px
+    margin: 0px 10px
 }
 .navComponent{
     margin-left: 15px;
+}
+.toggle_btn{
+    display: none;
+    margin-left: 15px;
+    padding: 0;
+}
+.toggle_btn svg {
+    height: 1.2rem;
+    width: fit-content;
+}
+.toggle_btn svg:hover{
+    cursor: pointer;
+}
+.toggle_btn svg > path{
+    fill: #f0f0f0;
+}
+.toggle_btn svg:hover > path{
+    fill: var(--light-blue);
+}
+@media (max-width: 1000px){
+    .navContent{
+        position: fixed;
+    }
+    .toggle_btn{
+        display:block;
+    }
+    .navLinks{
+        display: none;
+    }
+    .open{
+        display: block;
+        position: fixed;
+        padding: 10px;
+        padding-top: 50px;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--bckg-color);
+        flex-direction: column;
+        z-index: -1;
+    }
+    .navItem{
+        text-align: left;
+        width: 100%;
+        padding: 3px 0;
+        margin: 0;
+    }
+}
+
+/*Landing page navbar*/
+#landingPage .brand{
+    background: linear-gradient(to right, var(--light-blue), var(--strong-blue));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

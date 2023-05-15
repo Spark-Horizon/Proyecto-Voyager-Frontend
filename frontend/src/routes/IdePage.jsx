@@ -1,5 +1,4 @@
 import { CodeInstructions } from "../components/IDE/CodeInstructions"
-import { Compiler } from "../components/IDE/Compiler"
 import { Link } from 'react-router-dom';
 
 import { CustomNavbar } from "../components/CustomNavbar"

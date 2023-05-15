@@ -8,6 +8,56 @@
 
 body{
   font-family: 'Inter', sans-serif;
+  background-color: #080909;
+}
+#landingPage{
+  background-image: url("../assets/img/bkgr_spaceBackground2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.gradient {
+  background: linear-gradient(to right, var(--light-blue), var(--strong-blue));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.footer svg{
+  height:80px;
+  width: 100%;
+}
+.footer .container{
+  padding: 25px;
+  color: silver;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  text-align: center;
+}
+.footer .container *{
+  margin-bottom: 20px;
+}
+.footer .container p{
+  max-width: 90%;
+}
+.footer .container .fotterLinks{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+}
+.footer .container .fotterLinks li{
+  margin: 5px 10px;
+}
+.footer .container .fotterLinks a{
+  color: silver;
+  text-decoration: none;
+}
+.footer .container .fotterLinks a:hover{
+  color: var(--light-blue);
 }
 
 /* VARIABLES */
@@ -35,6 +85,12 @@ body{
 }
 
 /*Common classes*/
+.content{
+  height: 100vh;
+}
+.startSection{
+  height: calc(100vh - 50px);
+}
 .container-c{
   display: flex;
   align-items: center;
@@ -53,4 +109,9 @@ body{
   display: flex;
   align-items: center;
   justify-content: right;
+}
+.lateral{
+  width: 40%;
+  height: 100%;
+  background-color: var(--bckg-color);
 }

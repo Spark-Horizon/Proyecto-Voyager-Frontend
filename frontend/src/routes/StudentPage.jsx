@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { UserDropdown } from './../components/UserDropdown';
 import { CustomNavbar } from "../components/CustomNavbar"
 import { Footer } from "../components/Footer"
 import { CustomButton } from '../components/CustomButton';
@@ -25,16 +26,9 @@ export const StudentPage = ({user}) => {
   }
 
   // Links y componentes de Navbar
-  const links = [
-    { text: 'jajaja', url: '/' },
-    { text: 'jejeje', url: '/about' },
-    { text: 'jijiji', url: '/contact' },
-  ];
+  const links = [];
   const components = [
-    {component: <Link><CustomButton text={'botón1'}/></Link>},
-    {component: <Link><CustomButton text={'botón2'}/></Link>},
-    {component: <CustomButton text={'Cerrar sesión'} func={handleLogout}
-    />}
+    {component: <CustomButton type={'btn'} text={'Cerrar sesión'} func={handleLogout}/>},
   ];
 
   return (
