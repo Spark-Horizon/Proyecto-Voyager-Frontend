@@ -6,6 +6,7 @@ import { useAuth } from '../hooks/AuthContext';
 
 import '../styles/forms.css'
 import '../styles/buttons.css'
+import '../styles/adminStyles.css'
 
 export const AdminSignIn = () => {
 
@@ -40,7 +41,7 @@ export const AdminSignIn = () => {
     <div>
       <CustomNavbar links={links} components={components}/>
 
-      <section id="signInForm" className='container-cc'>
+      <section id="adminSignInForm" className='container-cc'>
 
         <form>
 

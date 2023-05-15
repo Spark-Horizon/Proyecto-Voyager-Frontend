@@ -1,6 +1,6 @@
-*{
+#adminSignInForm {
     color: black;
 }
-body {
+#adminSignInForm {
     background-color: #f0f0f0;
 }
