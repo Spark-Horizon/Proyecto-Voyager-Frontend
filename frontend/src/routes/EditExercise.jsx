@@ -12,26 +12,59 @@ export const EditExercise = (props) => {
   // Estados del componente
   const [step, setStep] = useState(1);
   const [exerciseType, setExerciseType] = useState(null);
+  const [exerciseBlocksCode, setExerciseBlocksCode] = useState([{ input: '', output: '' }]);
+  const [exerciseBlocksOM, setExerciseBlocksOM] = useState([{ input: '', output: '' }]);
 
   // Links y componentes de Navbar
   const links = [];
   const components = [];
 
-
-  const handleCreate = () => {
-    setStep(step + 1);
+  const handleExerciseEdit= (e) => {
+    e.preventDefault();
   };
 
-  const handleExerciseCreation= (e) => {
-    e.preventDefault();
+  const handleAddBlockCode = () => {
+    setExerciseBlocksCode([...exerciseBlocksCode, { input: '', output: '' }]);
+  };
+
+  const handleInputChangeCode = (event, index) => {
+    const { value } = event.target;
+    const blocks = [...exerciseBlocksCode];
+    blocks[index].input = value;
+    setExerciseBlocksCode(blocks);
+  };
+
+  const handleOutputChangeCode = (event, index) => {
+    const { value } = event.target;
+    const blocks = [...exerciseBlocksCode];
+    blocks[index].output = value;
+    setExerciseBlocksCode(blocks);
+  };
+
+  const handleAddBlockOM = () => {
+    setExerciseBlocksOM([...exerciseBlocksOM, { input: '', output: '' }]);
+  };
+
+  const handleInputChangeOM = (event, index) => {
+    const { value } = event.target;
+    const blocks = [...exerciseBlocksOM];
+    blocks[index].input = value;
+    setExerciseBlocksOM(blocks);
+  };
+
+  const handleOutputChangeOM = (event, index) => {
+    const { value } = event.target;
+    const blocks = [...exerciseBlocksOM];
+    blocks[index].output = value;
+    setExerciseBlocksOM(blocks);
   };
 
   return (
     <div>
       <CustomNavbar links={links} components={components}/>
-      <section id="exerciseCreationForm" className='container-cc'>
+      <section id="exerciseEditForm" className='container-cc'>
 
-        <form onSubmit={handleExerciseCreation}>
+        <form onSubmit={handleExerciseEdit}>
 
             {exerciseType === 'Código' && (
             <div>
@@ -122,41 +155,43 @@ export const EditExercise = (props) => {
 
                 <h5 className="mb-2">Casos de prueba</h5>
 
-                <div className="form-group mb-4">
-                <label htmlFor="input" className="text-center">Input</label>
-                <textarea 
-                    id="input" 
-                    value={''} 
-                    onChange={() => {}} 
+                {exerciseBlocksCode.map((block, index) => (
+                <div key={index} className="form-group mb-4">
+                    <label htmlFor={`input-${index}`} className="text-center">Input</label>
+                    <textarea 
+                    id={`input-${index}`} 
+                    value={block.input} 
+                    onChange={(event) => handleInputChangeCode(event, index)} 
                     className="form-control" 
                     placeholder="Input del ejercicio" 
                     rows={5} 
                     required 
-                />
-                <label htmlFor="output" className="text-center">Output</label>
-                <textarea 
-                    id="output" 
-                    value={''} 
-                    onChange={() => {}} 
+                    />
+                    <label htmlFor={`output-${index}`} className="text-center">Output</label>
+                    <textarea 
+                    id={`output-${index}`} 
+                    value={block.output} 
+                    onChange={(event) => handleOutputChangeCode(event, index)} 
                     className="form-control" 
                     placeholder="Output del ejercicio" 
                     rows={5} 
                     required 
-                />
+                    />
                 </div>
-
+                ))}
+                <button type="button" onClick={handleAddBlockCode} className="btn btn-primary">Añadir</button>
                 <div className="select next-back mt-5">
                 <CustomButton
                     type={'btn btn-success'}
-                    text={'Crear ejercicio'}
-                    func={handleCreate}
+                    text={'Completar edición'}
+                    func={handleExerciseEdit}
                 />
                 </div>
             </div>
             )}
 
             {exerciseType === 'Opción múltiple' && (
-            <div>
+                <div>
                 <div className="text-center mb-5">
                 <h3 className="mb-0">Ejercicio de código</h3>
                 <span>Ingresa los detalles del ejercicio</span>
@@ -257,39 +292,42 @@ export const EditExercise = (props) => {
                 </div>
             
                 <h5 className="mb-2">Opciones</h5>
-        
-                <div className="form-group mb-4">
-                <label htmlFor="texto" className="text-center">Texto</label>
-                <textarea 
-                    id="texto" 
-                    value={''} 
-                    onChange={() => {}} 
-                    className="form-control" 
-                    placeholder="Texto del ejercicio" 
-                    rows={5} 
-                    required 
-                />
-                <label htmlFor="explicacion" className="text-center">Explicación</label>
-                <textarea 
-                    id="explicacion" 
-                    value={''} 
-                    onChange={() => {}} 
-                    className="form-control" 
-                    placeholder="Explicacion del ejercicio" 
-                    rows={5} 
-                    required 
-                />
-                </div>
+
+                {exerciseBlocksOM.map((block, index) => (
+                  <div key={index} className="form-group mb-4">
+                    <label htmlFor={`input-${index}`} className="text-center">Texto</label>
+                    <textarea 
+                      id={`texto-${index}`} 
+                      value={block.input} 
+                      onChange={(event) => handleInputChangeOM(event, index)} 
+                      className="form-control" 
+                      placeholder="Texto del ejercicio" 
+                      rows={5} 
+                      required 
+                    />
+                    <label htmlFor={`output-${index}`} className="text-center">Explicación</label>
+                    <textarea 
+                      id={`explicacion-${index}`} 
+                      value={block.output} 
+                      onChange={(event) => handleOutputChangeOM(event, index)} 
+                      className="form-control" 
+                      placeholder="Explicacion del ejercicio" 
+                      rows={5} 
+                      required 
+                    />
+                  </div>
+                ))}
+                <button type="button" onClick={handleAddBlockOM} className="btn btn-primary">Añadir</button>
             
                 <div className="select next-back mt-5">
                 <CustomButton
                     type={'btn btn-success'}
-                    text={'Crear ejercicio'}
-                    func={handleCreate}
+                    text={'Completar edición'}
+                    func={handleExerciseEdit}
                 />
                 </div>
             </div>
-          )}
+            )}
         </form>
       </section> 
     </div>
