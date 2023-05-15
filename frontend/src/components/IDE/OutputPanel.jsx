@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { CustomButton } from '../CustomButton';
 import { Console } from './Console';
 import { TestCases } from './TestCases';
@@ -15,7 +14,8 @@ export const OutputPanel = (
     stdOut,
     stdErr,
     setSubmitData,
-    fetchSubmissionData
+    fetchSubmissionData,
+    outputPanelHeight
   }
 ) => {
   const runCode = async () => {
