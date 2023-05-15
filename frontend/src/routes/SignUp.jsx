@@ -37,10 +37,12 @@ export const SignUp = (props) => {
     setIsTeacher(false);
     setLoading(false);
   };
+  
   const handleNextStep = (e) => {
     e.preventDefault();
     setStep(step + 1);
   };
+
   const handlePrevStep = (e) => {
     e.preventDefault();
     if (step === 2) {
@@ -48,16 +50,19 @@ export const SignUp = (props) => {
     }
     setStep(step - 1);
   };
+  
   const handleTeacherClick = (e) => {
     e.preventDefault();
     setIsTeacher(true);
     setStep(step + 1);
   };
+
   const handleStudentClick = (e) => {
     e.preventDefault();
     setIsTeacher(false);
     setStep(step + 1);
   };
+
   async function handleSignUp(e) {
     e.preventDefault();
     try{
@@ -69,15 +74,19 @@ export const SignUp = (props) => {
     }
     setLoading(false);
   };
+
   const isTeacherEmailValid = () => {
     const tecTMxEmailRegex = /^(?!A0)(?!a0)[\w-.]+@tec\.mx$/;
     return tecTMxEmailRegex.test(Temail);
   };
+  
   const isStudentEmailValid = () => {
     const tecSMxEmailRegex = /^(a0)|(A0)\w{7,}@tec\.mx$/;
     return tecSMxEmailRegex.test(Semail);
   };
+
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*([\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])).*[\w!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,18}$/;
+  
   const isPasswordValid = () => {
     if (password === '' || confirmPassword === '') {
       return false;
@@ -87,14 +96,17 @@ export const SignUp = (props) => {
     } 
     return password === confirmPassword;
   };
+
   const isNameValid = () => {
     const nameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
     return nameRegex.test(name);
   };
+
   const isLastName1Valid = () => {
     const lastName1Regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
     return lastName1Regex.test(lastName1);
   };
+
   const isLastName2Valid = () => {
     const lastName2Regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
     return lastName2Regex.test(lastName2);
@@ -159,7 +171,7 @@ export const SignUp = (props) => {
               </div>
 
               <div className="form-group mb-4">
-                <label htmlFor="email" className="text-center">Correo electrónico</label>
+                <label htmlFor="email" className="text-center">Email</label>
                 {isTeacher ? (
                   <>
                     <input 
@@ -332,7 +344,7 @@ export const SignUp = (props) => {
               <div className="text-left mb-4">
                   <p className="fs-5">Nombre completo:</p>
                   <p className="fs-6">{name} {lastName1} {lastName2}</p>
-                  <p className="fs-5">Correo electrónico:</p>
+                  <p className="fs-5">Email:</p>
                   <p className="fs-6">{Temail || Semail}</p>
                   <p className="fs-5">Tipo de usuario:</p>
                   <p className="fs-6">{isTeacher ? 'Profesor' : 'Estudiante'}</p>

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import { CodeInstructions } from "../components/IDE/CodeInstructions"
 import { Link } from 'react-router-dom';
 
 import { CustomNavbar } from "../components/CustomNavbar"
@@ -10,7 +9,7 @@ import { Adjuster } from '../components/IDE/Adjuster';
 
 import '../styles/idePage.css';
 import '../styles/Compiler.css';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 export const IdePage = () => {
   const [driver, setDriver] = useState('main_test'); 
@@ -58,10 +57,12 @@ export const IdePage = () => {
       {component: <Link></Link>},
   ];
 
+  const codeId = "TC1028_21_C_10";
   return (
     <div>
       <CustomNavbar links={links} components={components}/>
       <div className="idepage-main-container">
+        <CodeInstructions problem_id={codeId}/>
         <div className="ide-outputpanel-main-container" ref={outputPanelContainer}>
           <Compiler 
             setCode={setCode} 

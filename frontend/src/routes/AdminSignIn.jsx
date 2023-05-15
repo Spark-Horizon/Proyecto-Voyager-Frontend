@@ -7,10 +7,10 @@ import { useAuth } from '../hooks/AuthContext';
 import '../styles/forms.css'
 import '../styles/buttons.css'
 
-export const SignIn = () => {
+export const AdminSignIn = () => {
 
   // Estados del componente
-  const [email, setEmail] = useState('');
+  const [Aemail, setAEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate()
@@ -20,16 +20,16 @@ export const SignIn = () => {
   async function handleSignIn(e) {
     e.preventDefault();
     try{
-      await signin(email, password);
-      navigate('/home');
+      await signin(Aemail, password);
+      navigate('/CRUD');
     } catch {
       setError('Correo o contraseña incorrectos');
     }
   };
 
-  const isEmailValid = () => {
-    const tecMxEmailRegex = /^[A-Za-z0-9._%+-]+@tec\.mx$/;
-    return tecMxEmailRegex.test(email);
+  const isAdminEmailValid = () => {
+    const AEmailRegex = /^(iCodeAdmin@gmail\.com|icodeadmin@gmail\.com)$/;
+    return AEmailRegex.test(Aemail);
   };
 
   // Links y componentes de Navbar
@@ -52,8 +52,8 @@ export const SignIn = () => {
 
           <div className="form-group">
             <label htmlFor="email" className="text-center">Email</label>
-            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="your.email@tec.mx" required />
-            {!isEmailValid() && (
+            <input type="email" id="email" value={Aemail} onChange={(e) => setAEmail(e.target.value)} className="form-control" placeholder="your.email@gmail.com" required />
+            {!isAdminEmailValid() && (
               <div className="text-danger">El correo electrónico es inválido</div>
             )}
           </div>
@@ -70,25 +70,7 @@ export const SignIn = () => {
             <CustomButton
               type={'btn mt-3 btn-primary btnPrimary'}
               text={'Iniciar sesión'}
-              func={handleSignIn}
-              disabled={!isEmailValid()}/>
-          </div>
-
-          <div className="text-center mt-3">
-            <span>¿No tienes una cuenta?</span>
-            <Link to='/signup'>
-              <CustomButton 
-                type={'btn mt-3 btnSecondary'} 
-                text={'Registrate'}/>
-            </Link>
-          </div>
-
-          <div className="select next-back mt-5">
-            <Link to='/'>
-              <CustomButton
-                type={'btn mt-3 btnPrimary'}
-                text={'Regresar a inicio'}/>
-            </Link>
+              func={handleSignIn}/>
           </div>
 
         </form>
