@@ -58,6 +58,7 @@ export const IdePage = () => {
   ];
 
   const codeId = "TC1028_21_C_10";
+  
   return (
     <div>
       <CustomNavbar links={links} components={components}/>

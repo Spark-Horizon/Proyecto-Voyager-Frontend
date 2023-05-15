@@ -1,10 +1,12 @@
 import axios from "axios";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 export const getTask = async (problem_id) => {
   try {
     const options = {
       method: "get",
-      url: `http://localhost:3001/compiler/problem/${problem_id}`,
+      url: `http://${backendUrl}:3000/compiler/problem/${problem_id}`,
       headers: {
         "Content-Type": "application/json",
       },
