@@ -10,7 +10,7 @@ body{
   font-family: 'Inter', sans-serif;
 }
 
-/*Colour palette*/
+/* VARIABLES */
 :root{
   --light-blue: #1CC6EC;
   --middle-blue: #0D93CC;

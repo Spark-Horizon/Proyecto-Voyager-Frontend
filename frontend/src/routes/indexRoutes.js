@@ -6,3 +6,7 @@ export { SignUp } from './SignUp';
 export { StudentPage } from './StudentPage'
 export { ResetPassword } from './ResetPassword'
 export { PrivateRoute } from './PrivateRoute'
+export { CRUD } from './CRUD'
+export { AdminSignIn } from './AdminSignIn'
+export { CreateExercise } from './CreateExercise'
+export { EditExercise } from './EditExercise'

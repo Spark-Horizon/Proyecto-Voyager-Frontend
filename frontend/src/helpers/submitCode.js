@@ -1,33 +1,33 @@
 import axios from "axios";
 
-export const submit = async (code) => {
-    try {
-        let data = JSON.stringify({
-            "run_spec": {
-              "language_id": "python3",
-              "sourcecode": `${code}`,
-              "input": ""
-            }
-        });
+/* SUBMIT FUNCTION
+    This function submits a post petition to the backend
+    so the code can be compiled and parsed.
 
+    This petition returns only data in order to make this function
+    more customizable.
+*/
+export const submit = async (url, method, submitData) => {
+    try {
+        console.log(submitData)
         const options = {
-            method: 'POST',
+            url: url,
+            method: method,
             maxBodyLength: Infinity,
-            url: 'http://18.117.194.197/jobe/index.php/restapi/runs/',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            data: data
+            data: JSON.stringify(submitData)
         };          
 
+        console.log(options)
         const response = await axios(options);
+        console.log('response', response)
 
-        console.log(response)
+        const { data } = response;
 
-        const { data: { stdout } } = response;
-
-        return stdout;
+        return data;
     } catch(error) {
         return JSON.stringify(error);
     }

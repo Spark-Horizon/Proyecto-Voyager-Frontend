@@ -1,18 +1,23 @@
-.ide-main-container {
+/* [MAIN IDE PAGE CSS] */
+:root {
+    --ide-components-padding: 30px;
+}
+.idepage-main-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 60px);
     width: 100%;
-    overflow-y: scroll;
+    height: calc(100vh - 60px);
+    background-color: rgb(20, 20, 20);
 }
-.ide-main-container::-webkit-scrollbar {
-    width: 0; /* oculta la barra lateral */
-}
-@media screen and (max-width: 1050px) {
-    .ide-main-container {
-        height: fit-content;
-        flex-direction: column;
-    }
+.ide-outputpanel-main-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: 70%;
+    padding: var(--ide-components-padding);
+    background-color: aliceblue;
+    height: 100%;
 }
