@@ -23,8 +23,13 @@ export const SignIn = () => {
       await signin(email, password);
       navigate('/home');
     } catch {
-      setError('Incorrect email or password');
+      setError('Correo o contraseña incorrectos');
     }
+  };
+
+  const isEmailValid = () => {
+    const tecMxEmailRegex = /^[A-Za-z0-9._%+-]+@tec\.mx$/;
+    return tecMxEmailRegex.test(email);
   };
 
   // Links y componentes de Navbar
@@ -48,6 +53,9 @@ export const SignIn = () => {
           <div className="form-group">
             <label htmlFor="email" className="text-center">Email</label>
             <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="your.email@tec.mx" required />
+            {!isEmailValid() && (
+              <div className="text-danger">El correo electrónico es inválido</div>
+            )}
           </div>
 
           <div className="form-group mt-4">
@@ -62,7 +70,8 @@ export const SignIn = () => {
             <CustomButton
               type={'btn mt-3 btn-primary btnPrimary'}
               text={'Iniciar sesión'}
-              func={handleSignIn}/>
+              func={handleSignIn}
+              disabled={!isEmailValid()}/>
           </div>
 
           <div className="text-center mt-3">

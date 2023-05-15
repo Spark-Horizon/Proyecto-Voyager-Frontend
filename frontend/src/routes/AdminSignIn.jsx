@@ -10,7 +10,7 @@ import '../styles/buttons.css'
 export const AdminSignIn = () => {
 
   // Estados del componente
-  const [email, setEmail] = useState('');
+  const [Aemail, setAEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate()
@@ -20,11 +20,16 @@ export const AdminSignIn = () => {
   async function handleSignIn(e) {
     e.preventDefault();
     try{
-      await signin(email, password);
+      await signin(Aemail, password);
       navigate('/CRUD');
     } catch {
-      setError('Incorrect email or password');
+      setError('Correo o contraseña incorrectos');
     }
+  };
+
+  const isAdminEmailValid = () => {
+    const AEmailRegex = /^(iCodeAdmin@gmail\.com|icodeadmin@gmail\.com)$/;
+    return AEmailRegex.test(Aemail);
   };
 
   // Links y componentes de Navbar
@@ -47,7 +52,10 @@ export const AdminSignIn = () => {
 
           <div className="form-group">
             <label htmlFor="email" className="text-center">Email</label>
-            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="your.email@tec.mx" required />
+            <input type="email" id="email" value={Aemail} onChange={(e) => setAEmail(e.target.value)} className="form-control" placeholder="your.email@gmail.com" required />
+            {!isAdminEmailValid() && (
+              <div className="text-danger">El correo electrónico es inválido</div>
+            )}
           </div>
 
           <div className="form-group mt-4">
