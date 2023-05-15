@@ -91,11 +91,11 @@ export const CreateExercise = (props) => {
               <div className="select">
                 <CustomButton
                   type={'btn btnPrimary btnResize'}
-                  text={'Ejercicio de código'}
+                  text={'Código'}
                   func={() => handleExerciseTypeClick('Código')}/>
                 <CustomButton
                   type={'btn btnPrimary btnResize'}
-                  text={'Ejercicio de opción múltiple'}
+                  text={'Opción múltiple'}
                   func={() => handleExerciseTypeClick('Opción múltiple')}/>
               </div>
 
