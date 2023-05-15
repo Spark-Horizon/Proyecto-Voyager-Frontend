@@ -3,6 +3,7 @@ import { Console } from './Console';
 import { TestCases } from './TestCases';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const port = process.env.REACT_APP_BACKEND_PORT
 
 export const OutputPanel = (
   {
@@ -27,7 +28,7 @@ export const OutputPanel = (
 
     setSubmitData(runData);
     try {
-      await fetchSubmissionData(`http://${backendUrl}:3000/compiler/problem/run`, 'post');
+      await fetchSubmissionData(`http://${backendUrl}:${port}/compiler/problem/run`, 'post');
     } catch (error) {
       console.log(error);
     }
