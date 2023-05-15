@@ -1,13 +1,16 @@
 import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
+
 import { CustomNavbar } from "../components/CustomNavbar"
 import { Compiler } from "../components/IDE/Compiler"
 import { OutputPanel } from "../components/IDE/OutputPanel";
 import { useRunSubmit } from "../hooks/useRunSubmit";
-import { TestCases } from '../components/IDE/TestCases';
+import { Adjuster } from '../components/IDE/Adjuster';
 
 import '../styles/idePage.css';
-
+import '../styles/Compiler.css';
+import { useRef } from 'react';
 
 export const IdePage = () => {
   const [driver, setDriver] = useState('main_test'); 
@@ -24,11 +27,23 @@ export const IdePage = () => {
       {
         "input": "3,3",
         "output": "6"
+      },
+      {
+        "input": "3,3",
+        "output": "7"
+      },
+      {
+        "input": "3,3",
+        "output": "6"
       }
     ]
   ); 
   const [code, setCode] = useState('');
   const [id, setId] = useState(0);
+  const [ideHeight, setIdeHeight] = useState('60%');
+  const [outputPanelHeight, setOutputPanelHeight] = useState('calc(40% - 10px');
+
+  const outputPanelContainer = useRef(null)
 
   const { compInfo, stdOut, stdErr, testsData, axiosError, submitData, setSubmitData, fetchSubmissionData } = useRunSubmit();
 
@@ -47,15 +62,15 @@ export const IdePage = () => {
     <div>
       <CustomNavbar links={links} components={components}/>
       <div className="idepage-main-container">
-        <div className="ide-outputpanel-main-container">
+        <div className="ide-outputpanel-main-container" ref={outputPanelContainer}>
           <Compiler 
-            tests={tests} 
-            driver={driver}
             setCode={setCode} 
-            code={code} 
-            submitData={submitData}
-            setSubmitData={setSubmitData}
-            fetchSubmissionData={fetchSubmissionData}
+            ideHeight={ideHeight}
+          />
+          <Adjuster 
+            setIdeHeight={setIdeHeight}
+            setOutputPanelHeight={setOutputPanelHeight}
+            fatherContainer={outputPanelContainer}
           />
           <OutputPanel 
             code={code} 
@@ -68,6 +83,7 @@ export const IdePage = () => {
             stdErr={stdErr}
             setSubmitData={setSubmitData}
             fetchSubmissionData={fetchSubmissionData}
+            outputPanelHeight={outputPanelHeight}
           />
         </div>
       </div>
