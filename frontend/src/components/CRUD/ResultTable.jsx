@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGetCRUDTask, useGetFilAutorTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask, useGetFilAutorizacionTask, useGetDeleteExcercise } from '../../hooks/useGetCRUDTask.js';
 import { CustomButton } from '../CustomButton';
 import { getDeleteExcercise }  from '../../helpers/getCRUDTask.js';
 
-export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
+export const ResultTable = () => {
   
   const [dataResult, setDataResult] = useState([]);
   const [autorOptions, setAutorOptions] = useState(['X']);
@@ -21,10 +22,7 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
   const { data_dificultad } = useGetFilDificultadTask();
   const { data_autorizacion } = useGetFilAutorizacionTask();
   
-  // Estados del componente
-  const [rows, setRows] = useState([]);
-  const [columnOptions, setColumnOptions] = useState([]);
-  
+  const navigate = useNavigate()
   
   useEffect(() => {
     setDataResult(data_result);
@@ -48,6 +46,11 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
       const newDataResult = dataResult.filter(row => row.id_resultado !== id_hand);
       setDataResult(newDataResult);
     }
+  }
+
+  const handleCreation = (e) => {
+    e.preventDefault();
+    navigate('/CreateExcercise');
   }
 
   if (!data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
@@ -192,7 +195,10 @@ export const ResultTable = ({ fil1, fil2, fil3, fil4, fil5, order, hier }) => {
             </th>
 
             <th scope="col">
-              <CustomButton type={'btn btn-primary btn-block btn-success'} text={'Añadir ejercicio'}/>
+              <CustomButton 
+              type={'btn btn-primary btn-block btn-success'} 
+              text={'Añadir ejercicio'}
+              func={handleCreation}/>
             </th>
 
           </tr>
