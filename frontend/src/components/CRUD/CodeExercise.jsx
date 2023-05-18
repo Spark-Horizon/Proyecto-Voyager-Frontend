@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CustomButton } from '../CustomButton';
 import {useGetFilSubtemaTask, useGetFilDificultadTask} from '../../hooks/useGetCRUDTask.js';
 
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
-import { getCreateExercise } from '../../helpers/getCRUDTask';
+import { getCreateCodeExercise } from '../../helpers/getCRUDTask';
 
 export const CodeExercise = (props) => {
   const [subtemaOptions, setSubtemaOptions] = useState([props.subtema]);
@@ -48,21 +48,13 @@ export const CodeExercise = (props) => {
 
   const handleCreation = (subtema, author, title, description, difficulty, driver, tests) => (e) => {
     e.preventDefault();
-    getCreateExercise(true, 'Código', subtema, author, title, description, difficulty, driver, tests);
+    getCreateCodeExercise(true, 'Código', subtema, author, title, description, difficulty, driver, tests);
     navigate('/CRUD');
   }
 
   if (!data_subtema || !data_dificultad) {
     return <div>Cargando...</div>;
   }
-
-  console.log(subtemaOptions);
-  console.log(authorOption);
-  console.log(titleOption);
-  console.log(descriptionOption);
-  console.log(difficultyOption);
-  console.log(driverOption);
-  console.log(exerciseBlocksCode);
 
   return (
     <div>
@@ -121,7 +113,7 @@ export const CodeExercise = (props) => {
                 onChange={(e) => setSubtemaOptions(e.target.value)}>
                 <option value={props.tema}></option>
                 {data_subtema.map((row) => (
-                  <option key={row.nombre} value={row.nombre}>
+                  <option key={row.id_subtema} value={row.id_subtema+","+row.nombre}>
                     {row.nombre}
                   </option>
                 ))}      
@@ -144,7 +136,6 @@ export const CodeExercise = (props) => {
                     {row['?column?']}
                   </option>
                 ))}
-            >
                 <option value=""></option>
             </select>
         </div>

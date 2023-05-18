@@ -1,4 +1,4 @@
-import { getCreateExercise, getDeleteExercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
+import { getCreateCodeExercise, getDeleteExercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
 import { getCRUDTask } from "../helpers/indexHelpers.js";
 import { useState, useEffect } from 'react';
 
@@ -142,14 +142,14 @@ export const useGetDeleteExercise = (id) => {
     return { data_delete, error };
 }
 
-export const useGetCreateExercise = (autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
-    const [data_create, setProblemData] = useState(null);
+export const useGetCreateCodeExercise = (autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
+    const [data_code_create, setProblemData] = useState(null);
     const [error, setError] = useState(null);
     
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const resultado = await getCreateExercise(autorizado, tipo, subtema, author, title, description, difficulty, driver, tests);
+                const resultado = await getCreateCodeExercise(autorizado, tipo, subtema, author, title, description, difficulty, driver, tests);
                 setProblemData(resultado);
             } catch (error) {
                 setError(error);
@@ -159,5 +159,25 @@ export const useGetCreateExercise = (autorizado, tipo, subtema, author, title, d
         fetchData();
     }, []);
 
-    return { data_create, error };
-  };
+    return { data_code_create, error };
+};
+
+export const useGetCreateOMExercise = (autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, answerOptions) => {
+    const [data_om_create, setProblemData] = useState(null);
+    const [error, setError] = useState(null);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const resultado = await getCreateCodeExercise(autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, answerOptions);
+                setProblemData(resultado);
+            } catch (error) {
+                setError(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    return { data_om_create, error };
+};

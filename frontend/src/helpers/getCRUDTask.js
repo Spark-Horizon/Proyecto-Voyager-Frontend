@@ -136,11 +136,30 @@ export const getDeleteExercise = async (id) => {
   }
 };
 
-export const getCreateExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
+export const getCreateCodeExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
   try {
     const options = {
       method: "post",
       url: `http://${backendUrl}:${port}/CRUD/create/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${driver}/${tests}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getCreateOMExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, answerOptions) => {
+  try {
+    const options = {
+      method: "post",
+      url: `http://${backendUrl}:${port}/CRUD/create/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${answer}/${hints}/${answerOptions}`,
       headers: {
         "Content-Type": "application/json",
       },

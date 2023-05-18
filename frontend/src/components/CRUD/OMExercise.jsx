@@ -1,21 +1,32 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CustomButton } from '../CustomButton';
+import {useGetFilSubtemaTask, useGetFilDificultadTask} from '../../hooks/useGetCRUDTask.js';
 
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
+import { getCreateOMExercise } from '../../helpers/getCRUDTask';
 
 export const OMExercise = (props) => {
-
   // Estados del componente
+  const [subtemaOptions, setSubtemaOptions] = useState([props.subtema]);
+  const [authorOption, setAuthorOption] = useState([props.author]);
+  const [titleOption, setTitleOption] = useState([props.title]);
+  const [descriptionOption, setDescriptionOption] = useState([props.description]);
+  const [difficultyOption, setDifficultyOption] = useState([props.difficulty]);
+  const [answerOption, setAnswerOption] = useState([props.answer]);
+  const [hintsOption, setHintsOption] = useState([props.hints]);
+
+  const { data_subtema } = useGetFilSubtemaTask();
+  const { data_dificultad } = useGetFilDificultadTask();
+
+  const navigate = useNavigate()
+
   const [step, setStep] = useState(1);
   const [exerciseBlocksOM, setExerciseBlocksOM] = useState([{ texto: '', output: '' }]);
 
   const handlePrevStep = () => {
     setStep(step - 1);
-  };
-
-  const handleExerciseCreation= (e) => {
-    e.preventDefault();
   };
 
   const handleAddBlockOM = () => {
@@ -36,6 +47,16 @@ export const OMExercise = (props) => {
     setExerciseBlocksOM(blocks);
   };
 
+  const handleCreation = (subtema, author, title, description, difficulty, answer, hints, options) => (e) => {
+    e.preventDefault();
+    getCreateOMExercise(true, 'Opción múltiple', subtema, author, title, description, difficulty, answer, hints, options);
+    navigate('/CRUD');
+  }
+
+  if (!data_subtema || !data_dificultad) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div>
         <div className="text-center mb-5">
@@ -48,8 +69,8 @@ export const OMExercise = (props) => {
             <input 
                 type="text" 
                 id="autor" 
-                value={props.autor}
-                onChange={() => {}} 
+                value={authorOption} 
+                onChange={(e) => setAuthorOption(e.target.value)}
                 className="form-control" 
                 placeholder="Autor del ejercicio" 
                 required 
@@ -61,8 +82,8 @@ export const OMExercise = (props) => {
             <input 
                 type="text" 
                 id="titulo" 
-                value={props.titulo}
-                onChange={() => {}} 
+                value={titleOption} 
+                onChange={(e) => setTitleOption(e.target.value)}
                 className="form-control" 
                 placeholder="Título del ejercicio" 
                 required 
@@ -73,8 +94,8 @@ export const OMExercise = (props) => {
             <label htmlFor="descripcion" className="text-center">Descripción</label>
             <textarea 
                 id="descripcion" 
-                value={props.descripcion} 
-                onChange={() => {}} 
+                value={descriptionOption} 
+                onChange={(e) => setDescriptionOption(e.target.value)}
                 className="form-control" 
                 placeholder="Descripción del ejercicio" 
                 rows={5} 
@@ -83,15 +104,20 @@ export const OMExercise = (props) => {
         </div>
     
         <div className="form-group mb-4">
-            <label htmlFor="tema" className="text-center">Tema</label>
+            <label htmlFor="subtema" className="text-center">Tema</label>
             <select 
-                id="tema" 
-                value={props.tema} 
-                onChange={() => {}} 
                 className="form-select form-select-sm"
                 aria-label="Filtro" 
                 required 
-            >
+                id="subtema" 
+                value={subtemaOptions}
+                onChange={(e) => setSubtemaOptions(e.target.value)}>
+                <option value={props.tema}></option>
+                {data_subtema.map((row) => (
+                  <option key={row.id_subtema} value={row.id_subtema+","+row.nombre}>
+                    {row.nombre}
+                  </option>
+                ))}      
                 <option value=""></option>
             </select>
         </div>
@@ -99,13 +125,18 @@ export const OMExercise = (props) => {
         <div className="form-group mb-4">
             <label htmlFor="dificultad" className="text-center">Dificultad</label>
             <select 
-                id="dificultad" 
-                value={props.dificultad} 
-                onChange={() => {}} 
                 className="form-select form-select-sm"
                 aria-label="Filtro" 
                 required 
-            >
+                id="dificultad" 
+                value={difficultyOption}
+                onChange={(e) => setDifficultyOption(e.target.value)}>
+                  <option value={props.dificultad}></option>
+                {data_dificultad.map((row) => (
+                  <option key={row['?column?']} value={row['?column?']}>
+                    {row['?column?']}
+                  </option>
+                ))}
                 <option value=""></option>
             </select>
         </div>
@@ -115,8 +146,8 @@ export const OMExercise = (props) => {
             <input 
                 type="text" 
                 id="respuesta" 
-                value={props.respuesta} 
-                onChange={() => {}} 
+                value={answerOption} 
+                onChange={(e) => setAnswerOption(e.target.value)}
                 className="form-control" 
                 placeholder="" 
                 required 
@@ -127,8 +158,8 @@ export const OMExercise = (props) => {
             <label htmlFor="pistas" className="text-center">Pistas</label>
             <select 
                 id="pistas" 
-                value={props.pistas} 
-                onChange={() => {}} 
+                value={hintsOption} 
+                onChange={(e) => setHintsOption(e.target.value)}
                 className="form-select form-select-sm"
                 aria-label="Filtro" 
                 required 
@@ -173,7 +204,7 @@ export const OMExercise = (props) => {
         <CustomButton
             type={'btn btn-success'}
             text={'Crear ejercicio'}
-            func={handleExerciseCreation}
+            func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, exerciseBlocksOM)}
         />
         </div>
     </div>
