@@ -117,11 +117,30 @@ export const getFilAutorizacionTask = async () => {
   }
 };
 
-export const getDeleteExcercise = async (id) => {
+export const getDeleteExercise = async (id) => {
   try {
     const options = {
-      method: "get",
+      method: "delete",
       url: `http://${backendUrl}:${port}/CRUD/delete/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getCreateExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
+  try {
+    const options = {
+      method: "post",
+      url: `http://${backendUrl}:${port}/CRUD/create/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${driver}/${tests}`,
       headers: {
         "Content-Type": "application/json",
       },

@@ -1,10 +1,24 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { CustomButton } from '../CustomButton';
+import {useGetFilSubtemaTask, useGetFilDificultadTask} from '../../hooks/useGetCRUDTask.js';
 
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
+import { getCreateExercise } from '../../helpers/getCRUDTask';
 
-export const CodeExcercise = (props) => {
+export const CodeExercise = (props) => {
+  const [subtemaOptions, setSubtemaOptions] = useState([props.subtema]);
+  const [authorOption, setAuthorOption] = useState([props.author]);
+  const [titleOption, setTitleOption] = useState([props.title]);
+  const [descriptionOption, setDescriptionOption] = useState([props.description]);
+  const [difficultyOption, setDifficultyOption] = useState([props.difficulty]);
+  const [driverOption, setDriverOption] = useState([props.driver]);
+
+  const { data_subtema } = useGetFilSubtemaTask();
+  const { data_dificultad } = useGetFilDificultadTask();
+
+  const navigate = useNavigate()
 
   // Estados del componente
   const [step, setStep] = useState(1);
@@ -12,10 +26,6 @@ export const CodeExcercise = (props) => {
 
   const handlePrevStep = () => {
     setStep(step - 1);
-  };
-
-  const handleExerciseCreation= (e) => {
-    e.preventDefault();
   };
 
   const handleAddBlockCode = () => {
@@ -36,6 +46,24 @@ export const CodeExcercise = (props) => {
     setExerciseBlocksCode(blocks);
   };
 
+  const handleCreation = (subtema, author, title, description, difficulty, driver, tests) => (e) => {
+    e.preventDefault();
+    getCreateExercise(true, 'Código', subtema, author, title, description, difficulty, driver, tests);
+    navigate('/CRUD');
+  }
+
+  if (!data_subtema || !data_dificultad) {
+    return <div>Cargando...</div>;
+  }
+
+  console.log(subtemaOptions);
+  console.log(authorOption);
+  console.log(titleOption);
+  console.log(descriptionOption);
+  console.log(difficultyOption);
+  console.log(driverOption);
+  console.log(exerciseBlocksCode);
+
   return (
     <div>
         <div className="text-center mb-5">
@@ -48,8 +76,8 @@ export const CodeExcercise = (props) => {
             <input 
                 type="text" 
                 id="autor" 
-                value={props.autor} 
-                onChange={() => {}} 
+                value={authorOption} 
+                onChange={(e) => setAuthorOption(e.target.value)}
                 className="form-control" 
                 placeholder="Autor del ejercicio" 
                 required 
@@ -61,8 +89,8 @@ export const CodeExcercise = (props) => {
             <input 
                 type="text" 
                 id="titulo" 
-                value={props.titulo} 
-                onChange={() => {}} 
+                value={titleOption} 
+                onChange={(e) => setTitleOption(e.target.value)}
                 className="form-control" 
                 placeholder="Título del ejercicio" 
                 required 
@@ -73,8 +101,8 @@ export const CodeExcercise = (props) => {
             <label htmlFor="descripcion" className="text-center">Descripción</label>
             <textarea 
                 id="descripcion" 
-                value={props.descripcion} 
-                onChange={() => {}} 
+                value={descriptionOption} 
+                onChange={(e) => setDescriptionOption(e.target.value)}
                 className="form-control" 
                 placeholder="Descripción del ejercicio" 
                 rows={5} 
@@ -83,15 +111,20 @@ export const CodeExcercise = (props) => {
         </div>
 
         <div className="form-group mb-4">
-            <label htmlFor="tema" className="text-center">Tema</label>
+            <label htmlFor="subtema" className="text-center">Tema</label>
             <select 
-                id="tema" 
-                value={props.tema} 
-                onChange={() => {}} 
                 className="form-select form-select-sm"
                 aria-label="Filtro" 
                 required 
-            >
+                id="subtema" 
+                value={subtemaOptions}
+                onChange={(e) => setSubtemaOptions(e.target.value)}>
+                <option value={props.tema}></option>
+                {data_subtema.map((row) => (
+                  <option key={row.nombre} value={row.nombre}>
+                    {row.nombre}
+                  </option>
+                ))}      
                 <option value=""></option>
             </select>
         </div>
@@ -99,12 +132,18 @@ export const CodeExcercise = (props) => {
         <div className="form-group mb-4">
             <label htmlFor="dificultad" className="text-center">Dificultad</label>
             <select 
-                id="dificultad" 
-                value={props.dificultad} 
-                onChange={() => {}} 
                 className="form-select form-select-sm"
                 aria-label="Filtro" 
                 required 
+                id="dificultad" 
+                value={difficultyOption}
+                onChange={(e) => setDifficultyOption(e.target.value)}>
+                  <option value={props.dificultad}></option>
+                {data_dificultad.map((row) => (
+                  <option key={row['?column?']} value={row['?column?']}>
+                    {row['?column?']}
+                  </option>
+                ))}
             >
                 <option value=""></option>
             </select>
@@ -115,8 +154,8 @@ export const CodeExcercise = (props) => {
             <input 
                 type="text" 
                 id="driver" 
-                value={props.driver} 
-                onChange={() => {}} 
+                value={driverOption} 
+                onChange={(e) => setDriverOption(e.target.value)}
                 className="form-control" 
                 placeholder="" 
                 required 
@@ -161,7 +200,7 @@ export const CodeExcercise = (props) => {
             <CustomButton
                 type={'btn btn-success'}
                 text={'Crear ejercicio'}
-                func={handleExerciseCreation}
+                func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, exerciseBlocksCode)}
             />
         </div>
     </div>

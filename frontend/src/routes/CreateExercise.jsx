@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { CustomNavbar } from '../components/CustomNavbar';
 import { CustomButton } from '../components/CustomButton';
 import { useAuth } from '../hooks/AuthContext';
-import { CodeExcercise } from "../components/CRUD/CodeExcercise"
-import { OMExcercise } from "../components/CRUD/OMExcercise"
+import { CodeExercise } from "../components/CRUD/CodeExercise"
+import { OMExercise } from "../components/CRUD/OMExercise"
 
 
 import '../styles/fonts.css';
@@ -74,7 +74,7 @@ export const CreateExercise = () => {
           )}
 
             {step === 2 && exerciseType === 'Código' && (
-                <CodeExcercise 
+                <CodeExercise 
                 autor={''}
                 titulo={''}
                 descripcion={''}
@@ -85,7 +85,7 @@ export const CreateExercise = () => {
             )}
 
             {step === 2 && exerciseType === 'Opción múltiple' && (
-              <OMExcercise 
+              <OMExercise 
               autor={''}
               titulo={''}
               descripcion={''}

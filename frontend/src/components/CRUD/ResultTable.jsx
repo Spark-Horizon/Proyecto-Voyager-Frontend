@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useGetCRUDTask, useGetFilAutorTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask, useGetFilAutorizacionTask, useGetDeleteExcercise } from '../../hooks/useGetCRUDTask.js';
+import { useGetCRUDTask, useGetFilAutorTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask, useGetFilAutorizacionTask, useGetDeleteExercise } from '../../hooks/useGetCRUDTask.js';
 import { CustomButton } from '../CustomButton';
-import { getDeleteExcercise }  from '../../helpers/getCRUDTask.js';
+import { getDeleteExercise }  from '../../helpers/getCRUDTask.js';
 
 export const ResultTable = () => {
   
@@ -42,7 +42,7 @@ export const ResultTable = () => {
   const handleDeletion = (id_hand) => (e) => {
     e.preventDefault();
     if (window.confirm("¿Estás seguro de que deseas borrar este ejercicio?")) {
-      getDeleteExcercise(id_hand);
+      getDeleteExercise(id_hand);
       const newDataResult = dataResult.filter(row => row.id_resultado !== id_hand);
       setDataResult(newDataResult);
     }
@@ -50,7 +50,7 @@ export const ResultTable = () => {
 
   const handleCreation = (e) => {
     e.preventDefault();
-    navigate('/CreateExcercise');
+    navigate('/CreateExercise');
   }
 
   if (!data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {

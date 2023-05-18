@@ -4,7 +4,7 @@ import { CustomButton } from '../CustomButton';
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
 
-export const OMExcercise = (props) => {
+export const OMExercise = (props) => {
 
   // Estados del componente
   const [step, setStep] = useState(1);

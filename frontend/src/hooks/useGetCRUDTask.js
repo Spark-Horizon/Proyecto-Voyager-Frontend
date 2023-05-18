@@ -1,4 +1,4 @@
-import { getDeleteExcercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
+import { getCreateExercise, getDeleteExercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
 import { getCRUDTask } from "../helpers/indexHelpers.js";
 import { useState, useEffect } from 'react';
 
@@ -122,14 +122,14 @@ export const useGetFilAutorizacionTask = () => {
     return { data_autorizacion, error };
 }
 
-export const useGetDeleteExcercise = (id) => {
+export const useGetDeleteExercise = (id) => {
     const [data_delete, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const resultado = await getDeleteExcercise(id);
+                const resultado = await getDeleteExercise(id);
                 setProblemData(resultado);
             } catch (error) {
                 setError(error);
@@ -141,3 +141,23 @@ export const useGetDeleteExcercise = (id) => {
 
     return { data_delete, error };
 }
+
+export const useGetCreateExercise = (autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
+    const [data_create, setProblemData] = useState(null);
+    const [error, setError] = useState(null);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const resultado = await getCreateExercise(autorizado, tipo, subtema, author, title, description, difficulty, driver, tests);
+                setProblemData(resultado);
+            } catch (error) {
+                setError(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    return { data_create, error };
+  };
