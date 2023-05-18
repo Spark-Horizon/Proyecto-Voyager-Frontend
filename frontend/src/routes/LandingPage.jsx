@@ -10,7 +10,7 @@ export const LandingPage = () => {
     // Links y componentes de Navbar
     const links = [
         { text: 'Lenguajes', url: '/' },
-        { text: 'Contactanos', url: '/' },
+        { text: 'Contáctanos', url: '/' },
     ];
     const components = [
         {component: <Link to='/signin'><CustomButton type='btn btn-sm btnPrimary' text={'Iniciar sesión'}/></Link>},

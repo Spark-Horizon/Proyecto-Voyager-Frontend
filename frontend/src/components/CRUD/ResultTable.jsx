@@ -147,6 +147,7 @@ export const ResultTable = () => {
             </th>
 
             <th scope="col">
+              Orden:
               <section id="crudPage" className='container-cc'>
                 <div>
                 <select
@@ -163,7 +164,6 @@ export const ResultTable = () => {
                     }
                   }}
                 >
-                  <option value="">Orden</option>
                   <optgroup label="Ascendente">
                     <option value="id_resultado">ID</option>
                     <option value="titulo">Título</option>
