@@ -8,19 +8,19 @@ import '../../styles/buttons.css';
 import { getCreateCodeExercise } from '../../helpers/getCRUDTask';
 
 export const CodeExercise = (props) => {
-  const [subtemaOptions, setSubtemaOptions] = useState([props.subtema]);
-  const [authorOption, setAuthorOption] = useState([props.author]);
-  const [titleOption, setTitleOption] = useState([props.title]);
-  const [descriptionOption, setDescriptionOption] = useState([props.description]);
-  const [difficultyOption, setDifficultyOption] = useState([props.difficulty]);
-  const [driverOption, setDriverOption] = useState([props.driver]);
+  const [subtemaOptions, setSubtemaOptions] = useState(props.subtema || '');
+  const [authorOption, setAuthorOption] = useState(props.author || '');
+  const [titleOption, setTitleOption] = useState(props.title || '');
+  const [descriptionOption, setDescriptionOption] = useState(props.description || '');
+  const [difficultyOption, setDifficultyOption] = useState(props.difficulty || '');
+  const [driverOption, setDriverOption] = useState(props.driver || '');
+  const [aprobadoOption, setAprobadoOption] = useState(props.aprobado || '');
 
   const { data_subtema } = useGetFilSubtemaTask();
   const { data_dificultad } = useGetFilDificultadTask();
 
   const navigate = useNavigate()
 
-  // Estados del componente
   const [step, setStep] = useState(1);
   const [exerciseBlocksCode, setExerciseBlocksCode] = useState([{ input: '', output: '' }]);
 
@@ -30,6 +30,16 @@ export const CodeExercise = (props) => {
 
   const handleAddBlockCode = () => {
     setExerciseBlocksCode([...exerciseBlocksCode, { input: '', output: '' }]);
+  };
+
+  const handleRemoveBlockCode = () => {
+    if (exerciseBlocksCode.length === 1) {
+      setExerciseBlocksCode([{ input: '', output: '' }]);
+    } else {
+      const blocks = [...exerciseBlocksCode];
+      blocks.pop();
+      setExerciseBlocksCode(blocks);
+    }
   };
 
   const handleInputChangeCode = (event, index) => {
@@ -117,7 +127,6 @@ export const CodeExercise = (props) => {
                     {row.nombre}
                   </option>
                 ))}      
-                <option value=""></option>
             </select>
         </div>
 
@@ -136,7 +145,6 @@ export const CodeExercise = (props) => {
                     {row['?column?']}
                   </option>
                 ))}
-                <option value=""></option>
             </select>
         </div>
 
@@ -151,6 +159,23 @@ export const CodeExercise = (props) => {
                 placeholder="" 
                 required 
             />
+        </div>
+
+        <div className="form-group mb-4">
+          <label htmlFor="aprobado" className="text-center">Aprobado</label>
+          <div className="form-check">
+            <input
+              type="checkbox"
+              id="aprobado"
+              checked={aprobadoOption}
+              onChange={(e) => setAprobadoOption(e.target.checked)}
+              className="form-check-input"
+              required
+            />
+            <label className="form-check-label" htmlFor="aprobado">
+              Marcar como aprobado
+            </label>
+          </div>
         </div>
 
         <h5 className="mb-2">Casos de prueba</h5>
@@ -180,19 +205,32 @@ export const CodeExercise = (props) => {
           </div>
         ))}
 
-        <button type="button" onClick={handleAddBlockCode} className="btn btn-primary">Añadir</button>
-        
+        <div className="d-flex justify-content-between">
+          <button type="button" onClick={handleAddBlockCode} className="btn btn-primary">Añadir</button>
+          <button type="button" onClick={handleRemoveBlockCode} className="btn btn-primary btn-danger">Quitar</button>
+        </div>
+
         <div className="select next-back mt-5">
-            <CustomButton
-                type={'btn btnSecondary'}
-                text={'Atrás'}
-                func={handlePrevStep}
-            />
-            <CustomButton
-                type={'btn btn-success'}
-                text={'Crear ejercicio'}
-                func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, exerciseBlocksCode)}
-            />
+          <CustomButton
+            type={'btn btnSecondary'}
+            text={'Atrás'}
+            func={handlePrevStep}
+          />
+          <CustomButton
+            type={'btn btn-success'}
+            text={'Crear ejercicio'}
+            func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, aprobadoOption, exerciseBlocksCode)}
+            disabled={
+              !aprobadoOption ||
+              !titleOption.trim() ||
+              !authorOption.trim() ||
+              !descriptionOption.trim() ||
+              !subtemaOptions.trim() ||
+              !difficultyOption.trim() ||
+              !driverOption.trim() ||
+              exerciseBlocksCode.some(block => !block.input.trim() || !block.output.trim())
+            }
+          />
         </div>
     </div>
   )

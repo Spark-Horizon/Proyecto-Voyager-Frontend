@@ -5,14 +5,14 @@ import '../styles/forms.css'
 import '../styles/adminStyles.css'
 
 export const CRUD = () => {
-  // Links y componentes de Navbar
-  const links = [];
-  const components = [];
+    // Links y componentes de Navbar
+    const links = [];
+    const components = [];
 
-  return (
-    <div>
-      <CustomNavbar links={links} components={components}/>
-      <ResultTable/>
-    </div>
-  );
+    return (
+      <div>
+        <CustomNavbar links={links} components={components}/>
+        <ResultTable/>
+      </div>
+    );
 }

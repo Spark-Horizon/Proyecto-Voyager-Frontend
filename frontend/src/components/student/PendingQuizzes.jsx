@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CustomButton } from "../components/CustomButton";
-import { CustomNavbar } from "../components/CustomNavbar";
-import { Footer } from "../components/Footer";
+import { CustomButton } from "../CustomButton";
 
 export const PendingQuizzes = () => {
   const pendingHomework = [
@@ -22,8 +20,8 @@ export const PendingQuizzes = () => {
   ];
 
   return (
+    // Trae el estilo de landing, probablemente sea buena idea recrearlo en otro css.
     <section id='landingPage'>
-      <CustomNavbar links={links} components={components} />
       <div className="container d-flex justify-content-center align-items-center vh-100">
         <div className="text-center">
           <h1 className="mt-5 mb-4">Quizzes pendientes</h1>
@@ -49,7 +47,6 @@ export const PendingQuizzes = () => {
           )}
         </div>
       </div>
-      <Footer />
     </section>
   );
 };

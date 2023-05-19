@@ -42,9 +42,6 @@ function App() {
         <Route path='/containerTest'
           element={<PrivateRoute logged={false} children={<ContainerTest />} link='/home'/>}
         />
-        <Route path='/pendingquizzes'
-          element={<PrivateRoute logged={false} children={<PendingQuizzes />} link='/home'/>}
-        />
       </Routes>
     </AuthProvider>
   );
