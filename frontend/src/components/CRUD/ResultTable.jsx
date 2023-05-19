@@ -9,10 +9,8 @@ import { OMExercise } from "./OMExercise"
 
 export const ResultTable = () => {
   
-  const [exerciseCodeID, setExerciseCodeID] = useState(['']);
-  const [exerciseOMID, setExerciseOMID] = useState(['']);
-  const [exerciseCodeData, setExerciseCodeData] = useState(['']);
-  const [exerciseOMData, setExerciseOMData] = useState(['']);
+  const [exerciseCodeID, setExerciseCodeID] = useState('');
+  const [exerciseOMID, setExerciseOMID] = useState('');
   
   const [dataResult, setDataResult] = useState(['']);
   
@@ -25,7 +23,7 @@ export const ResultTable = () => {
   const [filtroOptions, setFiltroOptions] = useState(['id_resultado']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   
-  const { data_code_exercise } = useGetCodeTask(exerciseCodeID);
+  const { data } = useGetCodeTask(exerciseCodeID);
   const { data_om_exercise } = useGetMOTask(exerciseOMID);
   const { data_result } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions);
   const { data_autor } = useGetFilAutorTask();
@@ -38,9 +36,7 @@ export const ResultTable = () => {
   
   useEffect(() => {
     setDataResult(data_result);
-    setExerciseCodeData(data_code_exercise);
-    setExerciseOMData(data_om_exercise);
-  }, [data_result, data_code_exercise, data_om_exercise]);
+  }, [data_result]);
   
   const handleReset = (e) => {
     e.preventDefault();
@@ -65,17 +61,17 @@ export const ResultTable = () => {
   const handleEdition = (tipo_hand, id_hand) => (e) => {
     if (tipo_hand === 'Código'){
       setExerciseCodeID(id_hand);
-      if (!data_code_exercise){
+      if (!data){
         return <div>Cargando...</div>;
       }
-      <CodeExercise 
-        autor={exerciseCodeData['author']}
-        titulo={exerciseCodeData["title"]}
-        descripcion={exerciseCodeData["description"]}
-        tema={exerciseCodeData["topic"]}
-        dificultad={exerciseCodeData["difficulty"]}
-        driver={exerciseCodeData["driver"]}
-        tests={exerciseCodeData["tests"]}
+      return <CodeExercise 
+        autor={data['author']}
+        titulo={data["title"]}
+        descripcion={data["description"]}
+        tema={data["topic"]}
+        dificultad={data["difficulty"]}
+        driver={data["driver"]}
+        tests={data["tests"]}
       />
     }else{
       setExerciseOMID(id_hand);
@@ -95,6 +91,7 @@ export const ResultTable = () => {
     return <div>Cargando...</div>;
   }
 
+  console.log("constante de codigo", data);
   return (
     <div className="table-responsive">
       <table className="table table-hover">

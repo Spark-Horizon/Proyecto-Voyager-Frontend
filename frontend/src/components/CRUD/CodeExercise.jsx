@@ -21,12 +21,11 @@ export const CodeExercise = (props) => {
 
   const navigate = useNavigate()
 
-  const [step, setStep] = useState(1);
   const [exerciseBlocksCode, setExerciseBlocksCode] = useState([props.tests || { input: '', output: '' }]);
 
-  const handlePrevStep = () => {
-    setStep(step - 1);
-  };
+  const handlePrevious = () => {
+    navigate('/CreateExercise');
+  }
 
   const handleAddBlockCode = () => {
     setExerciseBlocksCode([...exerciseBlocksCode, { input: '', output: '' }]);
@@ -214,7 +213,7 @@ export const CodeExercise = (props) => {
           <CustomButton
             type={'btn btnSecondary'}
             text={'Atrás'}
-            func={handlePrevStep}
+            func={handlePrevious}
           />
           <CustomButton
             type={'btn btn-success'}
