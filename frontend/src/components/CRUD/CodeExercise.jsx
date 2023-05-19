@@ -22,7 +22,7 @@ export const CodeExercise = (props) => {
   const navigate = useNavigate()
 
   const [step, setStep] = useState(1);
-  const [exerciseBlocksCode, setExerciseBlocksCode] = useState([{ input: '', output: '' }]);
+  const [exerciseBlocksCode, setExerciseBlocksCode] = useState([props.tests || { input: '', output: '' }]);
 
   const handlePrevStep = () => {
     setStep(step - 1);
@@ -221,7 +221,6 @@ export const CodeExercise = (props) => {
             text={'Crear ejercicio'}
             func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, aprobadoOption, exerciseBlocksCode)}
             disabled={
-              !aprobadoOption ||
               !titleOption.trim() ||
               !authorOption.trim() ||
               !descriptionOption.trim() ||

@@ -13,7 +13,7 @@ export const OMExercise = (props) => {
   const [titleOption, setTitleOption] = useState(props.title || '');
   const [descriptionOption, setDescriptionOption] = useState(props.description || '');
   const [difficultyOption, setDifficultyOption] = useState(props.difficulty || '');
-  const [answerOption, setAnswerOption] = useState(props.answer || '');
+  const [answerOption, setAnswerOption] = useState(props.answer || '0');
   const [hintsOption, setHintsOption] = useState(props.hints || '');
   const [aprobadoOption, setAprobadoOption] = useState(props.aprobado || '');
 
@@ -73,6 +73,15 @@ export const OMExercise = (props) => {
   if (!data_subtema || !data_dificultad) {
     return <div>Cargando...</div>;
   }
+
+  console.log("subtema", subtemaOptions);
+  console.log("author", authorOption);
+  console.log("title", titleOption);
+  console.log("description", descriptionOption);
+  console.log("difficulty", difficultyOption);
+  console.log("answer", answerOption);
+  console.log("hints", hintsOption);
+  console.log("aprobado", aprobadoOption);
 
   return (
     <div>
@@ -235,27 +244,25 @@ export const OMExercise = (props) => {
         </div>
     
         <div className="select next-back mt-5">
-            <CustomButton
-                type={'btn btnSecondary'}
-                text={'Atrás'}
-                func={handlePrevStep}
-            />
-            <CustomButton
-                type={'btn btn-success'}
-                text={'Crear ejercicio'}
-                func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, exerciseBlocksOM)}
-                disabled={
-                  !aprobadoOption ||
-                  !titleOption.trim() ||
-                  !authorOption.trim() ||
-                  !descriptionOption.trim() ||
-                  !subtemaOptions.trim() ||
-                  !difficultyOption.trim() ||
-                  !answerOption.trim() ||
-                  !hintsOption ||
-                  exerciseBlocksOM.some(block => !block.input.trim() || !block.output.trim())
-                }
-            />
+          <CustomButton
+              type={'btn btnSecondary'}
+              text={'Atrás'}
+              func={handlePrevStep}
+          />
+          <CustomButton
+              type={'btn btn-success'}
+              text={'Crear ejercicio'}
+              func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, exerciseBlocksOM)}
+              disabled={
+                !titleOption.trim() ||
+                !authorOption.trim() ||
+                !descriptionOption.trim() ||
+                !subtemaOptions ||
+                !difficultyOption ||
+                !answerOption ||
+                exerciseBlocksOM.some(block => !block.input || !block.output)
+              }
+          />
         </div>
     </div>
   )

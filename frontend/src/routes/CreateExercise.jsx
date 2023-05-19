@@ -63,7 +63,7 @@ export const CreateExercise = () => {
               </div>
 
               <div className="select next-back mt-5">
-                <Link to='/'>
+                <Link to='/CRUD'>
                   <CustomButton
                     type={'btn mt-3 btnPrimary'}
                     text={'Regresar a inicio'}/>
@@ -91,7 +91,7 @@ export const CreateExercise = () => {
               descripcion={''}
               tema={''}
               dificultad={''}
-              respuesta={''}
+              respuesta={'0'}
               pista={''}
               />
           )}
