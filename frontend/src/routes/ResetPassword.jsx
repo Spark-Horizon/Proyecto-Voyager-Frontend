@@ -36,14 +36,17 @@ export const ResetPassword = () => {
   };
 
   // Links y componentes de Navbar
-  const links = [];
-  const components = [
-    {component: <Link to='/'><CustomButton type={'btn btn-sm btnPrimary'} text={'Regresar a inicio'}/></Link>}
-  ];
+  const navbar = {
+    links: [],
+    tabs: [],
+    components: [
+        {component: <Link to='/'><CustomButton type={'btn btn-sm btnPrimary'} text={'Regresar a inicio'}/></Link>}
+    ]
+  };
 
   return (
     <section id="resetPasswordForm">
-      <CustomNavbar links={links} components={components}/>
+      <CustomNavbar tabs={navbar.tabs} links={navbar.links} components={navbar.components}/>
       <div className="startSection container-cc container">
         <div className="img">
             <img className='"img-fluid"' id='astronautImage' src={require('../assets/img/astronaut.png')} alt="astronautImage" />

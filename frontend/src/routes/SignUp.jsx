@@ -68,6 +68,7 @@ export const SignUp = (props) => {
     try{
       setLoading(true);
       await signup(Temail || Semail, password);
+      
     } catch {
       setError('Ese correo ya tiene una cuenta asignada');
       console.log("Fallo al registrar la cuenta");
@@ -113,16 +114,19 @@ export const SignUp = (props) => {
   };
 
   // Links y componentes de Navbar
-  const links = [];
-  const components = [
-    {component: <Link to='/'><CustomButton type={'btn btn-sm btnPrimary'} text={'Regresar a inicio'}/></Link>}
-  ];
+  const navbar = {
+    links: [],
+    tabs: [],
+    components: [
+        {component: <Link to='/'><CustomButton type={'btn btn-sm btnPrimary'} text={'Regresar a inicio'}/></Link>}
+    ]
+  };
 
   return (
     <div>
       <section id="signUpForm">
         
-        <CustomNavbar links={links} components={components}/>
+        <CustomNavbar tabs={navbar.tabs} links={navbar.links} components={navbar.components}/>
 
         <div className="container-cc startSection">
           

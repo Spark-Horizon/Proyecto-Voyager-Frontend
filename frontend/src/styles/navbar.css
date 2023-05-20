@@ -19,22 +19,23 @@
     margin-right: 10px;
     text-decoration: none; 
 }
-.navProps{
+.navRight{
     display: flex;
 }
-.navLinks{
+.navLinks, .navTabs{
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
 }
-.navLinks a{
+.navLinks a, .navTabs li{
+    cursor: pointer;
     font-size: 14px;
     color: #f0f0f0;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
 }
-.navLinks a:hover{
+.navLinks a:hover, .navTabs li:hover{
     color: var(--light-blue);
 }
 .navItem{
@@ -43,6 +44,8 @@
 .navComponent{
     margin-left: 15px;
 }
+
+/*
 .toggle_btn{
     display: none;
     margin-left: 15px;
@@ -61,6 +64,7 @@
 .toggle_btn svg:hover > path{
     fill: var(--light-blue);
 }
+
 @media (max-width: 1000px){
     .navContent{
         position: fixed;
@@ -89,7 +93,7 @@
         padding: 3px 0;
         margin: 0;
     }
-}
+}*/
 
 /*Landing page navbar*/
 #landingPage .brand{

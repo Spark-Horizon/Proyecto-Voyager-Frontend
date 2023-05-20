@@ -33,17 +33,20 @@ export const SignIn = () => {
   };
 
   // Links y componentes de Navbar
-  const links = [];
-  const components = [
-    {component: <Link to='/'><CustomButton type={'btn btn-sm btnPrimary'} text={'Regresar a inicio'}/></Link>}
-  ];
+  const navbar = {
+    links: [],
+    tabs: [],
+    components: [
+        {component: <Link to='/'><CustomButton type={'btn btn-sm btnPrimary'} text={'Regresar a inicio'}/></Link>}
+    ]
+  };
   
   return (
     <div>
 
       <section id="signInForm">
         
-        <CustomNavbar links={links} components={components}/>
+        <CustomNavbar tabs={navbar.tabs} links={navbar.links} components={navbar.components}/>
         
         <div className='startSection container-cc'>
           <div className="img">

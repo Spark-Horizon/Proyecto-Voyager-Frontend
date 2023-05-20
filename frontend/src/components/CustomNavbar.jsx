@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/navbar.css'
 import { ReactComponent as BurguerMenu } from '../assets/svg/hamburguer_menu.svg';
+import '../styles/navbar.css'
 
 
 export const CustomNavbar = (props) => {
@@ -9,6 +10,9 @@ export const CustomNavbar = (props) => {
     const toggleBtnIcon = document.querySelector('.toggle_btn svg')
     const dropdownMenu = document.querySelector('.navLinks')
 
+    const handleTabClick = (tab) => {
+        props.setSelectedTab(tab);
+    };
 
     return (
         <nav className="customNavbar container-cc">
@@ -16,7 +20,15 @@ export const CustomNavbar = (props) => {
             <div className="navContent container-fluid">
                 <Link to='/' className="brand">Voyager</Link>
             
-                <div className="navProps">
+                <ul className='navTabs container-cc'>
+                    {props.tabs.map((tab, index) => (
+                        <li className="navItem" key={index}
+                        onClick={() => handleTabClick(tab.component)}>{tab.text}</li>
+                    ))}
+                </ul>
+
+                <div className="navRight">
+                    
                     <ul className='navLinks container-cc'>
                         {props.links.map((link, index) => (
                             <li className="navItem">
