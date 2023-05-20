@@ -1,3 +1,4 @@
+import React from 'react';
 
 export const CustomButton = ({text, func, type, disabled}) => {
     return (
@@ -5,6 +6,9 @@ export const CustomButton = ({text, func, type, disabled}) => {
             className={ type }
             onClick={ func }
             disabled={ disabled }
-            >{text}</button>
-    )
-}
+        >
+            {text}
+        </button>
+    );
+};
+
