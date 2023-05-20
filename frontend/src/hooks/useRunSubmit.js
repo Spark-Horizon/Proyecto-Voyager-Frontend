@@ -11,33 +11,35 @@ export const useRunSubmit = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const fetchSubmissionData = async (url, method) => {
-        try {
-          setIsLoading(true);
 
-          const data = await submit(url, method, submitData);
-
-          setIsLoading(false);
-          
-          const { compInfo, stdout, stderr, testsInfo } = data;
-          
-          setCompInfo(compInfo);
-          setStdOut(stdout);
-          setStdErr(stderr);
-          setTestsData(testsInfo);
-        } catch (error) {
-          console.log('failed to fetch')
-          if (error.code === 'ECONNREFUSED') {
-            // Manejar el error de conexión rechazada aquí
-            // Por ejemplo, mostrar un mensaje de error al usuario
-            console.error('Error de conexión rechazada:', error.message);
-          } else {
-            // Manejar otros errores aquí
-            setAxiosError(error);
-          }
-          setIsLoading(false);
+    const fetchSubmissionData = async (url, method, data) => {
+      try {
+        setIsLoading(true);
+    
+        // Ahora, data es lo que pasamos a la función, no el estado submitData
+        console.log(data)
+    
+        const responseData = await submit(url, method, data);
+    
+        setIsLoading(false);
+        
+        const { compInfo, stdout, stderr, testsInfo } = responseData;
+        
+        setCompInfo(compInfo);
+        setStdOut(stdout);
+        setStdErr(stderr);
+        setTestsData(testsInfo);
+      } catch (error) {
+        console.log('failed to fetch')
+        if (error.code === 'ECONNREFUSED') {
+          console.error('Error de conexión rechazada:', error.message);
+        } else {
+          setAxiosError(error);
         }
+        setIsLoading(false);
       }
+    };
+    
       
 
     return {

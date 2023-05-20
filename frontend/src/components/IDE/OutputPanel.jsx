@@ -29,18 +29,18 @@ export const OutputPanel = ({
       tests: tests,
       driver: driver,
     };
-
-    setSubmitData(runData);
     
     if (!submitIsLoading && !runIsLoading) {
       try {
         setRunIsLoading(true);
-        await fetchSubmissionData(`http://${backendUrl}:3000/compiler/problem/run`, 'post');
+        // Pasamos los datos directamente a fetchSubmissionData
+        await fetchSubmissionData(`http://${backendUrl}:3000/compiler/problem/run`, 'post', runData);
       } catch (error) {
         console.log(error);
       }
     }
   };
+  
 
   const submitCode = async () => {
     if (!runIsLoading && !submitIsLoading) {
@@ -80,6 +80,10 @@ export const OutputPanel = ({
     }
 
   }, [isLoading])
+
+  useEffect(() => {
+
+  }, [submitData])
   
   return (
     <div className="output-panel-main-container">
