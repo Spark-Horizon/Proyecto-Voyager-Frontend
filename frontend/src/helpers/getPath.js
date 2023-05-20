@@ -1,10 +1,13 @@
 import axios from "axios";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const port = process.env.REACT_APP_BACKEND_PORT
+
 export const getPath = async (materia_id) => {
   try {
     const options = {
       method: "get",
-      url: `http://localhost:3000/path/materia/${materia_id}`,
+      url: `http://${backendUrl}:${port}/path/materia/${materia_id}`,
       headers: {
         "Content-Type": "application/json",
       },

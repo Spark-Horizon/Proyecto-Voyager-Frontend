@@ -1,17 +1,28 @@
-import { useState } from "react";
-import { useGetMOTask } from "../../hooks/useGetTask";
-//Seria crear un nuevo styles para esto supongo
+import { useEffect, useState } from "react";
+import { useGetTask } from "../../hooks/useGetTask";
+import { useGetProgress } from "../../hooks/useGetProgress";
 import '../../styles/codeInstructions.css';
 
-export const MOInstructions = ({ problem_id }) => {
-    const {data} = useGetMOTask(problem_id);
-    const [selectedOption, setSelectedOption] = useState("");
-    
+export const MOInstructions = ({ subtem_id, ejercicio }) => {
+    const [problem_id, setProblemID] = useState("")
+    const {data_progress} = useGetProgress(subtem_id)
+    //const {data} = useGetTask(problem_id)
+    const [selectedOption, setSelectedOption] = useState("")
+
+    //problem_id = "TC1028_21_OM_10";
+    if(subtem_id){
+        setProblemID(data_progress.id_ejercicio) 
+    }else(
+        setProblemID(ejercicio)
+    )
+
+    const {data} = useGetTask(problem_id)
+
     if(!data) {
         return <div>Cargando...</div>
     }
 
-    const { author, title, description, topic, difficulty, answer, hint, options } = data;
+    const { title, description, topic, difficulty, answer, options } = data;
     const formattedOptions = options.map((option) => (
         <div key = {option.id}>
             <input type="radio" id={option.text} name="opciones" value={option.text} checked={selectedOption === option.text} onChange={() => setSelectedOption(option.text)} />

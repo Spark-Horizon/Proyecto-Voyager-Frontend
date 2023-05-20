@@ -1,8 +1,8 @@
-import { useGetCodeTask } from '../../hooks/useGetTask.js';
+import { useGetTask } from '../../hooks/useGetTask.js';
 import '../../styles/codeInstructions.css';
 
 export const CodeInstructions = ({ problem_id }) => {
-  const { data } = useGetCodeTask(problem_id);
+  const { data } = useGetTask(problem_id);
 
   if (!data) {
     return <div>Cargando...</div>;

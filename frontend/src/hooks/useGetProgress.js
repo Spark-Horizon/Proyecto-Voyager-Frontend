@@ -1,15 +1,15 @@
-import { getPath } from "../helpers/indexHelpers.js";
+import { getProgress } from "../helpers/getProgress.js";
 import { useState, useEffect } from 'react';
 
-export const useGetPath = (materia_id) => {
-    const [data, setPathData] = useState(null);
+export const useGetProgress = (materia_id) => {
+    const [data_progress, setProgressData] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const path = await getPath(materia_id);
-                setPathData(path);
+                const path = await getProgress(materia_id);
+                setProgressData(path);
                 //console.log(path);
             } catch (error) {
                 setError(error);
@@ -19,5 +19,5 @@ export const useGetPath = (materia_id) => {
         fetchData();
     }, [materia_id]);
 
-    return { data, error };
+    return { data_progress, error };
 }
