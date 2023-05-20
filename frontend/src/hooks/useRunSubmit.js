@@ -9,35 +9,48 @@ export const useRunSubmit = () => {
     const [axiosError, setAxiosError] = useState(null);
     const [submitData, setSubmitData] = useState(null);
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const fetchSubmissionData = async (url, method) => {
         try {
-            console.log('fetching...', url, method)
-            console.log('submitdata: ', submitData)
-            const data = await submit(url, method, submitData);
-            const { compInfo, stdout, stderr, testsInfo } = data;
-            console.log('------')
-            console.log('Retrieved data: ', data)
-            console.log('------')
+          setIsLoading(true);
 
-            setCompInfo(compInfo);
-            setStdOut(stdout);
-            setStdErr(stderr);
-            setTestsData(testsInfo);
+          const data = await submit(url, method, submitData);
+
+          setIsLoading(false);
+          
+          const { compInfo, stdout, stderr, testsInfo } = data;
+          
+          setCompInfo(compInfo);
+          setStdOut(stdout);
+          setStdErr(stderr);
+          setTestsData(testsInfo);
         } catch (error) {
-            console.log(error)
+          console.log('failed to fetch')
+          if (error.code === 'ECONNREFUSED') {
+            // Manejar el error de conexión rechazada aquí
+            // Por ejemplo, mostrar un mensaje de error al usuario
+            console.error('Error de conexión rechazada:', error.message);
+          } else {
+            // Manejar otros errores aquí
             setAxiosError(error);
+          }
+          setIsLoading(false);
         }
-    }
-    
+      }
+      
 
     return {
-        compInfo,
-        stdOut,
-        stdErr,
-        testsData,
-        axiosError,
-        submitData,
+        data: {
+            compInfo,
+            stdOut,
+            stdErr,
+            testsData,
+            axiosError,
+            submitData
+        },
         setSubmitData,
-        fetchSubmissionData
+        fetchSubmissionData,
+        isLoading
     }
 }
