@@ -1,8 +1,17 @@
+import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise } from '../routes/indexRoutes';
+import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise } from '../routes/indexRoutes';
 import { useAuth, AuthProvider } from '../hooks/AuthContext';
 
 function App() {
+  const [user, setUser] = useState({
+    id: 'a01734977',
+    name: 'Alejandro Alfonso',
+    lastName1: 'Ubeto',
+    lastName2: 'Yañez',
+    role: 'student',
+  });
+
   return (
     <AuthProvider>
       <Routes>
@@ -10,7 +19,7 @@ function App() {
           element={<PrivateRoute logged={false} children={<LandingPage />} link='/home'/>}
         />
         <Route path='/home'
-          element={<PrivateRoute logged={true} children={<StudentPage />} link='/'/>}
+          element={<PrivateRoute logged={true} children={<HomePage user={user}/>} link='/'/>}
         />
         <Route path='/signin'
           element={<PrivateRoute logged={false} children={<SignIn />} link='/home'/>}
