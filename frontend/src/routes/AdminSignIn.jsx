@@ -32,14 +32,9 @@ export const AdminSignIn = () => {
     const AEmailRegex = /^(iCodeAdmin@gmail\.com|icodeadmin@gmail\.com)$/;
     return AEmailRegex.test(Aemail);
   };
-
-  // Links y componentes de Navbar
-  const links = [];
-  const components = [];
   
   return (
     <div>
-      <CustomNavbar links={links} components={components}/>
 
       <section id="adminSignInForm" className='container-cc'>
 

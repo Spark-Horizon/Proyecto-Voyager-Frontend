@@ -15,11 +15,6 @@ export const CreateExercise = (props) => {
   const [exerciseBlocksCode, setExerciseBlocksCode] = useState([{ input: '', output: '' }]);
   const [exerciseBlocksOM, setExerciseBlocksOM] = useState([{ texto: '', output: '' }]);
 
-
-  // Links y componentes de Navbar
-  const links = [];
-  const components = [];
-
   const handleExerciseTypeClick = (type) => {
     setExerciseType(type);
     setStep(2);
@@ -75,7 +70,6 @@ export const CreateExercise = (props) => {
 
   return (
     <div>
-      <CustomNavbar links={links} components={components}/>
       <section id="exerciseCreationForm" className='container-cc'>
 
         <form onSubmit={handleExerciseCreation}>

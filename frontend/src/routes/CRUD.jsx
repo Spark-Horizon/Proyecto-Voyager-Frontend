@@ -5,16 +5,12 @@ import '../styles/forms.css'
 import '../styles/adminStyles.css'
 
 export const CRUD = () => {
-  // Links y componentes de Navbar
-  const links = [];
-  const components = [];
 
   // Opciones de cada columna
   const columnOptions = ['', '', '', '', '', ''];
 
   return (
     <div>
-      <CustomNavbar links={links} components={components}/>
       <ResultTable 
         fil1={'X'}
         fil2={'X'}
