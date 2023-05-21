@@ -5,7 +5,7 @@ import {useGetFilSubtemaTask, useGetFilDificultadTask} from '../../hooks/useGetC
 
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
-import { getCreateCodeExercise } from '../../helpers/getCRUDTask';
+import { getUpdateCodeExercise, getCreateCodeExercise } from '../../helpers/getCRUDTask';
 
 export const CodeExercise = (props) => {
   const [subtemaOptions, setSubtemaOptions] = useState(props.subtema || '');
@@ -21,10 +21,10 @@ export const CodeExercise = (props) => {
 
   const navigate = useNavigate()
 
-  const [exerciseBlocksCode, setExerciseBlocksCode] = useState([props.tests || { input: '', output: '' }]);
+  const [exerciseBlocksCode, setExerciseBlocksCode] = useState(props.tests || [{ input: '', output: '' }]);
 
   const handlePrevious = () => {
-    navigate('/CreateExercise');
+    props.onStep();
   }
 
   const handleAddBlockCode = () => {
@@ -58,7 +58,13 @@ export const CodeExercise = (props) => {
   const handleCreation = (subtema, author, title, description, difficulty, driver, tests) => (e) => {
     e.preventDefault();
     getCreateCodeExercise(true, 'Código', subtema, author, title, description, difficulty, driver, tests);
-    navigate('/CRUD');
+    props.onStep();
+  }
+
+  const handleEdition = (id, subtema, author, title, description, difficulty, driver, tests) => (e) => {
+    e.preventDefault();
+    getUpdateCodeExercise(id, true, 'Código', subtema, author, title, description, difficulty, driver, tests);
+    props.onStep();
   }
 
   if (!data_subtema || !data_dificultad) {
@@ -215,20 +221,38 @@ export const CodeExercise = (props) => {
             text={'Atrás'}
             func={handlePrevious}
           />
-          <CustomButton
-            type={'btn btn-success'}
-            text={'Crear ejercicio'}
-            func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, aprobadoOption, exerciseBlocksCode)}
-            disabled={
-              !titleOption.trim() ||
-              !authorOption.trim() ||
-              !descriptionOption.trim() ||
-              !subtemaOptions.trim() ||
-              !difficultyOption.trim() ||
-              !driverOption.trim() ||
-              exerciseBlocksCode.some(block => !block.input.trim() || !block.output.trim())
-            }
-          />
+          {props.edicion && (
+            <CustomButton
+              type={'btn btn-success'}
+              text={'Editar ejercicio'}
+              func={handleEdition(props.id, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode))}
+              disabled={
+                !titleOption.trim() ||
+                !authorOption.trim() ||
+                !descriptionOption.trim() ||
+                !subtemaOptions ||
+                !difficultyOption ||
+                !driverOption.trim() ||
+                exerciseBlocksCode.some(block => !block.input || !block.output)
+              }
+            />
+          )}
+          {!props.edicion && (
+            <CustomButton
+              type={'btn btn-success'}
+              text={'Crear ejercicio'}
+              func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode))}
+              disabled={
+                !titleOption.trim() ||
+                !authorOption.trim() ||
+                !descriptionOption.trim() ||
+                !subtemaOptions ||
+                !difficultyOption ||
+                !driverOption.trim() ||
+                exerciseBlocksCode.some(block => !block.input || !block.output)
+              }
+            />
+          )}
         </div>
     </div>
   )

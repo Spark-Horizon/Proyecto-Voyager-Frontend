@@ -1,4 +1,4 @@
-import { getCreateCodeExercise, getDeleteExercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
+import { getUpdateOMExercise, getUpdateCodeExercise, getCreateOMExercise, getCreateCodeExercise, getDeleteExercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
 import { getCRUDTask } from "../helpers/indexHelpers.js";
 import { useState, useEffect } from 'react';
 
@@ -162,14 +162,14 @@ export const useGetCreateCodeExercise = (autorizado, tipo, subtema, author, titl
     return { data_code_create, error };
 };
 
-export const useGetCreateOMExercise = (autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, answerOptions) => {
+export const useGetCreateOMExercise = (autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options) => {
     const [data_om_create, setProblemData] = useState(null);
     const [error, setError] = useState(null);
     
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const resultado = await getCreateCodeExercise(autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, answerOptions);
+                const resultado = await getCreateOMExercise(autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options);
                 setProblemData(resultado);
             } catch (error) {
                 setError(error);
@@ -180,4 +180,44 @@ export const useGetCreateOMExercise = (autorizado, tipo, subtema, author, title,
     }, []);
 
     return { data_om_create, error };
+};
+
+export const useGetUpdateCodeExercise = (id, autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
+    const [data_code_update, setProblemData] = useState(null);
+    const [error, setError] = useState(null);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const resultado = await getUpdateCodeExercise(id, autorizado, tipo, subtema, author, title, description, difficulty, driver, tests);
+                setProblemData(resultado);
+            } catch (error) {
+                setError(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    return { data_code_update, error };
+};
+
+export const useGetUpdateOMExercise = (id, autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options) => {
+    const [data_om_update, setProblemData] = useState(null);
+    const [error, setError] = useState(null);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const resultado = await getUpdateOMExercise(id, autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options);
+                setProblemData(resultado);
+            } catch (error) {
+                setError(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    return { data_om_update, error };
 };

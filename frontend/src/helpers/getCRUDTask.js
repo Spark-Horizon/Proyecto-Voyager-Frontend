@@ -140,7 +140,7 @@ export const getCreateCodeExercise = async (autorizado, tipo, subtema, author, t
   try {
     const options = {
       method: "post",
-      url: `http://${backendUrl}:${port}/CRUD/create/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${driver}/${tests}`,
+      url: `http://${backendUrl}:${port}/CRUD/create/code/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${driver}/${tests}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -155,17 +155,55 @@ export const getCreateCodeExercise = async (autorizado, tipo, subtema, author, t
   }
 };
 
-export const getCreateOMExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, answerOptions) => {
+export const getCreateOMExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options) => {
+  try {
+    const optionsAx = {
+      method: "post",
+      url: `http://${backendUrl}:${port}/CRUD/create/om/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${answer}/${hints}/${options}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(optionsAx);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getUpdateCodeExercise = async (id, autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
   try {
     const options = {
-      method: "post",
-      url: `http://${backendUrl}:${port}/CRUD/create/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${answer}/${hints}/${answerOptions}`,
+      method: "put",
+      url: `http://${backendUrl}:${port}/CRUD/update/code/${id}/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${driver}/${tests}`,
       headers: {
         "Content-Type": "application/json",
       },
     };
 
     const response = await axios(options);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getUpdateOMExercise = async (id, autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options) => {
+  try {
+    const optionsAx = {
+      method: "put",
+      url: `http://${backendUrl}:${port}/CRUD/update/om/${id}/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${answer}/${hints}/${options}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(optionsAx);
     
     return response.data;
   } catch (error) {

@@ -22,7 +22,7 @@ export const CreateExercise = () => {
 
   const handleExerciseTypeClick = (type) => {
     setExerciseType(type);
-    setStep(2);
+    handleNextStep();
   };
 
   const handleExerciseCreation = (e) => {
@@ -75,12 +75,7 @@ export const CreateExercise = () => {
 
             {step === 2 && exerciseType === 'Código' && (
                 <CodeExercise 
-                autor={''}
-                titulo={''}
-                descripcion={''}
-                tema={''}
-                dificultad={''}
-                driver={''}
+                onStep={handlePrevStep}
                 />
             )}
 
