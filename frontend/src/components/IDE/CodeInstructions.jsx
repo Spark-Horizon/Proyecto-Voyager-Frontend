@@ -5,7 +5,11 @@ export const CodeInstructions = ({ problem_id }) => {
   const { data } = useGetCodeTask(problem_id);
 
   if (!data) {
-    return <div>Cargando...</div>;
+    return (
+      <div className='loading-code-instructions'>
+        <p className='gradient'>Cargando...</p>
+      </div>
+    )
   }
 
   const { author, title, description, topic, difficulty, tests } = data;

@@ -9,7 +9,6 @@ import axios from "axios";
 */
 export const submit = async (url, method, submitData) => {
     try {
-        console.log(submitData)
         const options = {
             url: url,
             method: method,
@@ -21,9 +20,7 @@ export const submit = async (url, method, submitData) => {
             data: JSON.stringify(submitData)
         };          
 
-        console.log(options)
         const response = await axios(options);
-        console.log('response', response)
 
         const { data } = response;
 
