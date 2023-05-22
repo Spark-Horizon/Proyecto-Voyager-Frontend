@@ -156,9 +156,19 @@ export const getDeleteExercise = async (id) => {
 
 export const getCreateCodeExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
   try {
+    const autorizadoEncoded = encodeURIComponent(autorizado);
+    const tipoEncoded = encodeURIComponent(tipo);
+    const subtemaEncoded = encodeURIComponent(subtema);
+    const authorEncoded = encodeURIComponent(author);
+    const titleEncoded = encodeURIComponent(title);
+    const descriptionEncoded = encodeURIComponent(description);
+    const difficultyEncoded = encodeURIComponent(difficulty);
+    const driverEncoded = encodeURIComponent(driver);
+    const testsEncoded = encodeURIComponent(tests);
+
     const options = {
       method: "post",
-      url: `http://${backendUrl}:${port}/CRUD/create/code/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${driver}/${tests}`,
+      url: `http://${backendUrl}:${port}/CRUD/create/code/${autorizadoEncoded}/${tipoEncoded}/${subtemaEncoded}/${authorEncoded}/${titleEncoded}/${descriptionEncoded}/${difficultyEncoded}/${driverEncoded}/${testsEncoded}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -175,9 +185,20 @@ export const getCreateCodeExercise = async (autorizado, tipo, subtema, author, t
 
 export const getCreateOMExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options) => {
   try {
+    const autorizadoEncoded = encodeURIComponent(autorizado);
+    const tipoEncoded = encodeURIComponent(tipo);
+    const subtemaEncoded = encodeURIComponent(subtema);
+    const authorEncoded = encodeURIComponent(author);
+    const titleEncoded = encodeURIComponent(title);
+    const descriptionEncoded = encodeURIComponent(description);
+    const difficultyEncoded = encodeURIComponent(difficulty);
+    const answerEncoded = encodeURIComponent(answer);
+    const hintsEncoded = encodeURIComponent(hints)
+    const optionsEncoded = encodeURIComponent(options);
+
     const optionsAx = {
       method: "post",
-      url: `http://${backendUrl}:${port}/CRUD/create/om/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${answer}/${hints}/${options}`,
+      url: `http://${backendUrl}:${port}/CRUD/create/om/${autorizadoEncoded}/${tipoEncoded}/${subtemaEncoded}/${authorEncoded}/${titleEncoded}/${descriptionEncoded}/${difficultyEncoded}/${answerEncoded}/${hintsEncoded}/${optionsEncoded}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -194,9 +215,20 @@ export const getCreateOMExercise = async (autorizado, tipo, subtema, author, tit
 
 export const getUpdateCodeExercise = async (id, autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
   try {
+    const idEncoded = encodeURIComponent(id);
+    const autorizadoEncoded = encodeURIComponent(autorizado);
+    const tipoEncoded = encodeURIComponent(tipo);
+    const subtemaEncoded = encodeURIComponent(subtema);
+    const authorEncoded = encodeURIComponent(author);
+    const titleEncoded = encodeURIComponent(title);
+    const descriptionEncoded = encodeURIComponent(description);
+    const difficultyEncoded = encodeURIComponent(difficulty);
+    const driverEncoded = encodeURIComponent(driver);
+    const testsEncoded = encodeURIComponent(tests);
+
     const options = {
       method: "put",
-      url: `http://${backendUrl}:${port}/CRUD/update/code/${id}/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${driver}/${tests}`,
+      url: `http://${backendUrl}:${port}/CRUD/update/code/${idEncoded}/${autorizadoEncoded}/${tipoEncoded}/${subtemaEncoded}/${authorEncoded}/${titleEncoded}/${descriptionEncoded}/${difficultyEncoded}/${driverEncoded}/${testsEncoded}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -212,10 +244,22 @@ export const getUpdateCodeExercise = async (id, autorizado, tipo, subtema, autho
 };
 
 export const getUpdateOMExercise = async (id, autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options) => {
+  const idEncoded = encodeURIComponent(id);
+  const autorizadoEncoded = encodeURIComponent(autorizado);
+  const tipoEncoded = encodeURIComponent(tipo);
+  const subtemaEncoded = encodeURIComponent(subtema);
+  const authorEncoded = encodeURIComponent(author);
+  const titleEncoded = encodeURIComponent(title);
+  const descriptionEncoded = encodeURIComponent(description);
+  const difficultyEncoded = encodeURIComponent(difficulty);
+  const answerEncoded = encodeURIComponent(answer);
+  const hintsEncoded = encodeURIComponent(hints)
+  const optionsEncoded = encodeURIComponent(options);
+
   try {
     const optionsAx = {
       method: "put",
-      url: `http://${backendUrl}:${port}/CRUD/update/om/${id}/${autorizado}/${tipo}/${subtema}/${author}/${title}/${description}/${difficulty}/${answer}/${hints}/${options}`,
+      url: `http://${backendUrl}:${port}/CRUD/update/om/${idEncoded}/${autorizadoEncoded}/${tipoEncoded}/${subtemaEncoded}/${authorEncoded}/${titleEncoded}/${descriptionEncoded}/${difficultyEncoded}/${answerEncoded}/${hintsEncoded}/${optionsEncoded}`,
       headers: {
         "Content-Type": "application/json",
       },

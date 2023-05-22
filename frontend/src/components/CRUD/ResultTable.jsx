@@ -50,6 +50,13 @@ export const ResultTable = () => {
     }
   }, [exerciseData]);
 
+  useEffect(() => {
+    if (step === 1){
+      setExerciseID(null);
+      setExerciseData(null);
+    }
+  }, [step]);
+
   const handleReset = (e) => {
     e.preventDefault();
     setAutorOptions(['X']);
