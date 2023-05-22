@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useGetCRUDTask, useGetFilAutorTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask, useGetFilAutorizacionTask, useGetDeleteExercise } from '../../hooks/useGetCRUDTask.js';
-import { useGetCodeTask, useGetMOTask } from '../../hooks/useGetTask.js';
+import { useGetExerciseTask, useGetCRUDTask, useGetFilAutorTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask, useGetFilAutorizacionTask, useGetDeleteExercise } from '../../hooks/useGetCRUDTask.js';
 import { CustomButton } from '../CustomButton';
 import { getDeleteExercise }  from '../../helpers/getCRUDTask.js';
 import { CodeExercise } from "./CodeExercise"
@@ -10,10 +9,8 @@ import { OMExercise } from "./OMExercise"
 export const ResultTable = () => {
   const [step, setStep] = useState(1);
 
-  const [exerciseCodeID, setExerciseCodeID] = useState(null);
-  const [exerciseOMID, setExerciseOMID] = useState(null);
-  const [exerciseCodeData, setExerciseCodeData] = useState(null);
-  const [exerciseOMData, setExerciseOMData] = useState(null);
+  const [exerciseID, setExerciseID] = useState(null);
+  const [exerciseData, setExerciseData] = useState(null);
 
   const [editStatus, setEditStatus] = useState(null);
 
@@ -27,8 +24,7 @@ export const ResultTable = () => {
   
   const [filtroOptions, setFiltroOptions] = useState(['id_resultado']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
-  const { data_code } = useGetCodeTask(exerciseCodeID);
-  const { data_om } = useGetMOTask(exerciseOMID);
+  const { data_exercise } = useGetExerciseTask(exerciseID);
   const { data_result } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions);
   const { data_autor } = useGetFilAutorTask();
   const { data_subtema } = useGetFilSubtemaTask();
@@ -43,28 +39,16 @@ export const ResultTable = () => {
   }, [data_result]);
   
   useEffect(() => {
-    if (data_code){
-      setExerciseCodeData(data_code);
+    if (data_exercise){
+      setExerciseData(data_exercise);
     }
-  }, [data_code]);
+  }, [data_exercise]);
 
   useEffect(() => {
-    if (data_om){
-      setExerciseOMData(data_om);
-    }
-  }, [data_om]);
-
-  useEffect(() => {
-    if (exerciseCodeData !== null){
+    if (exerciseData !== null){
       handleNextStep();
     }
-  }, [exerciseCodeData]);
-
-  useEffect(() => {
-    if (exerciseOMData !== null){
-      handleNextStep();
-    }
-  }, [exerciseOMData]);
+  }, [exerciseData]);
 
   const handleReset = (e) => {
     e.preventDefault();
@@ -95,12 +79,11 @@ export const ResultTable = () => {
   }
   
   const handleEdition = (tipo_hand, id_hand) => (e) => {
+    setExerciseID(id_hand);
     if (tipo_hand === 'Código'){
       setEditStatus('Código');
-      setExerciseCodeID(id_hand);
     }else{
       setEditStatus('Opción múltiple');
-      setExerciseOMID(id_hand);
     }
   }
 
@@ -112,9 +95,6 @@ export const ResultTable = () => {
   if (!dataResult || !data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
     return <div>Cargando...</div>;
   }
-
-  console.log('informacion del ejercicio jalada', data_code);
-  console.log('informacion del ejercicio realmente cargada', exerciseCodeData);
 
   return (
     <div>
@@ -279,7 +259,7 @@ export const ResultTable = () => {
                   <CustomButton 
                     type={'btn btn-primary btn-sm mr-2'} 
                     text={'Editar'} 
-                    func={handleEdition(row.tipo_resultado, row.id_resultado)}/>
+                    func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
                   <CustomButton 
                     type={'btn btn-danger btn-sm'} 
                     text={'Borrar'} 
@@ -293,29 +273,31 @@ export const ResultTable = () => {
       )}
       {step === 2 && editStatus === 'Código' && (
         <CodeExercise 
-          id={exerciseCodeID}
-          author={exerciseCodeData['author']}
-          title={exerciseCodeData['title']}
-          description={exerciseCodeData['description']}
-          subtema={exerciseCodeData['topic']}
-          difficulty={exerciseCodeData['difficulty']}
-          driver={exerciseCodeData['driver']}
-          tests={exerciseCodeData['tests']}
+          id={exerciseID}
+          author={exerciseData['archivo']['author']}
+          title={exerciseData['archivo']['title']}
+          description={exerciseData['archivo']['description']}
+          subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+          difficulty={exerciseData['archivo']['difficulty']}
+          driver={exerciseData['archivo']['driver']}
+          tests={exerciseData['archivo']['tests']}
+          aprobado={exerciseData.autorizado}
           onStep={handlePrevStep}
           edicion={true}
         />
       )}
       {step === 2 && editStatus === 'Opción múltiple'&& (
         <OMExercise 
-          id={exerciseOMID}
-          author={exerciseOMData['author']}
-          title={exerciseOMData['title']}
-          description={exerciseOMData['description']}
-          subtema={exerciseOMData['topic']}
-          difficulty={exerciseOMData['difficulty']}
-          answer={exerciseOMData['answer']}
-          hints={exerciseOMData['hints']}
-          options={exerciseOMData['options']}
+          id={exerciseID}
+          author={exerciseData['archivo']['author']}
+          title={exerciseData['archivo']['title']}
+          description={exerciseData['archivo']['description']}
+          subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+          difficulty={exerciseData['archivo']['difficulty']}
+          answer={exerciseData['archivo']['answer']}
+          hints={exerciseData['archivo']['hints']}
+          options={exerciseData['archivo']['options']}
+          aprobado={exerciseData.autorizado}
           onStep={handlePrevStep}
           edicion={true}
         />

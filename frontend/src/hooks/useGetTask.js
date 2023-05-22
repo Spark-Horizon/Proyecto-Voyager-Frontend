@@ -2,7 +2,7 @@ import { getTask } from "../helpers/indexHelpers.js";
 import { useState, useEffect } from 'react';
 
 export const useGetCodeTask = (problem_id) => {
-    const [data_code, setProblemData] = useState(null);
+    const [data, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -20,11 +20,11 @@ export const useGetCodeTask = (problem_id) => {
         fetchData();
     }, [problem_id]);
 
-    return { data_code, error };
+    return { data, error };
 }
 
 export const useGetMOTask = (problem_id) => {
-    const [data_om, setProblemData] = useState(null);
+    const [data, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -42,5 +42,5 @@ export const useGetMOTask = (problem_id) => {
         fetchData();
     }, [problem_id]);
 
-    return { data_om, error };
+    return { data, error };
 }

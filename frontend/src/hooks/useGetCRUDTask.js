@@ -1,4 +1,4 @@
-import { getUpdateOMExercise, getUpdateCodeExercise, getCreateOMExercise, getCreateCodeExercise, getDeleteExercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
+import { getExerciseTask, getUpdateOMExercise, getUpdateCodeExercise, getCreateOMExercise, getCreateCodeExercise, getDeleteExercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
 import { getCRUDTask } from "../helpers/indexHelpers.js";
 import { useState, useEffect } from 'react';
 
@@ -21,6 +21,30 @@ export const useGetCRUDTask = (fil1, fil2, fil3, fil4, fil5, order, hier) => {
 
     return { data_result, error };
 }
+
+export const useGetExerciseTask = (problem_id) => {
+    const [data_exercise, setProblemData] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (problem_id){
+                    const resultado = await getExerciseTask(problem_id);
+                    const { id, autorizado, tipo,  archivo, id_subtema } = resultado;
+                    setProblemData({ id, autorizado, tipo,  archivo, id_subtema });
+                }
+            } catch (error) {
+                setError(error);
+            }
+        };
+
+        fetchData();
+    }, [problem_id]);
+
+    return { data_exercise, error };
+}
+
 
 export const useGetFilAutorTask = () => {
     const [data_autor, setProblemData] = useState(null);
@@ -191,6 +215,7 @@ export const useGetUpdateCodeExercise = (id, autorizado, tipo, subtema, author, 
             try {
                 const resultado = await getUpdateCodeExercise(id, autorizado, tipo, subtema, author, title, description, difficulty, driver, tests);
                 setProblemData(resultado);
+                console.log(resultado);
             } catch (error) {
                 setError(error);
             }

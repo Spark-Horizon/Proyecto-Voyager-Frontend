@@ -22,6 +22,24 @@ export const getCRUDTask = async (fil1, fil2, fil3, fil4, fil5, order, hier) => 
   }
 };
 
+export const getExerciseTask = async (id) => {
+  try {
+    const options = {
+      method: "get",
+      url: `http://${backendUrl}:${port}/CRUD/exercise/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
+
+    return response.data[0];
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getFilAutorTask = async () => {
   try {
     const options = {

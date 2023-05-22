@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CustomButton } from '../CustomButton';
 import {useGetFilSubtemaTask, useGetFilDificultadTask} from '../../hooks/useGetCRUDTask.js';
 
@@ -14,12 +13,10 @@ export const CodeExercise = (props) => {
   const [descriptionOption, setDescriptionOption] = useState(props.description || '');
   const [difficultyOption, setDifficultyOption] = useState(props.difficulty || '');
   const [driverOption, setDriverOption] = useState(props.driver || '');
-  const [aprobadoOption, setAprobadoOption] = useState(props.aprobado || '');
+  const [aprobadoOption, setAprobadoOption] = useState(props.aprobado || false);
 
   const { data_subtema } = useGetFilSubtemaTask();
   const { data_dificultad } = useGetFilDificultadTask();
-
-  const navigate = useNavigate()
 
   const [exerciseBlocksCode, setExerciseBlocksCode] = useState(props.tests || [{ input: '', output: '' }]);
 
@@ -55,15 +52,15 @@ export const CodeExercise = (props) => {
     setExerciseBlocksCode(blocks);
   };
 
-  const handleCreation = (subtema, author, title, description, difficulty, driver, tests) => (e) => {
+  const handleCreation = (aprobado, subtema, author, title, description, difficulty, driver, tests) => (e) => {
     e.preventDefault();
-    getCreateCodeExercise(true, 'Código', subtema, author, title, description, difficulty, driver, tests);
+    getCreateCodeExercise(aprobado, 'Código', subtema, author, title, description, difficulty, driver, tests);
     props.onStep();
   }
 
-  const handleEdition = (id, subtema, author, title, description, difficulty, driver, tests) => (e) => {
+  const handleEdition = (id, aprobado, subtema, author, title, description, difficulty, driver, tests) => (e) => {
     e.preventDefault();
-    getUpdateCodeExercise(id, true, 'Código', subtema, author, title, description, difficulty, driver, tests);
+    getUpdateCodeExercise(id, aprobado, 'Código', subtema, author, title, description, difficulty, driver, tests);
     props.onStep();
   }
 
@@ -126,7 +123,7 @@ export const CodeExercise = (props) => {
                 id="subtema" 
                 value={subtemaOptions}
                 onChange={(e) => setSubtemaOptions(e.target.value)}>
-                <option value={props.tema}></option>
+                <option value={props.subtema}></option>
                 {data_subtema.map((row) => (
                   <option key={row.id_subtema} value={row.id_subtema+","+row.nombre}>
                     {row.nombre}
@@ -225,7 +222,7 @@ export const CodeExercise = (props) => {
             <CustomButton
               type={'btn btn-success'}
               text={'Editar ejercicio'}
-              func={handleEdition(props.id, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode))}
+              func={handleEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode))}
               disabled={
                 !titleOption.trim() ||
                 !authorOption.trim() ||
@@ -241,7 +238,7 @@ export const CodeExercise = (props) => {
             <CustomButton
               type={'btn btn-success'}
               text={'Crear ejercicio'}
-              func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode))}
+              func={handleCreation(aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode))}
               disabled={
                 !titleOption.trim() ||
                 !authorOption.trim() ||

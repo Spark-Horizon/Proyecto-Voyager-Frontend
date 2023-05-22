@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CustomButton } from '../CustomButton';
 import {useGetFilSubtemaTask, useGetFilDificultadTask} from '../../hooks/useGetCRUDTask.js';
 
@@ -14,15 +13,12 @@ export const OMExercise = (props) => {
   const [descriptionOption, setDescriptionOption] = useState(props.description || '');
   const [difficultyOption, setDifficultyOption] = useState(props.difficulty || '');
   const [answerOption, setAnswerOption] = useState(props.answer || '0');
-  const [hintsOption, setHintsOption] = useState(props.hints || '');
-  const [aprobadoOption, setAprobadoOption] = useState(props.aprobado || '');
+  const [hintsOption, setHintsOption] = useState(props.hints || false);
+  const [aprobadoOption, setAprobadoOption] = useState(props.aprobado || false);
 
   const { data_subtema } = useGetFilSubtemaTask();
   const { data_dificultad } = useGetFilDificultadTask();
 
-  const navigate = useNavigate()
-
-  const [step, setStep] = useState(1);
   const [exerciseBlocksOM, setExerciseBlocksOM] = useState(props.options || [{ text: '', explanation: '' }]);
 
   const handlePrevious = () => {
@@ -53,26 +49,26 @@ export const OMExercise = (props) => {
   const handleInputChangeOM = (event, index) => {
     const { value } = event.target;
     const blocks = [...exerciseBlocksOM];
-    blocks[index].input = value;
+    blocks[index].text = value;
     setExerciseBlocksOM(blocks);
   };
 
   const handleOutputChangeOM = (event, index) => {
     const { value } = event.target;
     const blocks = [...exerciseBlocksOM];
-    blocks[index].output = value;
+    blocks[index].explanation = value;
     setExerciseBlocksOM(blocks);
   };
 
-  const handleCreation = (subtema, author, title, description, difficulty, answer, hints, options) => (e) => {
+  const handleCreation = (aprobado, subtema, author, title, description, difficulty, answer, hints, options) => (e) => {
     e.preventDefault();
-    getCreateOMExercise(true, 'Opción múltiple', subtema, author, title, description, difficulty, answer, hints, options);
+    getCreateOMExercise(aprobado, 'Opción múltiple', subtema, author, title, description, difficulty, answer, hints, options);
     props.onStep();
   }
 
-  const handleEdition = (id, subtema, author, title, description, difficulty, answer, hints, options) => (e) => {
+  const handleEdition = (id, aprobado, subtema, author, title, description, difficulty, answer, hints, options) => (e) => {
     e.preventDefault();
-    getUpdateOMExercise(id, true, 'Opción múltiple', subtema, author, title, description, difficulty, answer, hints, options);
+    getUpdateOMExercise(id, aprobado, 'Opción múltiple', subtema, author, title, description, difficulty, answer, hints, options);
     props.onStep();
   }
 
@@ -135,7 +131,7 @@ export const OMExercise = (props) => {
                 id="subtema" 
                 value={subtemaOptions}
                 onChange={(e) => setSubtemaOptions(e.target.value)}>
-                <option value={props.tema}></option>
+                <option value={props.subtema}></option>
                 {data_subtema.map((row) => (
                   <option key={row.id_subtema} value={row.id_subtema+","+row.nombre}>
                     {row.nombre}
@@ -250,7 +246,7 @@ export const OMExercise = (props) => {
             <CustomButton
                 type={'btn btn-success'}
                 text={'Editar ejercicio'}
-                func={handleEdition(props.id, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM))}
+                func={handleEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM))}
                 disabled={
                   !titleOption.trim() ||
                   !authorOption.trim() ||
@@ -258,7 +254,7 @@ export const OMExercise = (props) => {
                   !subtemaOptions ||
                   !difficultyOption ||
                   !answerOption ||
-                  exerciseBlocksOM.some(block => !block.input || !block.output)
+                  exerciseBlocksOM.some(block => !block.text || !block.explanation)
                 }
             />
           )}
@@ -266,7 +262,7 @@ export const OMExercise = (props) => {
             <CustomButton
                 type={'btn btn-success'}
                 text={'Crear ejercicio'}
-                func={handleCreation(subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM))}
+                func={handleCreation(aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM))}
                 disabled={
                   !titleOption.trim() ||
                   !authorOption.trim() ||
@@ -274,7 +270,7 @@ export const OMExercise = (props) => {
                   !subtemaOptions ||
                   !difficultyOption ||
                   !answerOption ||
-                  exerciseBlocksOM.some(block => !block.input || !block.output)
+                  exerciseBlocksOM.some(block => !block.text || !block.explanation)
                 }
             />
           )}
