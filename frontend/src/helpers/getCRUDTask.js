@@ -22,6 +22,24 @@ export const getCRUDTask = async (fil1, fil2, fil3, fil4, fil5, order, hier) => 
   }
 };
 
+export const getExerciseTask = async (id) => {
+  try {
+    const options = {
+      method: "get",
+      url: `http://${backendUrl}:${port}/CRUD/exercise/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
+
+    return response.data[0];
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getFilAutorTask = async () => {
   try {
     const options = {
@@ -117,10 +135,10 @@ export const getFilAutorizacionTask = async () => {
   }
 };
 
-export const getDeleteExcercise = async (id) => {
+export const getDeleteExercise = async (id) => {
   try {
     const options = {
-      method: "get",
+      method: "delete",
       url: `http://${backendUrl}:${port}/CRUD/delete/${id}`,
       headers: {
         "Content-Type": "application/json",
@@ -128,6 +146,126 @@ export const getDeleteExcercise = async (id) => {
     };
 
     const response = await axios(options);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getCreateCodeExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
+  try {
+    const autorizadoEncoded = encodeURIComponent(autorizado);
+    const tipoEncoded = encodeURIComponent(tipo);
+    const subtemaEncoded = encodeURIComponent(subtema);
+    const authorEncoded = encodeURIComponent(author);
+    const titleEncoded = encodeURIComponent(title);
+    const descriptionEncoded = encodeURIComponent(description);
+    const difficultyEncoded = encodeURIComponent(difficulty);
+    const driverEncoded = encodeURIComponent(driver);
+    const testsEncoded = encodeURIComponent(tests);
+
+    const options = {
+      method: "post",
+      url: `http://${backendUrl}:${port}/CRUD/create/code/${autorizadoEncoded}/${tipoEncoded}/${subtemaEncoded}/${authorEncoded}/${titleEncoded}/${descriptionEncoded}/${difficultyEncoded}/${driverEncoded}/${testsEncoded}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getCreateOMExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options) => {
+  try {
+    const autorizadoEncoded = encodeURIComponent(autorizado);
+    const tipoEncoded = encodeURIComponent(tipo);
+    const subtemaEncoded = encodeURIComponent(subtema);
+    const authorEncoded = encodeURIComponent(author);
+    const titleEncoded = encodeURIComponent(title);
+    const descriptionEncoded = encodeURIComponent(description);
+    const difficultyEncoded = encodeURIComponent(difficulty);
+    const answerEncoded = encodeURIComponent(answer);
+    const hintsEncoded = encodeURIComponent(hints)
+    const optionsEncoded = encodeURIComponent(options);
+
+    const optionsAx = {
+      method: "post",
+      url: `http://${backendUrl}:${port}/CRUD/create/om/${autorizadoEncoded}/${tipoEncoded}/${subtemaEncoded}/${authorEncoded}/${titleEncoded}/${descriptionEncoded}/${difficultyEncoded}/${answerEncoded}/${hintsEncoded}/${optionsEncoded}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(optionsAx);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getUpdateCodeExercise = async (id, autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
+  try {
+    const idEncoded = encodeURIComponent(id);
+    const autorizadoEncoded = encodeURIComponent(autorizado);
+    const tipoEncoded = encodeURIComponent(tipo);
+    const subtemaEncoded = encodeURIComponent(subtema);
+    const authorEncoded = encodeURIComponent(author);
+    const titleEncoded = encodeURIComponent(title);
+    const descriptionEncoded = encodeURIComponent(description);
+    const difficultyEncoded = encodeURIComponent(difficulty);
+    const driverEncoded = encodeURIComponent(driver);
+    const testsEncoded = encodeURIComponent(tests);
+
+    const options = {
+      method: "put",
+      url: `http://${backendUrl}:${port}/CRUD/update/code/${idEncoded}/${autorizadoEncoded}/${tipoEncoded}/${subtemaEncoded}/${authorEncoded}/${titleEncoded}/${descriptionEncoded}/${difficultyEncoded}/${driverEncoded}/${testsEncoded}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getUpdateOMExercise = async (id, autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options) => {
+  const idEncoded = encodeURIComponent(id);
+  const autorizadoEncoded = encodeURIComponent(autorizado);
+  const tipoEncoded = encodeURIComponent(tipo);
+  const subtemaEncoded = encodeURIComponent(subtema);
+  const authorEncoded = encodeURIComponent(author);
+  const titleEncoded = encodeURIComponent(title);
+  const descriptionEncoded = encodeURIComponent(description);
+  const difficultyEncoded = encodeURIComponent(difficulty);
+  const answerEncoded = encodeURIComponent(answer);
+  const hintsEncoded = encodeURIComponent(hints)
+  const optionsEncoded = encodeURIComponent(options);
+
+  try {
+    const optionsAx = {
+      method: "put",
+      url: `http://${backendUrl}:${port}/CRUD/update/om/${idEncoded}/${autorizadoEncoded}/${tipoEncoded}/${subtemaEncoded}/${authorEncoded}/${titleEncoded}/${descriptionEncoded}/${difficultyEncoded}/${answerEncoded}/${hintsEncoded}/${optionsEncoded}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(optionsAx);
     
     return response.data;
   } catch (error) {
