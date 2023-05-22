@@ -13,6 +13,7 @@ export const SignUp = (props) => {
   const [step, setStep] = useState(1);
   const [Temail, setTEmail] = useState('');
   const [Semail, setSEmail] = useState('');
+  const [payroll, setPayroll] = useState('');
   const [name, setName] = useState('');
   const [lastName1, setLastName1] = useState('');
   const [lastName2, setLastName2] = useState('');
@@ -22,7 +23,7 @@ export const SignUp = (props) => {
   const [isTeacher, setIsTeacher] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { signup } = useAuth()
+  const { signup, addDataToFirestore } = useAuth()
 
   // Funcionalidades del componente
   const resetFields = () => {
@@ -65,15 +66,21 @@ export const SignUp = (props) => {
 
   async function handleSignUp(e) {
     e.preventDefault();
-    try{
-      setLoading(true);
-      await signup(Temail || Semail, password);
-      
-    } catch {
-      setError('Ese correo ya tiene una cuenta asignada');
-      console.log("Fallo al registrar la cuenta");
+    let usuario = {
+      id: isTeacher ? payroll : Semail.replace(/@tec\.mx$/, ""),
+      name: name,
+      lastName1: lastName1,
+      lastName2: lastName2,
+      email: Temail || Semail,
+      timestamp: new Date(),
+      role: isTeacher ? 'teacher' : 'student'                  
     }
-    setLoading(false);
+    try {
+      const userCredential = await signup(Temail || Semail, password);
+      await addDataToFirestore('users', userCredential.user.uid, usuario);
+    } catch (error) {
+      setError('Ese correo ya tiene una cuenta asignada');
+    }
   };
 
   const isTeacherEmailValid = () => {
@@ -98,19 +105,9 @@ export const SignUp = (props) => {
     return password === confirmPassword;
   };
 
-  const isNameValid = () => {
+  const isNameValid = (_name) => {
     const nameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
-    return nameRegex.test(name);
-  };
-
-  const isLastName1Valid = () => {
-    const lastName1Regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
-    return lastName1Regex.test(lastName1);
-  };
-
-  const isLastName2Valid = () => {
-    const lastName2Regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
-    return lastName2Regex.test(lastName2);
+    return nameRegex.test(_name);
   };
 
   // Links y componentes de Navbar
@@ -176,6 +173,16 @@ export const SignUp = (props) => {
                       {!isTeacherEmailValid() && (
                         <div className="text-danger">El correo electrónico es inválido</div>
                       )}
+                      <label htmlFor="payroll" className="mt-3 text-center">Nómina</label>
+                      <input 
+                        type="text" 
+                        id="payroll" 
+                        value={payroll} 
+                        onChange={(e) => setPayroll(e.target.value)} 
+                        className="form-control" 
+                        placeholder="L01234567" 
+                        required 
+                      />
                     </>
                   ) : (
                     <>
@@ -262,7 +269,7 @@ export const SignUp = (props) => {
                     type={'btn  btnPrimary btn-primary'}
                     text={'Siguiente'}
                     func={handleNextStep}
-                    disabled={!isNameValid() || !isLastName1Valid() || !isLastName2Valid()}/>
+                    disabled={!isNameValid(name) || !isNameValid(lastName1) || !isNameValid(lastName2)}/>
                 </div>
 
               </div>
