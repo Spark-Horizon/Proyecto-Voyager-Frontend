@@ -81,13 +81,7 @@ export const CreateExercise = () => {
 
             {step === 2 && exerciseType === 'Opción múltiple' && (
               <OMExercise 
-              autor={''}
-              titulo={''}
-              descripcion={''}
-              tema={''}
-              dificultad={''}
-              respuesta={'0'}
-              pista={''}
+              onStep={handlePrevStep}
               />
           )}
         </form>

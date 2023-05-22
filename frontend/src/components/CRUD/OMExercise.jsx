@@ -26,12 +26,12 @@ export const OMExercise = (props) => {
   }
 
   const handleAddBlockOM = () => {
-    setExerciseBlocksOM([...exerciseBlocksOM, { texto: '', explicacion: '' }]);
+    setExerciseBlocksOM([...exerciseBlocksOM, { text: '', explanation: '' }]);
   };
 
   const handleRemoveBlockOM = () => {
     if (exerciseBlocksOM.length === 1) {
-      setExerciseBlocksOM([{ texto: '', explicacion: '' }]);
+      setExerciseBlocksOM([{ text: '', explanation: '' }]);
     } else {
       const blocks = [...exerciseBlocksOM];
       blocks.pop();
