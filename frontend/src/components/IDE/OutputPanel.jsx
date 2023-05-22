@@ -8,6 +8,7 @@ import { Console } from './Console';
 
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const port = process.env.REACT_APP_BACKEND_PORT
 
 export const OutputPanel = ({
   code,
@@ -28,8 +29,7 @@ export const OutputPanel = ({
       code: code,
       tests: tests,
       driver: driver,
-    };
-    
+    };    
     if (!submitIsLoading && !runIsLoading) {
       try {
         setRunIsLoading(true);

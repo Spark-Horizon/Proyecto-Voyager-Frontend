@@ -1,10 +1,13 @@
 import axios from "axios";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL
+const port = process.env.REACT_APP_BACKEND_PORT
+
 export const getCRUDTask = async (fil1, fil2, fil3, fil4, fil5, order, hier) => {
   try {
     const options = {
       method: "get",
-      url: `http://localhost:3000/CRUD/${fil1}/${fil2}/${fil3}/${fil4}/${fil5}/${order}/${hier}`,
+      url: `http://${backendUrl}:${port}/CRUD/${fil1}/${fil2}/${fil3}/${fil4}/${fil5}/${order}/${hier}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -23,7 +26,7 @@ export const getFilAutorTask = async () => {
   try {
     const options = {
       method: "get",
-      url: `http://localhost:3000/CRUD/filter/autor`,
+      url: `http://${backendUrl}:${port}/CRUD/filter/autor`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -42,7 +45,7 @@ export const getFilSubtemaTask = async () => {
   try {
     const options = {
       method: "get",
-      url: `http://localhost:3000/CRUD/filter/subtema`,
+      url: `http://${backendUrl}:${port}/CRUD/filter/subtema`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -61,7 +64,7 @@ export const getFilTipoTask = async () => {
   try {
     const options = {
       method: "get",
-      url: `http://localhost:3000/CRUD/filter/tipo`,
+      url: `http://${backendUrl}:${port}/CRUD/filter/tipo`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -80,7 +83,7 @@ export const getFilDificultadTask = async () => {
   try {
     const options = {
       method: "get",
-      url: `http://localhost:3000/CRUD/filter/dificultad`,
+      url: `http://${backendUrl}:${port}/CRUD/filter/dificultad`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -99,7 +102,7 @@ export const getFilAutorizacionTask = async () => {
   try {
     const options = {
       method: "get",
-      url: `http://localhost:3000/CRUD/filter/autorizacion`,
+      url: `http://${backendUrl}:${port}/CRUD/filter/autorizacion`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -118,7 +121,7 @@ export const getDeleteExcercise = async (id) => {
   try {
     const options = {
       method: "get",
-      url: `http://localhost:3000/CRUD/delete/${id}`,
+      url: `http://${backendUrl}:${port}/CRUD/delete/${id}`,
       headers: {
         "Content-Type": "application/json",
       },
