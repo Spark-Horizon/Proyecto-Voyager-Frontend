@@ -30,9 +30,14 @@ export const StudentInterface = ({user}) => {
   // Links y componentes de Navbar
   const navbar = {
     links: [],
-    tabs: [ {component: <ProvitionalTab/>,text: 'Atrevete'}],
+    tabs: [],
     components: [{component: <CustomButton type={'btn btn-sm btnPrimary'} text={'Cerrar sesión'} func={handleLogout}/>}]
   }
+  /*const navbar = {
+    links: [],
+    tabs: [ {component: <ProvitionalTab/>,text: 'Atrevete'}],
+    components: [{component: <CustomButton type={'btn btn-sm btnPrimary'} text={'Cerrar sesión'} func={handleLogout}/>}]
+  }*/
 
   return (
     <section className="student-page">

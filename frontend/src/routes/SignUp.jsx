@@ -154,7 +154,7 @@ export const SignUp = (props) => {
               <div>
 
                 <div className="text-center mb-5">
-                  <span>Ingresa tu correo electrónico institucional</span>
+                  <h2>Ingresa tu correo electrónico institucional</h2>
                 </div>
 
                 <div className="form-group mb-4">
@@ -202,9 +202,9 @@ export const SignUp = (props) => {
                   )}
                 </div>
 
-                <div className="select next-back mt-5">
+                <div className="select mt-5">
                   <CustomButton
-                    type={'btn btnSecondary'}
+                    type={'btn me-3 btnSecondary'}
                     text={'Atrás'}
                     func={handlePrevStep}/>
                   <CustomButton
@@ -221,7 +221,7 @@ export const SignUp = (props) => {
               <div>
 
                 <div className="text-center mb-4">
-                  <span>Completa tu información personal</span>
+                  <h2>Completa tu información personal</h2>
                 </div>
 
                 <div className="form-group mb-4">
@@ -260,9 +260,9 @@ export const SignUp = (props) => {
                   />
                 </div>
 
-                <div className="select next-back mt-5">
+                <div className="select mt-5">
                   <CustomButton
-                    type={'btn btnSecondary'}
+                    type={'btn me-3 btnSecondary'}
                     text={'Atrás'}
                     func={handlePrevStep}/>
                   <CustomButton
@@ -279,11 +279,11 @@ export const SignUp = (props) => {
               <div>
 
                 <div className="text-center mb-6">
-                  <span>Crea una contraseña de entre 6 y 18 caracteres usando</span>
+                  <h2>Crea una contraseña</h2>
                 </div>
 
                 <div className="text-center mb-4">
-                  <span> mayúsculas, minúsculas, números y/o símbolos</span>
+                  <span>usando mayúsculas, minúsculas, números y/o símbolos</span>
                 </div>
 
                 <div className="form-group mb-4">
@@ -312,9 +312,9 @@ export const SignUp = (props) => {
                     </label>
                 </div>
 
-                <div className="select next-back mt-5">
+                <div className="select mt-5">
                   <CustomButton
-                    type={'btn btnSecondary'}
+                    type={'btn me-3 btnSecondary'}
                     text={'Atrás'}
                     func={handlePrevStep}/>
                   <CustomButton
@@ -331,21 +331,21 @@ export const SignUp = (props) => {
               <div>
 
                 <div className="text-center mb-4">
-                  <span>Confirma tus datos</span>
+                  <h2>Confirma tus datos</h2>
                   {error && <div className="text-danger">{error}</div>}
                 </div>
                 
                 <div className="text-left mb-4">
-                    <p className="fs-5">Nombre completo:</p>
-                    <p className="fs-6">{name} {lastName1} {lastName2}</p>
-                    <p className="fs-5">Correo electrónico:</p>
-                    <p className="fs-6">{Temail || Semail}</p>
-                    <p className="fs-5">Tipo de usuario:</p>
-                    <p className="fs-6">{isTeacher ? 'Profesor' : 'Estudiante'}</p>
+                    <p className="fs-5">Nombre completo: {name} {lastName1} {lastName2}</p>
+                    <p className="fs-5">Correo electrónico: {Temail || Semail}</p>
+                    <p className="fs-5">Tipo de usuario: {isTeacher ? 'Profesor' : 'Estudiante'}</p>
                 </div>
 
-                  <button type="submit" disabled={loading} className="btn btn-primary mt-2">Registrarse</button>
-                  <button type="button" className="btn btn-secondary mt-3" onClick={handlePrevStep}>Atrás</button>
+                <div className="select mt-5">
+                  <button type="button" className="btn btn-secondary me-3" onClick={handlePrevStep}>Atrás</button>
+                  <button type="submit" disabled={loading} className="btn btn-primary">Registrarse</button>
+                </div>
+
 
               </div>
             )}
