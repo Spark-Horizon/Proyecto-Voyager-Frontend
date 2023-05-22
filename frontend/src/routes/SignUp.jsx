@@ -303,8 +303,6 @@ export const SignUp = (props) => {
                   )}
                 </div>
 
-
-
                 <div className="form-check mb-4">
                     <input type="checkbox" id="terms" checked={terms} onChange={(e) => setTerms(e.target.checked)} className="form-check-input" />
                     <label htmlFor="terms" className="form-check-label">

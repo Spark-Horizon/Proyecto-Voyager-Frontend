@@ -2,70 +2,112 @@
   transition: all ease 0.5s;
   height: 100%;
   box-sizing: border-box;
-  background-color: #f0f0f0;
+  background: rgba( 30, 30, 30, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 11px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur( 11px );
   width: 30%;
 }
+
 .code-instructions-topic{
-  background-color: var(--strong-blue);
-  color: #f0f0f0;
+  background: rgba( 30, 30, 30, 0.25 );
+  backdrop-filter: blur( 11px );
+  -webkit-backdrop-filter: blur( 11px );
+  background: linear-gradient(to right, var(--light-blue), var(--strong-blue));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   padding: 10px 25px;
 }
+
 .code-instructions-topic h2{
   font-size: 18px;
   font-weight: bold;
   margin: 0;
 }
+
 .code-instructions-title{
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
 }
+
 .code-instructions-title h3{
   font-size: 18px;
   margin-right: 10px;
   font-weight: bold;
 }
+
 .code-instructions-title .badge{
   height: fit-content;
   width: fit-content;
 }
+
 .Difícil{
   background-color: var(--warning-color);
 }
+
 .code-instructions-content{
   margin: 25px;
   overflow-y: scroll;
 }
+
 .code-instructions-content::-webkit-scrollbar {
   width: 0;
 }
+
 .code-instructions-content p{
   font-size: 14px;
 }
+
 .code-instructions-tests {
   border-collapse: collapse;
 }
+
 .code-instructions-tests{
   margin: 20px 0;
 }
+
 .code-instructions-tests{
   font-size: 14px;
 }
+
 .code-instructions-tests th,
 .code-instructions-tests td {
   padding: 5px 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #fff;
+  ;
 }
+
 .code-instructions-tests th {
   font-weight: bold;
-  background-color: #eee;
+  color: var(--strong-blue);
 }
+
 .code-instructions-author{
   font-size: 12px;
   margin: 0;
   text-align: right;
   font-style: italic;
+}
+
+.loading-code-instructions {
+  background-color: red;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba( 30, 30, 30, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 11px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur( 11px );
 }
 
 @media screen and (max-width: 1050px) {

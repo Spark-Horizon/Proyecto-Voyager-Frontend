@@ -1,126 +1,73 @@
-/* [GLOBAL] */
-:root {
-  --adjust-bar-height: 10px;
-  --main-gray: #383838;
-}
-
 /* [COMPILER COMPONENT] */
 .compiler-main-container {
   width: 100%;
-  display: flex;
   height: 60%;
+  display: flex;
   overflow: hidden;
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  padding: 0px 10px;
+  border-radius: 10px 10px 0px 0px;
+  background-color: var(--compiler-theme-color);
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 /* [OUTPUT PANEL] */
 .output-panel-main-container {
   width: 100%;
+  height: 40%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: blue;
-  height: calc(40% - var(--adjust-bar-height));
 }
 
 /* [TEST CASES PANEL] */
-/* [CONSOLE PANEL] */
-.compiler-console {
-  width: 100%;
-  height: 40%;
-  background-color: black;
-  font-family: system-ui;
-  padding: 10px;
-  word-wrap: break-word;
-  color: #fff;
-  overflow-y: scroll;
-}
-
-/* [BUTTONS] */
-.compiler-buttons-container {
-  background: linear-gradient(90deg, rgba(12, 202, 161, 0.25) 0%, rgba(0, 51, 255, 0.25) 100%);
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 7px );
-  -webkit-backdrop-filter: blur( 7px );
-  border-radius: 5px 5px 0px 0px;
-  justify-content: flex-end;
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
-  display: flex;
-  height: 15%;
-  width: 100%;
-}
-
-.run {
-  background-color: var(--main-gray);
-  color: #fff;
-  font-size: 13px;
-  width: fit-content;
-  height: 100%;
-  border-radius: 10px;
-  border: none;
-  width: 10%;
-  margin-right: 10px;
-}
-
-.run:hover {
-  background-color: rgb(243, 219, 4);
-}
-
-.submit {
-  background-color: var(--main-gray);
-  color: #fff;
-  font-size: 13px;
-  width: fit-content;
-  height: 100%;
-  border-radius: 10px;
-  border: none;
-  width: 10%;
-}
-
-.submit:hover {
-  background-color: rgb(255, 162, 0);
-}
-
-/* [TEST CASES] */
 /* Contenedor principal */
 .test-cases {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  overflow-y: scroll;
   align-items: center;
   height: 55%;
   flex-wrap: wrap;
-  background-color: #2d2d2d;
+  background: rgba( 30, 30, 30, 0.25 );
+  backdrop-filter: blur( 11px );
+  -webkit-backdrop-filter: blur( 11px );
+  border-right: 1px solid rgba( 255, 255, 255, 0.18 );
+  border-left: 1px solid rgba( 255, 255, 255, 0.18 );
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   width: 100%;
 }
-  
-/* Título principal */
-.test-cases h1 {
-  font-size: 1rem;
-  color: #f5f5f5;
-  margin-bottom: 1rem;
+
+.test-cases-header {
+  margin: 0px 0px 0px 10px;
 }
 
 /* Contenedor de cada testcase */
 .test-case {
-  min-width: 150px;
-  padding: 1rem;
-  background-color: #383838;
+  width: 100px;
+  max-height: max-content;
+  padding: 10px;
+  background: rgba( 30, 30, 30, 0.25 );
+  backdrop-filter: blur( 11px );
+  -webkit-backdrop-filter: blur( 11px );
   border-radius: 5px;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 1rem;
+  
 }
 
 /* Estilos para testcases que pasaron */
 .test-passed {
   border-left: 5px solid #4caf50;
+  box-shadow: 0 8px 32px 0 rgba(76, 175, 80, 0.1);
 }
 
 /* Estilos para testcases que fallaron */
 .test-failed {
   border-left: 5px solid #f44336;
+  box-shadow: 0px 10px 32px 0 rgba(244, 67, 54, 0.1);
 }
 
 /* Subtítulos */
@@ -132,7 +79,6 @@
 
 /* Detalles del testcase */
 .test-case-details p {
-  display: none;
   margin: 0.5rem 0;
   font-size: 0.6rem;
   color: #aaa;
@@ -142,9 +88,137 @@
   color: #f5f5f5;
 }
 
-/* [ADJUSTER] */
-.adjuster {
-  background-color: black;
-  height: var(--adjust-bar-height);
+/* [CONSOLE PANEL] */
+.compiler-console {
   width: 100%;
+  height: 40%;
+  background: rgba( 13, 13, 13, 0.25 );
+  backdrop-filter: blur( 11px );
+  -webkit-backdrop-filter: blur( 11px );
+  border-radius: 0px 0px 10px 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  font-family: 'Consolas';
+  padding: 1rem;
+  word-wrap: break-word;
+  color: #fff;
+  font-size: 15px;
+  overflow-y: scroll;
+}
+
+/* [BUTTONS] */
+.compiler-buttons-main-container {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background: rgba( 30, 30, 30, 0.25 );
+  backdrop-filter: blur( 11px );
+  -webkit-backdrop-filter: blur( 11px );
+  border-right: 1px solid rgba( 255, 255, 255, 0.18 );
+  border-left: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.compiler-buttons-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.run {
+  outline:none;
+  height: 100%;
+  text-align: center;
+  margin-right: 15px;
+  width: 80px;
+  border-radius: 5px;
+  background: transparent;
+  background: rgba( 30, 30, 30, 0.25 );
+  backdrop-filter: blur( 11px );
+  -webkit-backdrop-filter: blur( 11px );
+  border: 1px solid rgba( 255, 255, 255, 0.18);
+  text-shadow: 0;
+  font-size: 13px;
+  font-weight: lighter;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.run:hover {
+  color:white;
+  font-weight: bold;
+  border: 2px solid rgba( 255, 255, 255, 0.18);
+}
+
+.run:active {
+  letter-spacing: 2px;
+}
+
+.run::after {
+  content: 'Run';
+}
+
+.submit {
+  outline:none;
+  height: 100%;
+  text-align: center;
+  width: 80px;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid var(--light-blue);
+  color: var(--light-blue);
+  text-shadow: 0;
+  font-size: 13px;
+  font-weight: lighter;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.submit:hover {
+  color:white;
+  background: var(--light-blue);
+  font-weight: bold;
+}
+
+.submit:active {
+  letter-spacing: 2px;
+}
+
+.submit::after {
+  content: 'Submit';
+}
+
+.clicked {
+  width: max-content;
+  aspect-ratio: 1/1;
+  border-color: rgba(98, 98, 98, 0.25);
+  border-width:3px;
+  border-radius: 100%;
+  border-left-color: var(--light-blue);
+  animation: rotating 2s 0.25s linear infinite;
+}
+
+.clicked::after {
+  content: "⏳";
+}
+
+.validate {
+  font-size:13px;
+  color: white;
+}
+
+.validate:after {
+  content:"✅";
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
