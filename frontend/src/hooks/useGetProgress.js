@@ -6,17 +6,20 @@ export const useGetProgress = (materia_id) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const path = await getProgress(materia_id);
-                setProgressData(path);
-                //console.log(path);
-            } catch (error) {
-                setError(error);
-            }
-        };
+        if (materia_id) {
+            const fetchData = async () => {
+                try {
+                    const path = await getProgress(materia_id);
+                    setProgressData(path[0]);
+                    console.log("returned path: ", path[0]);
+                } catch (error) {
+                    setError(error);
+                }
+            };
 
-        fetchData();
+            fetchData();
+        }
+
     }, [materia_id]);
 
     return { data_progress, error };

@@ -8,33 +8,46 @@ export const Path = ({ materia_id }) => {
     return <div>Cargando...</div>;
   }
 
+  const StoreSubtem = (subtem_id) => {
+    sessionStorage.setItem("curr_subtem", subtem_id);
+    sessionStorage.removeItem("curr_ejerci");
+    console.log("Stored Curr Subt", subtem_id);
+    console.log("Cleared Curr Ejer");
+  };
+
+  const SendExercs = (ejercicio_id) => {
+    sessionStorage.setItem("curr_ejerci", ejercicio_id);
+    sessionStorage.removeItem("curr_subtem");
+    console.log("Stored Curr Ejer", ejercicio_id);
+    console.log("Cleared Curr Subt");
+  };
+
   const temas = {};
   data.forEach((subtem) => {
     const tema_id = subtem.id_tema;
-    if(!temas[tema_id]){
-      temas[tema_id] = {
-        nombre: subtem.tema_nombre,
-        subtemas: []
-      };
+    if (!temas[tema_id]) {
+      temas[tema_id] = [];
     }
-    temas[tema_id].subtemas.push({ id: subtem.id, nombre: subtem.nombre });
+    temas[tema_id].push(subtem);
   });
-
-  const formattedTopics = Object.values(temas).map((tema) => (
-    <div key={tema.id}>
+  const formattedTopics = Object.entries(temas).map(([tema_id, subtemas]) => (
+    <div key={tema_id}>
       {/* Nombre del tema */}
-      <h3>{tema.nombre}</h3> 
-      {tema.subtemas.map((subtem) => (
+      <h3>{subtemas.nombre}</h3>
+      {subtemas.map((subtem) => (
         <div key={subtem.id}>
           {/* nombre del subtema */}
           {subtem.nombre}
           <br />
-          <Link to={{
-              pathname: '/MOPage',
-              state: { subtem_id: subtem.id}
-            }}>Opción Múltiple</Link>
+          <Link
+            onClick={() => StoreSubtem(subtem.id)}
+            //onClick={() => SendExercs("TC1028_21_OM_10")}
+            to={{ pathname: '/MOPage' }}
+          >
+            Opción Múltiple</Link>
           <br />
-          <Link to='/Compiler'>Código</Link>
+          <Link to='/Compiler'>
+            Código</Link>
         </div>
       ))}
     </div>
