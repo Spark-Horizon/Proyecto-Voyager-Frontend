@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { getGroups, deleteGroup } from "../helpers/Groups/api";
 import { NewGroupModal } from "../components/Groups/NewGroupModal";
+import '../styles/Groups/App.css';
+import '../styles/Groups/Groups.css';
+import '../styles/Groups/NewGroupModal.css';
 
 export const Groups = ({ user }) => {
   // Create state variables
@@ -36,7 +39,7 @@ export const Groups = ({ user }) => {
       <NewGroupModal user={user} show={showModal} onHide={() => setShowModal(false)} onGroupCreated={fetchGroups} />
 
       {/* Display groups */}
-      <Row>
+      <Row className="container-cc">
         {groups.map((group, index) => (
           <Col md={4} key={index}>
             <Card>
