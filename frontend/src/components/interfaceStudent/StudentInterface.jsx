@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserDropdown } from '../../components/UserDropdown';
-import { ProvitionalTab } from '../interfaceStudent/studentTabs'
+import { ProvitionalTab } from '../../components/interfaceStudent/studentTabs'
 import { CustomNavbar } from "../../components/CustomNavbar"
 import { Footer } from "../../components/Footer"
 import { CustomButton } from '../../components/CustomButton';
@@ -25,7 +25,7 @@ export const StudentInterface = ({user}) => {
   }
 
   // SPA aplication
-  const [selectedTab, setSelectedTab] = useState(<ProvitionalTab/>);
+  const [selectedTab, setSelectedTab] = useState(<ProvitionalTab user={user}/>);
   
   // Links y componentes de Navbar
   const navbar = {

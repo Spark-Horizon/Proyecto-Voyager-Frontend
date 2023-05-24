@@ -13,7 +13,7 @@ function App() {
   });
 
   return (
-    <AuthProvider>
+    <AuthProvider setUser={setUser}>
       <Routes>
         <Route path='/'
           element={<PrivateRoute logged={false} children={<LandingPage />} link='/home'/>}
@@ -22,7 +22,7 @@ function App() {
           element={<PrivateRoute logged={true} children={<HomePage user={user}/>} link='/'/>}
         />
         <Route path='/signin'
-          element={<PrivateRoute logged={false} children={<SignIn />} link='/home'/>}
+          element={<PrivateRoute logged={false} children={<SignIn/>} link='/home'/>}
         />
         <Route path='/signup'
           element={<PrivateRoute logged={false} children={<SignUp />} link='/home'/>}

@@ -1,1 +1,1 @@
-export { ProvitionalTab } from './ProvitionalTab';
+export { ProvitionalTab } from './ProvitionalTab.jsx';

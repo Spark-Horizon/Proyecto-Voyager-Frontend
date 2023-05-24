@@ -1,16 +1,25 @@
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
 export const UserDropdown = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+    console.log(isOpen)
+  };
+
   return (
-    <section className='dropdown'>
-      <button className="btn btnPrimary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {props.title}
+    <div className="dropdown">
+      <button className="dropdown-toggle" onClick={toggleDropdown}>
+        Dropdown Button
       </button>
-      <ul className="dropdown-menu">
-        <li><a class="dropdown-item" href="/">Action</a></li>
-        <li><a class="dropdown-item" href="/">Another action</a></li>
-        <li><a class="dropdown-item" href="/">Something else here</a></li>
-      </ul>
-    </section>
-  )
+      {isOpen && (
+        <ul className="dropdown-menu">
+          <li><a href="/">Option 1</a></li>
+          <li><a href="/">Option 2</a></li>
+          <li><a href="/">Option 3</a></li>
+        </ul>
+      )}
+    </div>
+  );
 }
