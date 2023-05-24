@@ -42,11 +42,13 @@ export const Path = ({ materia_id }) => {
           <Link
             onClick={() => StoreSubtem(subtem.id)}
             //onClick={() => SendExercs("TC1028_21_OM_10")}
-            to={{ pathname: '/MOPage' }}
-          >
+            to={{ pathname: '/MOPage' }}>
             Opción Múltiple</Link>
           <br />
-          <Link to='/Compiler'>
+          <Link
+            onClick={() => StoreSubtem(subtem.id)}
+            //onClick={() => SendExercs("TC1028_21_C_10")}
+            to={{ pathname: '/Compiler'}}>
             Código</Link>
         </div>
       ))}

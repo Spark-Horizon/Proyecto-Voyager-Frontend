@@ -8,7 +8,7 @@ export const MOInstructions = () => {
     const [selectedOption, setSelectedOption] = useState("");
     const subtem_id = sessionStorage.getItem("curr_subtem");
     const ejercicio_id = sessionStorage.getItem("curr_ejerci");
-    const { data_progress, _ } = useGetProgress(subtem_id);
+    const { data_progress } = useGetProgress(subtem_id, "MO");
 
     useEffect(() => {
         let problemId = "";
@@ -37,7 +37,7 @@ export const MOInstructions = () => {
     
 
     const handleSubmit = () => {
-        console.log("OpciÃ³n seleccionada: ", selectedOption);
+        console.log("Opción seleccionada: ", selectedOption);
         if (selectedOption === options[answer].text) {
             console.log("Respuesta correcta.");
         } else if (selectedOption === "") {

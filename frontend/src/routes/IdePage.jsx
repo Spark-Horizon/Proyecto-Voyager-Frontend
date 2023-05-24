@@ -51,14 +51,12 @@ export const IdePage = () => {
   const links = [];
 
   const components = [];
-
-  const codeId = "TC1028_21_C_10";
   
   return (
     <div>
       <CustomNavbar links={links} components={components}/>
       <div className="idepage-main-container">
-        <CodeInstructions problem_id={codeId}/>
+        <CodeInstructions />
         <div className="ide-outputpanel-main-container" ref={outputPanelContainer}>
           <Compiler 
             setCode={setCode} 
