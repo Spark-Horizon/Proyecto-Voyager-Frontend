@@ -1,6 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
-import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise, ContainerTest, PendingQuizzes } from '../routes/indexRoutes';
+import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise, ContainerTest, PendingQuizzes, Groups } from '../routes/indexRoutes';
 import { useAuth, AuthProvider } from '../hooks/AuthContext';
+
+const user = {
+  id: 'L01732005',
+  name: 'Francisco',
+  lastname1: 'Rocha',
+  lastname2: 'Juárez',
+  role: 'teacher'
+};
 
 function App() {
   return (
@@ -41,6 +49,9 @@ function App() {
         />
         <Route path='/containerTest'
           element={<PrivateRoute logged={false} children={<ContainerTest />} link='/home'/>}
+        />
+        <Route path='/groups'
+          element={<PrivateRoute logged={true} children={<Groups user={user}/>} link='/'/>}
         />
       </Routes>
     </AuthProvider>
