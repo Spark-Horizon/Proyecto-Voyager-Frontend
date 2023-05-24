@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { CustomButton } from "../CustomButton";
 
-export const PendingQuizzes = () => {
+export const SummaryResults = () => {
   const pendingHomework = [
-    { id: 1, quiz: 'Progra zzz', group: 'TC1028', date: '18 de mayo de 2023', hour: '10:00 AM' },
-    { id: 2, quiz: 'Juegos GOD', group: 'TC1028', date: '19 de mayo de 2023', hour: '2:00 PM' },
-    { id: 3, quiz: 'Orgasmiagentes', group: 'TC1028', date: '20 de mayo de 2023', hour: '9:30 AM' }
+    { id: 1, quiz: 'Progra zzz', group: 'TC1028', grade: '88.00', tries: '3/3' },
+    { id: 2, quiz: 'Juegos GOD', group: 'TC1028', grade: '97.00', tries: '1/3' },
+    { id: 3, quiz: 'Orgasmiagentes', group: 'TC1028', grade: '100.00', tries: '2/3' }
   ];
 
   // Links y componentes de Navbar
@@ -16,7 +16,7 @@ export const PendingQuizzes = () => {
   const components = [
     { component: <Link to='/signin'><CustomButton type='btn btn-sm btnPrimary' text={'Iniciar sesión'} /></Link> },
     { component: <Link to='/signup'><CustomButton type='btn btn-sm btnPrimary' text={'Crear cuenta'} /></Link> },
-    //{ component: <Link to='/pendingquizzes'><CustomButton type='btn btn-sm btnPrimary' text={'Quizzes pendientes'} /></Link> }
+    //{ component: <Link to='/summarypage'><CustomButton type='btn btn-sm btnPrimary' text={'Resumen de resultados'} /></Link> }
   ];
 
   return (
@@ -24,9 +24,9 @@ export const PendingQuizzes = () => {
     <section id='landingPage'>
       <div className="container d-flex justify-content-center align-items-center vh-100">
         <div className="text-center">
-          <h1 className="mt-5 mb-4">Quizzes pendientes</h1>
+          <h1 className="mt-5 mb-4">Resumen de resultados</h1>
           {pendingHomework.length === 0 ? (
-            <p>No hay quizzes pendientes</p>
+            <p>No hay registro de intentos o de tareas completadas</p>
           ) : (
             <div className="card-container">
               {pendingHomework.map(homework => (
@@ -37,8 +37,8 @@ export const PendingQuizzes = () => {
                       <p className="card-text text-dark text-start">Grupo: {homework.group}</p>
                     </div>
                     <div className="bottom-section text-end">
-                      <p className="card-text text-dark">Fecha: {homework.date}</p>
-                      <p className="card-text text-dark">Hora límite: {homework.hour}</p>
+                      <p className="card-text text-dark">Calificación: {homework.grade}</p>
+                      <p className="card-text text-dark">Intentos: {homework.tries}</p>
                     </div>
                   </div>
                 </div>

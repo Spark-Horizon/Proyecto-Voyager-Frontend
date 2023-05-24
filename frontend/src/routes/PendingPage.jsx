@@ -4,7 +4,7 @@ import { PendingQuizzes } from '../components/student/PendingQuizzes';
 
 import '../styles/landingPage.css';
 
-export const ContainerTest = () => {
+export const PendingPage = () => {
     // Links y componentes de Navbar
     const links = [
       { text: 'Lenguajes', url: '/' },

@@ -279,35 +279,39 @@ export const ResultTable = () => {
         </div>
       )}
       {step === 2 && editStatus === 'Código' && (
-        <CodeExercise 
-          id={exerciseID}
-          author={exerciseData['archivo']['author']}
-          title={exerciseData['archivo']['title']}
-          description={exerciseData['archivo']['description']}
-          subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
-          difficulty={exerciseData['archivo']['difficulty']}
-          driver={exerciseData['archivo']['driver']}
-          tests={exerciseData['archivo']['tests']}
-          aprobado={exerciseData.autorizado}
-          onStep={handlePrevStep}
-          edicion={true}
-        />
+        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
+          <CodeExercise 
+            id={exerciseID}
+            author={exerciseData['archivo']['author']}
+            title={exerciseData['archivo']['title']}
+            description={exerciseData['archivo']['description']}
+            subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+            difficulty={exerciseData['archivo']['difficulty']}
+            driver={exerciseData['archivo']['driver']}
+            tests={exerciseData['archivo']['tests']}
+            aprobado={exerciseData.autorizado}
+            onStep={handlePrevStep}
+            edicion={true}
+          />
+        </div>
       )}
       {step === 2 && editStatus === 'Opción múltiple'&& (
-        <OMExercise 
-          id={exerciseID}
-          author={exerciseData['archivo']['author']}
-          title={exerciseData['archivo']['title']}
-          description={exerciseData['archivo']['description']}
-          subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
-          difficulty={exerciseData['archivo']['difficulty']}
-          answer={exerciseData['archivo']['answer']}
-          hints={exerciseData['archivo']['hints']}
-          options={exerciseData['archivo']['options']}
-          aprobado={exerciseData.autorizado}
-          onStep={handlePrevStep}
-          edicion={true}
-        />
+        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
+          <OMExercise 
+            id={exerciseID}
+            author={exerciseData['archivo']['author']}
+            title={exerciseData['archivo']['title']}
+            description={exerciseData['archivo']['description']}
+            subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+            difficulty={exerciseData['archivo']['difficulty']}
+            answer={exerciseData['archivo']['answer']}
+            hints={exerciseData['archivo']['hints']}
+            options={exerciseData['archivo']['options']}
+            aprobado={exerciseData.autorizado}
+            onStep={handlePrevStep}
+            edicion={true}
+          />
+        </div>
       )}
     </div>
   );
