@@ -4,13 +4,7 @@ import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, R
 import { useAuth, AuthProvider } from '../hooks/AuthContext';
 
 function App() {
-  const [user, setUser] = useState({
-    id: 'a01734977',
-    name: 'Alejandro Alfonso',
-    lastName1: 'Ubeto',
-    lastName2: 'Yañez',
-    role: 'student',
-  });
+  const [user, setUser] = useState(null);
 
   return (
     <AuthProvider setUser={setUser}>
