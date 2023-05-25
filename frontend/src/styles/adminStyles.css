@@ -6,3 +6,18 @@
     background-attachment: fixed;
     height: 100vh;
 }
+
+.crudSection .table{
+    --bs-table-hover-color: var(--light-blue);
+}
+
+.form-select {
+    background-color: black;
+    --bs-body-color: white; 
+}
+
+.multiselect-dropdown option:checked {
+    background-color:var(--strong-blue);
+    color: white;
+}
+  

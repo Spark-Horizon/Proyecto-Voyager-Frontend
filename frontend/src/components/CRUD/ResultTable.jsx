@@ -104,7 +104,7 @@ export const ResultTable = () => {
   }
 
   return (
-    <div>
+    <div className = "crudSection">
       {step === 1 && (
         <div className="table-responsive">
           <table className="table table-hover">
