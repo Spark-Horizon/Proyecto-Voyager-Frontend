@@ -43,7 +43,7 @@ export const SummaryResults = () => {
                     </div>
                     <div className="bottom-section text-end">
                       <p className="card-text text-dark">Calificación: {homework.correctas+"/"+homework.total}</p>
-                      <p className="card-text text-dark">Intentos: {homework.intentos}</p>
+                      <p className="card-text text-dark">Intentos: {homework.intentos+(parseInt(homework.limite) > 0 ? "/"+homework.limite : "")}</p>
                     </div>
                   </div>
                 </div>
