@@ -6,6 +6,12 @@
   background-attachment: fixed;
 }
 
+#activitiesPage .card-container-wrapper {
+  max-height: calc(125vh - 5rem);
+  overflow: auto;
+  padding-right: 2.5rem;
+}
+
 #activitiesPage .container {
   display: flex;
   justify-content: center;
@@ -21,7 +27,7 @@
 
 #activitiesPage .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 1rem;
 }
 

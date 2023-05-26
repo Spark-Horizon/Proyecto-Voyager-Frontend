@@ -2,7 +2,7 @@ import { CustomNavbar } from '../components/CustomNavbar';
 import { Footer } from '../components/Footer';
 import { SummaryResults } from '../components/student/SummaryResults';
 
-import '../styles/landingPage.css';
+import '../styles/activitiesStyles.css';
 
 export const SummaryPage = () => {
     // Links y componentes de Navbar
@@ -13,7 +13,7 @@ export const SummaryPage = () => {
     const components = [];
 
     return (
-      <section id='landingPage'>
+      <section id='activitiesPage'>
 
           <CustomNavbar links={links} components={components}/>
           <SummaryResults/>
