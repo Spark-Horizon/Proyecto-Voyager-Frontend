@@ -21,6 +21,11 @@ export const PendingQuizzes = () => {
     setDataPending(data_pending);
   }, [data_pending]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
+  };
+
   return (
     <section id='activitiesPage' style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
       <div className="container">
@@ -41,7 +46,7 @@ export const PendingQuizzes = () => {
                         <p className="card-text text-dark text-start"><strong>Grupo:</strong> {homework.materia + "-" + homework.grupo}</p>
                       </div>
                       <div className="bottom-section text-end mt-5">
-                        <p className="card-text text-dark"><strong>Fecha límite:</strong> {homework.fin}</p>
+                        <p className="card-text text-dark"><strong>Fecha límite:</strong> {formatDate(homework.fin)}</p>
                       </div>
                     </div>
                   </div>
