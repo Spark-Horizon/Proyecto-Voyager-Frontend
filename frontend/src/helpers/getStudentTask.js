@@ -20,3 +20,21 @@ export const getPendingTask = async (student_id) => {
     throw error;
   }
 };
+
+export const getActSummaryTask = async (student_id) => {
+  try {
+    const options = {
+      method: "get",
+      url: `http://${backendUrl}:${port}/student/activitysum/${student_id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
