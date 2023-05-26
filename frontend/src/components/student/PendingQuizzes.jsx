@@ -24,6 +24,11 @@ export const PendingQuizzes = () => {
     setDataPending(data_pending);
   }, [data_pending]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
+  };
+
   return (
     // Trae el estilo de landing, probablemente sea buena idea recrearlo en otro css.
     <section id='landingPage'>
@@ -42,8 +47,8 @@ export const PendingQuizzes = () => {
                       <p className="card-text text-dark text-start">Grupo: {homework.materia+"-"+homework.grupo}</p>
                     </div>
                     <div className="bottom-section text-end">
-                      <p className="card-text text-dark">Fecha: {homework.inicio}</p>
-                      <p className="card-text text-dark">Hora límite: {homework.fin}</p>
+                      <p className="card-text text-dark">Fecha: {formatDate(homework.inicio)}</p>
+                      <p className="card-text text-dark">Hora límite: {formatDate(homework.fin)}</p>
                     </div>
                   </div>
                 </div>
