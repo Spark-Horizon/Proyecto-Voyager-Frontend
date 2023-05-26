@@ -4,7 +4,6 @@ import { CustomButton } from "../CustomButton";
 import { useGetActSummaryTask } from '../../hooks/useGetStudentTask';
 
 export const SummaryResults = () => {
-  // Links y componentes de Navbar
   const links = [
     { text: 'Lenguajes', url: '/' },
     { text: 'Contáctanos', url: '/' },
@@ -22,7 +21,6 @@ export const SummaryResults = () => {
     setDataSummary(data_summary);
   }, [data_summary]);
 
-
   return (
     <section id='activitiesPage' style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
       <div className="container">
@@ -37,7 +35,9 @@ export const SummaryResults = () => {
                   <div className="card bg-light mb-3" key={homework.id}>
                     <div className="card-body">
                       <div className="top-section">
-                        <h5 className="card-title text-dark text-start">{homework.titulo}</h5>
+                        <Link to={`/quiz/${homework.id}`} className="card-title text-dark text-start">
+                          {homework.titulo}
+                        </Link>
                         <p className="card-text text-dark text-start"><strong>Grupo:</strong> {homework.materia+"-"+homework.grupo}</p>
                       </div>
                       <div className="bottom-section text-end">
