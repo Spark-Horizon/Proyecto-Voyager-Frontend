@@ -3,9 +3,9 @@ import { CustomButton } from "../CustomButton";
 
 export const SummaryResults = () => {
   const pendingHomework = [
-    { id: 1, quiz: 'Progra zzz', group: 'TC1028', grade: '88.00', tries: '3/3' },
-    { id: 2, quiz: 'Juegos GOD', group: 'TC1028', grade: '97.00', tries: '1/3' },
-    { id: 3, quiz: 'Orgasmiagentes', group: 'TC1028', grade: '100.00', tries: '2/3' }
+    { id: 1, quiz: 'Progra ', group: 'TC1028', grade: '88.00', tries: '3/3' },
+    { id: 2, quiz: 'Juegos ', group: 'TC1028', grade: '97.00', tries: '1/3' },
+    { id: 3, quiz: 'agentes', group: 'TC1028', grade: '100.00', tries: '2/3' }
   ];
 
   // Links y componentes de Navbar
