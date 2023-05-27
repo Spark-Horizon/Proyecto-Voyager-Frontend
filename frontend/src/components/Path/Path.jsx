@@ -18,12 +18,12 @@ export const Path = ({ materia_id }) => {
   };
 
   // Guardar en memoria de sesion un ejercicio dado.
-  const SendExercs = (ejercicio_id) => {
+  /*const SendExercs = (ejercicio_id) => {
     sessionStorage.setItem("curr_ejerci", ejercicio_id);
     sessionStorage.removeItem("curr_subtem");
     console.log("Stored Curr Ejer", ejercicio_id);
     console.log("Cleared Curr Subt");
-  };
+  };*/
 
   // Estructura de Temas con lista de subtemas.
   const temas = {};
@@ -39,30 +39,82 @@ export const Path = ({ materia_id }) => {
   });
 
   // Estilo del subtema segun este disponible o no
-  console.log(uData)
-  const setColor = (id_subtem, nombre_subtem) => {
-    return <span style={{color: uData.find(item => item.id_subtema === id_subtem) ? 'green' : 'orange'}}>{nombre_subtem}</span>
+  const setStyle = (id_subtem) => {
+    // @ALE AQUI ES DONDE SE TIENE QUE BLOQUEAR EL LINK/BOTON
+    // Cambiar a atributo.
+    return { color: uData.find(item => item.id_subtema === id_subtem) ? 'green' : 'orange' }
+  }
+
+  // Estilo de link segun el nivel haya sido superado o no
+  const practice = (id_subtem) => {
+    if (uData.find(item => item.id_subtema === id_subtem && item.superado)) {
+      return <span>MODO PRACTICA:<br /></span>
+    }
+  }
+
+  // Mostrar racha (user/tema) y requeridos (user/tema)
+  var moGoals;
+  var cGoals;
+  const goals = (id_subtem, type) => {
+    var tRacha
+    var tRequeridos
+    var uRacha
+    var uRequeridos
+
+    if (type === "mo") {
+      tRacha = data.find(item => item.id === id_subtem).racha_om
+      tRequeridos = data.find(item => item.id === id_subtem).requeridos_om
+      uRacha = uData.find(item => item.id_subtema === id_subtem)?.user_racha_om || 0
+      uRequeridos = uData.find(item => item.id_subtema === id_subtem)?.user_progreso_om || 0
+      moGoals = (!uData.find(item => item.id_subtema === id_subtem)?.superado && (tRacha === uRacha || tRequeridos === uRequeridos))
+
+    } else if (type === "c") {
+      tRacha = data.find(item => item.id === id_subtem).racha_codigo
+      tRequeridos = data.find(item => item.id === id_subtem).requeridos_codigo
+      uRacha = uData.find(item => item.id_subtema === id_subtem)?.user_racha_codigo || 0
+      uRequeridos = uData.find(item => item.id_subtema === id_subtem)?.user_progreso_codigo || 0
+      cGoals = (!uData.find(item => item.id_subtema === id_subtem)?.superado && (tRacha === uRacha || tRequeridos === uRequeridos))
+    }
+
+    return (
+      <span>
+        Racha: {uRacha}/{tRacha}
+        <br />
+        Requeridos: {uRequeridos}/{tRequeridos}
+      </span>
+    )
   }
 
   // Formateo general del contenido
   const formattedTopics = Object.entries(temas).map(([tema_id, { nombre, subtemas }]) => (
     <div key={tema_id}>
       <h3>{nombre}</h3>
-      <h3>{subtemas.nombre}</h3>
       {subtemas.map((subtem) => (
         <div key={subtem.id}>
-          {setColor(subtem.id, subtem.nombre)}
+          {/*SETSTYLE PUEDE QUE TENGA QUE ESTAR EN UN DIV PARA BLOQUEAR TODA LA TARJETA/COMPONENTE
+          DEL TEMA*/}
+          <span style={setStyle(subtem.id)}>{subtem.nombre}</span>
+          <br />
+          {practice(subtem.id)}
+          {goals(subtem.id, "mo")}
           <br />
           <Link
             onClick={() => StoreSubtem(subtem.id)}
             //onClick={() => SendExercs("TC1028_21_OM_10")}
-            to={{ pathname: '/MOPage' }}>
+            to={{ pathname: '/MOPage' }}
+            /*Rojo = Link deshabilitado
+            * Azul = Link habilitado
+            */
+            style={{color: moGoals ? 'red' : 'blue'}}>
             Opción Múltiple</Link>
+          <br />
+          {goals(subtem.id, "c")}
           <br />
           <Link
             onClick={() => StoreSubtem(subtem.id)}
             //onClick={() => SendExercs("TC1028_21_C_10")}
-            to={{ pathname: '/Compiler'}}>
+            to={{ pathname: '/Compiler' }}
+            style={{color: cGoals ? 'red' : 'blue'}}>
             Código</Link>
         </div>
       ))}
@@ -71,7 +123,7 @@ export const Path = ({ materia_id }) => {
 
   return (
     <div>
-      <p> {formattedTopics} </p>
+      {formattedTopics}
     </div>
   )
 }
