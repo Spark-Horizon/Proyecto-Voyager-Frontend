@@ -11,7 +11,7 @@ export const MOInstructions = () => {
     const { data_progress } = useGetProgress(subtem_id, "MO");
 
     useEffect(() => {
-        let problemId = "";
+        let problemId = "TC1028_21_OM_10"; //Para pruebas, solo si no hay sesion activa (bug)
         if (ejercicio_id != null) {
             problemId = ejercicio_id;
         } else if (data_progress != null) {
