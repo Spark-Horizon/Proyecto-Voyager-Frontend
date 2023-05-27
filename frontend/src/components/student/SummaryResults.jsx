@@ -42,7 +42,7 @@ export const SummaryResults = () => {
                       </div>
                       <div className="bottom-section text-end">
                         <p className="card-text text-dark"><strong>Calificación:</strong> {homework.correctas+"/"+homework.total}</p>
-                        <p className="card-text text-dark"><strong>Intentos:</strong> {homework.intentos}</p>
+                        <p className="card-text text-dark"><strong>Intentos:</strong> {homework.intentos+(parseInt(homework.limite) > 0 ? "/"+homework.limite : "")}</p>
                       </div>
                     </div>
                   </div>
