@@ -2,11 +2,11 @@ import { useGetPath, useGetUnlocked } from '../../hooks/useGetPath.js'
 import { Link } from 'react-router-dom'
 
 export const Path = ({ materia_id }) => {
-  const { data } = useGetPath(materia_id)
-  const { uData } = useGetUnlocked(materia_id)
+  const { data } = useGetPath(materia_id); // Obtener datos del camino basado en el ID de la materia
+  const { uData } = useGetUnlocked(materia_id); // Obtener datos desbloqueados basados en el ID de la materia
 
   if (!data || !uData) {
-    return <div>Cargando...</div>
+    return <div>Cargando...</div>; // Mostrar mensaje de carga si no hay datos disponibles
   }
 
   // Guardar en memoria de sesion el subtema seleccionado.
