@@ -49,7 +49,6 @@ export function AuthProvider ({ children, setUser }) {
             if (user !== null) {
                 try {
                     setCurrentUser(user);
-                    console.log(user) // Modificado aquí
                     const userData = await getDataFromFirestore('users', user.uid);
                     setUser(userData);
                 } catch (error) {
@@ -63,7 +62,7 @@ export function AuthProvider ({ children, setUser }) {
             setLoading(false);
         });
         return () => unsubscribe(); 
-    }, [setUser, setCurrentUser, setLoading]); // Modificado aquí
+    }, [setUser, setCurrentUser, setLoading]);
     
 
     const value = {

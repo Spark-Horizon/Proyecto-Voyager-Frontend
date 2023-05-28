@@ -36,7 +36,7 @@ export const CustomNavbar = (props) => {
                     
                     <ul className='navLinks container-cc'>
                         {links.map((link, index) => (
-                            <li className="navItem">
+                            <li className="navItem" key={index}>
                                 <Link key={index} to={link.url}>{link.text}</Link>
                             </li>
                         ))}

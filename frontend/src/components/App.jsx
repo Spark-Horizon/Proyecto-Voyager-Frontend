@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise } from '../routes/indexRoutes';
-import { useAuth, AuthProvider } from '../hooks/AuthContext';
+import { AuthProvider } from '../hooks/AuthContext';
 
 function App() {
   const [user, setUser] = useState(null);
