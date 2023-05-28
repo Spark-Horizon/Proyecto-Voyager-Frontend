@@ -21,12 +21,12 @@ export const IdePage = () => {
         "output": "7"
       },
       {
-        "input": "3,3",
-        "output": "6"
+        "input": "4,3",
+        "output": "7"
       },
       {
-        "input": "3,3",
-        "output": "7"
+        "input": "10,3",
+        "output": "13"
       },
       {
         "input": "3,3",
