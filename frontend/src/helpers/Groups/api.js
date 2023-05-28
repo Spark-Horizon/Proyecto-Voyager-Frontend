@@ -6,7 +6,7 @@ const port = process.env.REACT_APP_BACKEND_PORT;
 const API_URL = `http://${backendUrl}:${port}/groups`;
 
 //Function to get all groups of a teacher
-export const getGroups = async (id_docente, role) => {
+export const getGroups = async (role, id_docente) => {
     try{
         const res = await axios.get(`${API_URL}/${role}/${id_docente}`);
         return res.data;
@@ -28,9 +28,9 @@ export const createGroup = async (groupData) => {
 };
 
 //Function to delete a group
-export const deleteGroup = async (id) => {
+export const deleteGroup = async (role, id) => {
     try{
-        const res = await axios.delete(`${API_URL}/${id}`);
+        const res = await axios.delete(`${API_URL}/${role}/${id}`);
     }catch (error){
         console.error(error);
         return null;

@@ -18,14 +18,14 @@ export const Groups = ({ user }) => {
 
   // Fetch groups from API
   const fetchGroups = async () => {
-    const fetchedGroups = await getGroups(user.id,user.role);
+    const fetchedGroups = await getGroups(user.role, user.id);
     console.log(fetchedGroups);
     setGroups(fetchedGroups);
   };
 
   // Delete a group
-  const handleDelete = async (id) => {
-    await deleteGroup(id);
+  const handleDelete = async (role, id) => {
+    await deleteGroup(role, id);
     fetchGroups();
   };
 
@@ -45,7 +45,7 @@ export const Groups = ({ user }) => {
             <Card>
               <Card.Body>
                 <Card.Title>{group.idMateriaGrupo}</Card.Title>
-                <Button variant="danger" onClick={() => handleDelete(group.id)}>Delete</Button>
+                <Button variant="danger" onClick={() => handleDelete(user.role, group.id)}>Delete</Button>
               </Card.Body>
             </Card>
           </Col>
