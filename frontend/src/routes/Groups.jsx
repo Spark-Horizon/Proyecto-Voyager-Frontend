@@ -18,7 +18,7 @@ export const Groups = ({ user }) => {
 
   // Fetch groups from API
   const fetchGroups = async () => {
-    const fetchedGroups = await getGroups(user.id);
+    const fetchedGroups = await getGroups(user.id,user.role);
     console.log(fetchedGroups);
     setGroups(fetchedGroups);
   };

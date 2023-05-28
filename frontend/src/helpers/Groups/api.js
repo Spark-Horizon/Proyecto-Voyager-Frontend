@@ -6,9 +6,9 @@ const port = process.env.REACT_APP_BACKEND_PORT;
 const API_URL = `http://${backendUrl}:${port}/groups`;
 
 //Function to get all groups of a teacher
-export const getGroups = async (id_docente) => {
+export const getGroups = async (id_docente, role) => {
     try{
-        const res = await axios.get(`${API_URL}/${id_docente}`);
+        const res = await axios.get(`${API_URL}/${role}/${id_docente}`);
         return res.data;
     }catch (error){
         console.error(error);
