@@ -13,6 +13,12 @@ export const Groups = ({ professorId }) => {
     const [groupsData, setGroupsData] = useState([]);
     const [axiosError, setAxiosError] = useState(null);
 
+    const views = {
+        0: 'GroupsTable',
+        1: 'GroupsGeneralView',
+        2: 'GroupsStudentView'
+    }
+
     const getGroupsData = async () => {
         try {
             const config = {
@@ -58,11 +64,11 @@ export const Groups = ({ professorId }) => {
                                     let index = 0;
                                     for (let key in data) {
                                         if (index === 0)
-                                            groupItems.push(<GroupsItem key={data['id'] + index} type={'groups-td-first'} data={data[key]} />)
+                                            groupItems.push(<GroupsItem key={data['id'] + index} type={'normal'} classType={'groups-td-first'} data={data[key]} />)
                                         else if (index === groupsData.length - 1)
-                                            groupItems.push(<GroupsItem key={data['id'] + index} type={'groups-td-last'} data={data[key]} />)
+                                            groupItems.push(<GroupsItem key={data['id'] + index} classType={'groups-td-last'} data={data[key]} />)
                                         else if (index !== groupsData.length - 1)
-                                            groupItems.push(<GroupsItem key={data['id'] + index} type={'groups-td-middle'} data={data[key]} />)
+                                            groupItems.push(<GroupsItem key={data['id'] + index} type={'normal'} classType={'groups-td-middle'} data={data[key]} />)
                                         index++;
                                     }
 

@@ -6,6 +6,7 @@
     font-size: 14px;
     width: 100%;
     border-collapse: separate;
+    border-spacing: 10px;
 }
 
 .groups-table-headers > th {
@@ -16,6 +17,35 @@
 
 .groups-table-row > td {
     padding: 10px;
+}
+
+.groups-td-last-container {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+}
+
+.groups-td-buttons {
+    display: flex;
+}
+
+.groups-td-buttons > button {
+    background-color: transparent;
+    border: var(--glassmorphism-border);
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    transition: all ease 0.4s;
+}
+
+.groups-td-buttons > button:hover {
+    background-color: var(--middle-blue);
+    border: 1px solid var(--middle-blue);
+}
+
+.groups-td-data {
+    padding: 0px;
+    margin: 0px;
 }
 
 .groups-td-first {
