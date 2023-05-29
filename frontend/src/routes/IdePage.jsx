@@ -37,15 +37,13 @@ export const IdePage = () => {
 
   const [code, setCode] = useState('');
   const [id, setId] = useState(0);
-
-  const codeId = "TC1028_21_C_10";
   
   return (
 
     <div className='ide-route-container'>
       <CustomNavbar/>
       <div className="idepage-main-container">
-        <CodeInstructions problem_id={codeId}/>
+        <CodeInstructions />
         <div className="ide-outputpanel-main-container">
           <Compiler 
             setCode={setCode} 
