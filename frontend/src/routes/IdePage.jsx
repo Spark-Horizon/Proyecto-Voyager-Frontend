@@ -38,16 +38,11 @@ export const IdePage = () => {
   const [code, setCode] = useState('');
   const [id, setId] = useState(0);
 
-  // Links y componentes de Navbar
-  const links = [];
-
-  const components = [];
-
   const codeId = "TC1028_21_C_10";
   
   return (
+
     <div className='ide-route-container'>
-      <CustomNavbar links={links} components={components}/>
       <div className="idepage-main-container">
         <CodeInstructions problem_id={codeId}/>
         <div className="ide-outputpanel-main-container">

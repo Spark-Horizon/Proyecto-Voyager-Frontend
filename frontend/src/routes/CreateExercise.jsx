@@ -38,7 +38,6 @@ export const CreateExercise = () => {
 
   return (
     <div>
-      <CustomNavbar links={links} components={components}/>
       <section id="exerciseCreationForm" className='container-cc'>
 
         <form onSubmit={handleExerciseCreation}>
