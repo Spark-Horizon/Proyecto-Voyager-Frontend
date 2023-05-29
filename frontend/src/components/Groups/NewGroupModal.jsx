@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Button, Form } from 'react-bootstrap';
 import { createGroup } from '../../helpers/Groups/api';
 
@@ -9,6 +9,23 @@ export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
         idMateriaGrupo: '',
         visibleGrupo: true
     });
+
+    // State variable for the subjects
+    const [subjects, setSubjects] = useState([]);
+
+    // Fetch the subjects from the database when the component mounts
+    useEffect(() => {
+      fetchSubjects();
+    }, []);
+
+    const fetchSubjects = async () => {
+      try {
+        const res = await pool.query("SELECT * FROM materias");
+        setSubjects(res.rows);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
     //Function to handle the form submission
     const handleFormSubmit = async (e) => {
@@ -31,8 +48,15 @@ export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
             <Modal.Body>
                 <Form onSubmit={handleFormSubmit}>
                     <Form.Group className="mb-3">
-                        <Form.Label>Group ID</Form.Label>
-                        <Form.Control type="text" value={groupData.idMateriaGrupo} onChange={e => setGroupData({ ...groupData, idMateriaGrupo: e.target.value })} />
+                        <Form.Label>Materia</Form.Label>
+                        <Form.Control as="select" value={groupData.idMateriaGrupo} onChange={e => setGroupData({ ...groupData, idMateriaGrupo: e.target.value })}>
+                            <option value="">Seleccione una materia</option>
+                            {subjects.map((subject) => (
+                              <option key={subject.id} value={subject.id}>
+                                {subject.nombre}
+                              </option>
+                            ))}
+                        </Form.Control>
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Create
