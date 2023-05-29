@@ -43,7 +43,7 @@ export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton>
-                <Modal.Title>Create Group</Modal.Title>
+                <Modal.Title>Crear Grupo</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleFormSubmit}>
