@@ -52,7 +52,7 @@ const handleDelete = async (role, id) => {
   return (
     <Container>
       {/* Button to open the NewGroupModal */}
-      <Button onClick={() => setShowModal(true)} className="mb-3">Create Group</Button>
+      <Button onClick={() => setShowModal(true)} className="mb-3">Crear grupo 🪐</Button>
 
       {/* Modal for creating new group */}
       <NewGroupModal user={user} show={showModal} onHide={() => setShowModal(false)} onGroupCreated={fetchGroups} />
