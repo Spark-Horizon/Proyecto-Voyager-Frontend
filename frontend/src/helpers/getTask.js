@@ -15,7 +15,6 @@ export const getTask = async (problem_id) => {
 
     const response = await axios(options);
     const { archivo } = response.data;
-    console.log('webazos', archivo);
 
     return archivo;
   } catch (error) {

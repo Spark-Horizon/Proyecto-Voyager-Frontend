@@ -1,23 +1,43 @@
 /* [MAIN IDE PAGE CSS] */
-:root {
-    --ide-components-padding: 30px;
+.ide-route-container {
+    background-image: url('../assets/img/bkgr_spaceBackground.jpg');
 }
+
 .idepage-main-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
+    padding: 20px;
     height: calc(100vh - 60px);
-    background-color: rgb(20, 20, 20);
 }
+
 .ide-outputpanel-main-container {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-direction: column;
     width: 70%;
+    margin-left: 20px;
     padding: var(--ide-components-padding);
-    background-color: aliceblue;
+    background: rgba( 30, 30, 30, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
+    backdrop-filter: blur( 11px );
+    -webkit-backdrop-filter: blur( 11px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
     height: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .idepage-main-container {
+        flex-direction: column;
+        height: max-content;;
+    }
+
+    .ide-outputpanel-main-container {
+        height: 800px;
+        width: 100%;
+    }
 }
