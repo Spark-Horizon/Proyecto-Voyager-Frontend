@@ -30,9 +30,20 @@ export const createGroup = async (groupData) => {
 //Function to delete a group
 export const deleteGroup = async (role, id) => {
     try{
-        const res = await axios.delete(`${API_URL}/${role}/${id}`);
+        await axios.delete(`${API_URL}/${role}/${id}`);
     }catch (error){
         console.error(error);
         return null;
+    }
+};
+
+//Function to get subjects
+export const getSubjects = async () => {
+    try{
+        const res = await axios.get(`${API_URL}/subjects`);
+        return res.data;
+    }catch (error){
+        console.error(error);
+        return [];
     }
 };

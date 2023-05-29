@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Modal, Button, Form } from 'react-bootstrap';
-import { createGroup } from '../../helpers/Groups/api';
+import { createGroup, getSubjects } from '../../helpers/Groups/api';
 
 //A modal is something that is over the main screen
 export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
@@ -20,8 +20,8 @@ export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
 
     const fetchSubjects = async () => {
       try {
-        const res = await pool.query("SELECT * FROM materias");
-        setSubjects(res.rows);
+        const fetchedSubjects = await getSubjects();
+        setSubjects(fetchedSubjects);
       } catch (error) {
         console.error(error);
       }
