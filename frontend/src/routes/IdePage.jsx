@@ -43,6 +43,7 @@ export const IdePage = () => {
   return (
 
     <div className='ide-route-container'>
+      <CustomNavbar/>
       <div className="idepage-main-container">
         <CodeInstructions problem_id={codeId}/>
         <div className="ide-outputpanel-main-container">
