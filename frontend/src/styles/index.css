@@ -15,6 +15,11 @@
   --compiler-theme-color: rgb(30, 30, 30);
   --button-ide-green: rgb(17, 226, 107);
   --button-ide-blue: #1CC6EC;
+
+  --glassmorphism-border: 1px solid rgba(255, 255, 255, 0.18);
+  --glassmorphism-blur: blur(11px);
+  --glassmorphism-bg: rgba(30, 30, 30, 0.25);
+  --glassmorphism-border-color: rgba(255, 255, 255, 0.18);
 }
 
 * {

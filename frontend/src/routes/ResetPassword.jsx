@@ -49,7 +49,7 @@ export const ResetPassword = () => {
             <img className='"img-fluid"' id='astronautImage' src={require('../assets/img/astronaut.png')} alt="astronautImage" />
         </div>
 
-        <form onSubmit={handleResetPassword}>
+        <form className='custom-form' onSubmit={handleResetPassword}>
 
 
           {step === 1 && (

@@ -6,6 +6,20 @@
 }
 
 @font-face {
+    font-family: 'Inter';
+    src: url('../../public//fonts/Inter-SemiBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: bold;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../../public//fonts/Inter-Thin.ttf') format('truetype');
+    font-weight: lighter;
+    font-style: lighter;
+}
+
+@font-face {
     font-family: 'Consolas';
     src: url('../../public/fonts/CONSOLA.TTF') format('truetype');
     font-weight: normal;

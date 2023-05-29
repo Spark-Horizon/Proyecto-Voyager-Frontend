@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise, ContainerTest, PendingQuizzes } from '../routes/indexRoutes';
 import { useAuth, AuthProvider } from '../hooks/AuthContext';
+import { ProfessorDashboard } from '../routes/ProfessorDashboard';
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
         />
         <Route path='/compiler'
           element={<PrivateRoute logged={true} children={<IdePage />} link='/home'/>}
+        />
+        <Route path='/dashboard/professor'
+          element={<PrivateRoute logged={true} children={<ProfessorDashboard />} link='/home '/>}
         />
         <Route path='/containerTest'
           element={<PrivateRoute logged={false} children={<ContainerTest />} link='/home'/>}

@@ -1,0 +1,34 @@
+/* MAIN CONTAINER */
+.main-background {
+    background-image: url('../../assets/img/bkgr_spaceBackground.jpg');
+}
+
+.main-professor-dashboard {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.main-professor-dash-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: 'Inter';
+    font-weight: bold;
+    font-size: 26px;
+    padding-left: 30px;
+}
+
+.p-dash-main-container {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+}

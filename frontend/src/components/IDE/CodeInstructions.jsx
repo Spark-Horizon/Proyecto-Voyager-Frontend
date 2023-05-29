@@ -1,5 +1,5 @@
 import { useGetCodeTask } from '../../hooks/useGetTask.js';
-import '../../styles/codeInstructions.css';
+import '../../styles/ide/codeInstructions.css';
 
 export const CodeInstructions = ({ problem_id }) => {
   const { data } = useGetCodeTask(problem_id);

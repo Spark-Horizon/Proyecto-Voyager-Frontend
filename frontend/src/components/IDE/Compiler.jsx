@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import MonacoEditor from '@uiw/react-monacoeditor';
 
-export const Compiler = ({ setCode, ideHeight }) => {
+export const Compiler = ({ setCode }) => {
   return (
     <div className='compiler-main-container'>
       <MonacoEditor

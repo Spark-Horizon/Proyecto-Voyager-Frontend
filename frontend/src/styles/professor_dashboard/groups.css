@@ -1,0 +1,38 @@
+.groups-main-container {
+    height: 100%;
+}
+
+.groups-table {
+    font-size: 14px;
+    width: 100%;
+    border-collapse: separate;
+}
+
+.groups-table-headers > th {
+    padding: 10px;
+    font-family: 'Inter';
+    font-weight: bolder;
+}
+
+.groups-table-row > td {
+    padding: 10px;
+}
+
+.groups-td-first {
+    border-left: 1px solid var(--glassmorphism-border-color);
+    border-bottom: 1px solid var(--glassmorphism-border-color);
+    border-top: 1px solid var(--glassmorphism-border-color);
+    border-radius: 10px 0px 0px 10px;
+}
+
+.groups-td-middle {
+    border-top: 1px solid var(--glassmorphism-border-color);
+    border-bottom: 1px solid var(--glassmorphism-border-color);
+}
+
+.groups-td-last {
+    border-right: 1px solid var(--glassmorphism-border-color);
+    border-bottom: 1px solid var(--glassmorphism-border-color);
+    border-top: 1px solid var(--glassmorphism-border-color);
+    border-radius: 0px 10px 10px 0px;
+}

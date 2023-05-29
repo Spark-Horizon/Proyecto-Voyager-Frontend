@@ -5,8 +5,8 @@ import { CustomNavbar } from "../components/CustomNavbar"
 import { Compiler } from "../components/IDE/Compiler"
 import { OutputPanel } from "../components/IDE/OutputPanel";
 
-import '../styles/idePage.css';
-import '../styles/Compiler.css';
+import '../styles/ide/idePage.css';
+import '../styles/ide/compiler.css';
 
 export const IdePage = () => {
   const [driver, setDriver] = useState('main_test'); 

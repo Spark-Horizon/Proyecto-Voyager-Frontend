@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGetMOTask } from "../../hooks/useGetTask";
 //Seria crear un nuevo styles para esto supongo
-import '../../styles/codeInstructions.css';
+import '../../styles/ide/codeInstructions.css';
 
 export const MOInstructions = ({ problem_id }) => {
     const {data} = useGetMOTask(problem_id);
