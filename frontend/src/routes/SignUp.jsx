@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { CustomNavbar } from '../components/CustomNavbar';
 import { CustomButton } from '../components/CustomButton';
 import { useAuth } from '../hooks/AuthContext';
+import { createUser } from '../helpers/indexHelpers'
 
 import '../styles/fonts.css'
 import '../styles/buttons.css'
@@ -13,6 +14,7 @@ export const SignUp = (props) => {
   const [step, setStep] = useState(1);
   const [Temail, setTEmail] = useState('');
   const [Semail, setSEmail] = useState('');
+  const [payroll, setPayroll] = useState('');
   const [name, setName] = useState('');
   const [lastName1, setLastName1] = useState('');
   const [lastName2, setLastName2] = useState('');
@@ -22,7 +24,7 @@ export const SignUp = (props) => {
   const [isTeacher, setIsTeacher] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { signup } = useAuth()
+  const { signup, addDataToFirestore } = useAuth()
 
   // Funcionalidades del componente
   const resetFields = () => {
@@ -65,14 +67,29 @@ export const SignUp = (props) => {
 
   async function handleSignUp(e) {
     e.preventDefault();
-    try{
-      setLoading(true);
-      await signup(Temail || Semail, password);
-    } catch {
-      setError('Ese correo ya tiene una cuenta asignada');
-      console.log("Fallo al registrar la cuenta");
+    let newFsUser = {
+      id: isTeacher ? payroll.toUpperCase() : Semail.replace(/@tec\.mx$/, "").toUpperCase(),
+      name: name,
+      lastName1: lastName1,
+      lastName2: lastName2,
+      email: Temail || Semail,
+      timestamp: new Date(),
+      role: isTeacher ? 'teacher' : 'student'                  
     }
-    setLoading(false);
+    let newPsqlUser = {
+      id: isTeacher ? payroll.toUpperCase() : Semail.replace(/@tec\.mx$/, "").toUpperCase(),
+      name: name,
+      lastName1: lastName1,
+      lastName2: lastName2,
+      role: isTeacher ? 'teacher' : 'student'    
+    }
+    try {
+      const userCredential = await signup(Temail || Semail, password);
+      await addDataToFirestore('users', userCredential.user.uid, newFsUser);
+      await createUser(newPsqlUser);
+    } catch (error) {
+      setError('Ese correo ya tiene una cuenta asignada');
+    }
   };
 
   const isTeacherEmailValid = () => {
@@ -97,32 +114,25 @@ export const SignUp = (props) => {
     return password === confirmPassword;
   };
 
-  const isNameValid = () => {
+  const isNameValid = (_name) => {
     const nameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
-    return nameRegex.test(name);
-  };
-
-  const isLastName1Valid = () => {
-    const lastName1Regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
-    return lastName1Regex.test(lastName1);
-  };
-
-  const isLastName2Valid = () => {
-    const lastName2Regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ /']+$/;
-    return lastName2Regex.test(lastName2);
+    return nameRegex.test(_name);
   };
 
   // Links y componentes de Navbar
-  const links = [];
-  const components = [
-    {component: <Link to='/'><CustomButton type={'btn btn-sm btnPrimary'} text={'Regresar a inicio'}/></Link>}
-  ];
+  const navbar = {
+    links: [],
+    tabs: [],
+    components: [
+        {component: <Link to='/'><CustomButton type={'btn btn-sm btnPrimary'} text={'Regresar a inicio'}/></Link>}
+    ]
+  };
 
   return (
     <div>
       <section id="signUpForm">
         
-        <CustomNavbar links={links} components={components}/>
+        <CustomNavbar tabs={navbar.tabs} links={navbar.links} components={navbar.components}/>
 
         <div className="container-cc startSection">
           
@@ -153,7 +163,7 @@ export const SignUp = (props) => {
               <div>
 
                 <div className="text-center mb-5">
-                  <span>Ingresa tu correo electrónico institucional</span>
+                  <h2>Ingresa tu correo electrónico institucional</h2>
                 </div>
 
                 <div className="form-group mb-4">
@@ -172,6 +182,16 @@ export const SignUp = (props) => {
                       {!isTeacherEmailValid() && (
                         <div className="text-danger">El correo electrónico es inválido</div>
                       )}
+                      <label htmlFor="payroll" className="mt-3 text-center">Nómina</label>
+                      <input 
+                        type="text" 
+                        id="payroll" 
+                        value={payroll} 
+                        onChange={(e) => setPayroll(e.target.value)} 
+                        className="form-control" 
+                        placeholder="L01234567" 
+                        required 
+                      />
                     </>
                   ) : (
                     <>
@@ -191,9 +211,9 @@ export const SignUp = (props) => {
                   )}
                 </div>
 
-                <div className="select next-back mt-5">
+                <div className="select mt-5">
                   <CustomButton
-                    type={'btn btnSecondary'}
+                    type={'btn me-3 btnSecondary'}
                     text={'Atrás'}
                     func={handlePrevStep}/>
                   <CustomButton
@@ -210,7 +230,7 @@ export const SignUp = (props) => {
               <div>
 
                 <div className="text-center mb-4">
-                  <span>Completa tu información personal</span>
+                  <h2>Completa tu información personal</h2>
                 </div>
 
                 <div className="form-group mb-4">
@@ -249,16 +269,16 @@ export const SignUp = (props) => {
                   />
                 </div>
 
-                <div className="select next-back mt-5">
+                <div className="select mt-5">
                   <CustomButton
-                    type={'btn btnSecondary'}
+                    type={'btn me-3 btnSecondary'}
                     text={'Atrás'}
                     func={handlePrevStep}/>
                   <CustomButton
                     type={'btn  btnPrimary btn-primary'}
                     text={'Siguiente'}
                     func={handleNextStep}
-                    disabled={!isNameValid() || !isLastName1Valid() || !isLastName2Valid()}/>
+                    disabled={!isNameValid(name) || !isNameValid(lastName1) || !isNameValid(lastName2)}/>
                 </div>
 
               </div>
@@ -268,11 +288,11 @@ export const SignUp = (props) => {
               <div>
 
                 <div className="text-center mb-6">
-                  <span>Crea una contraseña de entre 6 y 18 caracteres usando</span>
+                  <h2>Crea una contraseña</h2>
                 </div>
 
                 <div className="text-center mb-4">
-                  <span> mayúsculas, minúsculas, números y/o símbolos</span>
+                  <span>usando mayúsculas, minúsculas, números y/o símbolos</span>
                 </div>
 
                 <div className="form-group mb-4">
@@ -292,8 +312,6 @@ export const SignUp = (props) => {
                   )}
                 </div>
 
-
-
                 <div className="form-check mb-4">
                     <input type="checkbox" id="terms" checked={terms} onChange={(e) => setTerms(e.target.checked)} className="form-check-input" />
                     <label htmlFor="terms" className="form-check-label">
@@ -301,9 +319,9 @@ export const SignUp = (props) => {
                     </label>
                 </div>
 
-                <div className="select next-back mt-5">
+                <div className="select mt-5">
                   <CustomButton
-                    type={'btn btnSecondary'}
+                    type={'btn me-3 btnSecondary'}
                     text={'Atrás'}
                     func={handlePrevStep}/>
                   <CustomButton
@@ -320,21 +338,21 @@ export const SignUp = (props) => {
               <div>
 
                 <div className="text-center mb-4">
-                  <span>Confirma tus datos</span>
+                  <h2>Confirma tus datos</h2>
                   {error && <div className="text-danger">{error}</div>}
                 </div>
                 
                 <div className="text-left mb-4">
-                    <p className="fs-5">Nombre completo:</p>
-                    <p className="fs-6">{name} {lastName1} {lastName2}</p>
-                    <p className="fs-5">Correo electrónico:</p>
-                    <p className="fs-6">{Temail || Semail}</p>
-                    <p className="fs-5">Tipo de usuario:</p>
-                    <p className="fs-6">{isTeacher ? 'Profesor' : 'Estudiante'}</p>
+                    <p className="fs-5">Nombre completo: {name} {lastName1} {lastName2}</p>
+                    <p className="fs-5">Correo electrónico: {Temail || Semail}</p>
+                    <p className="fs-5">Tipo de usuario: {isTeacher ? 'Profesor' : 'Estudiante'}</p>
                 </div>
 
-                  <button type="submit" disabled={loading} className="btn btn-primary mt-2">Registrarse</button>
-                  <button type="button" className="btn btn-secondary mt-3" onClick={handlePrevStep}>Atrás</button>
+                <div className="select mt-5">
+                  <button type="button" className="btn btn-secondary me-3" onClick={handlePrevStep}>Atrás</button>
+                  <button type="submit" disabled={loading} className="btn btn-primary">Registrarse</button>
+                </div>
+
 
               </div>
             )}

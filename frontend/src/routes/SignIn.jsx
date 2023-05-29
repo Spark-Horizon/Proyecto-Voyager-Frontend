@@ -33,17 +33,20 @@ export const SignIn = () => {
   };
 
   // Links y componentes de Navbar
-  const links = [];
-  const components = [
-    {component: <Link to='/'><CustomButton type={'btn btn-sm btnPrimary'} text={'Regresar a inicio'}/></Link>}
-  ];
+  const navbar = {
+    links: [],
+    tabs: [],
+    components: [
+        {component: <Link to='/'><CustomButton type={'btn btn-sm btnPrimary'} text={'Regresar a inicio'}/></Link>}
+    ]
+  };
   
   return (
     <div>
 
       <section id="signInForm">
         
-        <CustomNavbar links={links} components={components}/>
+        <CustomNavbar tabs={navbar.tabs} links={navbar.links} components={navbar.components}/>
         
         <div className='startSection container-cc'>
           <div className="img">
@@ -52,8 +55,11 @@ export const SignIn = () => {
           <form>
 
             <div className="form-group">
-              <label htmlFor="email" className="text-center">Email</label>
+              <label htmlFor="email" className="text-center">Correo electrónico</label>
               <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="your.email@tec.mx" required />
+              {!isEmailValid() && (
+              <div className="text-danger">El correo electrónico es inválido</div>
+              )}
             </div>
 
             <div className="form-group mt-4">
@@ -68,7 +74,8 @@ export const SignIn = () => {
               <CustomButton
                 type={'btn mt-3 btn-primary btnPrimary'}
                 text={'Iniciar sesión'}
-                func={handleSignIn}/>
+                func={handleSignIn}
+                disabled={!isEmailValid()}/>
                 {error && <div className="text-danger">{error}</div>}
             </div>
 

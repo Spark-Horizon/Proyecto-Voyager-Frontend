@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/navbar.css'
 import { ReactComponent as BurguerMenu } from '../assets/svg/hamburguer_menu.svg';
+import '../styles/navbar.css'
 
 
 export const CustomNavbar = (props) => {
@@ -9,6 +10,14 @@ export const CustomNavbar = (props) => {
     const toggleBtnIcon = document.querySelector('.toggle_btn svg')
     const dropdownMenu = document.querySelector('.navLinks')
 
+    // Props
+    const links = props.links ? props.links : [];
+    const tabs = props.tabs ? props.tabs : [];
+    const components = props.components ? props.components : [];
+
+    const handleTabClick = (tab) => {
+        props.setSelectedTab(tab);
+    };
 
     return (
         <nav className="customNavbar container-cc">
@@ -16,17 +25,25 @@ export const CustomNavbar = (props) => {
             <div className="navContent container-fluid">
                 <Link to='/' className="brand">Voyager</Link>
             
-                <div className="navProps">
+
+                <div className="navRight">
+                    <ul className='navTabs container-cc'>
+                        {tabs.map((tab, index) => (
+                            <li className="navItem" key={index}
+                            onClick={() => handleTabClick(tab.component)}>{tab.text}</li>
+                        ))}
+                    </ul>
+                    
                     <ul className='navLinks container-cc'>
-                        {props.links.map((link, index) => (
-                            <li className="navItem">
+                        {links.map((link, index) => (
+                            <li className="navItem" key={index}>
                                 <Link key={index} to={link.url}>{link.text}</Link>
                             </li>
                         ))}
                     </ul>
 
                     <div className="navComponents container-cc">
-                    {props.components.map((c, index) => (
+                    {components.map((c, index) => (
                         <div className='navComponent' key={index}>{c.component}</div>
                     ))}
                     </div>

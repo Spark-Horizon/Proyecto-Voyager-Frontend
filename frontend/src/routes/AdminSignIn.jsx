@@ -34,12 +34,15 @@ export const AdminSignIn = () => {
   };
 
   // Links y componentes de Navbar
-  const links = [];
-  const components = [];
+  const navbar = {
+    links: [],
+    tabs: [],
+    components: []
+  };
   
   return (
     <div>
-      <CustomNavbar links={links} components={components}/>
+      <CustomNavbar tabs={navbar.tabs} links={navbar.links} components={navbar.components}/>
 
       <section id="adminSignInForm" className='container-cc'>
 

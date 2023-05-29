@@ -1,19 +1,22 @@
+import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise, StudentPanel } from '../routes/indexRoutes';
-import { useAuth, AuthProvider } from '../hooks/AuthContext';
+import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise, ContainerTest, PendingQuizzes, StudentPanel } from '../routes/indexRoutes';
+import { AuthProvider } from '../hooks/AuthContext';
 
 function App() {
+  const [user, setUser] = useState(null);
+
   return (
-    <AuthProvider>
+    <AuthProvider setUser={setUser}>
       <Routes>
         <Route path='/'
           element={<PrivateRoute logged={false} children={<LandingPage />} link='/home'/>}
         />
         <Route path='/home'
-          element={<PrivateRoute logged={true} children={<StudentPage />} link='/'/>}
+          element={<PrivateRoute logged={true} children={<HomePage user={user}/>} link='/'/>}
         />
         <Route path='/signin'
-          element={<PrivateRoute logged={false} children={<SignIn />} link='/home'/>}
+          element={<PrivateRoute logged={false} children={<SignIn/>} link='/home'/>}
         />
         <Route path='/signup'
           element={<PrivateRoute logged={false} children={<SignUp />} link='/home'/>}
@@ -39,7 +42,11 @@ function App() {
         <Route path='/compiler'
           element={<PrivateRoute logged={true} children={<IdePage />} link='/home'/>}
         />
-        <Route path='/panel' element={<StudentPanel />}/>
+        <Route path='/panel' element={<StudentPanel />}
+        />
+        <Route path='/containerTest'
+          element={<PrivateRoute logged={false} children={<ContainerTest />} link='/home'/>}
+        />
       </Routes>
     </AuthProvider>
   );

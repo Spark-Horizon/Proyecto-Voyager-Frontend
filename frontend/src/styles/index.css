@@ -1,5 +1,22 @@
 @import url('./fonts.css');
 
+/* VARIABLES */
+:root{
+  /* MAIN COLOR PALLETE VARS */
+  --light-blue: #1CC6EC;
+  --middle-blue: #0D93CC;
+  --strong-blue: #096B95;
+  --warning-color: #F24444;
+  --bckg-color: #051923;
+  
+  /* IDE PAGE VARS */
+  --ide-components-padding: 30px 20px;
+  --main-ide-gray: #383838;
+  --compiler-theme-color: rgb(30, 30, 30);
+  --button-ide-green: rgb(17, 226, 107);
+  --button-ide-blue: #1CC6EC;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -59,15 +76,6 @@ body{
 }
 .footer .container .fotterLinks a:hover{
   color: var(--light-blue);
-}
-
-/* VARIABLES */
-:root{
-  --light-blue: #1CC6EC;
-  --middle-blue: #0D93CC;
-  --strong-blue: #096B95;
-  --warning-color: #F24444;
-  --bckg-color: #051923;
 }
 
 /*Scrollbar*/

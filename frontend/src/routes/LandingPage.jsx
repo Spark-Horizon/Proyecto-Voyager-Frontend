@@ -8,19 +8,20 @@ import '../styles/landingPage.css'
 export const LandingPage = () => {
 
     // Links y componentes de Navbar
-    const links = [
-        { text: 'Lenguajes', url: '/' },
-        { text: 'Contactanos', url: '/' },
-    ];
-    const components = [
-        {component: <Link to='/signin'><CustomButton type='btn btn-sm btnPrimary' text={'Iniciar sesión'}/></Link>},
-        {component: <Link to='/signup'><CustomButton type='btn btn-sm btnPrimary' text={'Crear cuenta'}/></Link>}
-    ]
+    const navbar = {
+        links: [{ text: 'Lenguajes', url: '/' },
+                { text: 'Contactanos', url: '/' }],
+        tabs: [],
+        components: [
+            {component: <Link to='/signin'><CustomButton type='btn btn-sm btnPrimary' text={'Iniciar sesión'}/></Link>},
+            {component: <Link to='/signup'><CustomButton type='btn btn-sm btnPrimary' text={'Crear cuenta'}/></Link>}    
+        ]
+    };
 
     return (
         <section id='landingPage'>
 
-            <CustomNavbar links={links} components={components}/>
+            <CustomNavbar tabs={navbar.tabs} links={navbar.links} components={navbar.components}/>
 
             <div className="container">
 
@@ -30,7 +31,6 @@ export const LandingPage = () => {
                         <img className='"img-fluid"' id='moonImage' src={require('../assets/img/image-moon.png')} alt="mooonImage" />
                     </div>
                 </div>
-
 
             </div>
 
