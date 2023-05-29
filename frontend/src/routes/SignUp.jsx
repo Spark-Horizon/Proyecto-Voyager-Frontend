@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { CustomNavbar } from '../components/CustomNavbar';
 import { CustomButton } from '../components/CustomButton';
 import { useAuth } from '../hooks/AuthContext';
+import { createUser } from '../helpers/indexHelpers'
 
 import '../styles/fonts.css'
 import '../styles/buttons.css'
@@ -66,8 +67,8 @@ export const SignUp = (props) => {
 
   async function handleSignUp(e) {
     e.preventDefault();
-    let usuario = {
-      id: isTeacher ? payroll : Semail.replace(/@tec\.mx$/, ""),
+    let newFsUser = {
+      id: isTeacher ? payroll.toUpperCase() : Semail.replace(/@tec\.mx$/, "").toUpperCase(),
       name: name,
       lastName1: lastName1,
       lastName2: lastName2,
@@ -75,9 +76,17 @@ export const SignUp = (props) => {
       timestamp: new Date(),
       role: isTeacher ? 'teacher' : 'student'                  
     }
+    let newPsqlUser = {
+      id: isTeacher ? payroll.toUpperCase() : Semail.replace(/@tec\.mx$/, "").toUpperCase(),
+      name: name,
+      lastName1: lastName1,
+      lastName2: lastName2,
+      role: isTeacher ? 'teacher' : 'student'    
+    }
     try {
       const userCredential = await signup(Temail || Semail, password);
-      await addDataToFirestore('users', userCredential.user.uid, usuario);
+      await addDataToFirestore('users', userCredential.user.uid, newFsUser);
+      await createUser(newPsqlUser);
     } catch (error) {
       setError('Ese correo ya tiene una cuenta asignada');
     }

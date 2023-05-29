@@ -12,7 +12,7 @@ export function AuthProvider ({ children, setUser }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true) 
 
-    function signup(email, password){
+    async function signup(email, password){
         return auth.createUserWithEmailAndPassword(email,password)
     }
 
@@ -28,7 +28,7 @@ export function AuthProvider ({ children, setUser }) {
         return auth.sendPasswordResetEmail(email)
     }
 
-    function addDataToFirestore(collection, doc, data) {
+    async function addDataToFirestore(collection, doc, data) {
         const userRef = firestore.collection(collection).doc(doc);
         return userRef.set(data);
     }
