@@ -18,16 +18,35 @@ export const Groups = ({ user }) => {
 
   // Fetch groups from API
   const fetchGroups = async () => {
-    const fetchedGroups = await getGroups(user.role, user.id);
-    console.log(fetchedGroups);
-    setGroups(fetchedGroups);
+    try {
+      const fetchedGroups = await getGroups(user.role, user.id);
+      setGroups(fetchedGroups);
+    } catch (error) {
+      console.error(error);
+      // Aquí podrías agregar código para manejar el error de manera más específica
+    }
   };
 
   // Delete a group
-  const handleDelete = async (role, id) => {
-    await deleteGroup(role, id);
-    fetchGroups();
-  };
+const handleDelete = async (role, id) => {
+  let confirmation = window.confirm("¿Seguro que quieres eliminar?");
+  if (confirmation) {
+    let deleteConfirmation = window.prompt("Escribe 'eliminar' para continuar");
+    if (deleteConfirmation && deleteConfirmation.toLowerCase() === "eliminar") {
+      try {
+        await deleteGroup(role, id);
+        // Update groups state after deleting
+        setGroups(groups.filter(group => group.id !== id));
+      } catch (error) {
+        console.error(error);
+        // Aquí podrías agregar código para manejar el error de manera más específica
+      }
+    } else {
+      alert("Operación cancelada.");
+    }
+  }
+};
+
 
   // Return the JSX for the component
   return (
@@ -40,11 +59,12 @@ export const Groups = ({ user }) => {
 
       {/* Display groups */}
       <Row className="container-cc">
-        {groups.map((group, index) => (
-          <Col md={4} key={index}>
+        {groups.map((group) => (
+          <Col md={4} key={group.id}>
             <Card>
               <Card.Body>
-                <Card.Title>{group.idMateriaGrupo}</Card.Title>
+                <Card.Title>{`Código: ${group.codigo}
+                ID Materia: ${group.id_materia}`}</Card.Title>
                 <Button variant="danger" onClick={() => handleDelete(user.role, group.id)}>Delete</Button>
               </Card.Body>
             </Card>
