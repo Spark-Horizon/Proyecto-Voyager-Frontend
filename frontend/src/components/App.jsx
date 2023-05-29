@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, EditExercise, PendingPage, SummaryPage } from '../routes/indexRoutes';
+import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, PendingPage, SummaryPage } from '../routes/indexRoutes';
 import { useAuth, AuthProvider } from '../hooks/AuthContext';
 
 function App() {

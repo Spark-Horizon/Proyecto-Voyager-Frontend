@@ -106,6 +106,7 @@ export const ResultTable = () => {
 
   console.log(step);
   console.log(editStatus);
+  
   return (
     <div>
       {step === 1 && (
@@ -276,88 +277,101 @@ export const ResultTable = () => {
                     func={handleDeletion(row.id_resultado)}/>
                 </td>
               </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
       )}
+      
       {step === 2 && editStatus === 'Pendiente' && (
+        <section id="exerciseCreationForm" className="container-cc">
+          <form>
           <div>
-          
-          <div className="text-center mb-4">
-            <h3 className="mb-0">Creación de ejercicios</h3>
-            <span>Selecciona el tipo de ejercicio que quieres crear</span>
+            <div className="text-center mb-4">
+              <h3 className="mb-0">Creación de ejercicios</h3>
+              <span>Selecciona el tipo de ejercicio que quieres crear</span>
+            </div>
+
+            <div className="select">
+              <CustomButton
+                type="btn btnPrimary btnResize"
+                text="Código"
+                func={() => setEditStatus('Código')}
+              />
+              <CustomButton
+                type="btn btnPrimary btnResize"
+                text="Opción múltiple"
+                func={() => setEditStatus('Opción múltiple')}
+              />
+            </div>
+
+            <div className="select next-back mt-5">
+              <CustomButton
+                type="btn mt-3 btnPrimary"
+                text="Regresar a inicio"
+                func={handlePrevStep}
+              />
+            </div>
           </div>
-        
-          <div className="select">
-            <CustomButton
-              type={'btn btnPrimary btnResize'}
-              text={'Código'}
-              func={() => setEditStatus('Código')}/>
-            <CustomButton
-              type={'btn btnPrimary btnResize'}
-              text={'Opción múltiple'}
-              func={() => setEditStatus('Opción múltiple')}/>
-          </div>
-        
-          <div className="select next-back mt-5">
-            <CustomButton
-              type={'btn mt-3 btnPrimary'}
-              text={'Regresar a inicio'}
-              func={handlePrevStep}/>
-          </div>
-        
-        </div>
+          </form>
+        </section>
       )}
+
       {step === 2 && editStatus === 'Código' && (
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
-          {exerciseID && exerciseData && (
-            <CodeExercise 
-              id={exerciseID}
-              author={exerciseData['archivo']['author']}
-              title={exerciseData['archivo']['title']}
-              description={exerciseData['archivo']['description']}
-              subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
-              difficulty={exerciseData['archivo']['difficulty']}
-              driver={exerciseData['archivo']['driver']}
-              tests={exerciseData['archivo']['tests']}
-              aprobado={exerciseData.autorizado}
-              onStep={handlePrevStep}
-              edicion={true}
-            />
-          )}
-          {(!exerciseID || !exerciseData) && (
-            <CodeExercise 
-              onStep={handlePrevStep}
-            />
-          )}
-        </div>
+        <section id="exerciseCreationForm" className="container-cc">
+          <form>
+            {exerciseID && exerciseData && (
+              <CodeExercise 
+                id={exerciseID}
+                author={exerciseData['archivo']['author']}
+                title={exerciseData['archivo']['title']}
+                description={exerciseData['archivo']['description']}
+                subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+                difficulty={exerciseData['archivo']['difficulty']}
+                driver={exerciseData['archivo']['driver']}
+                tests={exerciseData['archivo']['tests']}
+                aprobado={exerciseData.autorizado}
+                onStep={handlePrevStep}
+                edicion={true}
+              />
+            )}
+            {(!exerciseID || !exerciseData) && (
+              <CodeExercise 
+                onStep={handlePrevStep}
+              />
+            )}
+          </form>
+        </section>       
       )}
+
       {step === 2 && editStatus === 'Opción múltiple'&& (
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
-          {exerciseID && exerciseData && (
-            <OMExercise 
-              id={exerciseID}
-              author={exerciseData['archivo']['author']}
-              title={exerciseData['archivo']['title']}
-              description={exerciseData['archivo']['description']}
-              subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
-              difficulty={exerciseData['archivo']['difficulty']}
-              answer={exerciseData['archivo']['answer']}
-              hints={exerciseData['archivo']['hints']}
-              options={exerciseData['archivo']['options']}
-              aprobado={exerciseData.autorizado}
-              onStep={handlePrevStep}
-              edicion={true}
-            />
-          )}
-          {(!exerciseID || !exerciseData) && (
-            <OMExercise 
-              onStep={handlePrevStep}
-            />
-          )}
-        </div>
+        <section id="exerciseCreationForm" className="container-cc">
+          <form>
+            {exerciseID && exerciseData && (
+              <OMExercise 
+                id={exerciseID}
+                author={exerciseData['archivo']['author']}
+                title={exerciseData['archivo']['title']}
+                description={exerciseData['archivo']['description']}
+                subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+                difficulty={exerciseData['archivo']['difficulty']}
+                answer={exerciseData['archivo']['answer']}
+                hints={exerciseData['archivo']['hints']}
+                options={exerciseData['archivo']['options']}
+                aprobado={exerciseData.autorizado}
+                onStep={handlePrevStep}
+                edicion={true}
+              />
+            )}
+            {(!exerciseID || !exerciseData) && (
+              <OMExercise 
+                onStep={handlePrevStep}
+              />
+            )}
+          </form>
+        </section>
       )}
+      
     </div>
   );
 };
