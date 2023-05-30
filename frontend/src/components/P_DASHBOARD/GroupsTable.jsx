@@ -39,7 +39,7 @@ export const GroupsTable = ({professorId, changeView}) => {
                 ? <table className='groups-table'>
                     <thead>
                         <tr className='groups-table-headers'>
-                            <th>ID</th>
+                            <th>Código</th>
                             <th>Materia</th>
                             <th>Nombre del curso</th>
                         </tr>
