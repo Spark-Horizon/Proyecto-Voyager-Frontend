@@ -1,0 +1,44 @@
+
+
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { CustomButton } from '../CustomButton';
+
+
+export const ResultTable = () => {
+    const [step, setStep] = useState(1);
+    const [editStatus, setEditStatus] = useState(null);
+  
+    return (
+      <div className = "teacherQuizSection">
+        {step === 1 && (
+
+        )}
+  
+        {step === 2 && (
+
+        )}
+  
+        {(step === 3 || step === 5) && estado === 'Código' && (
+
+        )}
+  
+        {(step === 3 || step === 5) && estado === 'Opción múltiple' && (
+
+        )}
+  
+        {step === 3 && editStatus === 'Normal' && (
+
+        )}
+  
+        {(step === 3 || step === 4) && estado === 'Aleatorio' && (
+
+        )}
+  
+        {step === 4 && editStatus === 'Específico' && (
+
+        )}
+      </div>
+    );
+};
+  

@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, PendingPage, SummaryPage } from '../routes/indexRoutes';
+import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, PendingPage, SummaryPage, TeacherQuizzes } from '../routes/indexRoutes';
 import { useAuth, AuthProvider } from '../hooks/AuthContext';
 
 function App() {
@@ -38,6 +38,9 @@ function App() {
         />
         <Route path='/summarypage'
           element={<PrivateRoute logged={false} children={<SummaryPage />} link='/home'/>}
+        />
+        <Route path='/teacherquizzes'
+          element={<PrivateRoute logged={false} children={<TeacherQuizzes />} link='/home'/>}
         />
       </Routes>
     </AuthProvider>
