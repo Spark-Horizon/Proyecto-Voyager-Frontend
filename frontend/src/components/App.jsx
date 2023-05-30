@@ -3,11 +3,11 @@ import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage
 import { useAuth, AuthProvider } from '../hooks/AuthContext';
 
 const user = {
-  id: 'L01732005',
+  id: 'A01732008',
   name: 'Francisco',
   lastname1: 'Rocha',
   lastname2: 'Juárez',
-  role: 'teacher'
+  role: 'student'
 };
 
 function App() {
