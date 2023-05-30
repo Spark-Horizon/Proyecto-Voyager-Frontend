@@ -18,7 +18,8 @@
     justify-content: flex-end;
     font-family: 'Inter';
     font-weight: bold;
-    transition: border-right 0.5s ease;
+    transition: border-right 0.2s ease;
+    cursor: pointer;
 }
 
 .p-dash-sidebar-item-selected {

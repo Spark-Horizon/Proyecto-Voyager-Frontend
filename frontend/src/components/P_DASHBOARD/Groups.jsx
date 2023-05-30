@@ -1,88 +1,36 @@
-import axios from 'axios';
-
 import { useState, useEffect } from 'react';
-import { GroupsItem } from './GroupsItem';
+
 import { PDSHPanelTemplate } from './PDSHPanelTemplate';
+
+import { GroupsTable } from './GroupsTable';
+import { GroupsStudentView } from './GroupsStudentView';
+import { GroupsGeneralView } from './GroupsGeneralView';
 
 import '../../styles/professor_dashboard/groups.css';
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
-const port = process.env.REACT_APP_BACKEND_PORT
+
+
 
 export const Groups = ({ professorId }) => {
-    const [groupsData, setGroupsData] = useState([]);
-    const [axiosError, setAxiosError] = useState(null);
+    const [currentView, setCurrentView] = useState('table');
+    const [canReturn, setCanReturn] = useState(false);
+    const [changeViewFunction, setChangeViewFunction] = useState(null);
 
     const views = {
-        0: 'GroupsTable',
-        1: 'GroupsGeneralView',
-        2: 'GroupsStudentView'
-    }
-
-    const getGroupsData = async () => {
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            }
-
-            const response = await axios.get(`http://${backendUrl}:${port}/dashboard/profesor/entregas?id=${professorId}`, config);
-
-            const {data} = response;
-
-            setGroupsData(data)
-        } catch (error) {
-            setAxiosError('Problemas con el servidor, intentar más tarde.');
-        }
+        table: <GroupsTable professorId={professorId} changeView={setCurrentView} />,
+        generalView: <GroupsGeneralView changeView={setCurrentView} changeViewFunction={setChangeViewFunction} setCanReturn={setCanReturn} />,
+        studentView: <GroupsStudentView changeView={setCurrentView} changeViewFunction={setChangeViewFunction} setCanReturn={setCanReturn} />
     }
 
     useEffect(() => {
-        getGroupsData();
+        setCanReturn(false);
+        setChangeViewFunction(null);
     }, [])
 
     return (
         <>
-            <PDSHPanelTemplate title={'Grupos'} />       
-            {
-                groupsData.length !== 0
-                ? <div className="groups-main-container">
-                    <table className='groups-table'>
-                        <thead>
-                            <tr className='groups-table-headers'>
-                                <th>ID</th>
-                                <th>Materia</th>
-                                <th>Nombre del curso</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                groupsData.map((data) => {
-                                    let groupItems = [];
-
-                                    let index = 0;
-                                    for (let key in data) {
-                                        if (index === 0)
-                                            groupItems.push(<GroupsItem key={data['id'] + index} type={'normal'} classType={'groups-td-first'} data={data[key]} />)
-                                        else if (index === groupsData.length - 1)
-                                            groupItems.push(<GroupsItem key={data['id'] + index} classType={'groups-td-last'} data={data[key]} />)
-                                        else if (index !== groupsData.length - 1)
-                                            groupItems.push(<GroupsItem key={data['id'] + index} type={'normal'} classType={'groups-td-middle'} data={data[key]} />)
-                                        index++;
-                                    }
-
-                                    return <tr key={data['id']} className="groups-table-row">{groupItems}</tr>;
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                : axiosError !== null
-                ? <div>{axiosError}</div>
-                : <div>Cargando...</div>
-            } 
-            
+            <PDSHPanelTemplate title={'Grupos'} canReturn={canReturn} changeFunction={changeViewFunction} />       
+            <div className="groups-main-container">{views[currentView]}</div>
         </>
     )
 }

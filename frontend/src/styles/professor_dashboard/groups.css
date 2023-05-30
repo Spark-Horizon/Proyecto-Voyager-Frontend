@@ -1,5 +1,7 @@
 .groups-main-container {
     height: 100%;
+    display: flex;
+    overflow-y: scroll;
 }
 
 .groups-table {
@@ -41,6 +43,7 @@
 .groups-td-buttons > button:hover {
     background-color: var(--middle-blue);
     border: 1px solid var(--middle-blue);
+    word-spacing: 2px;
 }
 
 .groups-td-data {

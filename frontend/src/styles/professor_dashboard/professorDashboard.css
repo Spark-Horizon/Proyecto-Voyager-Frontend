@@ -25,7 +25,7 @@
 }
 
 .p-dash-main-container {
-    flex-grow: 1;
+    height: 90%;
     width: 100%;
     display: flex;
     align-items: center;

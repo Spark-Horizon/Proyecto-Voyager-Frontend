@@ -22,7 +22,7 @@
 .p-dash-top-container {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding-bottom: 10px;
     border-bottom: var(--glassmorphism-border);
@@ -66,9 +66,9 @@
     box-sizing: border-box;
 }
 
-.magnifying-glass {
-    height: 15px;
-    position: absolute;
+.angle-left-solid {
+    height: 30px;
     right: 10px;
-    fill: var(--glassmorphism-border-color);
+    margin-right: 20px;
+    fill: #fff;
 }

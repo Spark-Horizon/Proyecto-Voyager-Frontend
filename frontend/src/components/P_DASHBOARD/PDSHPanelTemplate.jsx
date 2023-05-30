@@ -1,8 +1,9 @@
-import { ReactComponent as MagnifyingGlassIcon } from '../../assets/svg/icons/magnifying-glass-solid.svg';
+import { ReactComponent as AngleLeft } from '../../assets/svg/icons/angle-left-solid.svg';
 
-export const PDSHPanelTemplate = ({ title, queryFunction }) => {
+export const PDSHPanelTemplate = ({ title, canReturn, changeFunction }) => {
     return (
         <div className='p-dash-top-container'>
+            { canReturn && <AngleLeft className='angle-left-solid' onClick={changeFunction} />}
             <h1>{title}</h1>
             {/* SEARCH BAR IMPLEMENTATION
             <form className="p-dash-top-container-search-bar">
