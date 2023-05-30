@@ -5,6 +5,12 @@
 .mopage-main-container{
     height: 100%;
 }
+.mo-route-container .container-cc{
+    flex-direction: column;
+}
+.mo-route-container .container-cc button{
+    /*in progress*/
+}
 .mo-instructions{
     transition: all ease 0.5s;
     height: fit-content;
