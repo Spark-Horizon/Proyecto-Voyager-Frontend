@@ -43,12 +43,12 @@ export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton>
-                <Modal.Title>Crear Grupo</Modal.Title>
+                <Modal.Title>{user.role === 'student' ? 'Unirse a grupo' : 'Crear grupo'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleFormSubmit}>
                     <Form.Group className="mb-3">
-                        <Form.Label>Materia</Form.Label>
+                        <Form.Label>{user.role === 'student' ? 'Código de grupo' : 'Materia'}</Form.Label>
                         <Form.Control as="select" value={groupData.idMateriaGrupo} onChange={e => setGroupData({ ...groupData, idMateriaGrupo: e.target.value })}>
                             <option value="">Seleccione una materia</option>
                             {subjects.map((subject) => (
