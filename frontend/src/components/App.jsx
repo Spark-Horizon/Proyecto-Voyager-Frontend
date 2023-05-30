@@ -2,8 +2,16 @@ import { Routes, Route } from 'react-router-dom';
 import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise, ContainerTest, PendingQuizzes, Groups } from '../routes/indexRoutes';
 import { useAuth, AuthProvider } from '../hooks/AuthContext';
 
+// const user = {
+//   id: 'L01732005',
+//   name: 'Francisco',
+//   lastname1: 'Rocha',
+//   lastname2: 'Juárez',
+//   role: 'teacher'
+// };
+
 const user = {
-  id: 'A01735335',
+  id: 'A01732009',
   name: 'Francisco',
   lastname1: 'Rocha',
   lastname2: 'Juárez',
