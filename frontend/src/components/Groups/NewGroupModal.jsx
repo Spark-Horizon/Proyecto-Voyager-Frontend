@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Modal, Button, Form } from 'react-bootstrap';
-import { createGroup, getSubjects } from '../../helpers/Groups/api';
+import { createGroup, getSubjects, enterGroup } from '../../helpers/Groups/api';
 
 //A modal is something that is over the main screen
 export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
@@ -48,15 +48,24 @@ export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
             <Modal.Body>
                 <Form onSubmit={handleFormSubmit}>
                     <Form.Group className="mb-3">
-                        <Form.Label>{user.role === 'student' ? 'Código de grupo' : 'Materia'}</Form.Label>
-                        <Form.Control as="select" value={groupData.idMateriaGrupo} onChange={e => setGroupData({ ...groupData, idMateriaGrupo: e.target.value })}>
-                            <option value="">Seleccione una materia</option>
-                            {subjects.map((subject) => (
-                                <option key={subject.id} value={subject.id}>
-                                    {subject.nombre}
-                                </option>
-                            ))}
-                        </Form.Control>
+                        <Form.Label>{user.role === 'student' ? 'Código Único' : 'Materia'}</Form.Label>
+                        {user.role === 'student' ?
+                            <Form.Control
+                                type="text"
+                                placeholder="Escriba el Código Único"
+                                value={groupData.idMateriaGrupo}
+                                onChange={e => setGroupData({ ...groupData, idMateriaGrupo: e.target.value })}
+                            />
+                            :
+                            <Form.Control as="select" value={groupData.idMateriaGrupo} onChange={e => setGroupData({ ...groupData, idMateriaGrupo: e.target.value })}>
+                                <option value="">Seleccione una materia</option>
+                                {subjects.map((subject) => (
+                                    <option key={subject.id} value={subject.id}>
+                                        {subject.nombre}
+                                    </option>
+                                ))}
+                            </Form.Control>
+                        }
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         {user.role === 'student' ? 'Unirse' : 'Crear'}
