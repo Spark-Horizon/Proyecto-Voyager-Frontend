@@ -30,7 +30,24 @@ export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
     //Function to handle the form submission
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        await createGroup({ ...groupData, user });
+
+        const userGroupData = {
+            codigoGrupo: groupData.idMateriaGrupo,
+            user: {
+                id: user.id,
+                name: user.name,
+                lastname1: user.lastname1,
+                lastname2: user.lastname2,
+                role: user.role
+            }
+        };
+
+        if (user.role === 'student') {
+            await enterGroup(userGroupData);
+        } else {
+            await createGroup({ ...groupData, user });
+        }
+
         setGroupData({
             idMateriaGrupo: '',
             visibleGrupo: true
