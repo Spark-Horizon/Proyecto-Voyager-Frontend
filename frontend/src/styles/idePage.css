@@ -33,7 +33,7 @@
 @media screen and (max-width: 600px) {
     .idepage-main-container {
         flex-direction: column;
-        height: max-content;;
+        height: max-content;
     }
 
     .ide-outputpanel-main-container {

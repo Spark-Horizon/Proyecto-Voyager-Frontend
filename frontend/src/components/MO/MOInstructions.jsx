@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CustomButton } from '../../components/CustomButton'
 import { useGetMOTask } from "../../hooks/useGetTask";
 //Seria crear un nuevo styles para esto supongo
 import '../../styles/codeInstructions.css';
@@ -12,9 +13,11 @@ export const MOInstructions = ({ problem_id }) => {
     }
 
     const { author, title, description, topic, difficulty, answer, hint, options } = data;
+    const difficultyClass = 'code-instructions-difficulty badge ' + difficulty;
+
     const formattedOptions = options.map((option) => (
-        <div key = {option.id}>
-            <input type="radio" id={option.text} name="opciones" value={option.text} checked={selectedOption === option.text} onChange={() => setSelectedOption(option.text)} />
+        <div key={option.id} className="container-cl mb-3">
+            <input className="radio" type="radio" id={option.text} name="opciones" value={option.text} checked={selectedOption === option.text} onChange={() => setSelectedOption(option.text)} />
             <label htmlFor={option.text}>{option.text}</label>
         </div>
     ))
@@ -32,20 +35,26 @@ export const MOInstructions = ({ problem_id }) => {
 
     return(
         <div className="mo-instructions">
-            <div className="mo-instructions-info">
-                <p className="code-instructions-topic">Tema: {topic}</p>
-                <p className="code-instructions-difficulty">Dificultad: {difficulty}</p>
-            </div>
-            <h3>{title}</h3>
-            <p>{description}</p>
-            <div className="mo-instructions-options">
-                <fieldset className="options-field">
-                    <legend>Selecciona la respuesta correcta:</legend>
-                    <div>{formattedOptions}</div>
-                    <div>
-                        <button onClick={handleSubmit}>Submit</button>
+            <p className="code-instructions-topic">{topic}</p>
+            <div className="mo-instructions-content">
+                <div className="mo-instructions-info">
+                    <div className="code-instructions-title">
+                        <h3>{title}</h3>
+                        <span className={difficultyClass}>{difficulty}</span>
                     </div>
-                </fieldset>
+                    <div className="mo-instructions-description mb-4">
+                        {description}
+                    </div>
+                </div>
+                <div className="mo-instructions-options mb-4">
+                    <fieldset className="options-field">
+                        <p className="fw-bold">Selecciona la respuesta correcta:</p>
+                        <div>{formattedOptions}</div>
+                    </fieldset>
+                </div>
+                <div className="mo-instructions-submit container-cc">
+                    <CustomButton type='btn' text={'Submit'} func={handleSubmit}/>
+                </div>
             </div>
         </div>
     );
