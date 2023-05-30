@@ -93,11 +93,11 @@ export const Groups = ({ user }) => {
   return (
     <Container>
       {/* Button to open the NewGroupModal */}
-      <Button onClick={() => setShowModal(true)} className="mb-3">Crear grupo 🪐</Button>
-
+      <Button onClick={() => setShowModal(true)} className="mb-3">
+        {role === 'teacher' ? 'Crear grupo 🪐' : 'Unirse a grupo'}
+      </Button>
       {/* Modal for creating new group */}
       <NewGroupModal user={user} show={showModal} onHide={() => setShowModal(false)} onGroupCreated={fetchGroups} />
-
       {/* Display groups */}
       <Row className="container-cc">
         {groups.map((group) => (
@@ -106,12 +106,19 @@ export const Groups = ({ user }) => {
               <Card.Body>
                 <Card.Title>{`Código: ${group.codigo}
                 ID Materia: ${group.id_materia}`}</Card.Title>
-                <Button variant="danger" onClick={() => handleDelete(role,group.id,id,group.codigo)}>Delete</Button>
+                <Button variant="danger" onClick={() => handleDelete(role, group.id, id, group.codigo)}>
+                  {role === 'teacher' ? 'Eliminar' : 'Salir'}
+                </Button>
+                {role === 'student' && (
+                  <Button onClick={() => { window.location.href = '/path'; }}>
+                    Ir al path
+                  </Button>
+                )}
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
     </Container>
-  );
+  );  
 };
