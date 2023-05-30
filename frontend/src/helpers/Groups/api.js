@@ -53,6 +53,7 @@ export const deleteGroup = async (role, id) => {
 export const exitGroup = async (role, id, codigo) => {
     try{
         await axios.delete(`${API_URL}/${role}/${id}/${codigo}`);
+        console.log(`El rol: ${role} con id: ${id} salio del grupo con codigo: ${codigo}`);
     }catch (error){
         console.error(error);
         return null;
