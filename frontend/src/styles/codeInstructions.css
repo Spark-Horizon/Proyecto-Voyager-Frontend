@@ -46,6 +46,12 @@
   width: fit-content;
 }
 
+.Fácil{
+  background-color: rgb(0, 128, 79);
+}
+.Mediano{
+  background-color: orange;
+}
 .Difícil{
   background-color: var(--warning-color);
 }
