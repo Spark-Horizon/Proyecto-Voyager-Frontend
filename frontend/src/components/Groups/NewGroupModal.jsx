@@ -15,16 +15,16 @@ export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
 
     // Fetch the subjects from the database when the component mounts
     useEffect(() => {
-      fetchSubjects();
+        fetchSubjects();
     }, []);
 
     const fetchSubjects = async () => {
-      try {
-        const fetchedSubjects = await getSubjects();
-        setSubjects(fetchedSubjects);
-      } catch (error) {
-        console.error(error);
-      }
+        try {
+            const fetchedSubjects = await getSubjects();
+            setSubjects(fetchedSubjects);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     //Function to handle the form submission
@@ -52,14 +52,14 @@ export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
                         <Form.Control as="select" value={groupData.idMateriaGrupo} onChange={e => setGroupData({ ...groupData, idMateriaGrupo: e.target.value })}>
                             <option value="">Seleccione una materia</option>
                             {subjects.map((subject) => (
-                              <option key={subject.id} value={subject.id}>
-                                {subject.nombre}
-                              </option>
+                                <option key={subject.id} value={subject.id}>
+                                    {subject.nombre}
+                                </option>
                             ))}
                         </Form.Control>
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Create
+                        {user.role === 'student' ? 'Unirse' : 'Crear'}
                     </Button>
                 </Form>
             </Modal.Body>
