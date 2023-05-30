@@ -1,8 +1,26 @@
-import { useGetCodeTask } from '../../hooks/useGetTask.js';
+import { useState, useEffect } from 'react';
+import { useGetTask } from '../../hooks/useGetTask.js';
+import { useGetProgress } from '../../hooks/useGetProgress.js';
 import '../../styles/codeInstructions.css';
 
-export const CodeInstructions = ({ problem_id }) => {
-  const { data } = useGetCodeTask(problem_id);
+export const CodeInstructions = () => {
+  const [problem_id, setProblemID] = useState("");
+  const subtem_id = sessionStorage.getItem("curr_subtem");
+  const ejercicio_id = sessionStorage.getItem("curr_ejerci");
+  const { data_progress } = useGetProgress(subtem_id, "C");
+
+  useEffect(() => {
+    let problemId = "";
+    if (ejercicio_id != null) {
+      problemId = ejercicio_id;
+    } else if (data_progress != null) {
+      problemId = data_progress.id_ejercicio;
+    }
+    setProblemID(problemId);
+  }, [data_progress, ejercicio_id]);
+
+
+  const { data } = useGetTask(problem_id);
 
   if (!data) {
     return (
