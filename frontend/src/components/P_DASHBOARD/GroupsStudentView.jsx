@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
-export const GroupsStudentView = ({changeView, changeViewFunction, setCanReturn}) => {
+export const GroupsStudentView = ({setCurrentView, changeViewFunction, setCanReturn}) => {
     const returnToPreviousView = () => {
-        setCanReturn(false);
         changeViewFunction(null);
-        changeView('table');
+        setCurrentView('table');
+        setCanReturn(false);
     }
 
     useEffect(() => {

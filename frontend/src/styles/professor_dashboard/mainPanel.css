@@ -71,4 +71,10 @@
     right: 10px;
     margin-right: 20px;
     fill: #fff;
+    cursor: pointer;
+    transition: all ease 0.2s;
+}
+
+.angle-left-solid:hover {
+    fill: var(--middle-blue);
 }

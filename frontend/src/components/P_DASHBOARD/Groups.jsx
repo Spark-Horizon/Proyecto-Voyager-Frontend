@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import { PDSHPanelTemplate } from './PDSHPanelTemplate';
-
 import { GroupsTable } from './GroupsTable';
 import { GroupsStudentView } from './GroupsStudentView';
 import { GroupsGeneralView } from './GroupsGeneralView';
@@ -9,28 +7,22 @@ import { GroupsGeneralView } from './GroupsGeneralView';
 import '../../styles/professor_dashboard/groups.css';
 
 
-
-
-export const Groups = ({ professorId }) => {
-    const [currentView, setCurrentView] = useState('table');
-    const [canReturn, setCanReturn] = useState(false);
-    const [changeViewFunction, setChangeViewFunction] = useState(null);
-
-    const views = {
-        table: <GroupsTable professorId={professorId} changeView={setCurrentView} />,
-        generalView: <GroupsGeneralView changeView={setCurrentView} changeViewFunction={setChangeViewFunction} setCanReturn={setCanReturn} />,
-        studentView: <GroupsStudentView changeView={setCurrentView} changeViewFunction={setChangeViewFunction} setCanReturn={setCanReturn} />
-    }
-
+export const Groups = ({ professorId, setComponentViews, setCurrentView, setCanReturn, setChangeViewFunction, currentComponent }) => {
     useEffect(() => {
-        setCanReturn(false);
-        setChangeViewFunction(null);
+        setComponentViews(
+            {
+                table: <GroupsTable professorId={professorId} changeView={setCurrentView} />,
+                generalView: <GroupsGeneralView setCurrentView={setCurrentView} changeViewFunction={setChangeViewFunction} setCanReturn={setCanReturn} />,
+                studentView: <GroupsStudentView setCurrentView={setCurrentView} changeViewFunction={setChangeViewFunction} setCanReturn={setCanReturn} />
+            }
+        );
+        
+        setCurrentView('table');
     }, [])
 
     return (
         <>
-            <PDSHPanelTemplate title={'Grupos'} canReturn={canReturn} changeFunction={changeViewFunction} />       
-            <div className="groups-main-container">{views[currentView]}</div>
+            <div className="groups-main-container">{currentComponent}</div>
         </>
     )
 }
