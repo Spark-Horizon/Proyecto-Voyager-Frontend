@@ -11,19 +11,105 @@ export const TeacherActivity = () => {
   const [tipoOption, setTipoOption] = useState('');
   const [subtemaOptions, setSubtemaOptions] = useState('');
   const [difficultyOption, setDifficultyOption] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const [showSaveExercisePopup, setShowSaveExercisePopup] = useState(false);
 
   const handlePrevStep = () => {
     setStep(step - 1);
+    setShowPopup(false);
   };
   
   const handleNextStep = () => {
     setStep(step + 1);
+    setShowPopup(false);
+  };
+  
+  const handleSaveExercise = () => {
+    setStep(2);
+    setShowSaveExercisePopup(true);
+  };
+
+  const handleCreateActivity = () => {
+    setStep(1);
+    setShowPopup(true);
+  };
+
+  const handleStatusCodigo = () => {
+    setStep(step + 1);
+    setEditStatus('Código');
+  };
+
+  const handleStatusOM= () => {
+    setStep(step + 1);
+    setEditStatus('Opción múltiple');
+  };
+
+  const handleStatusAleatorio = () => {
+    setStep(step + 1);
+    setEditStatus('Aleatorio');
+  };
+
+  const handleStatusNormal = () => {
+    setStep(step + 1);
+    setEditStatus('Normal');
+  };
+
+  const handleStatusEspecífico = () => {
+    setStep(step + 1);
+    setEditStatus('Específico');
+  };
+
+  const handlePrevStepFour = () => {
+    setStep(step - 1);
+    if (step == 4)
+      setEditStatus('Normal');
+    else 
+      setEditStatus(null);
+  };
+
+  const handlePrevStepFive = () => {
+    setStep(step - 1);
+    if (step == 5)
+      setEditStatus('Específico');
+    else 
+      setEditStatus(null);
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    setShowSaveExercisePopup(false);
   };
 
   console.log('Current step:', step);
 
   return (
-    <div className="teacherQuizSection">
+    <section id="teacherQuizSection">
+
+      {showPopup && (
+        <div className="message-popup">
+          <div className="message-content">
+            <span>La actividad ha sido creada</span>
+            <div className="button-container">
+              <button className="btn btn-primary btn-sm" onClick={handlePopupClose}>
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showSaveExercisePopup && (
+        <div className="message-popup">
+          <div className="message-content">
+            <span>El ejercicio ha sido guardado</span>
+            <div className="button-container">
+              <button className="btn btn-primary btn-sm" onClick={handlePopupClose}>
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {step === 1 && (
         <div>
@@ -94,19 +180,29 @@ export const TeacherActivity = () => {
 
       {step === 2 && (
         <div>
-          <ActivityFormat />
+          <ActivityFormat
+            onPreviousStep={handlePrevStep}
+            onNextStatus={handleStatusNormal}
+            onNextCodigo={handleStatusCodigo}
+            onNextOM={handleStatusOM}
+            onActivityCreation={handleCreateActivity}
+          />
         </div>
       )}
 
       {(step === 3 || step === 5) && editStatus === 'Código' && (
         <div>
-          <CodeExercise/>
+          <CodeExercise
+            onPreviousStep={handlePrevStepFive}
+          />
         </div>
       )}
 
       {(step === 3 || step === 5) && editStatus === 'Opción múltiple' && (
         <div>
-          <OMExercise/>
+          <OMExercise
+            onPreviousStep={handlePrevStepFive}
+          />
         </div>
       )}
 
@@ -166,7 +262,12 @@ export const TeacherActivity = () => {
               <CustomButton
                 type="btn mt-3 btnPrimary"
                 text="Atrás"
-                func={handlePrevStep}
+                func={handlePrevStepFour}
+              />
+              <CustomButton 
+                type='btn mt-3 btn-success'
+                text='Guardar ejercicio'
+                func={handleSaveExercise}
               />
             </div>
           </div>
@@ -188,12 +289,12 @@ export const TeacherActivity = () => {
               <CustomButton
                 type="btn btnPrimary btnResize"
                 text="Específico"
-                func={() => setEditStatus('Específico')}
+                func={handleStatusEspecífico}
               />
               <CustomButton
                 type="btn btnPrimary btnResize"
                 text="Aleatorio"
-                func={() => setEditStatus('Aleatorio')}
+                func={handleStatusAleatorio}
               />
             </div>
 
@@ -211,9 +312,14 @@ export const TeacherActivity = () => {
 
       {step === 4 && editStatus === 'Específico' && (
         <div>
+          <CustomButton
+            type="btn mt-3 mb-3 btnPrimary btn-lg"
+            text="Atrás"
+            func={handlePrevStepFour}
+          />
           <ResultTable/>
         </div>
       )}
-    </div>
+    </section>
   );
 };

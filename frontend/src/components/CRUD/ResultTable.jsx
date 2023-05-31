@@ -108,7 +108,7 @@ export const ResultTable = () => {
   console.log(editStatus);
   
   return (
-    <div className = "crudSection">
+    <section id="crudSection">
       {step === 1 && (
         <div className="table-responsive">
           <table className="table table-hover">
@@ -372,6 +372,6 @@ export const ResultTable = () => {
         </section>
       )}
       
-    </div>
+    </section>
   );
 };
