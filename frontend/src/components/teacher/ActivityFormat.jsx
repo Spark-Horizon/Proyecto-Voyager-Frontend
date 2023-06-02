@@ -2,17 +2,14 @@ import { useState } from 'react';
 import { CustomButton } from '../CustomButton';
 
 export const ActivityFormat = (props) => {
-  const [titleOption, setTitleOption] = useState('');
-  const [inicioOption, setInicioOption] = useState('');
-  const [finOption, setFinOption] = useState('');
-  const [numIntentosOption, setNumIntentosOption] = useState('0');
-  const [bloqueoOption, setBloqueoOption] = useState(false);
-  const [visibleOption, setVisibleOption] = useState(false);
-  const [exerciseBlocksCode, setExerciseBlocksCode] = useState([
-    { name: 'Exercise 1', type: 'Type 1', subtema: 'Subtema 1' },
-    { name: 'Exercise 2', type: 'Type 2', subtema: 'Subtema 2' },
-    { name: 'Exercise 3', type: 'Type 3', subtema: 'Subtema 3' },
-  ]);
+  const [titleOption, setTitleOption] = useState(props.titulo || '');
+  const [inicioOption, setInicioOption] = useState(props.inicio || '');
+  const [finOption, setFinOption] = useState(props.fin || '');
+  const [numIntentosOption, setNumIntentosOption] = useState(props.intentos || '');
+  const [bloqueoOption, setBloqueoOption] = useState(props.bloqueo || '');
+  const [visibleOption, setVisibleOption] = useState(props.visible || '');
+  const [disponibleOption, setDisponibleOption] = useState(props.disponible || '');
+  const [exerciseBlocksCode, setExerciseBlocksCode] = useState(props.ejercicios || []);
 
   const handlePrevious = () => {
     props.onPreviousStep();
@@ -26,19 +23,25 @@ export const ActivityFormat = (props) => {
     props.onActivityCreation();
   };
 
-  const handleCodigo = () => {
-    props.onNextCodigo();
-  };
-
-  const handleOM = () => {
-    props.onNextOM();
-  };
+  const handleEjercicio = (id_hand, tipo_hand) => {
+    props.onNextExercise(id_hand, tipo_hand);
+  }
 
   const handleIntentosChange = (event) => {
     const { value } = event.target;
     if (/^\d*$/.test(value)) {
       setNumIntentosOption(value);
     }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hour = String(date.getHours()).padStart(2, '0');
+    const minute = String(date.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day}T${hour}:${minute}`;
   };
 
   const handleDeleteRow = (index) => {
@@ -70,6 +73,8 @@ export const ActivityFormat = (props) => {
     }
   };
 
+  console.log(inicioOption, typeof(inicioOption));
+
   return (
     <section id="teacherActivityFormat">
       <h2>Crear Actividad</h2>
@@ -92,7 +97,7 @@ export const ActivityFormat = (props) => {
         <input
           type="datetime-local"
           id="inicio"
-          value={inicioOption}
+          value={formatDate(inicioOption)}
           onChange={(event) => setInicioOption(event.target.value)}
           className="form-control"
           required
@@ -104,7 +109,7 @@ export const ActivityFormat = (props) => {
         <input
           type="datetime-local"
           id="fin"
-          value={finOption}
+          value={formatDate(finOption)}
           onChange={(event) => setFinOption(event.target.value)}
           className="form-control"
           required
@@ -162,6 +167,25 @@ export const ActivityFormat = (props) => {
         </div>
       </div>
 
+      <div className="form-group mb-4">
+        <label htmlFor="disponible" className="text-center">
+          ¿La actividad está disponible?
+        </label>
+        <div className="form-check">
+          <input
+            type="checkbox"
+            id="disponible"
+            checked={disponibleOption}
+            onChange={(e) => setDisponibleOption(e.target.checked)}
+            className="form-check-input"
+            required
+          />
+          <label className="form-check-label" htmlFor="visible">
+            Sí está disponible para los alumnos
+          </label>
+        </div>
+      </div>
+
       <h3>Ejercicios</h3>
       <table className="exercise-table">
         <thead>
@@ -176,16 +200,16 @@ export const ActivityFormat = (props) => {
         <tbody>
           {exerciseBlocksCode.map((block, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{block.name}</td>
-              <td>{block.type}</td>
-              <td>{block.subtema}</td>
+              <td>{block.id}</td>
+              <td>{block['?column?']}</td>
+              <td>{block.tipo}</td>
+              <td>{block.id_subtema}</td>
               <td>
               <div>
-                <CustomButton // ESTE BOTON DEBERIA RECIBIR handleCodigo O handleOM DEPENDIENDO DEL TIPO, NO SUPE CÓMO PONERLO ASÍ QUE...
+                <CustomButton
                   type="btn btn-primary btn-sm mr-2"
                   text="Editar"
-                  func={handleNext}
+                  func={() => handleEjercicio(block.id, block.tipo)}
                 />
                 <CustomButton
                   type="btn btn-danger btn-sm mr-2"

@@ -1,18 +1,101 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CustomButton } from '../CustomButton';
 import { ActivityFormat } from './ActivityFormat';
 import { ResultTable } from "../CRUD/ResultTable";
 import { CodeExercise } from "../CRUD/CodeExercise"
 import { OMExercise } from "../CRUD/OMExercise"
+import { useGetActivitiesTask, useGetActivityExercises, useGetActivityTask } from '../../hooks/useGetTeacherTask';
+import { useGetExerciseTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask } from '../../hooks/useGetCRUDTask.js';
 
 export const TeacherActivity = () => {
+  const CONID = 1;
   const [step, setStep] = useState(1);
   const [editStatus, setEditStatus] = useState(null);
-  const [tipoOption, setTipoOption] = useState('');
-  const [subtemaOptions, setSubtemaOptions] = useState('');
-  const [difficultyOption, setDifficultyOption] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [showSaveExercisePopup, setShowSaveExercisePopup] = useState(false);
+
+  const [activityID, setActivityID] = useState(null);
+  const [activityData, setActivityData] = useState(null);
+  const { data_activity } = useGetActivityTask(activityID);
+  const [activityExData, setActivityExData] = useState(null);
+  const { data_activity_exercises } = useGetActivityExercises(activityID);
+
+  const [exerciseID, setExerciseID] = useState(null);
+  const [exerciseData, setExerciseData] = useState(null);
+  const { data_exercise } = useGetExerciseTask(exerciseID);
+  
+  const [filtroOptions, setFiltroOptions] = useState(['id']);
+  const [hierOptions, setHierOptions] = useState(['ASC']);
+  const [dataResult, setDataResult] = useState(['']);
+  const { data_activities } = useGetActivitiesTask(CONID, filtroOptions, hierOptions);
+  
+  const [subtemaOption, setSubtemaOption] = useState('');
+  const { data_subtema } = useGetFilSubtemaTask();
+  const [tipoOption, setTipoOption] = useState('');
+  const { data_tipo } = useGetFilTipoTask();
+  const [difficultyOption, setDifficultyOption] = useState('');
+  const { data_dificultad } = useGetFilDificultadTask();
+
+
+
+
+
+  //useEffect de la vista general de todas las actividades
+  useEffect(() => {
+    setDataResult(data_activities);
+  }, [data_activities]);
+
+  //useEffect de la vista de una actividad en particular
+  useEffect(() => {
+    if (data_activity){
+      setActivityData(data_activity);
+    }
+  }, [data_activity]);
+
+  //useEffect de los ejercicios de una vista de una actividad en particular
+  useEffect(() => {
+    if (data_activity_exercises){
+      setActivityExData(data_activity_exercises);
+    }
+  }, [data_activity_exercises]);
+
+  //useEffect para dar el siguiente step cuando la informacion de la actividad se actualiza
+  useEffect(() => {
+    if (activityData !== null){
+      handleNextStep();
+    }
+  }, [activityData]);
+
+  //useEffect para reiniciar los estados de la informacion de una actividad cuando vuelve a la pantalla inicial
+  useEffect(() => {
+    if (step === 1){
+      setActivityID(null);
+      setActivityData(null);
+      setActivityExData(null)
+    }
+  }, [step]);
+
+  //useEffect de la vista de un ejercicio en particular
+  useEffect(() => {
+    if (data_exercise){
+      setExerciseData(data_exercise);
+    }
+  }, [data_exercise]);
+  
+  //useEffect para dar el siguiente step cuando la informacion del ejercicio se actualiza
+  useEffect(() => {
+    if (exerciseData !== null){
+      handleNextStep();
+    }
+  }, [exerciseData]);
+
+  //useEffect para reiniciar los estados de la informacion de un ejercicio cuando vuelve a la pantalla inicial
+  useEffect(() => {
+    if (step === 2){
+      setExerciseID(null);
+      setExerciseData(null);
+    }
+  }, [step]);
 
   const handlePrevStep = () => {
     setStep(step - 1);
@@ -34,14 +117,9 @@ export const TeacherActivity = () => {
     setShowPopup(true);
   };
 
-  const handleStatusCodigo = () => {
-    setStep(step + 1);
-    setEditStatus('Código');
-  };
-
-  const handleStatusOM= () => {
-    setStep(step + 1);
-    setEditStatus('Opción múltiple');
+  const handleStatusExercise = (id_hand, tipo_hand) => {
+    setEditStatus(tipo_hand);
+    setExerciseID(id_hand);
   };
 
   const handleStatusAleatorio = () => {
@@ -80,7 +158,22 @@ export const TeacherActivity = () => {
     setShowSaveExercisePopup(false);
   };
 
+  const handleEdition = (id_hand) => (e) => {
+    setActivityID(id_hand);
+  }
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
+  };
+
+  console.log("pija", activityData);
+  console.log("pijaoz", activityExData);
   console.log('Current step:', step);
+
+  if (!dataResult || !data_activities) {
+    return <div>Cargando...</div>;
+  }
 
   return (
     <section id="teacherQuizSection">
@@ -124,47 +217,59 @@ export const TeacherActivity = () => {
                 <th scope="col">
                   Orden:
                   <select
-                    className="form-select form-select-sm"
-                    aria-label="Filtro"
-                  >
+                      className="form-select form-select-sm"
+                      aria-label="Filtro"
+                      value={filtroOptions}
+                      onChange={(filtrovar) => {
+                        setFiltroOptions(Array.from(filtrovar.target.selectedOptions, option => option.value))
+                        const selectedOption = filtrovar.target.selectedOptions[0];
+                        if (selectedOption.parentElement.label === "Ascendente") {
+                          setHierOptions(['ASC']);
+                        } else if (selectedOption.parentElement.label === "Descendente") {
+                          setHierOptions(['DESC']);
+                        }
+                      }}
+                    >
                     <optgroup label="Ascendente">
-                      <option value="id_actividad">Actividad</option>
+                      <option value="titulo">Actividad</option>
                       <option value="fecha">Fecha</option>
-                      <option value="veces_completada">Veces completada</option>
-                      <option value="promedio">Promedio grupal</option>
+                      <option value="total_intentos">Veces completada</option>
+                      <option value="promedio_correctas">Promedio grupal</option>
                     </optgroup>
                     <optgroup label="Descendente">
-                      <option value="id_actividad">Actividad</option>
+                      <option value="titulo">Actividad</option>
                       <option value="fecha">Fecha</option>
-                      <option value="veces_completada">Veces completada</option>
-                      <option value="promedio">Promedio grupal</option>
+                      <option value="total_intentos">Veces completada</option>
+                      <option value="promedio_correctas">Promedio grupal</option>
                     </optgroup>
                   </select>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Accccc</td>
-                <td>23342342</td>
-                <td>5</td>
-                <td>5/13</td>
-                <td>
-                  <div>
-                    <CustomButton
-                      type="btn btn-primary btn-sm"
-                      text="Editar"
-                      func={handleNextStep}
-                    />
-                  </div>
-                  <div>
-                    <CustomButton
-                      type="btn btn-danger btn-sm"
-                      text="Borrar"
-                    />
-                  </div>
-                </td>
-              </tr>
+              {dataResult.map((row) => (
+                <tr key={row.id}>
+                  <td>{row.titulo}</td>
+                  <td>{formatDate(row.fecha)}</td>
+                  <td>{row.total_intentos}</td>
+                  <td>{row.promedio_correctas != null ? row.promedio_correctas+"/"+row.total_ejercicios : "-"}</td>
+                  <td>
+                    <div>
+                      <CustomButton
+                        type="btn btn-primary btn-sm"
+                        text="Editar"
+                        func={handleEdition(row.id)}
+                      />
+                    </div>
+                    <div>
+                      <CustomButton
+                        type="btn btn-danger btn-sm"
+                        text="Borrar"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
 
@@ -180,20 +285,48 @@ export const TeacherActivity = () => {
 
       {step === 2 && (
         <div>
-          <ActivityFormat
-            onPreviousStep={handlePrevStep}
-            onNextStatus={handleStatusNormal}
-            onNextCodigo={handleStatusCodigo}
-            onNextOM={handleStatusOM}
-            onActivityCreation={handleCreateActivity}
-          />
+          {activityID && activityData && (
+            <ActivityFormat
+              onPreviousStep={handlePrevStep}
+              onNextStatus={handleStatusNormal}
+              onNextExercise={handleStatusExercise}
+              onActivityCreation={handleCreateActivity}
+              id = {activityData['id']}
+              titulo = {activityData['titulo']}
+              inicio = {activityData['inicio']}
+              fin = {activityData['fin']}
+              intentos = {activityData['intentos']}
+              bloqueo = {activityData['bloqueo']}
+              disponible = {activityData['disponible']}
+              visible = {activityData['visible']}
+              ejercicios = {activityExData}
+            />
+          )}
+          {(!activityID || !activityData) && (
+            <ActivityFormat
+              onPreviousStep={handlePrevStep}
+              onNextStatus={handleStatusNormal}
+              onNextExercise={handleStatusExercise}
+              onActivityCreation={handleCreateActivity}
+            />
+          )}
         </div>
       )}
 
       {(step === 3 || step === 5) && editStatus === 'Código' && (
         <div>
           <CodeExercise
-            onPreviousStep={handlePrevStepFive}
+            id={exerciseID}
+            author={exerciseData['archivo']['author']}
+            title={exerciseData['archivo']['title']}
+            description={exerciseData['archivo']['description']}
+            subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+            difficulty={exerciseData['archivo']['difficulty']}
+            driver={exerciseData['archivo']['driver']}
+            tests={exerciseData['archivo']['tests']}
+            aprobado={exerciseData.autorizado}
+            edicion={true}
+            onStep={handlePrevStepFive}
           />
         </div>
       )}
@@ -201,7 +334,18 @@ export const TeacherActivity = () => {
       {(step === 3 || step === 5) && editStatus === 'Opción múltiple' && (
         <div>
           <OMExercise
-            onPreviousStep={handlePrevStepFive}
+            id={exerciseID}
+            author={exerciseData['archivo']['author']}
+            title={exerciseData['archivo']['title']}
+            description={exerciseData['archivo']['description']}
+            subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+            difficulty={exerciseData['archivo']['difficulty']}
+            answer={exerciseData['archivo']['answer']}
+            hints={exerciseData['archivo']['hints']}
+            options={exerciseData['archivo']['options']}
+            aprobado={exerciseData.autorizado}
+            edicion={true}
+            onStep={handlePrevStepFive}
           />
         </div>
       )}
@@ -224,9 +368,13 @@ export const TeacherActivity = () => {
                 required 
                 id="tipo" 
                 value={tipoOption}
-                onChange={(e) => setTipoOption(e.target.value)}
-              >
-                <option value="value1">Placeholder para cuadno le metas algo de eso de base de datos</option>
+                onChange={(tipovar) => setTipoOption(Array.from(tipovar.target.selectedOptions, option => option.value))}>
+                <option value="">Tipo</option>
+                {data_tipo.map((row) => (
+                  <option key={row.tipo} value={row.tipo}>
+                    {row.tipo}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -237,10 +385,14 @@ export const TeacherActivity = () => {
                 aria-label="Filtro" 
                 required 
                 id="subtema" 
-                value={subtemaOptions}
-                onChange={(e) => setSubtemaOptions(e.target.value)}
-              >
-                <option value="value1">Placeholder para cuadno le metas algo de eso de base de datos</option>
+                value={subtemaOption}
+                onChange={(subtemavar) => setSubtemaOption(Array.from(subtemavar.target.selectedOptions, option => option.value))}>
+                <option value="">Subtema </option>
+                {data_subtema.map((row) => (
+                  <option key={row.nombre} value={row.nombre}>
+                    {row.nombre}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -252,9 +404,13 @@ export const TeacherActivity = () => {
                 required 
                 id="dificultad" 
                 value={difficultyOption}
-                onChange={(e) => setDifficultyOption(e.target.value)}
-              >
-                <option value="easy">Placeholder para cuando le metas algo de eso de base de datos</option>
+                onChange={(dificultadvar) => setDifficultyOption(Array.from(dificultadvar.target.selectedOptions, option => option.value))}>
+                <option value="">Dificultad </option>
+                {data_dificultad.map((row) => (
+                  <option key={row['?column?']} value={row['?column?']}>
+                    {row['?column?']}
+                  </option>
+                ))}
               </select>
             </div>
 
