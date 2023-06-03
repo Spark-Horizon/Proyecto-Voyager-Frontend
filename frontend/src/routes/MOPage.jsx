@@ -1,8 +1,22 @@
 import { CustomButton } from '../components/CustomButton'
 import { MOInstructions } from "../components/MO/MOInstructions"
-import '../styles/moPage.css'
+import { useState, useEffect } from 'react'
+import { useGetPractica } from '../hooks/useGetPractica';
+import { useLocation } from 'react-router-dom';
+
+import '../styles/moPage.css' 
 
 export const MOPage = () => {
+    const [ problem_id, setProblemID ] = useState("");
+    const { practica } = useGetPractica(useLocation().state.subtem, "MO");
+
+    useEffect(() => {
+        let problemId = ""; //Para pruebas, solo si no hay sesion activa (bug)
+        if (practica != null) {
+            problemId = practica.id_ejercicio;
+        }
+        setProblemID(problemId);
+    }, [practica]);
 
     const handleSkip = (e) => {
         e.preventDefault();
@@ -14,7 +28,7 @@ export const MOPage = () => {
         <div className="mo-route-container">
             <div className="mopage-main-container container-cc">
                 <CustomButton type={'btn btnPrimary btn-sm'} func={handleSkip} text={'Saltar'}/>
-                <MOInstructions/>
+                <MOInstructions problem_id={problem_id}/>
             </div>
         </div>
     )

@@ -4,11 +4,11 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL
 const port = process.env.REACT_APP_BACKEND_PORT
 const user_id = "A01732008"
 
-export const getProgress = async (subtema_id, task_type) => {
+export const getPractica = async (subtema_id, task_type) => {
   try {
     const options = {
       method: "get",
-      url: `http://${backendUrl}:${port}/path/progress/${user_id}/${subtema_id}/${task_type}`,
+      url: `http://${backendUrl}:${port}/practica/getorset/${user_id}/${subtema_id}/${task_type}`,
       headers: {
         "Content-Type": "application/json",
       },

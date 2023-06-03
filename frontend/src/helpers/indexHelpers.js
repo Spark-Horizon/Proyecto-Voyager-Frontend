@@ -1,7 +1,8 @@
 export * from './submitCode';
-export * from './getTask';
+export * from './tasks/getTask';
 export {getCRUDTask} from './getCRUDTask';
 export * from './submitCode';
-export * from './getPath';
-export * from './getProgress'
+export * from './path/getPath';
+export * from './path/getUnlocked'
+export * from './path/getPractica'
 export { createUser } from './users/createUser';
