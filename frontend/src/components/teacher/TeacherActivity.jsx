@@ -6,12 +6,14 @@ import { CodeExercise } from "../CRUD/CodeExercise"
 import { OMExercise } from "../CRUD/OMExercise"
 import { useGetActivitiesTask, useGetActivityExercises, useGetActivityTask } from '../../hooks/useGetTeacherTask';
 import { useGetExerciseTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask } from '../../hooks/useGetCRUDTask.js';
+import { getDeleteActivity } from '../../helpers/getTeacherTask';
 
 export const TeacherActivity = () => {
   const CONID = 1;
   const [step, setStep] = useState(1);
   const [editStatus, setEditStatus] = useState(null);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showCreatePopup, setShowCreatePopup] = useState(false);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [showSaveExercisePopup, setShowSaveExercisePopup] = useState(false);
 
   const [activityID, setActivityID] = useState(null);
@@ -35,10 +37,6 @@ export const TeacherActivity = () => {
   const { data_tipo } = useGetFilTipoTask();
   const [difficultyOption, setDifficultyOption] = useState('');
   const { data_dificultad } = useGetFilDificultadTask();
-
-
-
-
 
   //useEffect de la vista general de todas las actividades
   useEffect(() => {
@@ -99,12 +97,14 @@ export const TeacherActivity = () => {
 
   const handlePrevStep = () => {
     setStep(step - 1);
-    setShowPopup(false);
+    setShowCreatePopup(false);
+    setShowUpdatePopup(false);
   };
   
   const handleNextStep = () => {
     setStep(step + 1);
-    setShowPopup(false);
+    setShowCreatePopup(false);
+    setShowUpdatePopup(false);
   };
   
   const handleSaveExercise = () => {
@@ -114,8 +114,14 @@ export const TeacherActivity = () => {
 
   const handleCreateActivity = () => {
     setStep(1);
-    setShowPopup(true);
+    setShowCreatePopup(true);
   };
+
+  const handleUpdateActivity = () => {
+    setStep(1);
+    setShowUpdatePopup(true);
+  };
+
 
   const handleStatusExercise = (id_hand, tipo_hand) => {
     setEditStatus(tipo_hand);
@@ -154,7 +160,8 @@ export const TeacherActivity = () => {
   };
 
   const handlePopupClose = () => {
-    setShowPopup(false);
+    setShowCreatePopup(false);
+    setShowUpdatePopup(false);
     setShowSaveExercisePopup(false);
   };
 
@@ -162,13 +169,20 @@ export const TeacherActivity = () => {
     setActivityID(id_hand);
   }
 
+  const handleDeletion = (id_hand) => (e) => {
+    e.preventDefault();
+    if (window.confirm("¿Estás seguro de que deseas borrar esta actividad?")) {
+      getDeleteActivity(id_hand);
+      const newDataResult = dataResult.filter(row => row.id !== id_hand);
+      setDataResult(newDataResult);
+    }
+  }
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
   };
 
-  console.log("pija", activityData);
-  console.log("pijaoz", activityExData);
   console.log('Current step:', step);
 
   if (!dataResult || !data_activities) {
@@ -178,7 +192,7 @@ export const TeacherActivity = () => {
   return (
     <section id="teacherQuizSection">
 
-      {showPopup && (
+      {showCreatePopup && (
         <div className="message-popup">
           <div className="message-content">
             <span>La actividad ha sido creada</span>
@@ -190,6 +204,20 @@ export const TeacherActivity = () => {
           </div>
         </div>
       )}
+
+      {showUpdatePopup && (
+        <div className="message-popup">
+          <div className="message-content">
+            <span>La actividad ha sido actualizada</span>
+            <div className="button-container">
+              <button className="btn btn-primary btn-sm" onClick={handlePopupClose}>
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
       {showSaveExercisePopup && (
         <div className="message-popup">
@@ -265,6 +293,7 @@ export const TeacherActivity = () => {
                       <CustomButton
                         type="btn btn-danger btn-sm"
                         text="Borrar"
+                        func={handleDeletion(row.id)}
                       />
                     </div>
                   </td>
@@ -291,6 +320,8 @@ export const TeacherActivity = () => {
               onNextStatus={handleStatusNormal}
               onNextExercise={handleStatusExercise}
               onActivityCreation={handleCreateActivity}
+              onActivityUpdate={handleUpdateActivity}
+              edicion={true}
               id = {activityData['id']}
               titulo = {activityData['titulo']}
               inicio = {activityData['inicio']}
@@ -308,6 +339,8 @@ export const TeacherActivity = () => {
               onNextStatus={handleStatusNormal}
               onNextExercise={handleStatusExercise}
               onActivityCreation={handleCreateActivity}
+              onActivityUpdate={handleUpdateActivity}
+              grupo = {CONID}
             />
           )}
         </div>

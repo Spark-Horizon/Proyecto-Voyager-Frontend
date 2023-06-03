@@ -108,7 +108,7 @@ export const getCreateActivity = async (titulo, inicio, fin, intentos, bloqueo, 
   }
 };
 
-export const getUpdateActivity = async (id, titulo, inicio, fin, intentos, bloqueo, disponible, visible, id_grupo, ejercicios) => {
+export const getUpdateActivity = async (id, titulo, inicio, fin, intentos, bloqueo, disponible, visible, ejercicios) => {
   try {
 
     const options = {
@@ -126,7 +126,6 @@ export const getUpdateActivity = async (id, titulo, inicio, fin, intentos, bloqu
         bloqueo: bloqueo, 
         disponible: disponible, 
         visible: visible, 
-        id_grupo: id_grupo, 
         ejercicios: ejercicios,
       },
     };

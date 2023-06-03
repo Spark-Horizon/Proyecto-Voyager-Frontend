@@ -103,13 +103,13 @@ export const useGetCreateActivity = (titulo, inicio, fin, intentos, bloqueo, dis
     return {error };
 };
 
-export const useGetUpdateActivity = (id, titulo, inicio, fin, intentos, bloqueo, disponible, visible, id_grupo, ejercicios) => {
+export const useGetUpdateActivity = (id, titulo, inicio, fin, intentos, bloqueo, disponible, visible, ejercicios) => {
     const [error, setError] = useState(null);
     
     useEffect(() => {
         const fetchData = async () => {
             try {
-                await getUpdateActivity(id, titulo, inicio, fin, intentos, bloqueo, disponible, visible, id_grupo, ejercicios);
+                await getUpdateActivity(id, titulo, inicio, fin, intentos, bloqueo, disponible, visible, ejercicios);
             } catch (error) {
                 setError(error);
             }

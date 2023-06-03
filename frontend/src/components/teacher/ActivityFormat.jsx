@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { CustomButton } from '../CustomButton';
+import { getCreateActivity, getUpdateActivity } from '../../helpers/getTeacherTask';
 
 export const ActivityFormat = (props) => {
   const [titleOption, setTitleOption] = useState(props.titulo || '');
   const [inicioOption, setInicioOption] = useState(props.inicio || '');
   const [finOption, setFinOption] = useState(props.fin || '');
   const [numIntentosOption, setNumIntentosOption] = useState(props.intentos || '');
-  const [bloqueoOption, setBloqueoOption] = useState(props.bloqueo || '');
-  const [visibleOption, setVisibleOption] = useState(props.visible || '');
-  const [disponibleOption, setDisponibleOption] = useState(props.disponible || '');
+  const [bloqueoOption, setBloqueoOption] = useState(props.bloqueo || false);
+  const [visibleOption, setVisibleOption] = useState(props.visible || false);
+  const [disponibleOption, setDisponibleOption] = useState(props.disponible || false);
   const [exerciseBlocksCode, setExerciseBlocksCode] = useState(props.ejercicios || []);
 
   const handlePrevious = () => {
@@ -19,9 +20,17 @@ export const ActivityFormat = (props) => {
     props.onNextStatus();
   };
 
-  const handleCreate = () => {
-    props.onActivityCreation();
-  };
+  const handleCreation = (titulo, inicio, fin, intentos, bloqueo, disponible, visible, id_grupo, ejercicios) => (e) => {
+    e.preventDefault();
+    getCreateActivity(titulo, inicio, fin, intentos, bloqueo, disponible, visible, id_grupo, ejercicios);
+    props.onActivityCreation();  
+  }
+
+  const handleEdition = (id, titulo, inicio, fin, intentos, bloqueo, disponible, visible, ejercicios) => (e) => {
+    e.preventDefault();
+    getUpdateActivity(id, titulo, inicio, fin, intentos, bloqueo, disponible, visible, ejercicios);
+    props.onActivityUpdate();  
+  }
 
   const handleEjercicio = (id_hand, tipo_hand) => {
     props.onNextExercise(id_hand, tipo_hand);
@@ -72,8 +81,6 @@ export const ActivityFormat = (props) => {
       setExerciseBlocksCode(reorderedBlocks);
     }
   };
-
-  console.log(inicioOption, typeof(inicioOption));
 
   return (
     <section id="teacherActivityFormat">
@@ -238,11 +245,34 @@ export const ActivityFormat = (props) => {
       <div className="d-flex justify-content-between">
         <CustomButton type={'btn btn-primary mt-4'} func={handlePrevious} text={'Atrás'} />
         <CustomButton type={'btn btn-primary mt-4'} func={handleNext} text={'Añadir ejercicio'} />
-        <CustomButton
-          type={'btn btn-primary btn-success mt-4'}
-          func={handleCreate}
-          text={'Crear actividad'}
-        />
+        {props.edicion && (
+            <CustomButton
+              type={'btn btn-success'}
+              text={'Editar actividad'}
+              func={handleEdition(props.id, titleOption, inicioOption, finOption, numIntentosOption, bloqueoOption, disponibleOption, visibleOption, exerciseBlocksCode.map(item => item.id))}
+              disabled={      
+                !titleOption.trim() ||
+                !inicioOption ||
+                !finOption ||
+                !numIntentosOption ||
+                exerciseBlocksCode.some(block => !block.id)
+              }
+            />
+          )}
+          {!props.edicion && (
+            <CustomButton
+              type={'btn btn-success'}
+              text={'Crear actividad'}
+              func={handleCreation(titleOption, inicioOption, finOption, numIntentosOption, bloqueoOption, disponibleOption, visibleOption, props.grupo, JSON.stringify(exerciseBlocksCode))}
+              disabled={      
+                !titleOption.trim() ||
+                !inicioOption ||
+                !finOption ||
+                !numIntentosOption ||
+                exerciseBlocksCode.some(block => !block.id)
+              }
+            />
+          )}
       </div>
     </section>
   );
