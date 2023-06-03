@@ -4,8 +4,9 @@ import { ActivityFormat } from './ActivityFormat';
 import { ResultTable } from "../CRUD/ResultTable";
 import { CodeExercise } from "../CRUD/CodeExercise"
 import { OMExercise } from "../CRUD/OMExercise"
+import { RandomExercise } from "../CRUD/RandomExercise"
 import { useGetActivitiesTask, useGetActivityExercises, useGetActivityTask } from '../../hooks/useGetTeacherTask';
-import { useGetExerciseTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask } from '../../hooks/useGetCRUDTask.js';
+import { useGetExerciseTask } from '../../hooks/useGetCRUDTask.js';
 import { getDeleteActivity } from '../../helpers/getTeacherTask';
 
 export const TeacherActivity = () => {
@@ -30,13 +31,6 @@ export const TeacherActivity = () => {
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const [dataResult, setDataResult] = useState(['']);
   const { data_activities } = useGetActivitiesTask(CONID, filtroOptions, hierOptions);
-  
-  const [subtemaOption, setSubtemaOption] = useState('');
-  const { data_subtema } = useGetFilSubtemaTask();
-  const [tipoOption, setTipoOption] = useState('');
-  const { data_tipo } = useGetFilTipoTask();
-  const [difficultyOption, setDifficultyOption] = useState('');
-  const { data_dificultad } = useGetFilDificultadTask();
 
   //useEffect de la vista general de todas las actividades
   useEffect(() => {
@@ -121,7 +115,6 @@ export const TeacherActivity = () => {
     setStep(1);
     setShowUpdatePopup(true);
   };
-
 
   const handleStatusExercise = (id_hand, tipo_hand) => {
     setEditStatus(tipo_hand);
@@ -217,7 +210,6 @@ export const TeacherActivity = () => {
           </div>
         </div>
       )}
-
 
       {showSaveExercisePopup && (
         <div className="message-popup">
@@ -385,83 +377,10 @@ export const TeacherActivity = () => {
 
       {(step === 3 || step === 4) && editStatus === 'Aleatorio' && (
         <div>
-        <section id="exerciseChoosingForm" className="container-cc">
-          <form>
-          <div>
-            <div className="text-center mb-4">
-              <h3 className="mb-0">Elección de ejercicio</h3>
-              <span>Selecciona los rubros que debe cumplir el ejercicio</span>
-            </div>
-
-            <div className="form-group mb-4">
-              <label htmlFor="tipo" className="text-center">Tipo</label>
-              <select 
-                className="form-select form-select-sm"
-                aria-label="Filtro" 
-                required 
-                id="tipo" 
-                value={tipoOption}
-                onChange={(tipovar) => setTipoOption(Array.from(tipovar.target.selectedOptions, option => option.value))}>
-                <option value="">Tipo</option>
-                {data_tipo.map((row) => (
-                  <option key={row.tipo} value={row.tipo}>
-                    {row.tipo}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="form-group mb-4">
-              <label htmlFor="subtema" className="text-center">Tema</label>
-              <select 
-                className="form-select form-select-sm"
-                aria-label="Filtro" 
-                required 
-                id="subtema" 
-                value={subtemaOption}
-                onChange={(subtemavar) => setSubtemaOption(Array.from(subtemavar.target.selectedOptions, option => option.value))}>
-                <option value="">Subtema </option>
-                {data_subtema.map((row) => (
-                  <option key={row.nombre} value={row.nombre}>
-                    {row.nombre}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="form-group mb-4">
-              <label htmlFor="dificultad" className="text-center">Dificultad</label>
-              <select 
-                className="form-select form-select-sm"
-                aria-label="Filtro" 
-                required 
-                id="dificultad" 
-                value={difficultyOption}
-                onChange={(dificultadvar) => setDifficultyOption(Array.from(dificultadvar.target.selectedOptions, option => option.value))}>
-                <option value="">Dificultad </option>
-                {data_dificultad.map((row) => (
-                  <option key={row['?column?']} value={row['?column?']}>
-                    {row['?column?']}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="select next-back mt-5">
-              <CustomButton
-                type="btn mt-3 btnPrimary"
-                text="Atrás"
-                func={handlePrevStepFour}
-              />
-              <CustomButton 
-                type='btn mt-3 btn-success'
-                text='Guardar ejercicio'
-                func={handleSaveExercise}
-              />
-            </div>
-          </div>
-          </form>
-        </section>
+          <RandomExercise
+            onExerciseAdd={handleSaveExercise}
+            onStep={handlePrevStepFour}
+          />
         </div>
       )}
 

@@ -216,6 +216,30 @@ export const getCreateOMExercise = async (autorizado, tipo, subtema, author, tit
   }
 };
 
+export const getCreateRandomExercise = async (tipo, subtema, difficulty) => {
+  try {
+    const optionsAx = {
+      method: "post",
+      url: `http://${backendUrl}:${port}/CRUD/create/random`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        tipo: tipo,
+        subtema: subtema.split(','),
+        difficulty: difficulty,
+      },
+    };
+
+    const response = await axios(optionsAx);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getUpdateCodeExercise = async (id, autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
   try {
     const options = {
