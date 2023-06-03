@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Card, Accordion, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import fetchQuizData from '../../hooks/QuizAttempt/useFetchQuizData';
 import formatQuizData from '../../helpers/QuizAttempt/formatQuizData';
-// import AttemptCard from './AttemptCard';
+import AttemptCard from './AttemptCard';
 import ActivityCard from './ActivityCard';
-// import '../../styles/QuizAttempt/QuizAttempt.css';
+import '../../styles/QuizAttempt/QuizAttempt.css';
 
-const QuizAttempt = () => {
-  const { id_student, id_activity } = useParams();
+const QuizAttempt = ({ user }) => {
+  const { id:id_student } = user;
+  const { id_activity } = useParams();
   const [quizData, setQuizData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -31,24 +32,26 @@ const QuizAttempt = () => {
 
   if (!quizData) {
     return <p>Loading...</p>;
+  }else{
+    console.log(quizData);
   }
 
 
-  //Arreglar esto
-//   return (
-//     <Container className="quiz-container">
-//       <ActivityCard activity={quizData.activity} />
-//       {quizData.attempts.map((attempt, index) => (
-//         <AttemptCard key={attempt.id_intento} eventKey={index} attempt={attempt} />
-//       ))}
-//     </Container>
-//   );
-
-return (
+  // Arreglar esto
+  return (
     <Container className="quiz-container">
       <ActivityCard activity={quizData.activity} />
+      {quizData.attempts.map((attempt, index) => (
+        <AttemptCard key={attempt.id_intento} eventKey={index} attempt={attempt} />
+      ))}
     </Container>
   );
+
+// return (
+//     <Container className="quiz-container">
+//       <ActivityCard activity={quizData.activity} />
+//     </Container>
+//   );
   
 };
 

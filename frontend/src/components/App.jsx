@@ -62,9 +62,9 @@ function App() {
         <Route path='/groups'
           element={<PrivateRoute logged={true} children={<Groups user={user} />} link='/' />}
         />
-        <Route path='/quizAttempt/:id_student/:id_activity'
+        <Route path='/quizAttempt/:id_activity'
           element={
-            <PrivateRoute logged={true} children={<QuizAttempt />} link='/home' />
+            <PrivateRoute logged={true} children={<QuizAttempt user={user} />} link='/home' />
           }
         />
       </Routes>
