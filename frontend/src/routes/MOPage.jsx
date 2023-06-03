@@ -17,7 +17,11 @@ export const MOPage = () => {
         }
         setProblemID(problemId);
     }, [practica]);
-
+    
+    if(!practica){
+        return <div>Cargando...</div>
+    }
+    
     const handleSkip = (e) => {
         e.preventDefault();
         // on progress
@@ -28,7 +32,7 @@ export const MOPage = () => {
         <div className="mo-route-container">
             <div className="mopage-main-container container-cc">
                 <CustomButton type={'btn btnPrimary btn-sm'} func={handleSkip} text={'Saltar'}/>
-                <MOInstructions problem_id={problem_id}/>
+                <MOInstructions problem_id={problem_id} attempt_id={practica.id}/>
             </div>
         </div>
     )
