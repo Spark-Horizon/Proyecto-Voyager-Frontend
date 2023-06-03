@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useGetPath } from '../../hooks/useGetPath.js'
 import { useGetUnlocked } from '../../hooks/useGetUnlocked.js';
 import { Link } from 'react-router-dom'

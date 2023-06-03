@@ -29,13 +29,14 @@ export const MOInstructions = ({ problem_id, attempt_id, handleNext }) => {
         if (selectedOption === data.options[data.answer].text) {
             submitPractica(attempt_id, { respuesta: selectedOption, correcto: true })
             alert("Respuesta correcta.")
+            setShowNextButton(true);
         } else if (selectedOption === "") {
             alert("Por favor selecciona una respuesta.")
         } else {
             submitPractica(attempt_id, { respuesta: selectedOption, correcto: false })
             alert("Respuesta incorrecta.")
+            setShowNextButton(true);
         }
-        setShowNextButton(true);
     };
 
     return (
