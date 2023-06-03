@@ -21,18 +21,22 @@ export const MOPage = () => {
     if(!practica){
         return <div>Cargando...</div>
     }
-    
+
     const handleSkip = (e) => {
         e.preventDefault();
         // on progress
         return 0
     };
 
+    const handleNext = () => {
+        window.location.reload(); // Recargar la página
+    };
+
     return(
         <div className="mo-route-container">
             <div className="mopage-main-container container-cc">
                 <CustomButton type={'btn btnPrimary btn-sm'} func={handleSkip} text={'Saltar'}/>
-                <MOInstructions problem_id={problem_id} attempt_id={practica.id}/>
+                <MOInstructions problem_id={problem_id} attempt_id={practica.id} handleNext={handleNext}/>
             </div>
         </div>
     )

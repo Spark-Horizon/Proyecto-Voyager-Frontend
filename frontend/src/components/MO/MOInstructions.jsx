@@ -5,8 +5,9 @@ import { submitPractica } from '../../helpers/indexHelpers';
 
 import '../../styles/codeInstructions.css';
 
-export const MOInstructions = ({problem_id, attempt_id}) => {
-    const [ selectedOption, setSelectedOption ] = useState(""); //Opcion seleccionada
+export const MOInstructions = ({ problem_id, attempt_id, handleNext }) => {
+    const [selectedOption, setSelectedOption] = useState(""); //Opcion seleccionada
+    const [showNextButton, setShowNextButton] = useState(false);
 
     const { data } = useGetTask(problem_id);
 
@@ -23,18 +24,18 @@ export const MOInstructions = ({problem_id, attempt_id}) => {
         </div>
     ));
 
-
     const handleSubmit = () => {
         console.log("Opción seleccionada: ", selectedOption);
         if (selectedOption === data.options[data.answer].text) {
-            submitPractica(attempt_id, {respuesta: selectedOption, correcto: true})
+            submitPractica(attempt_id, { respuesta: selectedOption, correcto: true })
             alert("Respuesta correcta.")
         } else if (selectedOption === "") {
             alert("Por favor selecciona una respuesta.")
         } else {
-            submitPractica(attempt_id, {respuesta: selectedOption, correcto: false})
+            submitPractica(attempt_id, { respuesta: selectedOption, correcto: false })
             alert("Respuesta incorrecta.")
         }
+        setShowNextButton(true);
     };
 
     return (
@@ -57,7 +58,11 @@ export const MOInstructions = ({problem_id, attempt_id}) => {
                     </fieldset>
                 </div>
                 <div className="mo-instructions-submit container-cc">
-                    <CustomButton type='btn' text={'Submit'} func={handleSubmit} />
+                    {!showNextButton ? (
+                        <CustomButton type='btn' text={'Submit'} func={handleSubmit} />
+                    ) : (
+                        <CustomButton type='btn' text={'Siguiente'} func={handleNext} />
+                    )}
                 </div>
             </div>
         </div>
