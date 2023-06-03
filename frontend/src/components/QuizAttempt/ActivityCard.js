@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
-const ActivityCard = ({ activity }) => {
+export const ActivityCard = ({ activity }) => {
   return (
     <Card className="activity-card">
       <Card.Header>{activity.titulo}</Card.Header>
@@ -15,5 +15,3 @@ const ActivityCard = ({ activity }) => {
     </Card>
   );
 };
-
-export default ActivityCard;

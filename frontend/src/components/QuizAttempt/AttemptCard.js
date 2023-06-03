@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Accordion, Button } from 'react-bootstrap';
 
-const AttemptCard = ({ eventKey, attempt }) => {
+export const AttemptCard = ({ eventKey, attempt }) => {
   return (
     <Accordion>
       <Card className="attempt-card">
@@ -23,5 +23,3 @@ const AttemptCard = ({ eventKey, attempt }) => {
     </Accordion>
   );
 };
-
-export default AttemptCard;

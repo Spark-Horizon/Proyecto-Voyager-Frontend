@@ -2,9 +2,10 @@ import axios from 'axios';
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const port = process.env.REACT_APP_BACKEND_PORT;
 
-const fetchQuizData = async (id_student, id_activity) => {
+export const fetchQuizData = async (id_student, id_activity) => {
     try {
       const response = await axios.get(`http://${backendUrl}:${port}/quizAttempt/${id_student}/${id_activity}`);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -24,6 +25,3 @@ const fetchQuizData = async (id_student, id_activity) => {
       }
     }
   };
-  
-
-export default fetchQuizData;

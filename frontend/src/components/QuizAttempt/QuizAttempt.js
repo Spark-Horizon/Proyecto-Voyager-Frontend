@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import fetchQuizData from '../../hooks/QuizAttempt/useFetchQuizData';
-import formatQuizData from '../../helpers/QuizAttempt/formatQuizData';
-import AttemptCard from './AttemptCard';
-import ActivityCard from './ActivityCard';
+import { fetchQuizData } from '../../hooks/QuizAttempt/useFetchQuizData';
+import { formatQuizData } from '../../helpers/QuizAttempt/formatQuizData';
+import { AttemptCard } from './AttemptCard';
+import { ActivityCard } from './ActivityCard';
 import '../../styles/QuizAttempt/QuizAttempt.css';
 
-const QuizAttempt = ({ user }) => {
+export const QuizAttempt = ({ user }) => {
   const { id:id_student } = user;
   const { id_activity } = useParams();
   const [quizData, setQuizData] = useState(null);
@@ -17,8 +17,8 @@ const QuizAttempt = ({ user }) => {
     const fetchData = async () => {
       try {
         const data = await fetchQuizData(id_student, id_activity);
-        const formattedData = formatQuizData(data);
-        setQuizData(formattedData);
+        // const formattedData = formatQuizData(data);
+        setQuizData(data);
       } catch (err) {
         setError(err.message);
       }
@@ -26,14 +26,17 @@ const QuizAttempt = ({ user }) => {
     fetchData();
   }, [id_student, id_activity]);
 
+  if (quizData) {
+    // console.log(quizData);
+    console.log(quizData.attempts[0].id_intento)
+  }
+
   if (error) {
     return <p>Error: {error}</p>;
   }
 
   if (!quizData) {
     return <p>Loading...</p>;
-  }else{
-    console.log(quizData);
   }
 
 
@@ -46,13 +49,5 @@ const QuizAttempt = ({ user }) => {
       ))}
     </Container>
   );
-
-// return (
-//     <Container className="quiz-container">
-//       <ActivityCard activity={quizData.activity} />
-//     </Container>
-//   );
   
 };
-
-export default QuizAttempt;

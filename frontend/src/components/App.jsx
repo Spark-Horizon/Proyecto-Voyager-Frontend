@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, StudentPage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise, ContainerTest, PendingQuizzes, Groups } from '../routes/indexRoutes';
 import { useAuth, AuthProvider } from '../hooks/AuthContext';
-import QuizAttempt from './QuizAttempt/QuizAttempt';
+import { QuizAttempt } from './QuizAttempt/QuizAttempt';
 
 // const user = {
 //   id: 'L01732005',
@@ -12,7 +12,7 @@ import QuizAttempt from './QuizAttempt/QuizAttempt';
 // };
 
 const user = {
-  id: 'A01732014',
+  id: 'A01732005',
   name: 'Francisco',
   lastname1: 'Rocha',
   lastname2: 'Juárez',
