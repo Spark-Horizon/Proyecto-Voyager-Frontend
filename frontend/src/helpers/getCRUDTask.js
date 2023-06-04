@@ -58,6 +58,35 @@ export const getExerciseTask = async (id) => {
   }
 };
 
+export const getCreateAddRandomExercise = async (tipo, subtema, difficulty, id_autor) => {
+  try {
+    const tipoEncoded = encodeURIComponent(tipo);
+    const subtemaEncoded = encodeURIComponent(subtema);
+    const difficultyEncoded = encodeURIComponent(difficulty);
+    const idAutorEncoded = encodeURIComponent(id_autor);
+    
+    console.log("aqui 2");
+    const optionsAx = {
+      method: "get",
+      url: `http://${backendUrl}:${port}/CRUD/create/add/random/${tipoEncoded}/${subtemaEncoded}/${difficultyEncoded}/${idAutorEncoded}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    console.log("aqui 3");
+
+    const response = await axios(optionsAx);
+    console.log("aqui 4");
+
+    console.log(response.data);
+    
+    return response.data[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getFilAutorTask = async () => {
   try {
     const options = {

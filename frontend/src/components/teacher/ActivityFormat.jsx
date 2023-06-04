@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CustomButton } from '../CustomButton';
 import { getCreateActivity, getUpdateActivity } from '../../helpers/getTeacherTask';
 
@@ -11,6 +11,12 @@ export const ActivityFormat = (props) => {
   const [visibleOption, setVisibleOption] = useState(props.visible || false);
   const [disponibleOption, setDisponibleOption] = useState(props.disponible || false);
   const [exerciseBlocksCode, setExerciseBlocksCode] = useState(props.ejercicios || []);
+
+  useEffect(() => {
+    if (props.ejercicios){
+      setExerciseBlocksCode(props.ejercicios);
+    }
+  }, [props.ejercicios]);
 
   const handlePrevious = () => {
     props.onPreviousStep();
@@ -52,34 +58,17 @@ export const ActivityFormat = (props) => {
     const minute = String(date.getMinutes()).padStart(2, '0');
     return `${year}-${month}-${day}T${hour}:${minute}`;
   };
-
+  
   const handleDeleteRow = (index) => {
-    const confirmed = window.confirm('¿Estás seguro de que deseas borrar este ejercicio?');
-    if (confirmed) {
-      const updatedBlocks = [...exerciseBlocksCode];
-      updatedBlocks.splice(index, 1);
-      setExerciseBlocksCode(updatedBlocks);
-    }
+    props.onDeleteRow(index);
   };
 
   const handleMoveRowUp = (index) => {
-    if (index > 0) {
-      const reorderedBlocks = [...exerciseBlocksCode];
-      const temp = reorderedBlocks[index];
-      reorderedBlocks[index] = reorderedBlocks[index - 1];
-      reorderedBlocks[index - 1] = temp;
-      setExerciseBlocksCode(reorderedBlocks);
-    }
+    props.onMoveRowUp(index);
   };
 
   const handleMoveRowDown = (index) => {
-    if (index < exerciseBlocksCode.length - 1) {
-      const reorderedBlocks = [...exerciseBlocksCode];
-      const temp = reorderedBlocks[index];
-      reorderedBlocks[index] = reorderedBlocks[index + 1];
-      reorderedBlocks[index + 1] = temp;
-      setExerciseBlocksCode(reorderedBlocks);
-    }
+    props.onMoveRowDown(index);
   };
 
   return (
@@ -263,7 +252,7 @@ export const ActivityFormat = (props) => {
             <CustomButton
               type={'btn btn-success'}
               text={'Crear actividad'}
-              func={handleCreation(titleOption, inicioOption, finOption, numIntentosOption, bloqueoOption, disponibleOption, visibleOption, props.grupo, JSON.stringify(exerciseBlocksCode))}
+              func={handleCreation(titleOption, inicioOption, finOption, numIntentosOption, bloqueoOption, disponibleOption, visibleOption, props.grupo, exerciseBlocksCode.map(item => item.id))}
               disabled={      
                 !titleOption.trim() ||
                 !inicioOption ||

@@ -31,6 +31,16 @@ export const TeacherActivity = (props) => {
   const [dataResult, setDataResult] = useState(['']);
   const { data_activities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
 
+  const handleMoveRowDown = (index) => {
+    if (index < activityExData.length - 1) {
+      const reorderedBlocks = [...activityExData];
+      const temp = reorderedBlocks[index];
+      reorderedBlocks[index] = reorderedBlocks[index + 1];
+      reorderedBlocks[index + 1] = temp;
+      setActivityExData(reorderedBlocks);
+    }
+  };
+
   //useEffect de la vista general de todas las actividades
   useEffect(() => {
     setDataResult(data_activities);
@@ -175,6 +185,32 @@ export const TeacherActivity = (props) => {
     return date.toLocaleString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
   };
 
+  const handleAddExercise = (exerciseInfo) => {
+      const updatedBlocks = activityExData ? [...activityExData] : [];
+      updatedBlocks.push(exerciseInfo);
+      setActivityExData(updatedBlocks);
+      handleSaveExercise()
+  };
+  
+  const handleDeleteRow = (index) => {
+    const confirmed = window.confirm('¿Estás seguro de que deseas borrar este ejercicio?');
+    if (confirmed) {
+      const updatedBlocks = [...activityExData];
+      updatedBlocks.splice(index, 1);
+      setActivityExData(updatedBlocks);
+    }
+  };
+  
+  const handleMoveRowUp = (index) => {
+    if (index > 0) {
+      const reorderedBlocks = [...activityExData];
+      const temp = reorderedBlocks[index];
+      reorderedBlocks[index] = reorderedBlocks[index - 1];
+      reorderedBlocks[index - 1] = temp;
+      setActivityExData(reorderedBlocks);
+    }
+  };
+
   console.log('Current step:', step);
 
   if (!dataResult || !data_activities) {
@@ -305,8 +341,11 @@ export const TeacherActivity = (props) => {
 
       {step === 2 && (
         <div>
-          {activityID && activityData && (
+          {activityID && activityData && activityExData &&(
             <ActivityFormat
+              onDeleteRow = {handleDeleteRow}
+              onMoveRowUp = {handleMoveRowUp}
+              onMoveRowDown = {handleMoveRowDown}
               onPreviousStep={handlePrevStep}
               onNextStatus={handleStatusNormal}
               onNextExercise={handleStatusExercise}
@@ -324,14 +363,18 @@ export const TeacherActivity = (props) => {
               ejercicios = {activityExData}
             />
           )}
-          {(!activityID || !activityData) && (
+          {(!activityID || !activityData || !activityExData) && (
             <ActivityFormat
+              onDeleteRow = {handleDeleteRow}
+              onMoveRowUp = {handleMoveRowUp}
+              onMoveRowDown = {handleMoveRowDown}
               onPreviousStep={handlePrevStep}
               onNextStatus={handleStatusNormal}
               onNextExercise={handleStatusExercise}
               onActivityCreation={handleCreateActivity}
               onActivityUpdate={handleUpdateActivity}
               grupo = {props.grupo}
+              ejercicios = {activityExData}
             />
           )}
         </div>
@@ -385,6 +428,8 @@ export const TeacherActivity = (props) => {
           <RandomExercise
             onExerciseAdd={handleSaveExercise}
             onStep={handlePrevStepFour}
+            onAddExercise = {handleAddExercise}
+            idDocente={props.id}
           />
         </div>
       )}
@@ -433,6 +478,7 @@ export const TeacherActivity = (props) => {
           <ResultTable
           id={props.id}
           rol={'Docente'}
+          onAddExercise = {handleAddExercise}
           />
         </div>
       )}

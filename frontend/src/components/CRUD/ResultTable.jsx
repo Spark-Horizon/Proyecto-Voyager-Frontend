@@ -100,6 +100,14 @@ export const ResultTable = (props) => {
     setEditStatus('Pendiente');
   }
 
+  const handleAddition = (id, titulo, tipo, id_subtema) => (e) => {
+    const addExercise = {"id": id, 
+                         "?column?": titulo,
+                         "tipo": tipo,
+                         "id_subtema": id_subtema};
+    props.onAddExercise(addExercise);
+  }
+
   if (!dataResult || !data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
     return <div>Cargando...</div>;
   }
@@ -292,7 +300,7 @@ export const ResultTable = (props) => {
                       <CustomButton 
                       type={'btn btn-primary btn-sm mr-2'} 
                       text={'Agregar'} 
-                      func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
+                      func={handleAddition(row.id_resultado, row.titulo, row.tipo_resultado, row.subtema)}/>
                     </div>
                   )}
                 </td>
@@ -356,6 +364,7 @@ export const ResultTable = (props) => {
                 edicion={true}
                 idDocente={props.id}
                 rol={props.rol}
+                onAddExercise = {props.onAddExercise}
               />
             )}
             {(!exerciseID || !exerciseData) && (
@@ -364,6 +373,7 @@ export const ResultTable = (props) => {
                 idDocente={props.id}
                 id_autor={props.id}
                 rol={props.rol}
+                onAddExercise = {props.onAddExercise}
               />
             )}
           </form>
@@ -390,6 +400,7 @@ export const ResultTable = (props) => {
                 edicion={true}
                 idDocente={props.id}
                 rol={props.rol}
+                onAddExercise = {props.onAddExercise}
               />
             )}
             {(!exerciseID || !exerciseData) && (
@@ -398,6 +409,7 @@ export const ResultTable = (props) => {
                 idDocente={props.id}
                 id_autor={props.id}
                 rol={props.rol}
+                onAddExercise = {props.onAddExercise}
               />
             )}
           </form>

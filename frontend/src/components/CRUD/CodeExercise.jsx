@@ -80,6 +80,14 @@ export const CodeExercise = (props) => {
     props.onStep();
   }
 
+  const handleAddition = (id, titulo, tipo, id_subtema) => (e) => {
+    const addExercise = {"id": id, 
+                         "?column?": titulo,
+                         "tipo": tipo,
+                         "id_subtema": id_subtema};
+    props.onAddExercise(addExercise);
+  }
+
   if (!data_subtema || !data_dificultad) {
     return <div>Cargando...</div>;
   }
@@ -264,7 +272,7 @@ export const CodeExercise = (props) => {
             <CustomButton
               type={'btn btn-success'}
               text={'Agregar ejercicio'}
-              func={handleEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode))}
+              func={handleAddition(props.id, titleOption, 'Código', subtemaOptions, )}
             />
           )}
           {props.edicion && (props.idDocente === props.id_autor || props.rol === 'Administrador') && (
@@ -287,7 +295,7 @@ export const CodeExercise = (props) => {
             <CustomButton
               type={'btn btn-success'}
               text={'Crear ejercicio'}
-              func={handleCreation(aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode), (props.id_autor || null))}
+              func={handleCreation(aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode), (props.idDocente || null))}
               disabled={
                 !titleOption.trim() ||
                 !authorOption.trim() ||

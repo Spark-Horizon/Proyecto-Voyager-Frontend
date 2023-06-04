@@ -88,6 +88,14 @@ export const OMExercise = (props) => {
     props.onStep();
   }
 
+  const handleAddition = (id, titulo, tipo, id_subtema) => (e) => {
+    const addExercise = {"id": id, 
+                         "?column?": titulo,
+                         "tipo": tipo,
+                         "id_subtema": id_subtema};
+    props.onAddExercise(addExercise);
+  }
+
   if (!data_subtema || !data_dificultad) {
     return <div>Cargando...</div>;
   }
@@ -288,7 +296,7 @@ export const OMExercise = (props) => {
             <CustomButton
                 type={'btn btn-success'}
                 text={'Agregar ejercicio'}
-                func={handleEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM))}
+                func={handleAddition(props.id, titleOption, 'Opción múltiple', subtemaOptions, )}
             />
           )}
 
@@ -312,7 +320,7 @@ export const OMExercise = (props) => {
             <CustomButton
                 type={'btn btn-success'}
                 text={'Crear ejercicio'}
-                func={handleCreation(aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM), (props.id_autor || null))}
+                func={handleCreation(aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM), (props.idDocente || null))}
                 disabled={
                   !titleOption.trim() ||
                   !authorOption.trim() ||

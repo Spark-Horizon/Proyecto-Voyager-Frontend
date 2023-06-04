@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CustomButton } from '../CustomButton';
 
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
-import { getCreateRandomExercise } from '../../helpers/getCRUDTask';
-import { useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask } from '../../hooks/useGetCRUDTask.js';
+import { useGetCreateAddRandomExercise, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask } from '../../hooks/useGetCRUDTask.js';
 
 export const RandomExercise = (props) => {
   const [subtemaOption, setSubtemaOption] = useState('');
@@ -13,15 +12,27 @@ export const RandomExercise = (props) => {
   const { data_tipo } = useGetFilTipoTask();
   const [difficultyOption, setDifficultyOption] = useState('');
   const { data_dificultad } = useGetFilDificultadTask();
+  const [idExercise, setIdExercise] = useState('');
+  const { data_random } = useGetCreateAddRandomExercise(tipoOption, subtemaOption, difficultyOption, props.idDocente)
 
   const handlePrevious = () => {
     props.onStep();
   }
 
-  const handleCreation = (tipo, subtema, difficulty) => (e) => {
+  useEffect(() => {
+    setIdExercise(data_random);
+  }, [data_random]);
+
+  const handleCreation = (tipo, subtema, difficulty, id_exercise) => (e) => {
     e.preventDefault();
-    getCreateRandomExercise(tipo, subtema, difficulty);
+    console.log(id_exercise);
+    console.log("aqui 1");
     props.onExerciseAdd();
+    const addExercise = {"id": id_exercise, 
+                         "?column?": "Ejercicio aleatorio "+difficulty,
+                         "tipo": tipo,
+                         "id_subtema": subtema};
+    props.onAddExercise(addExercise);
   }
 
   if (!data_subtema || !data_dificultad || !data_tipo) {
@@ -101,7 +112,7 @@ export const RandomExercise = (props) => {
                   <CustomButton 
                     type='btn mt-3 btn-success'
                     text='Guardar ejercicio'
-                    func={handleCreation(tipoOption, subtemaOption, difficultyOption)}
+                    func={handleCreation(tipoOption, subtemaOption, difficultyOption, idExercise)}
                     disabled={
                         !tipoOption ||
                         !subtemaOption ||
