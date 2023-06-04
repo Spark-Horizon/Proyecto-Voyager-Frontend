@@ -6,7 +6,7 @@ import { getDeleteExercise }  from '../../helpers/getCRUDTask.js';
 import { CodeExercise } from "./CodeExercise"
 import { OMExercise } from "./OMExercise"
 
-export const ResultTable = () => {
+export const ResultTable = (props) => {
   const [step, setStep] = useState(1);
 
   const [exerciseID, setExerciseID] = useState(null);
@@ -25,7 +25,7 @@ export const ResultTable = () => {
   const [filtroOptions, setFiltroOptions] = useState(['id_resultado']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const { data_exercise } = useGetExerciseTask(exerciseID);
-  const { data_result } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions);
+  const { data_result } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions, props.rol, props.id);
   const { data_autor } = useGetFilAutorTask();
   const { data_subtema } = useGetFilSubtemaTask();
   const { data_tipo } = useGetFilTipoTask();
@@ -267,14 +267,34 @@ export const ResultTable = () => {
                 <td>{row.dificultad}</td>
                 <td>{row.autorizado_resultado ? "Aprobado" : "Rechazado"}</td>
                 <td>
-                  <CustomButton 
-                    type={'btn btn-primary btn-sm mr-2'} 
-                    text={'Editar'} 
-                    func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
-                  <CustomButton 
-                    type={'btn btn-danger btn-sm'} 
-                    text={'Borrar'} 
-                    func={handleDeletion(row.id_resultado)}/>
+                  {(row.id_autor === props.id || props.rol === 'Administrador') && (
+                    <div>
+                      <CustomButton 
+                      type={'btn btn-primary btn-sm mr-2'} 
+                      text={'Editar'} 
+                      func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
+                      <CustomButton 
+                      type={'btn btn-danger btn-sm'} 
+                      text={'Borrar'} 
+                      func={handleDeletion(row.id_resultado)}/>
+                    </div>
+                  )}
+                  {(row.id_autor !== props.id && props.rol !== 'Administrador') && (
+                    <div>
+                      <CustomButton 
+                      type={'btn btn-primary btn-sm mr-2'} 
+                      text={'Ver'} 
+                      func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
+                    </div>
+                  )}
+                  {(props.rol === 'Docente') && (
+                    <div>
+                      <CustomButton 
+                      type={'btn btn-primary btn-sm mr-2'} 
+                      text={'Agregar'} 
+                      func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
@@ -331,13 +351,19 @@ export const ResultTable = () => {
                 driver={exerciseData['archivo']['driver']}
                 tests={exerciseData['archivo']['tests']}
                 aprobado={exerciseData.autorizado}
+                id_autor={exerciseData.id_autor}
                 onStep={handlePrevStep}
                 edicion={true}
+                idDocente={props.id}
+                rol={props.rol}
               />
             )}
             {(!exerciseID || !exerciseData) && (
               <CodeExercise 
                 onStep={handlePrevStep}
+                idDocente={props.id}
+                id_autor={props.id}
+                rol={props.rol}
               />
             )}
           </form>
@@ -359,13 +385,19 @@ export const ResultTable = () => {
                 hints={exerciseData['archivo']['hints']}
                 options={exerciseData['archivo']['options']}
                 aprobado={exerciseData.autorizado}
+                id_autor={exerciseData.id_autor}
                 onStep={handlePrevStep}
                 edicion={true}
+                idDocente={props.id}
+                rol={props.rol}
               />
             )}
             {(!exerciseID || !exerciseData) && (
               <OMExercise 
                 onStep={handlePrevStep}
+                idDocente={props.id}
+                id_autor={props.id}
+                rol={props.rol}
               />
             )}
           </form>

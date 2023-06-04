@@ -13,7 +13,10 @@ export const TeacherQuizzes = () => {
         <section id='teacherQuizSection'>
 
             <CustomNavbar links={links} components={components}/>
-            <TeacherActivity/>
+            <TeacherActivity
+            grupo={1}
+            id={'L01732005'}
+            />
 
             <Footer/>
         </section>

@@ -14,6 +14,24 @@ export const getCRUDTask = async (fil1, fil2, fil3, fil4, fil5, order, hier) => 
     };
 
     const response = await axios(options);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getCRUDTaskTeacher = async (fil1, fil2, fil3, fil4, fil5, order, hier, id) => {
+  try {
+    const options = {
+      method: "get",
+      url: `http://${backendUrl}:${port}/CRUD/teacher/${fil1}/${fil2}/${fil3}/${fil4}/${fil5}/${order}/${hier}/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
     
     return response.data;
   } catch (error) {
@@ -154,7 +172,7 @@ export const getDeleteExercise = async (id) => {
   }
 };
 
-export const getCreateCodeExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
+export const getCreateCodeExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, driver, tests, id_autor) => {
   try {
 
     const options = {
@@ -173,6 +191,7 @@ export const getCreateCodeExercise = async (autorizado, tipo, subtema, author, t
         difficulty: difficulty,
         driver: driver,
         tests: tests,
+        id_autor: id_autor,
       },
     };
 
@@ -185,7 +204,7 @@ export const getCreateCodeExercise = async (autorizado, tipo, subtema, author, t
   }
 };
 
-export const getCreateOMExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options) => {
+export const getCreateOMExercise = async (autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options, id_autor) => {
   try {
     const optionsAx = {
       method: "post",
@@ -204,6 +223,7 @@ export const getCreateOMExercise = async (autorizado, tipo, subtema, author, tit
         answer: answer,
         hints: hints,
         options: options,
+        id_autor: id_autor,
       },
     };
 
@@ -216,7 +236,7 @@ export const getCreateOMExercise = async (autorizado, tipo, subtema, author, tit
   }
 };
 
-export const getCreateRandomExercise = async (tipo, subtema, difficulty) => {
+export const getCreateRandomExercise = async (tipo, subtema, difficulty, id_autor) => {
   try {
     const optionsAx = {
       method: "post",
@@ -228,6 +248,7 @@ export const getCreateRandomExercise = async (tipo, subtema, difficulty) => {
         tipo: tipo,
         subtema: subtema.split(','),
         difficulty: difficulty,
+        id_autor: id_autor,
       },
     };
 
@@ -292,6 +313,30 @@ export const getUpdateOMExercise = async (id, autorizado, tipo, subtema, author,
         answer: answer,
         hints: hints,
         options: options,
+      },
+    };
+
+    const response = await axios(optionsAx);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getUpdateRandomExercise = async (id, tipo, subtema, difficulty) => {
+  try {
+    const optionsAx = {
+      method: "put",
+      url: `http://${backendUrl}:${port}/CRUD/update/random`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        tipo: tipo,
+        subtema: subtema.split(','),
+        difficulty: difficulty,
       },
     };
 

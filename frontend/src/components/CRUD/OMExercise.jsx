@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CustomButton } from '../CustomButton';
 import {useGetFilSubtemaTask, useGetFilDificultadTask} from '../../hooks/useGetCRUDTask.js';
+import {useGetNameTask} from '../../hooks/useGetTeacherTask';
 
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
@@ -14,12 +15,27 @@ export const OMExercise = (props) => {
   const [difficultyOption, setDifficultyOption] = useState(props.difficulty || '');
   const [answerOption, setAnswerOption] = useState(props.answer || '0');
   const [hintsOption, setHintsOption] = useState(props.hints || false);
-  const [aprobadoOption, setAprobadoOption] = useState(props.aprobado || false);
-
+  const [aprobadoOption, setAprobadoOption] = useState(props.rol === 'Administrador' ? (props.aprobado || false) : false );
+  const [readOnly, setReadOnly] = useState(false);
   const { data_subtema } = useGetFilSubtemaTask();
   const { data_dificultad } = useGetFilDificultadTask();
+  const { data_name } = useGetNameTask(props.idDocente);
 
   const [exerciseBlocksOM, setExerciseBlocksOM] = useState(props.options || [{ text: '', explanation: '' }]);
+
+  useEffect(() => {
+    if (data_name){
+      setAuthorOption(data_name['nombre']+" "+data_name['apellido1']+" "+data_name['apellido2']);
+    }
+  }, [data_name]);
+
+  useEffect(() => {
+    if (props.idDocente !== props.id_autor && props.rol === 'Docente' && props.idDocente) {
+      setReadOnly(true);
+    } else {
+      setReadOnly(false);
+    }
+  }, [props.idDocente, props.id_autor, props.rol]);
 
   const handlePrevious = () => {
     props.onStep();
@@ -60,9 +76,9 @@ export const OMExercise = (props) => {
     setExerciseBlocksOM(blocks);
   };
 
-  const handleCreation = (aprobado, subtema, author, title, description, difficulty, answer, hints, options) => (e) => {
+  const handleCreation = (aprobado, subtema, author, title, description, difficulty, answer, hints, options, id_autor) => (e) => {
     e.preventDefault();
-    getCreateOMExercise(aprobado, 'Opción múltiple', subtema, author, title, description, difficulty, answer, hints, options);
+    getCreateOMExercise(aprobado, 'Opción múltiple', subtema, author, title, description, difficulty, answer, hints, options, id_autor);
     props.onStep();
   }
 
@@ -76,6 +92,8 @@ export const OMExercise = (props) => {
     return <div>Cargando...</div>;
   }
 
+  console.log(props.idDocente, props.id_autor, props.rol);
+
   return (
     <div>
         <div className="text-center mb-5">
@@ -85,15 +103,29 @@ export const OMExercise = (props) => {
 
         <div className="form-group mb-4">
             <label htmlFor="autor" className="text-center">Autor</label>
-            <input 
-                type="text" 
-                id="autor" 
-                value={authorOption} 
-                onChange={(e) => setAuthorOption(e.target.value)}
-                className="form-control" 
-                placeholder="Autor del ejercicio" 
-                required 
-            />
+            {(props.rol === 'Docente') && (
+              <input 
+                  type="text" 
+                  id="autor" 
+                  value={authorOption} 
+                  onChange={(e) => setAuthorOption(e.target.value)}
+                  className="form-control" 
+                  placeholder="Autor del ejercicio" 
+                  required
+                  readOnly
+              />
+            )}
+            {(props.rol === 'Administrador') && (
+              <input 
+                  type="text" 
+                  id="autor" 
+                  value={authorOption} 
+                  onChange={(e) => setAuthorOption(e.target.value)}
+                  className="form-control" 
+                  placeholder="Autor del ejercicio" 
+                  required
+              />
+            )}
         </div>
     
         <div className="form-group mb-4">
@@ -106,6 +138,7 @@ export const OMExercise = (props) => {
                 className="form-control" 
                 placeholder="Título del ejercicio" 
                 required 
+                readOnly={readOnly}
             />
         </div>
     
@@ -119,6 +152,7 @@ export const OMExercise = (props) => {
                 placeholder="Descripción del ejercicio" 
                 rows={5} 
                 required 
+                readOnly={readOnly}
             />
         </div>
     
@@ -128,6 +162,7 @@ export const OMExercise = (props) => {
                 className="form-select form-select-sm"
                 aria-label="Filtro" 
                 required 
+                readOnly={readOnly}
                 id="subtema" 
                 value={subtemaOptions}
                 onChange={(e) => setSubtemaOptions(e.target.value)}>
@@ -146,6 +181,7 @@ export const OMExercise = (props) => {
                 className="form-select form-select-sm"
                 aria-label="Filtro" 
                 required 
+                readOnly={readOnly}
                 id="dificultad" 
                 value={difficultyOption}
                 onChange={(e) => setDifficultyOption(e.target.value)}>
@@ -168,6 +204,7 @@ export const OMExercise = (props) => {
             className="form-control" 
             placeholder="" 
             required 
+            readOnly={readOnly}
           />
         </div>
 
@@ -181,6 +218,7 @@ export const OMExercise = (props) => {
               onChange={(e) => setHintsOption(e.target.checked)}
               className="form-check-input"
               required
+              readOnly={readOnly}
             />
             <label className="form-check-label" htmlFor="pistas">
               Mostrar pistas
@@ -188,22 +226,24 @@ export const OMExercise = (props) => {
           </div>
         </div>
 
-        <div className="form-group mb-4">
-          <label htmlFor="aprobado" className="text-center">Aprobado</label>
-          <div className="form-check">
-            <input
-              type="checkbox"
-              id="aprobado"
-              checked={aprobadoOption}
-              onChange={(e) => setAprobadoOption(e.target.checked)}
-              className="form-check-input"
-              required
-            />
-            <label className="form-check-label" htmlFor="aprobado">
-              Marcar como aprobado
-            </label>
+        {(props.rol === 'Administrador') && (
+          <div className="form-group mb-4">
+            <label htmlFor="aprobado" className="text-center">Aprobado</label>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="aprobado"
+                checked={aprobadoOption}
+                onChange={(e) => setAprobadoOption(e.target.checked)}
+                className="form-check-input"
+                required        
+              />
+              <label className="form-check-label" htmlFor="aprobado">
+                Marcar como aprobado
+              </label>
+            </div>
           </div>
-        </div>
+        )}
     
         <h5 className="mb-2">Opciones</h5>
         {exerciseBlocksOM.map((block, index) => (
@@ -217,6 +257,7 @@ export const OMExercise = (props) => {
               placeholder="Texto del ejercicio" 
               rows={5} 
               required 
+              readOnly={readOnly}
             />
             <label htmlFor={`output-${index}`} className="text-center">Explicación</label>
             <textarea 
@@ -227,6 +268,7 @@ export const OMExercise = (props) => {
               placeholder="Explicacion del ejercicio" 
               rows={5} 
               required 
+              readOnly={readOnly}
             />
           </div>
         ))}
@@ -242,7 +284,15 @@ export const OMExercise = (props) => {
               text={'Atrás'}
               func={handlePrevious}
           />
-          {props.edicion && (
+          { props.rol === 'Docente' && (
+            <CustomButton
+                type={'btn btn-success'}
+                text={'Agregar ejercicio'}
+                func={handleEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM))}
+            />
+          )}
+
+          {props.edicion && (props.idDocente === props.id_autor || props.rol === 'Administrador') && (
             <CustomButton
                 type={'btn btn-success'}
                 text={'Editar ejercicio'}
@@ -262,7 +312,7 @@ export const OMExercise = (props) => {
             <CustomButton
                 type={'btn btn-success'}
                 text={'Crear ejercicio'}
-                func={handleCreation(aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM))}
+                func={handleCreation(aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM), (props.id_autor || null))}
                 disabled={
                   !titleOption.trim() ||
                   !authorOption.trim() ||

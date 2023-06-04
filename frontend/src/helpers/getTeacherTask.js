@@ -41,22 +41,40 @@ export const getActivityTask = async (id) => {
 };
 
 export const getActivityExercises = async (id) => {
-    try {
-      const options = {
-        method: "get",
-        url: `http://${backendUrl}:${port}/teacher/activity/${id}/exercises`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-  
-      const response = await axios(options);
-  
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  };
+  try {
+    const options = {
+      method: "get",
+      url: `http://${backendUrl}:${port}/teacher/activity/${id}/exercises`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getNameTask = async (id) => {
+  try {
+    const options = {
+      method: "get",
+      url: `http://${backendUrl}:${port}/teacher/name/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios(options);
+
+    return response.data[0];
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const getDeleteActivity = async (id) => {
   try {

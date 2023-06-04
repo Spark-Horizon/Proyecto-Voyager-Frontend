@@ -9,8 +9,7 @@ import { useGetActivitiesTask, useGetActivityExercises, useGetActivityTask } fro
 import { useGetExerciseTask } from '../../hooks/useGetCRUDTask.js';
 import { getDeleteActivity } from '../../helpers/getTeacherTask';
 
-export const TeacherActivity = () => {
-  const CONID = 1;
+export const TeacherActivity = (props) => {
   const [step, setStep] = useState(1);
   const [editStatus, setEditStatus] = useState(null);
   const [showCreatePopup, setShowCreatePopup] = useState(false);
@@ -30,7 +29,7 @@ export const TeacherActivity = () => {
   const [filtroOptions, setFiltroOptions] = useState(['id']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const [dataResult, setDataResult] = useState(['']);
-  const { data_activities } = useGetActivitiesTask(CONID, filtroOptions, hierOptions);
+  const { data_activities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
 
   //useEffect de la vista general de todas las actividades
   useEffect(() => {
@@ -332,7 +331,7 @@ export const TeacherActivity = () => {
               onNextExercise={handleStatusExercise}
               onActivityCreation={handleCreateActivity}
               onActivityUpdate={handleUpdateActivity}
-              grupo = {CONID}
+              grupo = {props.grupo}
             />
           )}
         </div>
@@ -350,8 +349,11 @@ export const TeacherActivity = () => {
             driver={exerciseData['archivo']['driver']}
             tests={exerciseData['archivo']['tests']}
             aprobado={exerciseData.autorizado}
+            id_autor={exerciseData.id_autor}
             edicion={true}
             onStep={handlePrevStepFive}
+            idDocente={props.id}
+            rol={'Docente'}
           />
         </div>
       )}
@@ -369,8 +371,11 @@ export const TeacherActivity = () => {
             hints={exerciseData['archivo']['hints']}
             options={exerciseData['archivo']['options']}
             aprobado={exerciseData.autorizado}
+            id_autor={exerciseData.id_autor}
             edicion={true}
             onStep={handlePrevStepFive}
+            idDocente={props.id}
+            rol={'Docente'}
           />
         </div>
       )}
@@ -425,7 +430,10 @@ export const TeacherActivity = () => {
             text="Atrás"
             func={handlePrevStepFour}
           />
-          <ResultTable/>
+          <ResultTable
+          id={props.id}
+          rol={'Docente'}
+          />
         </div>
       )}
     </section>

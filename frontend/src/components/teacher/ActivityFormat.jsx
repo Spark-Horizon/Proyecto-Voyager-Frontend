@@ -215,7 +215,7 @@ export const ActivityFormat = (props) => {
               <div>
                 <CustomButton
                   type="btn btn-primary btn-sm mr-2"
-                  text="Editar"
+                  text="Ver"
                   func={() => handleEjercicio(block.id, block.tipo)}
                 />
                 <CustomButton
