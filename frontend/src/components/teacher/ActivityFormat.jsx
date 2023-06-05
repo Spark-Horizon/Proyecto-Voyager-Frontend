@@ -13,6 +13,48 @@ export const ActivityFormat = (props) => {
   const [exerciseBlocksCode, setExerciseBlocksCode] = useState(props.ejercicios || []);
 
   useEffect(() => {
+    if (props.titulo){
+      setTitleOption(props.titulo);
+    }
+  }, [props.titulo]);
+
+  useEffect(() => {
+    if (props.inicio){
+      setInicioOption(props.inicio);
+    }
+  }, [props.inicio]);
+
+  useEffect(() => {
+    if (props.fin){
+      setFinOption(props.fin);
+    }
+  }, [props.fin]);
+
+  useEffect(() => {
+    if (props.intentos){
+      setNumIntentosOption(props.intentos);
+    }
+  }, [props.intentos]);
+
+  useEffect(() => {
+    if (props.bloqueo){
+      setBloqueoOption(props.bloqueo);
+    }
+  }, [props.bloqueo]);
+
+  useEffect(() => {
+    if (props.visible){
+      setVisibleOption(props.visible);
+    }
+  }, [props.visible]);
+
+  useEffect(() => {
+    if (props.disponible){
+      setDisponibleOption(props.disponible);
+    }
+  }, [props.disponible]);
+
+  useEffect(() => {
     if (props.ejercicios){
       setExerciseBlocksCode(props.ejercicios);
     }
@@ -45,7 +87,7 @@ export const ActivityFormat = (props) => {
   const handleIntentosChange = (event) => {
     const { value } = event.target;
     if (/^\d*$/.test(value)) {
-      setNumIntentosOption(value);
+      props.onIntentosChange(value);
     }
   };
 
@@ -81,7 +123,7 @@ export const ActivityFormat = (props) => {
           type="text"
           id="título"
           value={titleOption}
-          onChange={(event) => setTitleOption(event.target.value)}
+          onChange={(event) => props.onTitleChange(event.target.value)}
           className="form-control"
           placeholder="Título del ejercicio"
           required
@@ -94,7 +136,7 @@ export const ActivityFormat = (props) => {
           type="datetime-local"
           id="inicio"
           value={formatDate(inicioOption)}
-          onChange={(event) => setInicioOption(event.target.value)}
+          onChange={(event) => props.onInicioChange(event.target.value)}
           className="form-control"
           required
         />
@@ -106,7 +148,7 @@ export const ActivityFormat = (props) => {
           type="datetime-local"
           id="fin"
           value={formatDate(finOption)}
-          onChange={(event) => setFinOption(event.target.value)}
+          onChange={(event) => props.onFinChange(event.target.value)}
           className="form-control"
           required
         />
@@ -134,7 +176,7 @@ export const ActivityFormat = (props) => {
             type="checkbox"
             id="bloqueo"
             checked={bloqueoOption}
-            onChange={(e) => setBloqueoOption(e.target.checked)}
+            onChange={(e) => props.onBloqueoChange(e.target.checked)}
             className="form-check-input"
             required
           />
@@ -153,7 +195,7 @@ export const ActivityFormat = (props) => {
             type="checkbox"
             id="visible"
             checked={visibleOption}
-            onChange={(e) => setVisibleOption(e.target.checked)}
+            onChange={(e) => props.onVisibleChange(e.target.checked)}
             className="form-check-input"
             required
           />
@@ -172,7 +214,7 @@ export const ActivityFormat = (props) => {
             type="checkbox"
             id="disponible"
             checked={disponibleOption}
-            onChange={(e) => setDisponibleOption(e.target.checked)}
+            onChange={(e) => props.onDisponibleChange(e.target.checked)}
             className="form-check-input"
             required
           />

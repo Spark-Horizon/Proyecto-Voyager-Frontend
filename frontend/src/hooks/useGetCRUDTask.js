@@ -32,16 +32,16 @@ export const useGetCRUDTask = (fil1, fil2, fil3, fil4, fil5, order, hier, rol, i
     return { data_result, error };
 }
 
-export const useGetCreateAddRandomExercise =  (tipo, subtema, difficulty, id_autor) => {
+export const useGetCreateAddRandomExercise =  (tipo, subtema, difficulty) => {
     const [data_random, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (tipo, subtema, difficulty, id_autor){
-                    const resultado = await getCreateAddRandomExercise(tipo, subtema, difficulty, id_autor);
-                    setProblemData({ tipo, subtema, difficulty, id_autor });
+                if (tipo, subtema, difficulty){
+                    const resultado = await getCreateAddRandomExercise(tipo, subtema, difficulty);
+                    setProblemData(resultado);
                 }
             } catch (error) {
                 setError(error);
@@ -49,7 +49,7 @@ export const useGetCreateAddRandomExercise =  (tipo, subtema, difficulty, id_aut
         };
 
         fetchData();
-    }, [tipo, subtema, difficulty, id_autor]);
+    }, [tipo, subtema, difficulty]);
 
     return { data_random, error };
 }

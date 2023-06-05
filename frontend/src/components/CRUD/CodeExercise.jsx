@@ -23,7 +23,7 @@ export const CodeExercise = (props) => {
   const [exerciseBlocksCode, setExerciseBlocksCode] = useState(props.tests || [{ input: '', output: '' }]);
 
   useEffect(() => {
-    if (data_name){
+    if (data_name && !authorOption){
       setAuthorOption(data_name['nombre']+" "+data_name['apellido1']+" "+data_name['apellido2']);
     }
   }, [data_name]);
@@ -84,7 +84,7 @@ export const CodeExercise = (props) => {
     const addExercise = {"id": id, 
                          "?column?": titulo,
                          "tipo": tipo,
-                         "id_subtema": id_subtema};
+                         "id_subtema": id_subtema.split(',')[0]};
     props.onAddExercise(addExercise);
   }
 
@@ -268,7 +268,7 @@ export const CodeExercise = (props) => {
             text={'Atrás'}
             func={handlePrevious}
           />
-          { props.rol === 'Docente' && (
+          { props.edicion && props.rol === 'Docente' && (
             <CustomButton
               type={'btn btn-success'}
               text={'Agregar ejercicio'}

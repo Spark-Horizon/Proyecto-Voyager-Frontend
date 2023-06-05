@@ -13,7 +13,7 @@ export const RandomExercise = (props) => {
   const [difficultyOption, setDifficultyOption] = useState('');
   const { data_dificultad } = useGetFilDificultadTask();
   const [idExercise, setIdExercise] = useState('');
-  const { data_random } = useGetCreateAddRandomExercise(tipoOption, subtemaOption, difficultyOption, props.idDocente)
+  const { data_random } = useGetCreateAddRandomExercise(tipoOption, subtemaOption, difficultyOption);
 
   const handlePrevious = () => {
     props.onStep();
@@ -25,13 +25,13 @@ export const RandomExercise = (props) => {
 
   const handleCreation = (tipo, subtema, difficulty, id_exercise) => (e) => {
     e.preventDefault();
-    console.log(id_exercise);
+    console.log(id_exercise['agregarincluirejercicio']);
     console.log("aqui 1");
     props.onExerciseAdd();
-    const addExercise = {"id": id_exercise, 
+    const addExercise = {"id": id_exercise['agregarincluirejercicio'], 
                          "?column?": "Ejercicio aleatorio "+difficulty,
                          "tipo": tipo,
-                         "id_subtema": subtema};
+                         "id_subtema": subtema.split(',')[0]};
     props.onAddExercise(addExercise);
   }
 

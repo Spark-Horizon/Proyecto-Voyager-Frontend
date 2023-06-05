@@ -25,6 +25,14 @@ export const TeacherActivity = (props) => {
   const [exerciseID, setExerciseID] = useState(null);
   const [exerciseData, setExerciseData] = useState(null);
   const { data_exercise } = useGetExerciseTask(exerciseID);
+
+  const [titleOption, setTitleOption] = useState(activityData ? activityData['titulo'] : '');
+  const [inicioOption, setInicioOption] = useState(activityData ? activityData['inicio'] : '');
+  const [finOption, setFinOption] = useState(activityData ? activityData['fin'] : '');
+  const [numIntentosOption, setNumIntentosOption] = useState(activityData ? activityData['intentos'] : '');
+  const [bloqueoOption, setBloqueoOption] = useState(activityData ? activityData['bloqueo'] : false);
+  const [visibleOption, setVisibleOption] = useState(activityData ? activityData['disponible'] : false);
+  const [disponibleOption, setDisponibleOption] = useState(activityData ? activityData['visible'] : false);
   
   const [filtroOptions, setFiltroOptions] = useState(['id']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
@@ -63,6 +71,13 @@ export const TeacherActivity = (props) => {
   //useEffect para dar el siguiente step cuando la informacion de la actividad se actualiza
   useEffect(() => {
     if (activityData !== null){
+      handleTitle(activityData['titulo'])
+      handleInicio(activityData['inicio'])
+      handleFin(activityData['fin'])
+      handleIntentos(activityData['intentos'])
+      handleBloqueo(activityData['bloqueo'])
+      handleDisponible(activityData['disponible'])
+      handleVisible(activityData['visible'])      
       handleNextStep();
     }
   }, [activityData]);
@@ -97,6 +112,34 @@ export const TeacherActivity = (props) => {
       setExerciseData(null);
     }
   }, [step]);
+
+  const handleTitle = (titulo) => {
+    setTitleOption(titulo);
+  };
+
+  const handleInicio = (inicio) => {
+    setInicioOption(inicio);
+  };
+
+  const handleFin = (fin) => {
+    setFinOption(fin);
+  };
+
+  const handleIntentos = (intentos) => {
+    setNumIntentosOption(intentos);
+  };
+
+  const handleBloqueo = (bloqueo) => {
+    setBloqueoOption(bloqueo);
+  };
+
+  const handleVisible = (visible) => {
+    setVisibleOption(visible);
+  };
+
+  const handleDisponible = (disponible) => {
+    setDisponibleOption(disponible);
+  };
 
   const handlePrevStep = () => {
     setStep(step - 1);
@@ -353,13 +396,20 @@ export const TeacherActivity = (props) => {
               onActivityUpdate={handleUpdateActivity}
               edicion={true}
               id = {activityData['id']}
-              titulo = {activityData['titulo']}
-              inicio = {activityData['inicio']}
-              fin = {activityData['fin']}
-              intentos = {activityData['intentos']}
-              bloqueo = {activityData['bloqueo']}
-              disponible = {activityData['disponible']}
-              visible = {activityData['visible']}
+              titulo = {titleOption}
+              onTitleChange = {handleTitle}
+              inicio = {inicioOption}
+              onInicioChange = {handleInicio}
+              fin = {finOption}
+              onFinChange = {handleFin}
+              intentos = {numIntentosOption}
+              onIntentosChange = {handleIntentos}
+              bloqueo = {bloqueoOption}
+              onBloqueoChange = {handleBloqueo}
+              disponible = {disponibleOption}
+              onDisponibleChange = {handleDisponible}
+              visible = {visibleOption}
+              onVisibleChange = {handleVisible}
               ejercicios = {activityExData}
             />
           )}
@@ -374,6 +424,20 @@ export const TeacherActivity = (props) => {
               onActivityCreation={handleCreateActivity}
               onActivityUpdate={handleUpdateActivity}
               grupo = {props.grupo}
+              titulo = {titleOption}
+              onTitleChange = {handleTitle}
+              inicio = {inicioOption}
+              onInicioChange = {handleInicio}
+              fin = {finOption}
+              onFinChange = {handleFin}
+              intentos = {numIntentosOption}
+              onIntentosChange = {handleIntentos}
+              bloqueo = {bloqueoOption}
+              onBloqueoChange = {handleBloqueo}
+              disponible = {disponibleOption}
+              onDisponibleChange = {handleDisponible}
+              visible = {visibleOption}
+              onVisibleChange = {handleVisible}
               ejercicios = {activityExData}
             />
           )}
@@ -397,6 +461,7 @@ export const TeacherActivity = (props) => {
             onStep={handlePrevStepFive}
             idDocente={props.id}
             rol={'Docente'}
+            onAddExercise = {handleAddExercise}
           />
         </div>
       )}
@@ -419,6 +484,7 @@ export const TeacherActivity = (props) => {
             onStep={handlePrevStepFive}
             idDocente={props.id}
             rol={'Docente'}
+            onAddExercise = {handleAddExercise}
           />
         </div>
       )}
