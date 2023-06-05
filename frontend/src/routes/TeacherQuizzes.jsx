@@ -14,8 +14,8 @@ export const TeacherQuizzes = () => {
 
             <CustomNavbar links={links} components={components}/>
             <TeacherActivity
-            grupo={1}
-            id={'L01732005'}
+            grupo={2}
+            id={'L01732006'}
             />
 
             <Footer/>
