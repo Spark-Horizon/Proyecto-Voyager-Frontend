@@ -21,12 +21,13 @@ export const TeacherActivity = (props) => {
   const [activityData, setActivityData] = useState(null);
   const { data_activity } = useGetActivityTask(activityID);
   const [activityExData, setActivityExData] = useState(null);
+  const [editBlocks, setEditBlocks] = useState(null);
+  const [editCheck, setEditCheck] = useState(false);
   const { data_activity_exercises, refetchDataActivityExercises } = useGetActivityExercises(activityID);
 
   const [exerciseID, setExerciseID] = useState(null);
   const [exerciseData, setExerciseData] = useState(null);
   const [exerciseIndex, setExerciseIndex] = useState(null);
-  const [editCheck, setEditCheck] = useState(false);
   const { data_exercise } = useGetExerciseTask(exerciseID);
 
   const [titleOption, setTitleOption] = useState(activityData ? activityData['titulo'] : '');
@@ -67,6 +68,7 @@ export const TeacherActivity = (props) => {
   //useEffect de los ejercicios de una vista de una actividad en particular
   useEffect(() => {
     if (data_activity_exercises){
+      console.log("Actualizado...");
       setActivityExData(data_activity_exercises);
     }
   }, [data_activity_exercises]);
@@ -121,15 +123,27 @@ export const TeacherActivity = (props) => {
     if (step === 2){
       setExerciseID(null);
       setExerciseData(null);
+      if (editCheck){
+        refetchDataActivityExercises();
+      }
     }
   }, [step]);
 
   useEffect(() => {
     if (editCheck){
-      refetchDataActivityExercises();
+      console.log("... y merge!");
+      if (editBlocks){
+        const resultingBlocks = [...new Set([...editBlocks , ...activityExData])]
+        setActivityExData(resultingBlocks);
+      }
+      else{
+        const resultingBlocks = [...activityExData]
+        setActivityExData(resultingBlocks);
+      }
+      setEditBlocks(null);
       setEditCheck(false);
     }
-  }, [editCheck])
+  }, [activityExData])
 
   const handleTitle = (titulo) => {
     setTitleOption(titulo);
@@ -261,19 +275,12 @@ export const TeacherActivity = (props) => {
   };
 
   const handleEditExercise = (index) => {
-    const formerBlocks = [...activityExData];
-    formerBlocks.splice(index, 1);
+    const tempBlocks = [...activityExData];
+    tempBlocks.splice(index, 1)
+    setEditBlocks(tempBlocks);
     setEditCheck(true);
-    if (formerBlocks){
-      const resultingBlocks = [...new Set([...formerBlocks , ...activityExData])]
-      setActivityExData(resultingBlocks);
-    }
-    else{
-      const resultingBlocks = [...activityExData]
-      setActivityExData(resultingBlocks);
-    }
     handleUpdateExercise();
-};
+  };
   
   const handleDeleteRow = (index) => {
     const confirmed = window.confirm('¿Estás seguro de que deseas borrar este ejercicio?');

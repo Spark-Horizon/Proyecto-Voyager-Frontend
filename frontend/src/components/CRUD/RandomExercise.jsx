@@ -23,7 +23,6 @@ export const RandomExercise = (props) => {
       const id_exercise = await getCreateAddRandomExercise(tipo, subtema, difficulty);
     
       if (tipo && subtema && difficulty && id_exercise) {
-        console.log("aqui 1");
         props.onExerciseAdd();
         const addExercise = {
           "id": id_exercise['agregarincluirejercicio'],
