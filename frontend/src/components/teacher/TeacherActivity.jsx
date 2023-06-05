@@ -37,7 +37,7 @@ export const TeacherActivity = (props) => {
   const [filtroOptions, setFiltroOptions] = useState(['id']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const [dataResult, setDataResult] = useState(['']);
-  const { data_activities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
+  const { data_activities, error, refetchDataActivities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
 
   const handleMoveRowDown = (index) => {
     if (index < activityExData.length - 1) {
@@ -95,6 +95,7 @@ export const TeacherActivity = (props) => {
       setBloqueoOption(false);
       setVisibleOption(false);
       setDisponibleOption(false);
+      refetchDataActivities();
     }
   }, [step]);
 

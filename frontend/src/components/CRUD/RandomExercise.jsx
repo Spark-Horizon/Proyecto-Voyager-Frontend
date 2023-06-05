@@ -28,7 +28,7 @@ export const RandomExercise = (props) => {
     console.log("aqui 1");
     props.onExerciseAdd();
     const addExercise = {"id": id_exercise['agregarincluirejercicio'], 
-                         "?column?": "Ejercicio aleatorio "+difficulty,
+                         "?column?": "Ejercicio aleatorio "+ difficulty + " de " + tipo,
                          "tipo": tipo,
                          "id_subtema": subtema.split(',')[0]};
     props.onAddExercise(addExercise);
@@ -111,7 +111,7 @@ export const RandomExercise = (props) => {
                   <CustomButton 
                     type='btn mt-3 btn-success'
                     text='Guardar ejercicio'
-                    func={handleCreation(tipoOption, subtemaOption, difficultyOption, idExercise)}
+                    func={handleCreation('Aleatorio', subtemaOption, difficultyOption, idExercise)}
                     disabled={
                         !tipoOption ||
                         !subtemaOption ||
