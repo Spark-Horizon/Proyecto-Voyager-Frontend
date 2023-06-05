@@ -1,36 +1,32 @@
 import { getCreateAddRandomExercise, getCRUDTaskTeacher, getExerciseTask, getUpdateOMExercise, getUpdateCodeExercise, getCreateOMExercise, getCreateCodeExercise, getDeleteExercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
 import { getCRUDTask } from "../helpers/indexHelpers.js";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useGetCRUDTask = (fil1, fil2, fil3, fil4, fil5, order, hier, rol, id) => {
-    const [data_result, setProblemData] = useState(null);
-    const [error, setError] = useState(null);
+  const [data_result, setProblemData] = useState(null);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (rol == 'Administrador'){
-                try{
-                    const resultado = await getCRUDTask(fil1, fil2, fil3, fil4, fil5, order, hier);
-                    setProblemData(resultado);
-                } catch (error) {
-                    setError(error);
-                }
-            }
-            else{
-                try {
-                    const resultado = await getCRUDTaskTeacher(fil1, fil2, fil3, fil4, fil5, order, hier, id);
-                    setProblemData(resultado);
-                } catch (error) {
-                    setError(error);
-                }
-            }
-        };
+  const fetchData = useCallback(async () => {
+    try {
+      let resultado;
+      if (rol === 'Administrador') {
+        resultado = await getCRUDTask(fil1, fil2, fil3, fil4, fil5, order, hier);
+      } else {
+        resultado = await getCRUDTaskTeacher(fil1, fil2, fil3, fil4, fil5, order, hier, id);
+      }
+      setProblemData(resultado);
+    } catch (error) {
+      setError(error);
+    }
+  }, [fil1, fil2, fil3, fil4, fil5, order, hier, rol, id]);
 
-        fetchData();
-    }, [fil1, fil2, fil3, fil4, fil5, order, hier, rol, id]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
-    return { data_result, error };
-}
+  return { data_result, error, refetchData: fetchData };
+};
+
 
 export const useGetCreateAddRandomExercise =  (tipo, subtema, difficulty) => {
     const [data_random, setProblemData] = useState(null);

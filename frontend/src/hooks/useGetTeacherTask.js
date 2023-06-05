@@ -1,24 +1,24 @@
 import { getActivitiesTask, getActivityTask, getActivityExercises, getNameTask, getDeleteActivity, getCreateActivity, getUpdateActivity } from "../helpers/getTeacherTask";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useGetActivitiesTask = (id, order, hier) => {
     const [data_activities, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
+    const fetchData = useCallback(async () => {
+        try {
+            const resultado = await getActivitiesTask(id, order, hier);
+            setProblemData(resultado);
+        } catch (error) {
+            setError(error);
+        }
+    }, []);
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const resultado = await getActivitiesTask(id, order, hier);
-                setProblemData(resultado);
-            } catch (error) {
-                setError(error);
-            }
-        };
+      fetchData();
+    }, [fetchData]);
 
-        fetchData();
-    }, [id, order, hier]);
-
-    return { data_activities, error };
+    return { data_activities, error, refetchDataActivities: fetchData };
 }
 
 export const useGetActivityTask = (id) => {

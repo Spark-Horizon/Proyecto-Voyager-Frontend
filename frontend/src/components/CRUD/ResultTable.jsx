@@ -25,7 +25,7 @@ export const ResultTable = (props) => {
   const [filtroOptions, setFiltroOptions] = useState(['id_resultado']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const { data_exercise } = useGetExerciseTask(exerciseID);
-  const { data_result } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions, props.rol, props.id);
+  const { data_result, error, refetchData } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions, props.rol, props.id);
   const { data_autor } = useGetFilAutorTask();
   const { data_subtema } = useGetFilSubtemaTask();
   const { data_tipo } = useGetFilTipoTask();
@@ -54,6 +54,7 @@ export const ResultTable = (props) => {
     if (step === 1){
       setExerciseID(null);
       setExerciseData(null);
+      refetchData();
     }
   }, [step]);
 
