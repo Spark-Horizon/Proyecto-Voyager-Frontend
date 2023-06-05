@@ -1,28 +1,46 @@
 import { useState, useEffect } from 'react';
 
-import { GroupsTable } from './GroupsTable';
 import { GroupsStudentView } from './GroupsStudentView';
 import { GroupsGeneralView } from './GroupsGeneralView';
+import { GroupsTable } from './GROUPS/GroupsTable';
 
 import '../../styles/professor_dashboard/groups.css';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const port = process.env.REACT_APP_BACKEND_PORT;
 
-export const Groups = ({ professorId, setComponentViews, setCurrentView, setCanReturn, setChangeViewFunction, currentComponent }) => {
+export const Groups = ({ 
+    professorId, 
+    setComponentViews, 
+    setCurrentView, 
+    setCanReturn, 
+    setChangeViewFunction, 
+    currentComponent, 
+    setComponentTitle 
+}) => {
+    const headers = ['ID', 'Código', 'Materia', 'Nombre del curso'];
+    const url = `http://${backendUrl}:${port}/dashboard/profesor/entregas?id=${professorId}`;
+
     useEffect(() => {
         setComponentViews(
-            {
-                table: <GroupsTable professorId={professorId} changeView={setCurrentView} />,
-                generalView: <GroupsGeneralView setCurrentView={setCurrentView} changeViewFunction={setChangeViewFunction} setCanReturn={setCanReturn} />,
-                studentView: <GroupsStudentView setCurrentView={setCurrentView} changeViewFunction={setChangeViewFunction} setCanReturn={setCanReturn} />
-            }
+            [
+                <GroupsTable url={url} headers={headers} changeView={setCurrentView} setComponentTitle={setComponentTitle} />,
+                <GroupsGeneralView setCurrentView={setCurrentView} changeViewFunction={setChangeViewFunction} setCanReturn={setCanReturn} setComponentTitle={setComponentTitle} />,
+                <GroupsStudentView setCurrentView={setCurrentView} changeViewFunction={setChangeViewFunction} setCanReturn={setCanReturn} setComponentTitle={setComponentTitle} />
+            ]
         );
-        
-        setCurrentView('table');
+
+        setCurrentView(0);
     }, [])
+    
 
     return (
         <>
-            <div className="groups-main-container">{currentComponent}</div>
+            <div className="groups-main-container">
+                {
+                    currentComponent
+                }
+            </div>
         </>
     )
 }

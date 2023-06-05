@@ -1,0 +1,90 @@
+p {
+    margin: 0px;
+}
+
+.progress-main-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+} 
+
+.progress-headers {
+    margin-top: 10px;
+    margin-left: 21px;
+    padding: 15px 15px 5px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.code-header {
+    display: flex;
+    width: 10%;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    font-weight: bolder;
+    margin-right: 20px;
+}
+
+.name-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    height: 100%;
+    font-weight: bolder;
+}
+
+.progress-item {
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    border: var(--glassmorphism-border);
+    margin: 10px 20px;
+    align-items: center;
+    border-radius: 10px;
+    transition: all ease 0.2s;
+}
+
+.p-i-selected {
+    border: 3px solid var(--middle-blue);
+    cursor: pointer;
+}
+
+.p-i-selected > div > p {
+    color: var(--middle-blue);
+}
+
+.p-i-selected > div > b {
+    color: var(--middle-blue);
+}
+
+.code-data {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 10%;
+}
+
+.name-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 20px;
+    height: 100%;
+    width: 90%;
+}
+
+.arrow-left {
+    height: 30px;
+    fill: #fff;
+    margin-right: 10px;
+    transition: all ease 0.2s;
+}
+
+.a-l-selected {
+    cursor: pointer;
+    fill: var(--middle-blue);
+}

@@ -1,20 +1,26 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
-export const GroupsGeneralView = ({setCurrentView, changeViewFunction, setCanReturn}) => {
-    const returnToPreviousView = () => {
+export const GroupsGeneralView = ({
+        setCurrentView,
+        changeViewFunction,
+        setCanReturn,
+        setComponentTitle
+    }) => {
+    const handleReturnToPreviousView = () => {
         changeViewFunction(null);
-        setCurrentView('table');
+        setCurrentView(0);
         setCanReturn(false);
-    }
-    
+    };
+
     useEffect(() => {
+        setComponentTitle('Vista general');
         setCanReturn(true);
-        changeViewFunction(() => returnToPreviousView);
-    }, [])
+        changeViewFunction(() => handleReturnToPreviousView);
+    }, []);
 
     return (
         <div>
             GroupsGeneralView
         </div>
-    )
-}
+    );
+};

@@ -1,14 +1,22 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { PDSHPanel } from '../components/P_DASHBOARD/PDSHPanel';
 import { PDSHSidebar } from '../components/P_DASHBOARD/PDSHSidebar';
+import { useDashboardView } from '../hooks/useDashboardView';
 
 import '../styles/professor_dashboard/professorDashboard.css';
 
 export const ProfessorDashboard = () => {
-  const [currentComponent, setCurrentComponent] = useState(0);
-  const professorId = 'L01732005';
+  const [panelComponent, setPanelComponent] = useState(0);
+  const { canReturn, changeViewFunction, setters, currentComponent } = useDashboardView();
+  const { setCurrentView, setCanReturn, setChangeViewFunction, setComponentViews } = setters;
+  const professorId = 'L01732011';
 
+  useEffect(() => {
+    setCanReturn(false);
+  }, [panelComponent])
+  
   return (
     <div className='main-background'>
         <div className='main-professor-dashboard'>
@@ -16,8 +24,18 @@ export const ProfessorDashboard = () => {
               Dashboard de Profesor
             </div>
             <div className="p-dash-main-container">
-              <PDSHSidebar changeComponent={setCurrentComponent} />
-              <PDSHPanel index={currentComponent} professorId={professorId} />
+              <PDSHSidebar changeComponent={setPanelComponent} />
+              <PDSHPanel 
+                index={panelComponent} 
+                professorId={professorId} 
+                canReturn={canReturn} 
+                changeViewFunction={changeViewFunction}
+                currentComponent={currentComponent}
+                setCurrentView={setCurrentView}
+                setCanReturn={setCanReturn}
+                setChangeViewFunction={setChangeViewFunction}
+                setComponentViews={setComponentViews}  
+              />
             </div>
         </div>
     </div>

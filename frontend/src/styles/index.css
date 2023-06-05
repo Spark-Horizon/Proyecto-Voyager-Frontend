@@ -17,7 +17,7 @@
   --button-ide-blue: #1CC6EC;
 
   --glassmorphism-border: 1px solid rgba(255, 255, 255, 0.18);
-  --glassmorphism-blur: blur(11px);
+  --glassmorphism-blur: 10px;
   --glassmorphism-bg: rgba(30, 30, 30, 0.25);
   --glassmorphism-border-color: rgba(255, 255, 255, 0.18);
 }
@@ -128,4 +128,30 @@ body{
   width: 40%;
   height: 100%;
   background-color: var(--bckg-color);
+}
+
+/* Estilos generales del scrollbar */
+::-webkit-scrollbar {
+  width: 2px; /* Ancho del scrollbar */
+}
+
+/* Estilos del track (fondo) del scrollbar */
+::-webkit-scrollbar-track {
+  background-color: var(--glassmorphism-border-color); /* Color de fondo del track */
+}
+
+/* Estilos del thumb (barra) del scrollbar */
+::-webkit-scrollbar-thumb {
+  background-color: var(--middle-blue); /* Color de fondo del thumb */
+  border-radius: 5px; /* Borde redondeado del thumb */
+}
+
+/* Estilos del thumb cuando se está interactuando con él */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Color de fondo del thumb al pasar el cursor sobre él */
+}
+
+/* Estilos del thumb cuando está en estado activo (presionado) */
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--strong-blue); /* Color de fondo del thumb al estar presionado */
 }
