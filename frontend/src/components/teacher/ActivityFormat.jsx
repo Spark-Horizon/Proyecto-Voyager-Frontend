@@ -286,7 +286,7 @@ export const ActivityFormat = (props) => {
                 !inicioOption ||
                 !finOption ||
                 !numIntentosOption ||
-                exerciseBlocksCode.some(block => !block.id)
+                exerciseBlocksCode.length < 1
               }
             />
           )}
@@ -300,7 +300,7 @@ export const ActivityFormat = (props) => {
                 !inicioOption ||
                 !finOption ||
                 !numIntentosOption ||
-                exerciseBlocksCode.some(block => !block.id)
+                exerciseBlocksCode.length < 1
               }
             />
           )}
