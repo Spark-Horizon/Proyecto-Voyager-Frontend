@@ -39,18 +39,24 @@ export const ActivityFormat = (props) => {
   useEffect(() => {
     if (props.bloqueo){
       setBloqueoOption(props.bloqueo);
+    } else {
+      setBloqueoOption(false);
     }
   }, [props.bloqueo]);
 
   useEffect(() => {
     if (props.visible){
       setVisibleOption(props.visible);
+    } else {
+      setVisibleOption(false);
     }
   }, [props.visible]);
 
   useEffect(() => {
     if (props.disponible){
       setDisponibleOption(props.disponible);
+    } else {
+      setDisponibleOption(false);
     }
   }, [props.disponible]);
 
@@ -86,11 +92,11 @@ export const ActivityFormat = (props) => {
 
   const handleIntentosChange = (event) => {
     const { value } = event.target;
-    if (/^\d*$/.test(value)) {
-      props.onIntentosChange(value);
+    if (/^\d*$/.test(value) || value === '-1') {
+      setNumIntentosOption(value);
     }
   };
-
+  
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -98,7 +104,8 @@ export const ActivityFormat = (props) => {
     const day = String(date.getDate()).padStart(2, '0');
     const hour = String(date.getHours()).padStart(2, '0');
     const minute = String(date.getMinutes()).padStart(2, '0');
-    return `${year}-${month}-${day}T${hour}:${minute}`;
+    const formattedDate = `${year}-${month}-${day}T${hour}:${minute}`;
+    return formattedDate.substring(0, formattedDate.length - 3);
   };
   
   const handleDeleteRow = (index) => {
@@ -117,7 +124,7 @@ export const ActivityFormat = (props) => {
     <section id="teacherActivityFormat">
       <h2>Crear Actividad</h2>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <label htmlFor="título">Título</label>
         <input
           type="text"
@@ -130,7 +137,7 @@ export const ActivityFormat = (props) => {
         />
       </div>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <label htmlFor="inicio">Inicio</label>
         <input
           type="datetime-local"
@@ -142,7 +149,7 @@ export const ActivityFormat = (props) => {
         />
       </div>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <label htmlFor="fin">Fin</label>
         <input
           type="datetime-local"
@@ -154,7 +161,7 @@ export const ActivityFormat = (props) => {
         />
       </div>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <label htmlFor="numIntentos">Número de Intentos</label>
         <input
           type="text"
@@ -218,7 +225,7 @@ export const ActivityFormat = (props) => {
             className="form-check-input"
             required
           />
-          <label className="form-check-label" htmlFor="visible">
+          <label className="form-check-label" htmlFor="disponible">
             Sí está disponible para los alumnos
           </label>
         </div>
@@ -273,15 +280,19 @@ export const ActivityFormat = (props) => {
         </tbody>
       </table>
 
-      <div className="d-flex justify-content-between">
-        <CustomButton type={'btn btn-primary mt-4'} func={handlePrevious} text={'Atrás'} />
-        <CustomButton type={'btn btn-primary mt-4'} func={handleNext} text={'Añadir ejercicio'} />
-        {props.edicion && (
+        <div className="d-flex flex-column align-items-center mt-4">
+          <CustomButton type={'btn btn-primary'} func={handleNext} text={'Añadir ejercicio'} />
+        </div>
+
+        <div className="d-flex justify-content-between align-items-center mt-4">
+          <CustomButton type={'btn btn-primary'} func={handlePrevious} text={'Atrás'} />
+
+          {props.edicion && (
             <CustomButton
               type={'btn btn-success'}
               text={'Editar actividad'}
               func={handleEdition(props.id, titleOption, inicioOption, finOption, numIntentosOption, bloqueoOption, disponibleOption, visibleOption, exerciseBlocksCode.map(item => item.id))}
-              disabled={      
+              disabled={
                 !titleOption.trim() ||
                 !inicioOption ||
                 !finOption ||
@@ -295,7 +306,7 @@ export const ActivityFormat = (props) => {
               type={'btn btn-success'}
               text={'Crear actividad'}
               func={handleCreation(titleOption, inicioOption, finOption, numIntentosOption, bloqueoOption, disponibleOption, visibleOption, props.grupo, exerciseBlocksCode.map(item => item.id))}
-              disabled={      
+              disabled={
                 !titleOption.trim() ||
                 !inicioOption ||
                 !finOption ||

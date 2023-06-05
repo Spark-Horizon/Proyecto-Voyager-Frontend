@@ -17,6 +17,7 @@ export const OMExercise = (props) => {
   const [hintsOption, setHintsOption] = useState(props.hints || false);
   const [aprobadoOption, setAprobadoOption] = useState(props.rol === 'Administrador' ? (props.aprobado || false) : false );
   const [readOnly, setReadOnly] = useState(false);
+  const [editable, setEditable] = useState(false);
   const { data_subtema } = useGetFilSubtemaTask();
   const { data_dificultad } = useGetFilDificultadTask();
   const { data_name } = useGetNameTask(props.idDocente);
@@ -32,11 +33,13 @@ export const OMExercise = (props) => {
   useEffect(() => {
     if (props.idDocente !== props.id_autor && props.rol === 'Docente' && props.idDocente) {
       setReadOnly(true);
+      setEditable(false);
     } else {
       setReadOnly(false);
+      setEditable(true);
     }
   }, [props.idDocente, props.id_autor, props.rol]);
-
+  
   const handlePrevious = () => {
     props.onStep();
   }
@@ -170,7 +173,7 @@ export const OMExercise = (props) => {
                 className="form-select form-select-sm"
                 aria-label="Filtro" 
                 required 
-                readOnly={readOnly}
+                disabled={!editable}
                 id="subtema" 
                 value={subtemaOptions}
                 onChange={(e) => setSubtemaOptions(e.target.value)}>
@@ -182,18 +185,18 @@ export const OMExercise = (props) => {
                 ))}      
             </select>
         </div>
-    
+
         <div className="form-group mb-4">
             <label htmlFor="dificultad" className="text-center">Dificultad</label>
             <select 
                 className="form-select form-select-sm"
                 aria-label="Filtro" 
                 required 
-                readOnly={readOnly}
+                disabled={!editable}
                 id="dificultad" 
                 value={difficultyOption}
                 onChange={(e) => setDifficultyOption(e.target.value)}>
-                  <option value={props.dificultad}></option>
+                <option value={props.dificultad}></option>
                 {data_dificultad.map((row) => (
                   <option key={row['?column?']} value={row['?column?']}>
                     {row['?column?']}

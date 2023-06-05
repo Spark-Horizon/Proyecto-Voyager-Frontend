@@ -496,52 +496,56 @@ export const TeacherActivity = (props) => {
       )}
 
       {(step === 3 || step === 5) && editStatus === 'Código' && (
-        <div>
-          <CodeExercise
-            id={exerciseID}
-            author={exerciseData['archivo']['author']}
-            title={exerciseData['archivo']['title']}
-            description={exerciseData['archivo']['description']}
-            subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
-            difficulty={exerciseData['archivo']['difficulty']}
-            driver={exerciseData['archivo']['driver']}
-            tests={exerciseData['archivo']['tests']}
-            aprobado={exerciseData.autorizado}
-            id_autor={exerciseData.id_autor}
+        <section id="exerciseCreationForm" className="container-cc">
+         <form>
+            <CodeExercise
+              id={exerciseID}
+              author={exerciseData['archivo']['author']}
+              title={exerciseData['archivo']['title']}
+              description={exerciseData['archivo']['description']}
+              subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+              difficulty={exerciseData['archivo']['difficulty']}
+              driver={exerciseData['archivo']['driver']}
+              tests={exerciseData['archivo']['tests']}
+              aprobado={exerciseData.autorizado}
+              id_autor={exerciseData.id_autor}
             index={exerciseIndex}
-            edicion={true}
-            onStep={handlePrevStepFive}
-            idDocente={props.id}
-            rol={'Docente'}
-            onAddExercise = {handleAddExercise}
+              edicion={true}
+              onStep={handlePrevStepFive}
+              idDocente={props.id}
+              rol={'Docente'}
+              onAddExercise = {handleAddExercise}
             onEditExercise = {handleEditExercise}
-          />
-        </div>
+            />
+          </form>
+        </section>  
       )}
 
       {(step === 3 || step === 5) && editStatus === 'Opción múltiple' && (
-        <div>
-          <OMExercise
-            id={exerciseID}
-            author={exerciseData['archivo']['author']}
-            title={exerciseData['archivo']['title']}
-            description={exerciseData['archivo']['description']}
-            subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
-            difficulty={exerciseData['archivo']['difficulty']}
-            answer={exerciseData['archivo']['answer']}
-            hints={exerciseData['archivo']['hints']}
-            options={exerciseData['archivo']['options']}
-            aprobado={exerciseData.autorizado}
-            id_autor={exerciseData.id_autor}
+        <section id="exerciseCreationForm" className="container-cc">
+          <form>
+            <OMExercise
+              id={exerciseID}
+              author={exerciseData['archivo']['author']}
+              title={exerciseData['archivo']['title']}
+              description={exerciseData['archivo']['description']}
+              subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+              difficulty={exerciseData['archivo']['difficulty']}
+              answer={exerciseData['archivo']['answer']}
+              hints={exerciseData['archivo']['hints']}
+              options={exerciseData['archivo']['options']}
+              aprobado={exerciseData.autorizado}
+              id_autor={exerciseData.id_autor}
             index={exerciseIndex}
-            edicion={true}
-            onStep={handlePrevStepFive}
-            idDocente={props.id}
-            rol={'Docente'}
-            onAddExercise = {handleAddExercise}
+              edicion={true}
+              onStep={handlePrevStepFive}
+              idDocente={props.id}
+              rol={'Docente'}
+              onAddExercise = {handleAddExercise}
             onEditExercise = {handleEditExercise}
-          />
-        </div>
+            />
+          </form>
+        </section>  
       )}
 
       {(step === 3 || step === 4) && editStatus === 'Aleatorio' && (
@@ -615,9 +619,9 @@ export const TeacherActivity = (props) => {
             func={handlePrevStepFour}
           />
           <ResultTable
-          id={props.id}
-          rol={'Docente'}
-          onAddExercise = {handleAddExercise}
+            id={props.id}
+            rol={'Docente'}
+            onAddExercise = {handleAddExercise}
           />
         </div>
       )}

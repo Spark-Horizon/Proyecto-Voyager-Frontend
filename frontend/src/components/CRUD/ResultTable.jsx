@@ -299,7 +299,7 @@ export const ResultTable = (props) => {
                   {(props.rol === 'Docente') && (
                     <div>
                       <CustomButton 
-                      type={'btn btn-primary btn-sm mr-2'} 
+                      type={'btn btn-success btn-sm mr-2'} 
                       text={'Agregar'} 
                       func={handleAddition(row.id_resultado, row.titulo, row.tipo_resultado, row.subtema)}/>
                     </div>
