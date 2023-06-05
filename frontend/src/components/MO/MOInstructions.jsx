@@ -5,7 +5,7 @@ import { submitPractica } from '../../helpers/indexHelpers';
 
 import '../../styles/codeInstructions.css';
 
-export const MOInstructions = ({ problem_id, attempt_id, handleNext }) => {
+export const MOInstructions = ({ problem_id, attempt_id, handleNext, available }) => {
     const [selectedOption, setSelectedOption] = useState(""); //Opcion seleccionada
     const [showNextButton, setShowNextButton] = useState(false);
 
@@ -40,32 +40,47 @@ export const MOInstructions = ({ problem_id, attempt_id, handleNext }) => {
     };
 
     return (
-        <div className="mo-instructions">
-            <p className="code-instructions-topic">{data.topic}</p>
-            <div className="mo-instructions-content">
-                <div className="mo-instructions-info">
-                    <div className="code-instructions-title">
-                        <h3>{data.title}</h3>
-                        <span className={difficultyClass}>{data.difficulty}</span>
+        !available ? (
+            <div className="mo-instructions">
+                <div className="mo-instructions-content">
+                    <div className="mo-instructions-info">
+                        <div className="code-instructions-title">
+                            <h3>Reseulve la parte de Codigo antes de avanzar.</h3>
+                        </div>
                     </div>
-                    <div className="mo-instructions-description mb-4">
-                        {data.description}
+                    <div className="mo-instructions-submit container-cc">
+                        <CustomButton type='btn' text={'Regresar al Path'} func={handleNext} />
                     </div>
-                </div>
-                <div className="mo-instructions-options mb-4">
-                    <fieldset className="options-field">
-                        <p className="fw-bold">Selecciona la respuesta correcta:</p>
-                        <div>{formattedOptions}</div>
-                    </fieldset>
-                </div>
-                <div className="mo-instructions-submit container-cc">
-                    {!showNextButton ? (
-                        <CustomButton type='btn' text={'Submit'} func={handleSubmit} />
-                    ) : (
-                        <CustomButton type='btn' text={'Siguiente'} func={handleNext} />
-                    )}
                 </div>
             </div>
-        </div>
+        ) : (
+            <div className="mo-instructions">
+                <p className="code-instructions-topic">{data.topic}</p>
+                <div className="mo-instructions-content">
+                    <div className="mo-instructions-info">
+                        <div className="code-instructions-title">
+                            <h3>{data.title}</h3>
+                            <span className={difficultyClass}>{data.difficulty}</span>
+                        </div>
+                        <div className="mo-instructions-description mb-4">
+                            {data.description}
+                        </div>
+                    </div>
+                    <div className="mo-instructions-options mb-4">
+                        <fieldset className="options-field">
+                            <p className="fw-bold">Selecciona la respuesta correcta:</p>
+                            <div>{formattedOptions}</div>
+                        </fieldset>
+                    </div>
+                    <div className="mo-instructions-submit container-cc">
+                        {!showNextButton ? (
+                            <CustomButton type='btn' text={'Submit'} func={handleSubmit} />
+                        ) : (
+                            <CustomButton type='btn' text={'Siguiente'} func={handleNext} />
+                        )}
+                    </div>
+                </div>
+            </div>
+        )
     );
 };
