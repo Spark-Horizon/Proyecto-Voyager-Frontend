@@ -15,15 +15,18 @@ export const TeacherActivity = (props) => {
   const [showCreatePopup, setShowCreatePopup] = useState(false);
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [showSaveExercisePopup, setShowSaveExercisePopup] = useState(false);
+  const [showEditExercisePopup, setShowEditExercisePopup] = useState(false);
 
   const [activityID, setActivityID] = useState(null);
   const [activityData, setActivityData] = useState(null);
   const { data_activity } = useGetActivityTask(activityID);
   const [activityExData, setActivityExData] = useState(null);
-  const { data_activity_exercises } = useGetActivityExercises(activityID);
+  const { data_activity_exercises, refetchDataActivityExercises } = useGetActivityExercises(activityID);
 
   const [exerciseID, setExerciseID] = useState(null);
   const [exerciseData, setExerciseData] = useState(null);
+  const [exerciseIndex, setExerciseIndex] = useState(null);
+  const [editCheck, setEditCheck] = useState(false);
   const { data_exercise } = useGetExerciseTask(exerciseID);
 
   const [titleOption, setTitleOption] = useState(activityData ? activityData['titulo'] : '');
@@ -37,7 +40,7 @@ export const TeacherActivity = (props) => {
   const [filtroOptions, setFiltroOptions] = useState(['id']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const [dataResult, setDataResult] = useState(['']);
-  const { data_activities, error, refetchDataActivities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
+  const { data_activities, refetchDataActivities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
 
   const handleMoveRowDown = (index) => {
     if (index < activityExData.length - 1) {
@@ -121,6 +124,13 @@ export const TeacherActivity = (props) => {
     }
   }, [step]);
 
+  useEffect(() => {
+    if (editCheck){
+      refetchDataActivityExercises();
+      setEditCheck(false);
+    }
+  }, [editCheck])
+
   const handleTitle = (titulo) => {
     setTitleOption(titulo);
   };
@@ -166,6 +176,11 @@ export const TeacherActivity = (props) => {
     setShowSaveExercisePopup(true);
   };
 
+  const handleUpdateExercise = () => {
+    setStep(2);
+    setShowEditExercisePopup(true);
+  };
+
   const handleCreateActivity = () => {
     setStep(1);
     setShowCreatePopup(true);
@@ -176,9 +191,10 @@ export const TeacherActivity = (props) => {
     setShowUpdatePopup(true);
   };
 
-  const handleStatusExercise = (id_hand, tipo_hand) => {
+  const handleStatusExercise = (id_hand, tipo_hand, index) => {
     setEditStatus(tipo_hand);
     setExerciseID(id_hand);
+    setExerciseIndex(index);
   };
 
   const handleStatusAleatorio = () => {
@@ -216,6 +232,7 @@ export const TeacherActivity = (props) => {
     setShowCreatePopup(false);
     setShowUpdatePopup(false);
     setShowSaveExercisePopup(false);
+    setShowEditExercisePopup(false);
   };
 
   const handleEdition = (id_hand) => (e) => {
@@ -242,6 +259,21 @@ export const TeacherActivity = (props) => {
       setActivityExData(updatedBlocks);
       handleSaveExercise()
   };
+
+  const handleEditExercise = (index) => {
+    const formerBlocks = [...activityExData];
+    formerBlocks.splice(index, 1);
+    setEditCheck(true);
+    if (formerBlocks){
+      const resultingBlocks = [...new Set([...formerBlocks , ...activityExData])]
+      setActivityExData(resultingBlocks);
+    }
+    else{
+      const resultingBlocks = [...activityExData]
+      setActivityExData(resultingBlocks);
+    }
+    handleUpdateExercise();
+};
   
   const handleDeleteRow = (index) => {
     const confirmed = window.confirm('¿Estás seguro de que deseas borrar este ejercicio?');
@@ -261,8 +293,6 @@ export const TeacherActivity = (props) => {
       setActivityExData(reorderedBlocks);
     }
   };
-
-  console.log('Current step:', step);
 
   if (!dataResult || !data_activities) {
     return <div>Cargando...</div>;
@@ -301,6 +331,19 @@ export const TeacherActivity = (props) => {
         <div className="message-popup">
           <div className="message-content">
             <span>El ejercicio ha sido guardado</span>
+            <div className="button-container">
+              <button className="btn btn-primary btn-sm" onClick={handlePopupClose}>
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showEditExercisePopup && (
+        <div className="message-popup">
+          <div className="message-content">
+            <span>El ejercicio ha sido editado</span>
             <div className="button-container">
               <button className="btn btn-primary btn-sm" onClick={handlePopupClose}>
                 Aceptar
@@ -465,11 +508,13 @@ export const TeacherActivity = (props) => {
             tests={exerciseData['archivo']['tests']}
             aprobado={exerciseData.autorizado}
             id_autor={exerciseData.id_autor}
+            index={exerciseIndex}
             edicion={true}
             onStep={handlePrevStepFive}
             idDocente={props.id}
             rol={'Docente'}
             onAddExercise = {handleAddExercise}
+            onEditExercise = {handleEditExercise}
           />
         </div>
       )}
@@ -488,23 +533,43 @@ export const TeacherActivity = (props) => {
             options={exerciseData['archivo']['options']}
             aprobado={exerciseData.autorizado}
             id_autor={exerciseData.id_autor}
+            index={exerciseIndex}
             edicion={true}
             onStep={handlePrevStepFive}
             idDocente={props.id}
             rol={'Docente'}
             onAddExercise = {handleAddExercise}
+            onEditExercise = {handleEditExercise}
           />
         </div>
       )}
 
       {(step === 3 || step === 4) && editStatus === 'Aleatorio' && (
         <div>
-          <RandomExercise
-            onExerciseAdd={handleSaveExercise}
-            onStep={handlePrevStepFour}
-            onAddExercise = {handleAddExercise}
-            idDocente={props.id}
-          />
+          {exerciseID && exerciseData && (
+            <RandomExercise
+              id={exerciseID}
+              subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+              difficulty={exerciseData['archivo']['difficulty']}
+              tipo={exerciseData['archivo']['type']}
+              onExerciseAdd={handleSaveExercise}
+              onStep={handlePrevStepFour}
+              onAddExercise = {handleAddExercise}
+              onEditExercise = {handleEditExercise}
+              idDocente={props.id}
+              index={exerciseIndex}
+              edicion={true}
+            />
+          )}
+          {(!exerciseID || !exerciseData) && (
+            <RandomExercise
+              onExerciseAdd={handleSaveExercise}
+              onStep={handlePrevStepFour}
+              onAddExercise = {handleAddExercise}
+              onEditExercise = {handleEditExercise}
+              idDocente={props.id}
+            />
+          )}
         </div>
       )}
 

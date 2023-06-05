@@ -357,6 +357,7 @@ export const getUpdateRandomExercise = async (id, tipo, subtema, difficulty) => 
         "Content-Type": "application/json",
       },
       data: {
+        id: id,
         tipo: tipo,
         subtema: subtema.split(','),
         difficulty: difficulty,

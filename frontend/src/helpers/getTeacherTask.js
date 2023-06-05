@@ -148,6 +148,8 @@ export const getUpdateActivity = async (id, titulo, inicio, fin, intentos, bloqu
       },
     };
 
+    console.log(options.data.ejercicios);
+
     const response = await axios(options);
     
     return response.data;

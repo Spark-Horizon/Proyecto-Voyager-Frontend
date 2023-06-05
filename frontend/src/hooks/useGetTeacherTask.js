@@ -47,22 +47,22 @@ export const useGetActivityExercises = (id) => {
     const [data_activity_exercises, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (id){
-                    const resultado = await getActivityExercises(id);
-                    setProblemData(resultado);
-                }
-            } catch (error) {
-                setError(error);
+    const fetchData = useCallback(async () => {
+        try {
+            if (id){
+                const resultado = await getActivityExercises(id);
+                setProblemData(resultado);
             }
-        };
-
-        fetchData();
+        } catch (error) {
+            setError(error);
+        }
     }, [id]);
 
-    return { data_activity_exercises, error };
+    useEffect(() => {
+      fetchData();
+    }, [fetchData]);
+
+    return { data_activity_exercises, error, refetchDataActivityExercises: fetchData };
 }
 
 export const useGetNameTask = (id) => {

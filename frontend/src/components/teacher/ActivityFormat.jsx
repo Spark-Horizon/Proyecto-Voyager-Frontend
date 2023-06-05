@@ -80,8 +80,8 @@ export const ActivityFormat = (props) => {
     props.onActivityUpdate();  
   }
 
-  const handleEjercicio = (id_hand, tipo_hand) => {
-    props.onNextExercise(id_hand, tipo_hand);
+  const handleEjercicio = (id_hand, tipo_hand, index) => {
+    props.onNextExercise(id_hand, tipo_hand, index);
   }
 
   const handleIntentosChange = (event) => {
@@ -247,7 +247,7 @@ export const ActivityFormat = (props) => {
                 <CustomButton
                   type="btn btn-primary btn-sm mr-2"
                   text="Ver"
-                  func={() => handleEjercicio(block.id, block.tipo)}
+                  func={() => handleEjercicio(block.id, block.tipo, index)}
                 />
                 <CustomButton
                   type="btn btn-danger btn-sm mr-2"
