@@ -25,7 +25,6 @@ export const RandomExercise = (props) => {
 
   const handleCreation = (tipo, subtema, difficulty, id_exercise) => (e) => {
     e.preventDefault();
-    console.log(id_exercise['agregarincluirejercicio']);
     console.log("aqui 1");
     props.onExerciseAdd();
     const addExercise = {"id": id_exercise['agregarincluirejercicio'], 
