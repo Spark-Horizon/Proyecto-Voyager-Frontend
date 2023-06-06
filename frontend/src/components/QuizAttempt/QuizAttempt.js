@@ -5,9 +5,11 @@ import { fetchQuizData } from '../../hooks/QuizAttempt/useFetchQuizData';
 import { formatQuizData } from '../../helpers/QuizAttempt/formatQuizData';
 import { AttemptCard } from './AttemptCard';
 import { ActivityCard } from './ActivityCard';
+import { useAuth } from '../../hooks/AuthContext';
 import '../../styles/QuizAttempt/QuizAttempt.css';
 
-export const QuizAttempt = ({ user }) => {
+export const QuizAttempt = () => {
+  const { user } = useAuth();
   const { id:id_student } = user;
   const { id_activity } = useParams();
   const [quizData, setQuizData] = useState(null);
