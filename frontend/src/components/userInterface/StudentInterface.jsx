@@ -4,13 +4,14 @@ import { Footer } from "../Footer";
 import { useState } from 'react';
 import { PendingQuizzes } from '../student/PendingQuizzes'
 import { SummaryResults } from '../student/SummaryResults'
+import { PathPage } from '../student/PathPage';
 
 export const StudentInterface = ({user}) => {
 
   // Links y componentes de Navbar
   const navbar = {
     tabs: [
-      {text: 'Path', component: 'pathComponent'},
+      {text: 'Path', component: <PathPage/>},
       {text: 'Pending Page', component: <PendingQuizzes/>},
       {text: 'Summary Page', component: <SummaryResults/>},
     ],

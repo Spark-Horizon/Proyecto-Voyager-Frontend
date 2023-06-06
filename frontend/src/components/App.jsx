@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, AdminSignIn, StudentPanel, TeacherQuizzes } from '../routes/indexRoutes';
+import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, AdminSignIn, TeacherQuizzes } from '../routes/indexRoutes';
 import { AuthProvider } from '../hooks/AuthContext';
 
 function App() {
@@ -32,8 +32,6 @@ function App() {
         />
         <Route path='/compiler'
           element={<PrivateRoute logged={true} children={<IdePage />} link='/home'/>}
-        />
-        <Route path='/panel' element={<StudentPanel />}
         />
         <Route path='/teacherquizzes'
           element={<PrivateRoute logged={false} children={<TeacherQuizzes />} link='/home'/>}
