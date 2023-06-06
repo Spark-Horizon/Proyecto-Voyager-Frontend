@@ -1,0 +1,104 @@
+#teacherQuizSection {
+  transition: all ease 0.5s;
+  background-image: url("../assets/img/bkgr_spaceBackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+}
+
+#teacherQuizSection table {
+  max-height: calc(125vh - 5rem);
+  overflow: auto;
+  padding-right: 2.5rem;
+  grid-template-columns: auto auto auto;
+  width: 100%;
+  --bs-table-hover-color: var(--light-blue);
+}
+
+#teacherQuizSection .addMoreActivitiesButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+#teacherQuizSection h2 {
+  padding: 1rem;
+  font-weight: bold;
+}
+
+#teacherQuizSection h3 {
+  padding: 1rem;
+  font-weight: bold;
+}
+
+#teacherQuizSection th {
+  padding: 1rem;
+  border-radius: 15px;
+  background: rgba(30, 30, 30, 0.25) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
+  backdrop-filter: blur(11px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  font-weight: bold;
+}
+
+#teacherQuizSection td {
+  padding: 1rem;
+  border-radius: 15px;
+  background: rgba(30, 30, 30, 0.25) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
+  backdrop-filter: blur(11px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+#teacherQuizSection .message-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(41, 41, 41, 0.8);
+  padding: 20px;
+  border-radius: 4px;
+  z-index: 9999;
+  text-align: center;
+  color: white;
+}
+
+#teacherQuizSection .message-content {
+  margin-bottom: 10px;
+}
+
+#teacherQuizSection .button-container {
+  margin-top: 10px;
+}
+
+#teacherActivityFormat {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#teacherActivityFormat .exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#teacherActivityFormat .th {
+  padding: 1rem;
+  border-radius: 15px;
+  font-weight: bold;
+}
+
+#teacherActivityFormat .exercise-table th, .exercise-table td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+#teacherActivityFormat .d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}

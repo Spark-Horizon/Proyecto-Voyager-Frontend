@@ -1,0 +1,77 @@
+.mo-route-container{
+    height: 100vh;
+    background-image: url('../assets/img/bkgr_spaceBackground.jpg');
+}
+.mopage-main-container{
+    height: 100%;
+}
+.mo-route-container .container-cc{
+    flex-direction: column;
+}
+.mo-route-container .container-cc button{
+    /*in progress*/
+}
+.mo-instructions{
+    transition: all ease 0.5s;
+    height: fit-content;
+    box-sizing: border-box;
+    background: rgba( 30, 30, 30, 0.25 );
+    backdrop-filter: blur( 11px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur( 11px );
+    width: 30%;
+}
+.mo-instructions{
+    width: 55%;
+}
+.mo-instructions-content{
+    padding: 20px;
+}
+.mo-instructions-description{
+    padding: 20px;
+    border-radius: 5px;
+    background: rgba( 30, 30, 30, 0.25 );
+    backdrop-filter: blur( 11px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+.radio{
+    height: 1rem;
+    width: 1rem;
+    margin: 0 1rem;
+    border: 3px solid var(--strong-blue);
+    border-radius: 50%;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.radio:checked {
+    background-color: var(--light-blue);
+    background-clip: content-box;
+    background-size: 25% 25%;
+}
+.mo-instructions-submit button{
+    width: 100%;
+    outline:none;
+    text-align: center;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid var(--light-blue);
+    color: var(--light-blue);
+    text-shadow: 0;
+    font-weight: lighter;
+    cursor: pointer;
+    transition: all 0.25s ease;
+} 
+.mo-instructions-submit button:hover {
+    color:white;
+    background: var(--strong-blue);
+    font-weight: bold;
+}
+@media screen and (max-width: 1050px) {
+    .mo-instructions {
+      height: 95%;
+      width: 95%;
+    }
+}

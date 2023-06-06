@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CustomNavbar } from '../components/CustomNavbar';
 import { CustomButton } from '../components/CustomButton';
 import { useAuth } from '../hooks/AuthContext';
@@ -14,7 +14,6 @@ export const AdminSignIn = () => {
   const [Aemail, setAEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate()
   const { signin } = useAuth()
 
   // Funcionalidades del componente
@@ -22,7 +21,6 @@ export const AdminSignIn = () => {
     e.preventDefault();
     try{
       await signin(Aemail, password);
-      navigate('/CRUD');
     } catch {
       setError('Correo o contraseña incorrectos');
     }
@@ -32,14 +30,10 @@ export const AdminSignIn = () => {
     const AEmailRegex = /^(iCodeAdmin@gmail\.com|icodeadmin@gmail\.com)$/;
     return AEmailRegex.test(Aemail);
   };
-
-  // Links y componentes de Navbar
-  const links = [];
-  const components = [];
   
   return (
     <div>
-      <CustomNavbar links={links} components={components}/>
+      <CustomNavbar/>
 
       <section id="adminSignInForm" className='container-cc'>
 
