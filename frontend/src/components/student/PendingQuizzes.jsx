@@ -33,7 +33,7 @@ export const PendingQuizzes = () => {
                   <div className="card bg-light mb-3" key={homework.id}>
                     <div className="card-body">
                       <div className="top-section">
-                        <Link to={`/quiz/${homework.id}`} className="card-title text-dark text-start">
+                        <Link to={`/quizAttempt/${homework.id}`} className="card-title text-dark text-start">
                           {homework.titulo}
                         </Link>
                         <p className="card-text text-dark text-start"><strong>Grupo:</strong> {homework.materia + "-" + homework.grupo}</p>
