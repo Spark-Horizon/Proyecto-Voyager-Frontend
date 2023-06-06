@@ -2,15 +2,21 @@ import React, {useContext, useState, useEffect} from 'react';
 
 import { auth, firestore } from '../firebase/firebaseConfig';
 
+// Se crea el contexto AuthContext
 const AuthContext = React.createContext();
 
+// Se exporta la función useAuth que utilizará el hook useContext para acceder al contexto
 export function useAuth(){
     return useContext(AuthContext);
 }
 
-export function AuthProvider ({ children, setUser }) {
-    const [currentUser, setCurrentUser] = useState()
-    const [loading, setLoading] = useState(true) 
+// En lugar de recibir setUser como una prop, ahora se define en este componente y se incluye en el valor del contexto
+export function AuthProvider ({ children }) {
+    const [currentUser, setCurrentUser] = useState();
+    const [user, setUser] = useState(null); // Este es el estado para el usuario de Firestore
+    const [loading, setLoading] = useState(true);
+
+    // Aquí se definen las funciones para interactuar con Firebase
 
     async function signup(email, password){
         return auth.createUserWithEmailAndPassword(email,password)
@@ -44,13 +50,14 @@ export function AuthProvider ({ children, setUser }) {
         });
     }
 
+    // Este es el hook useEffect que se ejecuta cuando cambia el estado de autenticación del usuario
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             if (user !== null) {
                 try {
-                    setCurrentUser(user);
-                    const userData = await getDataFromFirestore('users', user.uid);
-                    setUser(userData);
+                    setCurrentUser(user); // Este es el usuario de Firebase
+                    const userData = await getDataFromFirestore('users', user.uid); // Aquí se obtiene el usuario de Firestore
+                    setUser(userData); // Aquí se guarda el usuario de Firestore en el estado
                 } catch (error) {
                     console.log('Error al obtener los datos del documento:', error);
                     setUser(null);
@@ -64,9 +71,10 @@ export function AuthProvider ({ children, setUser }) {
         return () => unsubscribe(); 
     }, [setUser, setCurrentUser, setLoading]);
     
-
+    // El valor que se pasa a través del contexto ahora incluye el usuario de Firestore
     const value = {
         currentUser,
+        user,
         signup,
         signin,
         logout,
