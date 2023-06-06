@@ -6,7 +6,7 @@ import { getDeleteExercise }  from '../../helpers/getCRUDTask.js';
 import { CodeExercise } from "./CodeExercise"
 import { OMExercise } from "./OMExercise"
 
-export const ResultTable = () => {
+export const ResultTable = (props) => {
   const [step, setStep] = useState(1);
 
   const [exerciseID, setExerciseID] = useState(null);
@@ -25,7 +25,7 @@ export const ResultTable = () => {
   const [filtroOptions, setFiltroOptions] = useState(['id_resultado']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const { data_exercise } = useGetExerciseTask(exerciseID);
-  const { data_result } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions);
+  const { data_result, error, refetchData } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions, props.rol, props.id);
   const { data_autor } = useGetFilAutorTask();
   const { data_subtema } = useGetFilSubtemaTask();
   const { data_tipo } = useGetFilTipoTask();
@@ -54,6 +54,7 @@ export const ResultTable = () => {
     if (step === 1){
       setExerciseID(null);
       setExerciseData(null);
+      refetchData();
     }
   }, [step]);
 
@@ -96,15 +97,27 @@ export const ResultTable = () => {
 
   const handleCreation = (e) => {
     e.preventDefault();
-    navigate('/CreateExercise');
+    handleNextStep();
+    setEditStatus('Pendiente');
+  }
+
+  const handleAddition = (id, titulo, tipo, id_subtema) => (e) => {
+    const addExercise = {"id": id, 
+                         "?column?": titulo,
+                         "tipo": tipo,
+                         "id_subtema": id_subtema};
+    props.onAddExercise(addExercise);
   }
 
   if (!dataResult || !data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
     return <div>Cargando...</div>;
   }
 
+  console.log(step);
+  console.log(editStatus);
+  
   return (
-    <div>
+    <section id="crudSection">
       {step === 1 && (
         <div className="table-responsive">
           <table className="table table-hover">
@@ -196,8 +209,6 @@ export const ResultTable = () => {
 
                 <th scope="col">
                   Orden:
-                  <section id="crudPage" className='container-cc'>
-                    <div>
                     <select
                       className="form-select form-select-sm"
                       aria-label="Filtro"
@@ -231,8 +242,6 @@ export const ResultTable = () => {
                         <option value="autorizado_resultado">Aprobado</option>
                       </optgroup>
                     </select>
-                    </div>
-                  </section>
                 </th>
 
                 <th scope="col">
@@ -263,52 +272,147 @@ export const ResultTable = () => {
                 <td>{row.dificultad}</td>
                 <td>{row.autorizado_resultado ? "Aprobado" : "Rechazado"}</td>
                 <td>
-                  <CustomButton 
-                    type={'btn btn-primary btn-sm mr-2'} 
-                    text={'Editar'} 
-                    func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
-                  <CustomButton 
-                    type={'btn btn-danger btn-sm'} 
-                    text={'Borrar'} 
-                    func={handleDeletion(row.id_resultado)}/>
+                  {(row.id_autor === props.id || props.rol === 'Administrador') && (
+                    <div>
+                      <CustomButton 
+                      type={'btn btn-primary btn-sm mr-2'} 
+                      text={'Editar'} 
+                      func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
+                      <CustomButton 
+                      type={'btn btn-danger btn-sm'} 
+                      text={'Borrar'} 
+                      func={handleDeletion(row.id_resultado)}/>
+                    </div>
+                  )}
+                  {(row.id_autor !== props.id && props.rol !== 'Administrador') && (
+                    <div>
+                      <CustomButton 
+                      type={'btn btn-primary btn-sm mr-2'} 
+                      text={'Ver'} 
+                      func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
+                    </div>
+                  )}
+                  {(props.rol === 'Docente') && (
+                    <div>
+                      <CustomButton 
+                      type={'btn btn-success btn-sm mr-2'} 
+                      text={'Agregar'} 
+                      func={handleAddition(row.id_resultado, row.titulo, row.tipo_resultado, row.subtema)}/>
+                    </div>
+                  )}
                 </td>
               </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
       )}
+      
+      {step === 2 && editStatus === 'Pendiente' && (
+        <section id="exerciseCreationForm" className="container-cc">
+          <form>
+          <div>
+            <div className="text-center mb-4">
+              <h3 className="mb-0">Creación de ejercicios</h3>
+              <span>Selecciona el tipo de ejercicio que quieres crear</span>
+            </div>
+
+            <div className="select">
+              <CustomButton
+                type="btn btnPrimary btnResize"
+                text="Código"
+                func={() => setEditStatus('Código')}
+              />
+              <CustomButton
+                type="btn btnPrimary btnResize"
+                text="Opción múltiple"
+                func={() => setEditStatus('Opción múltiple')}
+              />
+            </div>
+
+            <div className="select next-back mt-5">
+              <CustomButton
+                type="btn mt-3 btnPrimary"
+                text="Regresar a inicio"
+                func={handlePrevStep}
+              />
+            </div>
+          </div>
+          </form>
+        </section>
+      )}
+
       {step === 2 && editStatus === 'Código' && (
-        <CodeExercise 
-          id={exerciseID}
-          author={exerciseData['archivo']['author']}
-          title={exerciseData['archivo']['title']}
-          description={exerciseData['archivo']['description']}
-          subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
-          difficulty={exerciseData['archivo']['difficulty']}
-          driver={exerciseData['archivo']['driver']}
-          tests={exerciseData['archivo']['tests']}
-          aprobado={exerciseData.autorizado}
-          onStep={handlePrevStep}
-          edicion={true}
-        />
+        <section id="exerciseCreationForm" className="container-cc">
+          <form>
+            {exerciseID && exerciseData && (
+              <CodeExercise 
+                id={exerciseID}
+                author={exerciseData['archivo']['author']}
+                title={exerciseData['archivo']['title']}
+                description={exerciseData['archivo']['description']}
+                subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+                difficulty={exerciseData['archivo']['difficulty']}
+                driver={exerciseData['archivo']['driver']}
+                tests={exerciseData['archivo']['tests']}
+                aprobado={exerciseData.autorizado}
+                id_autor={exerciseData.id_autor}
+                onStep={handlePrevStep}
+                edicion={true}
+                idDocente={props.id}
+                rol={props.rol}
+                onAddExercise = {props.onAddExercise}
+              />
+            )}
+            {(!exerciseID || !exerciseData) && (
+              <CodeExercise 
+                onStep={handlePrevStep}
+                idDocente={props.id}
+                id_autor={props.id}
+                rol={props.rol}
+                onAddExercise = {props.onAddExercise}
+              />
+            )}
+          </form>
+        </section>       
       )}
+
       {step === 2 && editStatus === 'Opción múltiple'&& (
-        <OMExercise 
-          id={exerciseID}
-          author={exerciseData['archivo']['author']}
-          title={exerciseData['archivo']['title']}
-          description={exerciseData['archivo']['description']}
-          subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
-          difficulty={exerciseData['archivo']['difficulty']}
-          answer={exerciseData['archivo']['answer']}
-          hints={exerciseData['archivo']['hints']}
-          options={exerciseData['archivo']['options']}
-          aprobado={exerciseData.autorizado}
-          onStep={handlePrevStep}
-          edicion={true}
-        />
+        <section id="exerciseCreationForm" className="container-cc">
+          <form>
+            {exerciseID && exerciseData && (
+              <OMExercise 
+                id={exerciseID}
+                author={exerciseData['archivo']['author']}
+                title={exerciseData['archivo']['title']}
+                description={exerciseData['archivo']['description']}
+                subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+                difficulty={exerciseData['archivo']['difficulty']}
+                answer={exerciseData['archivo']['answer']}
+                hints={exerciseData['archivo']['hints']}
+                options={exerciseData['archivo']['options']}
+                aprobado={exerciseData.autorizado}
+                id_autor={exerciseData.id_autor}
+                onStep={handlePrevStep}
+                edicion={true}
+                idDocente={props.id}
+                rol={props.rol}
+                onAddExercise = {props.onAddExercise}
+              />
+            )}
+            {(!exerciseID || !exerciseData) && (
+              <OMExercise 
+                onStep={handlePrevStep}
+                idDocente={props.id}
+                id_autor={props.id}
+                rol={props.rol}
+                onAddExercise = {props.onAddExercise}
+              />
+            )}
+          </form>
+        </section>
       )}
-    </div>
+      
+    </section>
   );
 };

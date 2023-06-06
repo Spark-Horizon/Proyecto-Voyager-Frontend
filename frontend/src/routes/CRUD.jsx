@@ -12,7 +12,8 @@ export const CRUD = () => {
     return (
       <div>
         <CustomNavbar links={links} components={components}/>
-        <ResultTable/>
+        <ResultTable
+        rol={'Administrador'}/>
       </div>
     );
 }

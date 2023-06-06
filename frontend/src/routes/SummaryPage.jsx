@@ -1,10 +1,10 @@
 import { CustomNavbar } from '../components/CustomNavbar';
 import { Footer } from '../components/Footer';
-import { PendingQuizzes } from '../components/student/PendingQuizzes';
+import { SummaryResults } from '../components/student/SummaryResults';
 
-import '../styles/landingPage.css';
+import '../styles/activitiesStyles.css';
 
-export const ContainerTest = () => {
+export const SummaryPage = () => {
     // Links y componentes de Navbar
     const links = [
       { text: 'Lenguajes', url: '/' },
@@ -13,10 +13,10 @@ export const ContainerTest = () => {
     const components = [];
 
     return (
-      <section id='landingPage'>
+      <section id='activitiesPage'>
 
           <CustomNavbar links={links} components={components}/>
-          <PendingQuizzes/>
+          <SummaryResults/>
 
           <Footer/>
       </section>
