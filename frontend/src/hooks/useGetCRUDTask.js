@@ -1,25 +1,53 @@
-import { getExerciseTask, getUpdateOMExercise, getUpdateCodeExercise, getCreateOMExercise, getCreateCodeExercise, getDeleteExercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
+import { getCreateAddRandomExercise, getCRUDTaskTeacher, getExerciseTask, getUpdateOMExercise, getUpdateCodeExercise, getCreateOMExercise, getCreateCodeExercise, getDeleteExercise, getFilAutorTask, getFilAutorizacionTask, getFilDificultadTask, getFilSubtemaTask, getFilTipoTask } from "../helpers/getCRUDTask.js";
 import { getCRUDTask } from "../helpers/indexHelpers.js";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-export const useGetCRUDTask = (fil1, fil2, fil3, fil4, fil5, order, hier) => {
-    const [data_result, setProblemData] = useState(null);
+export const useGetCRUDTask = (fil1, fil2, fil3, fil4, fil5, order, hier, rol, id) => {
+  const [data_result, setProblemData] = useState(null);
+  const [error, setError] = useState(null);
+
+  const fetchData = useCallback(async () => {
+    try {
+      let resultado;
+      if (rol === 'Administrador') {
+        resultado = await getCRUDTask(fil1, fil2, fil3, fil4, fil5, order, hier);
+      } else {
+        resultado = await getCRUDTaskTeacher(fil1, fil2, fil3, fil4, fil5, order, hier, id);
+      }
+      setProblemData(resultado);
+    } catch (error) {
+      setError(error);
+    }
+  }, [fil1, fil2, fil3, fil4, fil5, order, hier, rol, id]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return { data_result, error, refetchData: fetchData };
+};
+
+
+export const useGetCreateAddRandomExercise =  (tipo, subtema, difficulty) => {
+    const [data_random, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const resultado = await getCRUDTask(fil1, fil2, fil3, fil4, fil5, order, hier);
-                setProblemData(resultado);
+                if (tipo, subtema, difficulty){
+                    const resultado = await getCreateAddRandomExercise(tipo, subtema, difficulty);
+                    setProblemData(resultado);
+                }
             } catch (error) {
                 setError(error);
             }
         };
 
         fetchData();
-    }, [fil1, fil2, fil3, fil4, fil5, order, hier]);
+    }, [tipo, subtema, difficulty]);
 
-    return { data_result, error };
+    return { data_random, error };
 }
 
 export const useGetExerciseTask = (problem_id) => {
@@ -31,8 +59,8 @@ export const useGetExerciseTask = (problem_id) => {
             try {
                 if (problem_id){
                     const resultado = await getExerciseTask(problem_id);
-                    const { id, autorizado, tipo,  archivo, id_subtema } = resultado;
-                    setProblemData({ id, autorizado, tipo,  archivo, id_subtema });
+                    const { id, autorizado, tipo,  archivo, id_subtema, id_autor } = resultado;
+                    setProblemData({ id, autorizado, tipo,  archivo, id_subtema, id_autor });
                 }
             } catch (error) {
                 setError(error);
@@ -44,7 +72,6 @@ export const useGetExerciseTask = (problem_id) => {
 
     return { data_exercise, error };
 }
-
 
 export const useGetFilAutorTask = () => {
     const [data_autor, setProblemData] = useState(null);

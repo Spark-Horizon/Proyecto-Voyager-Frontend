@@ -98,7 +98,7 @@ export const SignUp = (props) => {
   };
   
   const isStudentEmailValid = () => {
-    const tecSMxEmailRegex = /^(a0)|(A0)\w{7,}@tec\.mx$/;
+    const tecSMxEmailRegex = /^(a0|A0)\w{7,}@tec\.mx$/;
     return tecSMxEmailRegex.test(Semail);
   };
 

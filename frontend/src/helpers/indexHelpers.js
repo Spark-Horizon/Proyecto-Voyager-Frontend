@@ -9,3 +9,5 @@ export * from './path/getUnlocked'
 export * from './path/getPractica'
 export * from './tasks/submitPractica'
 export { createUser } from './users/createUser';
+export * from './getStudentTask';
+export * from './getTeacherTask';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, CRUD, AdminSignIn, CreateExercise, EditExercise, ContainerTest, PendingQuizzes, StudentPanel } from '../routes/indexRoutes';
+import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, AdminSignIn, StudentPanel, TeacherQuizzes } from '../routes/indexRoutes';
 import { AuthProvider } from '../hooks/AuthContext';
 
 function App() {
@@ -24,15 +24,6 @@ function App() {
         <Route path='/resetPassword' element={<ResetPassword />}/>
         <Route path='/compiler' element={<IdePage />}/>
         <Route path='/MOPage' element={<MOPage />}/>
-        <Route path='/crud'
-          element={<PrivateRoute logged={true} children={<CRUD />} link='/home'/>}
-        />
-        <Route path='/createexercise'
-          element={<PrivateRoute logged={true} children={<CreateExercise />} link='/home'/>}
-        />
-        <Route path='/editexercise'
-          element={<PrivateRoute logged={true} children={<EditExercise />} link='/home'/>}
-        />
         <Route path='/adminsignin'
           element={<PrivateRoute logged={false} children={<AdminSignIn />} link='/home'/>}
         />
@@ -44,8 +35,8 @@ function App() {
         />
         <Route path='/panel' element={<StudentPanel />}
         />
-        <Route path='/containerTest'
-          element={<PrivateRoute logged={false} children={<ContainerTest />} link='/home'/>}
+        <Route path='/teacherquizzes'
+          element={<PrivateRoute logged={false} children={<TeacherQuizzes />} link='/home'/>}
         />
       </Routes>
     </AuthProvider>

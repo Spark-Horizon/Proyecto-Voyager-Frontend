@@ -1,6 +1,6 @@
-import { StudentInterface } from '../components/interfaceStudent/StudentInterface';
-import { TeacherInterface } from '../components/interfaceTeacher/TeacherInterface';
-import { AdminInterface } from '../components/interfaceAdmin/AdminInterface';
+import { StudentInterface } from '../components/userInterface/StudentInterface';
+import { TeacherInterface } from '../components/userInterface/TeacherInterface';
+import { AdminInterface } from '../components/userInterface/AdminInterface';
 import { useNavigate } from 'react-router-dom';
 import { CustomButton } from '../components/CustomButton';
 import { useAuth } from '../hooks/AuthContext';
