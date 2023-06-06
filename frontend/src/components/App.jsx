@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, AdminSignIn, TeacherQuizzes, Groups } from '../routes/indexRoutes';
 import { AuthProvider } from '../hooks/AuthContext';
-import { QuizAttempt } from './QuizAttempt/QuizAttempt';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,11 +33,6 @@ function App() {
         />
         <Route path='/groups'
           element={<PrivateRoute logged={true} children={<Groups/>} link='/' />}
-        />
-        <Route path='/quizAttempt/:id_activity'
-          element={
-            <PrivateRoute logged={true} children={<QuizAttempt/>} link='/home' />
-          }
         />
         <Route path='/teacherquizzes'
           element={<PrivateRoute logged={false} children={<TeacherQuizzes/>} link='/home'/>}

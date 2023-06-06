@@ -33,7 +33,7 @@ export const SummaryResults = () => {
             <p>No hay registro de intentos o de tareas completadas</p>
           ) : (
             currentAttempt ? (
-              <QuizAttempt act={currentHomework}/>
+              <QuizAttempt act={currentHomework} handleBack={() => setCurrentAttempt(null)}/>
             ) : (
               <div className="card-container-wrapper">
                 <div className="card-container">

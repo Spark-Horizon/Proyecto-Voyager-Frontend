@@ -5,9 +5,11 @@ import { fetchQuizData } from '../../hooks/QuizAttempt/useFetchQuizData';
 import { AttemptCard } from './AttemptCard';
 import { ActivityCard } from './ActivityCard';
 import { useAuth } from '../../hooks/AuthContext';
+import { CustomButton } from '../CustomButton';
+
 import '../../styles/QuizAttempt/QuizAttempt.css';
 
-export const QuizAttempt = ({ act }) => { // Recibe act como prop
+export const QuizAttempt = ({ act, handleBack }) => { // Recibe act como prop
   const { user } = useAuth();
   const { id:id_student } = user;
   const [quizData, setQuizData] = useState(null);
@@ -35,6 +37,7 @@ export const QuizAttempt = ({ act }) => { // Recibe act como prop
 
   return (
     <Container className="quiz-container">
+      <CustomButton text={'regresar'} type={'btn btnSecondary'} func={handleBack} />
       <ActivityCard activity={quizData.activity} />
       {quizData.attempts.map((attempt, index) => (
         <AttemptCard key={attempt.id_intento} eventKey={index} attempt={attempt} />
