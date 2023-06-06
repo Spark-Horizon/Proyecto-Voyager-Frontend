@@ -1,17 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CustomButton } from "../CustomButton";
 import { useGetActSummaryTask } from '../../hooks/useGetStudentTask';
 
+import '../../styles/activitiesStyles.css';
+
 export const SummaryResults = () => {
-  const links = [
-    { text: 'Lenguajes', url: '/' },
-    { text: 'Contáctanos', url: '/' },
-  ];
-  const components = [
-    { component: <Link to='/signin'><CustomButton type='btn btn-sm btnPrimary' text={'Iniciar sesión'} /></Link> },
-    { component: <Link to='/signup'><CustomButton type='btn btn-sm btnPrimary' text={'Crear cuenta'} /></Link> },
-  ];
 
   const [dataSummary, setDataSummary] = useState(['']);
 

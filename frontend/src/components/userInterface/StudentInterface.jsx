@@ -24,7 +24,7 @@ export const StudentInterface = ({user}) => {
   // Tabs
 
   return (
-    <section className="student-page">
+    <section id='activitiesPage'>
 
       <CustomNavbar tabs={navbar.tabs} setSelectedTab={setCurrentTab} components={navbar.components}/>
       

@@ -1,4 +1,5 @@
 import { CustomNavbar } from "../CustomNavbar";
+import { Footer } from "../Footer";
 import { UserDropdown } from '../UserDropdown';
 import { ResultTable } from "../CRUD/ResultTable";
 
@@ -13,11 +14,13 @@ export const AdminInterface = (props) => {
   }
 
   return (
-    <section className='admin-page'>
+    <section id="crudSection">
 
       <CustomNavbar components={navbar.components}/>
       <ResultTable
       rol={'Administrador'}/>
+
+      <Footer/>
 
     </section>
   )
