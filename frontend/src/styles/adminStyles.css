@@ -15,7 +15,7 @@
     background-attachment: fixed;
     background-position: center;
     min-height: 100vh;
-  }
+}
 
 #crudSection table{
     --bs-table-hover-color: var(--light-blue);
@@ -45,13 +45,10 @@
     border: 1px solid rgba(255, 255, 255, 0.18) !important;
 }
 
-#crudSection .form-select {
-    background-color: black;
-    --bs-body-color: white; 
+#crudSection .multiselect-dropdown option {
+    color: black !important;
 }
 
 #crudSection .multiselect-dropdown option:checked {
-    background-color:var(--strong-blue);
-    color: white;
+    background-color:var(--light-blue);
 }
-  

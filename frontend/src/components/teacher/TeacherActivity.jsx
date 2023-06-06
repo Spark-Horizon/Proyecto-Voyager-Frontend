@@ -372,7 +372,7 @@ export const TeacherActivity = (props) => {
                 <th scope="col">Promedio grupal</th>
                 <th scope="col">
                   Orden:
-                  <select
+                    <select
                       className="form-select form-select-sm"
                       aria-label="Filtro"
                       value={filtroOptions}
@@ -516,13 +516,13 @@ export const TeacherActivity = (props) => {
               tests={exerciseData['archivo']['tests']}
               aprobado={exerciseData.autorizado}
               id_autor={exerciseData.id_autor}
-            index={exerciseIndex}
+              index={exerciseIndex}
               edicion={true}
               onStep={handlePrevStepFive}
               idDocente={props.id}
               rol={'Docente'}
               onAddExercise = {handleAddExercise}
-            onEditExercise = {handleEditExercise}
+              onEditExercise = {handleEditExercise}
             />
           </form>
         </section>  
@@ -543,13 +543,13 @@ export const TeacherActivity = (props) => {
               options={exerciseData['archivo']['options']}
               aprobado={exerciseData.autorizado}
               id_autor={exerciseData.id_autor}
-            index={exerciseIndex}
+              index={exerciseIndex}
               edicion={true}
               onStep={handlePrevStepFive}
               idDocente={props.id}
               rol={'Docente'}
               onAddExercise = {handleAddExercise}
-            onEditExercise = {handleEditExercise}
+              onEditExercise = {handleEditExercise}
             />
           </form>
         </section>  

@@ -209,8 +209,6 @@ export const ResultTable = (props) => {
 
                 <th scope="col">
                   Orden:
-                  <section id="crudPage" className='container-cc'>
-                    <div>
                     <select
                       className="form-select form-select-sm"
                       aria-label="Filtro"
@@ -244,8 +242,6 @@ export const ResultTable = (props) => {
                         <option value="autorizado_resultado">Aprobado</option>
                       </optgroup>
                     </select>
-                    </div>
-                  </section>
                 </th>
 
                 <th scope="col">
