@@ -46,15 +46,20 @@ export const useGetActivityTask = (id) => {
 export const useGetActivityExercises = (id) => {
     const [data_activity_exercises, setProblemData] = useState(null);
     const [error, setError] = useState(null);
+    const [loading_activityEx, setLoading] = useState(false);
 
     const fetchData = useCallback(async () => {
         try {
+            setLoading(true);
             if (id){
                 const resultado = await getActivityExercises(id);
                 setProblemData(resultado);
+                console.log("Desde la BD:", data_activity_exercises);
             }
         } catch (error) {
             setError(error);
+        } finally {
+            setLoading(false);
         }
     }, [id]);
 
@@ -62,7 +67,11 @@ export const useGetActivityExercises = (id) => {
       fetchData();
     }, [fetchData]);
 
-    return { data_activity_exercises, error, refetchDataActivityExercises: fetchData };
+    const refetchDataActivityExercises = useCallback(async () => {
+        await fetchData(); // Call the fetchData function when refetch is invoked
+      }, [fetchData]);
+
+    return { data_activity_exercises, error, loading_activityEx, refetchDataActivityExercises };
 }
 
 export const useGetNameTask = (id) => {

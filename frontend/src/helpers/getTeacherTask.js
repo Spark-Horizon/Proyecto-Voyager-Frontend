@@ -51,7 +51,7 @@ export const getActivityExercises = async (id) => {
     };
 
     const response = await axios(options);
-
+    console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;

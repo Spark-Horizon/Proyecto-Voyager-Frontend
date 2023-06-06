@@ -23,7 +23,7 @@ export const TeacherActivity = (props) => {
   const [activityExData, setActivityExData] = useState(null);
   const [editBlocks, setEditBlocks] = useState(null);
   const [editCheck, setEditCheck] = useState(false);
-  const { data_activity_exercises, refetchDataActivityExercises } = useGetActivityExercises(activityID);
+  const { data_activity_exercises, loading_activityEx, refetchDataActivityExercises } = useGetActivityExercises(activityID);
 
   const [exerciseID, setExerciseID] = useState(null);
   const [exerciseData, setExerciseData] = useState(null);
@@ -70,6 +70,7 @@ export const TeacherActivity = (props) => {
     if (data_activity_exercises){
       console.log("Actualizado...");
       setActivityExData(data_activity_exercises);
+      console.log(activityExData);
     }
   }, [data_activity_exercises]);
 
@@ -106,7 +107,7 @@ export const TeacherActivity = (props) => {
 
   //useEffect de la vista de un ejercicio en particular
   useEffect(() => {
-    if (data_exercise){
+    if (data_exercise && !loading_activityEx){
       setExerciseData(data_exercise);
     }
   }, [data_exercise]);
@@ -118,30 +119,23 @@ export const TeacherActivity = (props) => {
     }
   }, [exerciseData]);
 
-  //useEffect para reiniciar los estados de la informacion de un ejercicio cuando vuelve a la pantalla inicial
-  useEffect(() => {
-    if (step === 2){
-      setExerciseID(null);
-      setExerciseData(null);
-      if (editCheck){
-        refetchDataActivityExercises();
-      }
-    }
-  }, [step]);
-
   useEffect(() => {
     if (editCheck){
+      setEditCheck(false);
       console.log("... y merge!");
+      console.log("Actualmente, la información de la BD es:", activityExData);
+      console.log("Actualmente, la información adaptada es:", editBlocks);
+      
       if (editBlocks){
         const resultingBlocks = [...new Set([...editBlocks , ...activityExData])]
         setActivityExData(resultingBlocks);
+        setEditBlocks(null);
       }
       else{
         const resultingBlocks = [...activityExData]
         setActivityExData(resultingBlocks);
       }
-      setEditBlocks(null);
-      setEditCheck(false);
+      console.log("Por último, la información final es:", activityExData);
     }
   }, [activityExData])
 
@@ -195,6 +189,7 @@ export const TeacherActivity = (props) => {
     setShowEditExercisePopup(true);
   };
 
+
   const handleCreateActivity = () => {
     setStep(1);
     setShowCreatePopup(true);
@@ -204,6 +199,17 @@ export const TeacherActivity = (props) => {
     setStep(1);
     setShowUpdatePopup(true);
   };
+
+  //useEffect para reiniciar los estados de la informacion de un ejercicio cuando vuelve a la pantalla inicial
+  useEffect(() => {
+    if (step === 2){
+      setExerciseID(null);
+      setExerciseData(null);
+      if (editCheck){
+        refetchDataActivityExercises();
+      }
+    }
+  }, [step]);
 
   const handleStatusExercise = (id_hand, tipo_hand, index) => {
     setEditStatus(tipo_hand);
@@ -304,6 +310,8 @@ export const TeacherActivity = (props) => {
   if (!dataResult || !data_activities) {
     return <div>Cargando...</div>;
   }
+
+  console.log("La información al momento", activityExData);
 
   return (
     <section id="teacherQuizSection">
