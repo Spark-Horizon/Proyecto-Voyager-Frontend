@@ -1,20 +1,48 @@
-import { CustomButton } from '../components/CustomButton'
 import { MOInstructions } from "../components/MO/MOInstructions"
+import { useState, useEffect } from 'react'
+import { useGetPractica } from '../hooks/useGetPractica';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import '../styles/moPage.css'
 
 export const MOPage = () => {
+    const location = useLocation().state
+    const navigate = useNavigate()
+    const [problem_id, setProblemID] = useState("");
+    const { practica } = useGetPractica(location.subtem, "MO");
 
-    const handleSkip = (e) => {
-        e.preventDefault();
-        // on progress
-        return 0
+    useEffect(() => {
+        let problemId = ""; //Para pruebas, solo si no hay sesion activa (bug)
+        if (practica != null) {
+            problemId = practica.id_ejercicio;
+        }
+        setProblemID(problemId);
+    }, [practica]);
+
+    if (!practica) {
+        return <div>Cargando...</div>
+    }
+
+    console.log(location.available);
+
+    const handleNext = () => {
+        if(location.available === false){
+            navigate(-1)
+        }else{
+            window.location.reload(); // Recargar la página
+        }
     };
 
-    return(
+    return (
         <div className="mo-route-container">
             <div className="mopage-main-container container-cc">
-                <CustomButton type={'btn btnPrimary btn-sm'} func={handleSkip} text={'Saltar'}/>
-                <MOInstructions/>
+                {location.practice_mode ? (
+                    <span>
+                        MODO PRACTICA:
+                        <br />
+                    </span>
+                ) : null}
+                <MOInstructions problem_id={problem_id} attempt_id={practica.id} handleNext={handleNext} available={location.available} />
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ export const useGetTask = (problem_id) => {
         const fetchData = async () => {
             try {
                 const archivo = await getTask(problem_id);
-                console.log(archivo);
+                console.log("Ejercicio:", archivo);
                 setProblemData(archivo);
             } catch (error) {
                 setError(error);
