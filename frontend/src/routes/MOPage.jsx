@@ -2,14 +2,17 @@ import { MOInstructions } from "../components/MO/MOInstructions"
 import { useState, useEffect } from 'react'
 import { useGetPractica } from '../hooks/useGetPractica';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from "../hooks/AuthContext";
 
 import '../styles/moPage.css'
 
 export const MOPage = () => {
+    const { user } = useAuth();
+    const user_id = user.id;
     const location = useLocation().state
     const navigate = useNavigate()
     const [problem_id, setProblemID] = useState("");
-    const { practica } = useGetPractica(location.subtem, "MO");
+    const { practica } = useGetPractica(location.subtem, "MO", user_id);
 
     useEffect(() => {
         let problemId = ""; //Para pruebas, solo si no hay sesion activa (bug)

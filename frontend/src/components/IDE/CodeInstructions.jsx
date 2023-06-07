@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useGetTask } from '../../hooks/useGetTask.js';
 import { useGetPractica } from '../../hooks/useGetPractica.js';
+import { useAuth } from '../../hooks/AuthContext.js';
 import '../../styles/codeInstructions.css';
 
 export const CodeInstructions = () => {
+  const { user } = useAuth();
+  const user_id = user.id;
   const [problem_id, setProblemID] = useState("");
   const subtem_id = sessionStorage.getItem("curr_subtem");
   const ejercicio_id = sessionStorage.getItem("curr_ejerci");
-  const { practica } = useGetPractica(subtem_id, "C");
+  const { practica } = useGetPractica(subtem_id, "C", user_id);
 
   useEffect(() => {
     let problemId = "";

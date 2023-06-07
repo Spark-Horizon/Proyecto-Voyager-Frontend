@@ -2,11 +2,14 @@ import { UserDropdown } from '../UserDropdown';
 import { CustomNavbar } from "../CustomNavbar";
 import { Footer } from "../Footer";
 import { useState } from 'react';
-import { PendingQuizzes } from '../student/PendingQuizzes'
-import { SummaryResults } from '../student/SummaryResults'
+import { PendingQuizzes } from '../student/PendingQuizzes';
+import { SummaryResults } from '../student/SummaryResults';
 import { PathPage } from '../student/PathPage';
+import { useAuth } from '../../hooks/AuthContext';
 
-export const StudentInterface = ({user}) => {
+export const StudentInterface = () => {
+
+  const { user } = useAuth();
 
   // Links y componentes de Navbar
   const navbar = {
@@ -18,7 +21,7 @@ export const StudentInterface = ({user}) => {
     components: [
       {component: <UserDropdown user={user}/>},
     ]
-  }
+  };
 
   const [currentTab, setCurrentTab] = useState(navbar.tabs[0].component);
 
@@ -34,5 +37,5 @@ export const StudentInterface = ({user}) => {
       <Footer />
       
     </section>
-  )
+  );
 }
