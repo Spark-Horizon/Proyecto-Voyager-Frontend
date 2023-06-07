@@ -5,8 +5,11 @@ import { useState } from 'react';
 import { PendingQuizzes } from '../student/PendingQuizzes';
 import { SummaryResults } from '../student/SummaryResults';
 import { PathPage } from '../student/PathPage';
+import { useAuth } from '../../hooks/AuthContext';
 
-export const StudentInterface = ({user}) => {
+export const StudentInterface = () => {
+
+  const { user } = useAuth();
 
   // Links y componentes de Navbar
   const navbar = {
