@@ -3,6 +3,8 @@ import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { getGroups, deleteGroup, exitGroup } from "../../helpers/Groups/api";
 import { NewGroupModal } from "./NewGroupModal";
 import { useAuth } from '../../hooks/AuthContext';
+import { CustomButton } from "../CustomButton";
+import { PathPage } from '../student/PathPage';
 import '../../styles/Groups/App.css';
 import '../../styles/Groups/Groups.css';
 import '../../styles/Groups/NewGroupModal.css';
@@ -14,6 +16,7 @@ export const Groups = () => {
   // Create state variables
   const [groups, setGroups] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [idMateria, setIdMateria] = useState(null);
 
   // Use Effect to get the groups on first render
   useEffect(() => {
@@ -90,36 +93,50 @@ export const Groups = () => {
     }
   }
 
+  const renderGroupsOrPath = () => {
+    if (idMateria === null) {
+      return (
+        <Container>
+          <Button onClick={() => setShowModal(true)} className="mb-3">
+            {role === 'teacher' ? 'Crear grupo 🪐' : 'Unirse a grupo'}
+          </Button>
+          <NewGroupModal user={user} show={showModal} onHide={() => setShowModal(false)} onGroupCreated={fetchGroups} />
+          <Row className="container-cc">
+            {groups.map((group) => (
+              <Col md={4} key={group.id}>
+                <Card>
+                  <Card.Body>
+                    <Card.Title>{`Código: ${group.codigo}
+                      ID Materia: ${group.id_materia}`}</Card.Title>
+                    <Button variant="danger" onClick={() => handleDelete(role, group.id, id, group.codigo)}>
+                      {role === 'teacher' ? 'Eliminar' : 'Salir'}
+                    </Button>
+                    {role === 'student' && (
+                      <CustomButton text={'Ir al path'} type={'btn btnPrimary'} func={() => setIdMateria(group.id_materia)} />
+                    )}
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      );
+    } else {
+      return (
+        <>
+          <Button onClick={() => setIdMateria(null)} className="mb-3">
+            Regresar
+          </Button>
+          <PathPage materia_id={idMateria} />
+        </>
+      );
+    }
+  }
+
   // Return the JSX for the component
   return (
-    <Container>
-      {/* Button to open the NewGroupModal */}
-      <Button onClick={() => setShowModal(true)} className="mb-3">
-        {role === 'teacher' ? 'Crear grupo 🪐' : 'Unirse a grupo'}
-      </Button>
-      {/* Modal for creating new group */}
-      <NewGroupModal user={user} show={showModal} onHide={() => setShowModal(false)} onGroupCreated={fetchGroups} />
-      {/* Display groups */}
-      <Row className="container-cc">
-        {groups.map((group) => (
-          <Col md={4} key={group.id}>
-            <Card>
-              <Card.Body>
-                <Card.Title>{`Código: ${group.codigo}
-                ID Materia: ${group.id_materia}`}</Card.Title>
-                <Button variant="danger" onClick={() => handleDelete(role, group.id, id, group.codigo)}>
-                  {role === 'teacher' ? 'Eliminar' : 'Salir'}
-                </Button>
-                {role === 'student' && (
-                  <Button onClick={() => { window.location.href = '/path'; }}>
-                    Ir al path
-                  </Button>
-                )}
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-    </Container>
-  );  
+    <>
+      {renderGroupsOrPath()}
+    </>
+  );
 };

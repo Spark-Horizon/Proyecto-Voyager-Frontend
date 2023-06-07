@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { CustomButton } from './CustomButton';
 import { useAuth } from '../hooks/AuthContext';
 
-export const UserDropdown = (props) => {
+export const UserDropdown = () => {
   
   // Estados del componente
   const [isOpen, setIsOpen] = useState(false);

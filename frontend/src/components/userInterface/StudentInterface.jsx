@@ -16,12 +16,11 @@ export const StudentInterface = () => {
   const navbar = {
     tabs: [
       {text: 'Grupos', component: <Groups/>},
-      {text: 'Path', component: <PathPage/>},
       {text: 'Pending Page', component: <PendingQuizzes/>},
       {text: 'Summary Page', component: <SummaryResults/>},
     ],
     components: [
-      {component: <UserDropdown user={user}/>},
+      {component: <UserDropdown/>},
     ]
   };
 
