@@ -46,9 +46,21 @@
 }
 
 #crudSection .multiselect-dropdown option {
-    color: black !important;
+    color: black;
 }
 
 #crudSection .multiselect-dropdown option:checked {
     background-color:var(--light-blue);
+}
+
+#crudSection .form-select optgroup option {
+    color: black;
+}
+
+#crudSection .form-select optgroup {
+    color: black;
+}
+
+#exerciseCreationForm .form-select option {
+    color: black;
 }
