@@ -112,9 +112,6 @@ export const ResultTable = (props) => {
   if (!dataResult || !data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
     return <div>Cargando...</div>;
   }
-
-  console.log(step);
-  console.log(editStatus);
   
   return (
     <section id="crudSection">
@@ -292,7 +289,7 @@ export const ResultTable = (props) => {
                       func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
                     </div>
                   )}
-                  {(props.rol === 'Docente') && (
+                  {(props.rol === 'Docente' && props.onCheckDup(row.id_resultado)) && (
                     <div>
                       <CustomButton 
                       type={'btn btn-success btn-sm mr-2'} 
@@ -398,6 +395,7 @@ export const ResultTable = (props) => {
                 idDocente={props.id}
                 rol={props.rol}
                 onAddExercise = {props.onAddExercise}
+                onCheckDup = {props.onCheckDup}
               />
             )}
             {(!exerciseID || !exerciseData) && (
@@ -407,6 +405,7 @@ export const ResultTable = (props) => {
                 id_autor={props.id}
                 rol={props.rol}
                 onAddExercise = {props.onAddExercise}
+                onCheckDup = {props.onCheckDup}
               />
             )}
           </form>

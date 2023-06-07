@@ -259,6 +259,13 @@ export const TeacherActivity = (props) => {
     setActivityID(id_hand);
   }
 
+  const handlePreventDup = (id_hand) => {
+    if (activityExData.map(item => item.id).includes(id_hand)){
+      return false;
+    }
+    return true;
+  }
+
   const handleDeletion = (id_hand) => (e) => {
     e.preventDefault();
     if (window.confirm("¿Estás seguro de que deseas borrar esta actividad?")) {
@@ -637,6 +644,7 @@ export const TeacherActivity = (props) => {
             id={props.id}
             rol={'Docente'}
             onAddExercise = {handleAddExercise}
+            onCheckDup = {handlePreventDup}
           />
         </div>
       )}

@@ -295,7 +295,7 @@ export const OMExercise = (props) => {
               text={'Atrás'}
               func={handlePrevious}
           />
-          { props.edicion && props.rol === 'Docente' && (
+          { props.edicion && props.rol === 'Docente' && props.onCheckDup(props.id) && (
             <CustomButton
                 type={'btn btn-success'}
                 text={'Agregar ejercicio'}
