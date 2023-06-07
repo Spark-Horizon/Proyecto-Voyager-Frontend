@@ -538,6 +538,7 @@ export const TeacherActivity = (props) => {
               rol={'Docente'}
               onAddExercise = {handleAddExercise}
               onEditExercise = {handleEditExercise}
+              onCheckDup = {handlePreventDup}
             />
           </form>
         </section>  
@@ -565,6 +566,7 @@ export const TeacherActivity = (props) => {
               rol={'Docente'}
               onAddExercise = {handleAddExercise}
               onEditExercise = {handleEditExercise}
+              onCheckDup = {handlePreventDup}
             />
           </form>
         </section>  
