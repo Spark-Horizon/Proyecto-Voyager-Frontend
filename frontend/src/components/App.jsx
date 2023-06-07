@@ -1,13 +1,10 @@
-import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, AdminSignIn, TeacherQuizzes, Groups } from '../routes/indexRoutes';
 import { AuthProvider } from '../hooks/AuthContext';
 
 function App() {
-  const [user, setUser] = useState(null);
-
   return (
-    <AuthProvider setUser={setUser}>
+    <AuthProvider>
       <Routes>
         <Route path='/'
           element={<PrivateRoute logged={false} children={<LandingPage />} link='/home' />}
