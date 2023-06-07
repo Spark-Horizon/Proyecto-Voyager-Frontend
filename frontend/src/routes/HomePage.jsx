@@ -37,15 +37,15 @@ export const HomePage = () => {
   switch(user.role){
     case 'student':
       return (
-        <StudentInterface user={user}/>
+        <StudentInterface/>
       )
     case 'teacher':
       return (
-        <TeacherInterface user={user}/>
+        <TeacherInterface/>
       )
     case 'admin':
       return(
-        <AdminInterface user={user}/>
+        <AdminInterface/>
       )
     default:
       return(
