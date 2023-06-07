@@ -73,6 +73,14 @@
   margin-top: 10px;
 }
 
+#teacherQuizSection .form-select optgroup option {
+  color: black;
+}
+
+#teacherQuizSection .form-select optgroup {
+  color: black;
+}
+
 #teacherActivityFormat {
   width: 50%;
   margin: 0 auto;
