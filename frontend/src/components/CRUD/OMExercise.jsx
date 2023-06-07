@@ -312,8 +312,7 @@ export const OMExercise = (props) => {
               func={handlePrevious}
           />
 
-
-          {props.edicion && props.onStep !== 3 && ( // ESTA PARTE ES LA QUE HAY QUE MODIFICAR PARA ELIMINAR EL BOTÓN
+          { props.edicion && props.rol === 'Docente' && props.onCheckDup(props.id) && (
             <CustomButton
               type={'btn btn-success'}
               text={'Agregar ejercicio'}

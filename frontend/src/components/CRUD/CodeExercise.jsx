@@ -287,8 +287,7 @@ export const CodeExercise = (props) => {
             text={'Atrás'}
             func={handlePrevious}
           />
-          
-          { props.edicion && props.rol === 'Docente' && (
+          { props.edicion && props.rol === 'Docente' && props.onCheckDup(props.id) &&(
             <CustomButton
               type={'btn btn-success'}
               text={'Agregar ejercicio'}
