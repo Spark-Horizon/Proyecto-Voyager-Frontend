@@ -1,11 +1,14 @@
 import { useGetPath } from '../../hooks/useGetPath.js'
 import { useGetUnlocked } from '../../hooks/useGetUnlocked.js';
 import { useAvailableType } from '../../hooks/useAvailableType.js';
+import { useAuth } from '../../hooks/AuthContext.js';
 import { Link } from 'react-router-dom'
 
 export const Path = ({ materia_id }) => {
+  const { user } = useAuth();
+  const user_id = user.id;
   const { path, temas } = useGetPath(materia_id); // Obtener datos del camino basado en el ID de la materia
-  const { unlockedPath } = useGetUnlocked(materia_id); // Obtener datos desbloqueados basados en el ID de la materia
+  const { unlockedPath } = useGetUnlocked(materia_id, user_id); // Obtener datos desbloqueados basados en el ID de la materia
   const { typeInfo } = useAvailableType(path, unlockedPath);
 
   if (!path || !unlockedPath || !temas || !typeInfo) {
