@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
-import { getGroups, deleteGroup, exitGroup } from "../helpers/Groups/api";
-import { NewGroupModal } from "../components/Groups/NewGroupModal";
-import { useAuth } from '../hooks/AuthContext';
-import '../styles/Groups/App.css';
-import '../styles/Groups/Groups.css';
-import '../styles/Groups/NewGroupModal.css';
+import { getGroups, deleteGroup, exitGroup } from "../../helpers/Groups/api";
+import { NewGroupModal } from "./NewGroupModal";
+import { useAuth } from '../../hooks/AuthContext';
+import '../../styles/Groups/App.css';
+import '../../styles/Groups/Groups.css';
+import '../../styles/Groups/NewGroupModal.css';
 
 export const Groups = () => {
   const { user } = useAuth();
