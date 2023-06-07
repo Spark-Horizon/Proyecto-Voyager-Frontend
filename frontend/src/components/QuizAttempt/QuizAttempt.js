@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { fetchQuizData } from '../../hooks/QuizAttempt/useFetchQuizData';
 import { AttemptCard } from './AttemptCard';
