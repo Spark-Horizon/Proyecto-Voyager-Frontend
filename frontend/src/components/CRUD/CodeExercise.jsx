@@ -260,10 +260,26 @@ export const CodeExercise = (props) => {
           </div>
         ))}
 
-        <div className="d-flex justify-content-between">
-          <button type="button" onClick={handleAddBlockCode} className="btn btn-primary">Añadir</button>
-          <button type="button" onClick={handleRemoveBlockCode} className="btn btn-primary btn-danger">Quitar</button>
-        </div>
+        {(props.idDocente === props.id_autor || props.rol === 'Administrador') && (
+          <div className="d-flex justify-content-between">
+            <button
+              type="button"
+              onClick={handleAddBlockCode}
+              className="btn btn-primary"
+            >
+              Añadir
+            </button>
+            {exerciseBlocksCode.length > 1 && (
+              <button
+                type="button"
+                onClick={handleRemoveBlockCode}
+                className="btn btn-primary btn-danger"
+              >
+                Quitar
+              </button>
+            )}
+          </div>
+        )}
 
         <div className="select next-back mt-5">
           <CustomButton
@@ -271,13 +287,24 @@ export const CodeExercise = (props) => {
             text={'Atrás'}
             func={handlePrevious}
           />
+          
           { props.edicion && props.rol === 'Docente' && (
             <CustomButton
               type={'btn btn-success'}
               text={'Agregar ejercicio'}
               func={handleAddition(props.id, titleOption, 'Código', subtemaOptions, )}
+              disabled={
+                !titleOption.trim() ||
+                !authorOption.trim() ||
+                !descriptionOption.trim() ||
+                !subtemaOptions ||
+                !difficultyOption ||
+                !driverOption.trim() ||
+                exerciseBlocksCode.some(block => !block.input || !block.output)
+              }
             />
           )}
+
           {props.edicion && (props.idDocente === props.id_autor || props.rol === 'Administrador') && (
             <CustomButton
               type={'btn btn-success'}
@@ -294,6 +321,7 @@ export const CodeExercise = (props) => {
               }
             />
           )}
+
           {!props.edicion && (
             <CustomButton
               type={'btn btn-success'}

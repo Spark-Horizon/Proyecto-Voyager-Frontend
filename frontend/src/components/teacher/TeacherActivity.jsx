@@ -189,7 +189,6 @@ export const TeacherActivity = (props) => {
     setShowEditExercisePopup(true);
   };
 
-
   const handleCreateActivity = () => {
     setStep(1);
     setShowCreatePopup(true);
