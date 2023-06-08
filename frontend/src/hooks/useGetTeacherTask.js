@@ -54,7 +54,7 @@ export const useGetActivityExercises = (id) => {
             if (id){
                 const resultado = await getActivityExercises(id);
                 setProblemData(resultado);
-                console.log("Desde la BD:", data_activity_exercises);
+                console.log("Desde la BD:", resultado);
             }
         } catch (error) {
             setError(error);

@@ -4,7 +4,7 @@ import { CustomButton } from '../CustomButton';
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
 import { useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask } from '../../hooks/useGetCRUDTask.js';
-import { getUpdateRandomExercise, getCreateAddRandomExercise  } from '../../helpers/getCRUDTask';
+import { getUpdateAddRandomExercise, getCreateAddRandomExercise  } from '../../helpers/getCRUDTask';
 
 export const RandomExercise = (props) => {
   const [subtemaOption, setSubtemaOption] = useState(props.subtema || '');
@@ -23,7 +23,6 @@ export const RandomExercise = (props) => {
       const id_exercise = await getCreateAddRandomExercise(tipo, subtema, difficulty);
     
       if (tipo && subtema && difficulty && id_exercise) {
-        props.onExerciseAdd();
         const addExercise = {
           "id": id_exercise['agregarincluirejercicio'],
           "?column?": "Ejercicio aleatorio " + difficulty + " de " + tipo,
@@ -38,6 +37,25 @@ export const RandomExercise = (props) => {
     }
   }
 
+  const edit = async (id, tipo, subtema, difficulty) => {
+    try {
+      const id_exercise = await getUpdateAddRandomExercise(id, tipo, subtema, difficulty);
+    
+      if (id && tipo && subtema && difficulty && id_exercise) {
+        const editExercise = {
+          "id": id_exercise['actualizarincluirejercicio'],
+          "?column?": "Ejercicio aleatorio " + difficulty + " de " + tipo,
+          "tipo": "Aleatorio",
+          "id_subtema": subtema.split(',')[0]
+        };
+        props.onEditExercise(props.index, editExercise);
+      }
+    } catch (error) {
+      // Handle the error appropriately
+      console.error(error);
+    }
+  }
+
   const handleCreation = (tipo, subtema, difficulty) => (e) => {
     e.preventDefault();
     create(tipo, subtema, difficulty);
@@ -45,8 +63,7 @@ export const RandomExercise = (props) => {
 
   const handleEdition = (id, tipo, subtema, difficulty,) => (e) => {
     e.preventDefault();
-    getUpdateRandomExercise(id, tipo, subtema, difficulty);
-    props.onEditExercise(props.index);
+    edit(id, tipo, subtema, difficulty);
   }
 
   if (!data_subtema || !data_dificultad || !data_tipo) {
