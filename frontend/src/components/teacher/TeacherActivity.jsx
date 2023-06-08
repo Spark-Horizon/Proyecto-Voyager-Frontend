@@ -33,7 +33,7 @@ export const TeacherActivity = (props) => {
   const [titleOption, setTitleOption] = useState(activityData ? activityData['titulo'] : '');
   const [inicioOption, setInicioOption] = useState(activityData ? activityData['inicio'] : '');
   const [finOption, setFinOption] = useState(activityData ? activityData['fin'] : '');
-  const [numIntentosOption, setNumIntentosOption] = useState(activityData ? activityData['intentos'] : -1);
+  const [numIntentosOption, setNumIntentosOption] = useState(activityData ? activityData['intentos'] : '1');
   const [bloqueoOption, setBloqueoOption] = useState(activityData ? activityData['bloqueo'] : false);
   const [visibleOption, setVisibleOption] = useState(activityData ? activityData['disponible'] : false);
   const [disponibleOption, setDisponibleOption] = useState(activityData ? activityData['visible'] : false);
@@ -97,7 +97,7 @@ export const TeacherActivity = (props) => {
       setTitleOption('');
       setInicioOption('');
       setFinOption('');
-      setNumIntentosOption(-1);
+      setNumIntentosOption('1');
       setBloqueoOption(false);
       setVisibleOption(false);
       setDisponibleOption(false);
@@ -140,7 +140,7 @@ export const TeacherActivity = (props) => {
   }, [activityExData])
 
   const handleTitle = (titulo) => {
-    setTitleOption(titulo);
+    setTitleOption(titulo.length == 0 ? " " : titulo)
   };
 
   const handleInicio = (inicio) => {
@@ -152,7 +152,7 @@ export const TeacherActivity = (props) => {
   };
 
   const handleIntentos = (intentos) => {
-    setNumIntentosOption(intentos);
+    setNumIntentosOption(intentos.length == 0 ? " " : intentos)
   };
 
   const handleBloqueo = (bloqueo) => {

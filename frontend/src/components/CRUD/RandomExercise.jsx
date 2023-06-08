@@ -55,7 +55,7 @@ export const RandomExercise = (props) => {
 
   return (
     <div>
-        <section id="exerciseChoosingForm" className="container-cc">
+        <section id="exerciseCreationForm" className="container-cc">
           <form>
             <div>
                 <div className="text-center mb-4">
