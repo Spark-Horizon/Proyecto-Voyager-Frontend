@@ -12,7 +12,7 @@ export const Path = ({ materia_id }) => {
     return <div>Cargando...</div>; // Mostrar mensaje de carga si no hay datos disponibles
   }
 
-  console.log(typeInfo);
+  console.log(unlockedPath);
 
   // Estilo del subtema segun este disponible o no
   const setStyle = (id_subtem) => {
@@ -68,7 +68,7 @@ export const Path = ({ materia_id }) => {
           <br />
           <Link
             to={{ pathname: '/MOPage' }}
-            state={{ subtem: subtem.id, practice_mode: practice(subtem.id), available: typeInfo[subtem.id]["mo"].available }}
+            state={{ subtem: subtem.id, practice_mode: practice(subtem.id), path: path, materia: materia_id }}
             style={available(subtem.id, "mo")}>
             Opción Múltiple</Link>
           <br />

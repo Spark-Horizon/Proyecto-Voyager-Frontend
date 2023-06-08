@@ -5,7 +5,7 @@ import { submitPractica } from '../../helpers/indexHelpers';
 
 import '../../styles/codeInstructions.css';
 
-export const MOInstructions = ({ problem_id, attempt_id, handleNext, available }) => {
+export const MOInstructions = ({ problem_id, attempt_id, handleNext, available, practiceMode }) => {
     const [selectedOption, setSelectedOption] = useState(""); //Opcion seleccionada
     const [showNextButton, setShowNextButton] = useState(false);
 
@@ -27,25 +27,25 @@ export const MOInstructions = ({ problem_id, attempt_id, handleNext, available }
     const handleSubmit = () => {
         console.log("Opción seleccionada: ", selectedOption);
         if (selectedOption === data.options[data.answer].text) {
-            submitPractica(attempt_id, { respuesta: selectedOption, correcto: true })
+            if(!practiceMode) submitPractica(attempt_id, { respuesta: selectedOption, correcto: true })
             alert("Respuesta correcta.")
             setShowNextButton(true);
         } else if (selectedOption === "") {
             alert("Por favor selecciona una respuesta.")
         } else {
-            submitPractica(attempt_id, { respuesta: selectedOption, correcto: false })
+            if(!practiceMode) submitPractica(attempt_id, { respuesta: selectedOption, correcto: false })
             alert("Respuesta incorrecta.")
             setShowNextButton(true);
         }
     };
 
     return (
-        !available ? (
+        (!available && !practiceMode) ? (
             <div className="mo-instructions">
                 <div className="mo-instructions-content">
                     <div className="mo-instructions-info">
                         <div className="code-instructions-title">
-                            <h3>Reseulve la parte de Codigo antes de avanzar.</h3>
+                            <h3>Resuelve la parte de Codigo antes de avanzar.</h3>
                         </div>
                     </div>
                     <div className="mo-instructions-submit container-cc">
