@@ -21,10 +21,7 @@ export const TeacherActivity = (props) => {
   const [activityData, setActivityData] = useState(null);
   const { data_activity } = useGetActivityTask(activityID);
   const [activityExData, setActivityExData] = useState(null);
-  const [editBlocks, setEditBlocks] = useState(null);
-  const [editCheck, setEditCheck] = useState(false);
-  const [updateCheck, setUpdateCheck] = useState(false);
-  const { data_activity_exercises, loading_activityEx, refetchDataActivityExercises } = useGetActivityExercises(activityID);
+  const { data_activity_exercises, loading_activityEx } = useGetActivityExercises(activityID);
 
   const [exerciseID, setExerciseID] = useState(null);
   const [exerciseData, setExerciseData] = useState(null);
@@ -42,7 +39,7 @@ export const TeacherActivity = (props) => {
   const [filtroOptions, setFiltroOptions] = useState(['id']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const [dataResult, setDataResult] = useState(['']);
-  const { data_activities, refetchDataActivities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
+  const { data_activities, refetchDataActivities, loading_activities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
 
   const handleMoveRowDown = (index) => {
     
@@ -57,8 +54,10 @@ export const TeacherActivity = (props) => {
 
   //useEffect de la vista general de todas las actividades
   useEffect(() => {
-    setDataResult(data_activities);
-  }, [data_activities]);
+    if (data_activities && !loading_activities){
+      setDataResult(data_activities);
+    }
+  }, [data_activities, loading_activities]);
 
   //useEffect de la vista de una actividad en particular
   useEffect(() => {
@@ -73,7 +72,6 @@ export const TeacherActivity = (props) => {
       //console.log("Actualizado...");
       setActivityExData(data_activity_exercises);
       //console.log(activityExData);
-      setUpdateCheck(true);
     }
   }, [data_activity_exercises, loading_activityEx]);
 
@@ -318,10 +316,6 @@ export const TeacherActivity = (props) => {
   if (!dataResult || !data_activities) {
     return <div>Cargando...</div>;
   }
-
-  console.log(editBlocks);
-
-  console.log("La información al momento", activityExData);
 
   return (
     <section id="teacherQuizSection">

@@ -4,13 +4,17 @@ import { useState, useEffect, useCallback } from 'react';
 export const useGetActivitiesTask = (id, order, hier) => {
     const [data_activities, setProblemData] = useState(null);
     const [error, setError] = useState(null);
+    const [loading_activities, setLoading] = useState(false);
 
     const fetchData = useCallback(async () => {
         try {
+            setLoading(true);
             const resultado = await getActivitiesTask(id, order, hier);
             setProblemData(resultado);
         } catch (error) {
             setError(error);
+        } finally {
+            setLoading(false);
         }
     }, []);
 
@@ -18,7 +22,7 @@ export const useGetActivitiesTask = (id, order, hier) => {
       fetchData();
     }, [fetchData]);
 
-    return { data_activities, error, refetchDataActivities: fetchData };
+    return { data_activities, error, refetchDataActivities: fetchData, loading_activities };
 }
 
 export const useGetActivityTask = (id) => {
@@ -71,7 +75,7 @@ export const useGetActivityExercises = (id) => {
         await fetchData(); // Call the fetchData function when refetch is invoked
       }, [fetchData]);
 
-    return { data_activity_exercises, error, loading_activityEx, refetchDataActivityExercises };
+    return { data_activity_exercises, error, loading_activityEx };
 }
 
 export const useGetNameTask = (id) => {
