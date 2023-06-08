@@ -92,8 +92,9 @@ export const ActivityFormat = (props) => {
 
   const handleIntentosChange = (event) => {
     const { value } = event.target;
-    if (/^\d*$/.test(value) || value === '-1') {
-      setNumIntentosOption(value);
+    const trimmedValue = value.trim();
+    if (/^(?:\s|\d+|-?\d*|)$/.test(trimmedValue)) {
+      props.onIntentosChange(trimmedValue);
     }
   };
   
@@ -248,35 +249,36 @@ export const ActivityFormat = (props) => {
               <td>{block['?column?']}</td>
               <td>{block.tipo}</td>
               <td>{block.id_subtema}</td>
-              <td>
-              <div>
-                <CustomButton
-                  type="btn btn-primary btn-sm mr-2"
-                  text="Ver"
-                  func={() => handleEjercicio(block.id, block.tipo, index)}
-                />
-                <CustomButton
-                  type="btn btn-danger btn-sm mr-2"
-                  text="Borrar"
-                  func={() => handleDeleteRow(index)}
-                />
-                <CustomButton
-                  type="btn btn-secondary btn-sm mr-2"
-                  text="↑"
-                  func={() => handleMoveRowUp(index)}
-                  disabled={index === 0}
-                />
-                <CustomButton
-                  type="btn btn-secondary btn-sm mr-2"
-                  text="↓"
-                  func={() => handleMoveRowDown(index)}
-                  disabled={index === exerciseBlocksCode.length - 1}
-                />
-              </div>
+              <td className="button-cell">
+                <div>
+                  <CustomButton
+                    type="btn btn-primary btn-sm mr-2"
+                    text="Ver"
+                    func={() => handleEjercicio(block.id, block.tipo, index)}
+                  />
+                  <CustomButton
+                    type="btn btn-danger btn-sm mr-2"
+                    text="Borrar"
+                    func={() => handleDeleteRow(index)}
+                  />
+                  <CustomButton
+                    type="btn btn-secondary btn-sm mr-2"
+                    text="↑"
+                    func={() => handleMoveRowUp(index)}
+                    disabled={index === 0}
+                  />
+                  <CustomButton
+                    type="btn btn-secondary btn-sm mr-2"
+                    text="↓"
+                    func={() => handleMoveRowDown(index)}
+                    disabled={index === exerciseBlocksCode.length - 1}
+                  />
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
+
       </table>
 
         <div className="d-flex flex-column align-items-center mt-4">
@@ -295,7 +297,8 @@ export const ActivityFormat = (props) => {
                 !titleOption.trim() ||
                 !inicioOption ||
                 !finOption ||
-                !numIntentosOption ||
+                !numIntentosOption || //EL TRIM ANDABA AQUÍ
+                numIntentosOption < -1 ||
                 exerciseBlocksCode.length < 1
               }
             />
@@ -309,7 +312,8 @@ export const ActivityFormat = (props) => {
                 !titleOption.trim() ||
                 !inicioOption ||
                 !finOption ||
-                !numIntentosOption ||
+                !numIntentosOption || //EL TRIM ANDABA AQUÍ
+                numIntentosOption < -1 ||
                 exerciseBlocksCode.length < 1
               }
             />
