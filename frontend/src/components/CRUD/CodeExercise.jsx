@@ -316,15 +316,6 @@ export const CodeExercise = (props) => {
               type={'btn btn-success'}
               text={'Agregar ejercicio'}
               func={handleAddition(props.id, titleOption, 'Código', subtemaOptions, )}
-              disabled={
-                !titleOption.trim() ||
-                !authorOption.trim() ||
-                !descriptionOption.trim() ||
-                !subtemaOptions ||
-                !difficultyOption ||
-                !driverOption.trim() ||
-                exerciseBlocksCode.some(block => !block.input || !block.output)
-              }
             />
           )}
 

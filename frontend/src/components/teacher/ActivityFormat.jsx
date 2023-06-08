@@ -299,6 +299,7 @@ export const ActivityFormat = (props) => {
                 !finOption ||
                 !numIntentosOption || //EL TRIM ANDABA AQUÍ
                 numIntentosOption < -1 ||
+                numIntentosOption == ' ' ||
                 exerciseBlocksCode.length < 1
               }
             />
@@ -314,6 +315,7 @@ export const ActivityFormat = (props) => {
                 !finOption ||
                 !numIntentosOption || //EL TRIM ANDABA AQUÍ
                 numIntentosOption < -1 ||
+                numIntentosOption == ' ' ||
                 exerciseBlocksCode.length < 1
               }
             />

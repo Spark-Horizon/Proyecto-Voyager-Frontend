@@ -359,6 +359,7 @@ export const ResultTable = (props) => {
                 idDocente={props.id}
                 rol={props.rol}
                 onAddExercise = {props.onAddExercise}
+                onCheckDup = {props.onCheckDup}
               />
             )}
             {(!exerciseID || !exerciseData) && (
@@ -368,6 +369,7 @@ export const ResultTable = (props) => {
                 id_autor={props.id}
                 rol={props.rol}
                 onAddExercise = {props.onAddExercise}
+                onCheckDup = {props.onCheckDup}
               />
             )}
           </form>

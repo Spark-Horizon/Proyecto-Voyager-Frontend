@@ -346,15 +346,6 @@ export const OMExercise = (props) => {
                 'Opción múltiple',
                 subtemaOptions
               )}
-              disabled={
-                !titleOption.trim() ||
-                !authorOption.trim() ||
-                !descriptionOption.trim() ||
-                !subtemaOptions ||
-                !difficultyOption ||
-                !answerOption ||
-                exerciseBlocksOM.some((block) => !block.text || !block.explanation)
-              }
             />
           )}
 
