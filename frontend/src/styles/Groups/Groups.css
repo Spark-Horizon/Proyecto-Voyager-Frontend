@@ -1,35 +1,58 @@
-.groups-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-gap: 20px;
-    padding: 20px;
-  }
-  
-  .group-card {
-    position: relative;
-    padding: 20px;
-    color: white;
-  }
-  
-  .group-delete {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    border: none;
-    background: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .new-group-button {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    border: none;
-    padding: 10px 20px;
-    background: var(--primary-color);
-    color: var(--secondary-color);
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+#groupsPage {
+  transition: all ease 0.5s;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#groupsPage .container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 10rem);
+}
+
+.groups-title-container {
+  font-weight: bold;
+}
+
+.group-button {
+  padding: 0.5rem;
+}
+
+.grupos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.grupos > div {
+  padding: 1rem;
+  display: flex;
+  border-radius: 15px;
+  background: rgba(30, 30, 30, 0.25) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
+  backdrop-filter: blur(11px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.grupos.card-title {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f0f0f0 !important;
+}
+
+.grupos.card-text {
+  color: #f0f0f0 !important;
+}
+
+.grupos .bottom-section {
+  margin-top: 1rem;
+}
+
+.grupos .top-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
