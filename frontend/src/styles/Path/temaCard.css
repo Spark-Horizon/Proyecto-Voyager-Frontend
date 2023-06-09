@@ -1,0 +1,11 @@
+.tema-main-container{
+    width: 600px;
+    transition: all ease 400ms;
+    display: flex;
+}
+.tema-main-container h3:hover{
+    cursor: pointer;
+}
+.tema-main-container-hidden > .tema-subtemas-container {
+    display: none;
+}
