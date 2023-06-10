@@ -76,7 +76,7 @@ export const Path = ({ materia_id }) => {
           <br />
           <Link
             to={{ pathname: '/Compiler' }}
-            state={{ subtem: subtem.id }} //practicemode?
+            state={{ subtem: subtem.id, practice_mode: practice(subtem.id), path: path, materia: materia_id }}
             style={available(subtem.id, "c")}>
             Código</Link>
         </div>
