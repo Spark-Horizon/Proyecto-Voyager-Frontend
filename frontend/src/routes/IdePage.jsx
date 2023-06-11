@@ -9,28 +9,28 @@ import '../styles/idePage.css';
 import '../styles/Compiler.css';
 
 export const IdePage = () => {
-  const [driver, setDriver] = useState('main_test'); 
+  const [driver, setDriver] = useState(''); 
   const [tests, setTests] = useState(
     [
       {
-        "input": "5,4",
+        "input": 9,
         "output": "9"
       },
       {
-        "input": "3,4",
-        "output": "7"
+        "input": 4,
+        "output": "4"
       },
       {
-        "input": "4,3",
-        "output": "7"
+        "input": 3,
+        "output": "3"
       },
       {
-        "input": "10,3",
-        "output": "13"
+        "input": 10,
+        "output": "10"
       },
       {
-        "input": "3,3",
-        "output": "6"
+        "input": 8,
+        "output": "8"
       }
     ]
   ); 
