@@ -1,19 +1,19 @@
 import { useRef, useState } from 'react';
 
-import { CodeInstructions } from "../components/IDE/CodeInstructions"
-import { CustomNavbar } from "../components/CustomNavbar"
-import { Compiler } from "../components/IDE/Compiler"
-import { OutputPanel } from "../components/IDE/OutputPanel";
+import { CodeInstructions } from "../IDE/CodeInstructions"
+import { CustomNavbar } from "../CustomNavbar"
+import { Compiler } from "../IDE/Compiler"
+import { OutputPanel } from "../IDE/OutputPanel";
 
-import '../styles/idePage.css';
-import '../styles/Compiler.css';
+import '../../styles/idePage.css';
+import '../../styles/Compiler.css';
 
-export const IdePage = () => {
-  const [driver, setDriver] = useState('sum'); 
+export const CompilerPage = () => {
+  const [driver, setDriver] = useState(null); 
   const [tests, setTests] = useState(
     [
       {
-        "input": [9,10],
+        "input": [[9],[10]],
         "output": 19
       },
       {
