@@ -9,7 +9,7 @@ export const useFetchQuizStudent = (id_activity) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  const url = `http://${backendUrl}:${port}/quizPage/${id_activity}`
+  const url = `http://${backendUrl}:${port}/quizStudent/${id_activity}`
 
   useEffect(() => {
     const fetchQuiz = async () => {

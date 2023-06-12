@@ -2,8 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, AdminSignIn, TeacherQuizzes } from '../routes/indexRoutes';
 import { AuthProvider } from '../hooks/AuthContext';
 import { QuizPage } from './QuizStudent/QuizPage';
-import { CompilerPage } from './QuizStudent/CompilerPage';
-import { MultipleOptionPage } from './QuizStudent/MultipleOptionPage';
 
 function App() {
   return (
@@ -37,7 +35,7 @@ function App() {
         <Route path='/quizpage/:id_activity'
           element={
             <PrivateRoute logged={true} link='/home'>
-              <MultipleOptionPage />
+              <QuizPage />
             </PrivateRoute>
           }
         />
