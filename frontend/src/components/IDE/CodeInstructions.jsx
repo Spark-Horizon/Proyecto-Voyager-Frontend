@@ -3,33 +3,7 @@ import { useGetTask } from '../../hooks/useGetTask.js';
 import { useGetPractica } from '../../hooks/useGetPractica.js';
 import '../../styles/codeInstructions.css';
 
-export const CodeInstructions = () => {
-  const [problem_id, setProblemID] = useState("");
-  const subtem_id = sessionStorage.getItem("curr_subtem");
-  const ejercicio_id = sessionStorage.getItem("curr_ejerci");
-  const { practica } = useGetPractica(subtem_id, "C");
-
-  useEffect(() => {
-    let problemId = "";
-    if (ejercicio_id != null) {
-      problemId = ejercicio_id;
-    } else if (practica != null) {
-      problemId = practica.id_ejercicio;
-    }
-    setProblemID(problemId);
-  }, [practica, ejercicio_id]);
-
-
-  const { data } = useGetTask(problem_id);
-
-  if (!data) {
-    return (
-      <div className='loading-code-instructions'>
-        <p className='gradient'>Cargando...</p>
-      </div>
-    )
-  }
-
+export const CodeInstructions = ({ data, handleNext, submitFunc }) => {
   const { author, title, description, topic, difficulty, tests } = data;
   const difficultyClass = 'code-instructions-difficulty badge ' + difficulty;
 

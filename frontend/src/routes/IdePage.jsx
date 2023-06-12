@@ -17,31 +17,9 @@ import '../styles/idePage.css';
 import '../styles/Compiler.css';
 
 export const IdePage = () => {
-  const [driver, setDriver] = useState('main_test');
-  const [tests, setTests] = useState(
-    [
-      {
-        "input": "5,4",
-        "output": "9"
-      },
-      {
-        "input": "3,4",
-        "output": "7"
-      },
-      {
-        "input": "4,3",
-        "output": "7"
-      },
-      {
-        "input": "10,3",
-        "output": "13"
-      },
-      {
-        "input": "3,3",
-        "output": "6"
-      }
-    ]
-  );
+  const [driver, setDriver] = useState('');
+  const [tests, setTests] = useState([]);
+  const [driverFunc, setDriverFunc] = useState('')
 
   const [code, setCode] = useState('');
   const [id, setId] = useState(0);
@@ -68,6 +46,18 @@ export const IdePage = () => {
     }
   }, [practica])
   
+  useEffect(() => {
+    if(data != null){
+      console.table('DATA XD', data);
+      const newTests = data.tests
+      const newDriver = data.driver
+      console.log('NEWDRIVER', newDriver)
+      setTests(newTests)
+      setDriver(newDriver)
+      setDriverFunc(`# Escribe tu código en la siguiente función\ndef ${newDriver}():\n\tpass`)
+    }
+  }, [data])
+
   // Cambiar el modo practica
   useEffect(() => {
     if (unlockedPath != null) {
@@ -80,12 +70,10 @@ export const IdePage = () => {
   if (!practica || !typeInfo || !unlockedPath || !data) {
     return <div>Cargando...</div>
   }
-  
-  console.log(practica, typeInfo, unlockedPath, data);
 
   // Funcion para el boton de submit
-  const submitFunc = (respuesta, correcto) => {
-    submitPractica(practica.id, respuesta, correcto)
+  const submitFunc = (respuesta) => {
+    submitPractica(practica.id, respuesta)
   }
 
   // Funcion para el boton de siguiente... probablemente cambie
@@ -132,12 +120,14 @@ export const IdePage = () => {
             <div className="ide-outputpanel-main-container">
               <Compiler
                 setCode={setCode}
-
+                initialCode={driver ? driverFunc : ''}
               />
               <OutputPanel
                 code={code}
                 tests={tests}
                 driver={driver}
+                submitFunc={submitFunc}
+                handleNext={handleNext}
               />
             </div>
           </div>

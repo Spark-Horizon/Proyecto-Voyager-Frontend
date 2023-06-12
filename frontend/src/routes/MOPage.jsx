@@ -47,8 +47,8 @@ export const MOPage = () => {
     }
 
     // Funcion para el boton de submit
-    const submitFunc = (respuesta, correcto) => {
-        submitPractica(practica.id, respuesta, correcto)
+    const submitFunc = (respuesta) => {
+        submitPractica(practica.id, respuesta)
     }
 
     // Funcion para el boton de siguiente
@@ -82,11 +82,11 @@ export const MOPage = () => {
                     <div className="mopage-main-container container-cc">
                         MODO PRACTICA:
                         <br />
-                        <MOInstructions data={data} handleNext={handleNext} practiceMode={practiceMode} submitFunc={submitFunc} />
+                        <MOInstructions data={data} handleNext={handleNext} submitFunc={submitFunc} />
                     </div>
                 ) : (
                     <div className="mopage-main-container container-cc">
-                        <MOInstructions data={data} handleNext={handleNext} practiceMode={practiceMode} submitFunc={submitFunc} />
+                        <MOInstructions data={data} handleNext={handleNext} submitFunc={submitFunc} />
                     </div>
                 )
             )
