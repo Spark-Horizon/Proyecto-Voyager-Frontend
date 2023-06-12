@@ -179,7 +179,7 @@ export const SignUp = (props) => {
                         placeholder="your.email@tec.mx" 
                         required 
                       />
-                      {!isTeacherEmailValid() && (
+                      {Temail !== '' && !isTeacherEmailValid() && (
                         <div className="text-danger">El correo electrónico es inválido</div>
                       )}
                       <label htmlFor="payroll" className="mt-3 text-center">Nómina</label>
@@ -204,7 +204,7 @@ export const SignUp = (props) => {
                         placeholder="your.email@tec.mx" 
                         required 
                       />
-                      {!isStudentEmailValid() && (
+                      {Semail !== '' && !isStudentEmailValid() && (
                         <div className="text-danger">El correo electrónico es inválido</div>
                       )}
                     </>
