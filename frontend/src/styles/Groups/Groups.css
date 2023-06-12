@@ -12,21 +12,24 @@
   min-height: calc(100vh - 10rem);
 }
 
-.groups-title-container {
+#groupsPage .groups-title-container {
   font-weight: bold;
+  padding-left: 8rem;
 }
 
-.group-button {
-  padding: 0.5rem;
+#groupsPage .group-button {
+  padding-left: 9rem;
+  padding-bottom: 0.5rem;
 }
 
-.grupos {
+#groupsPage .grupos {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
+  padding: 1rem;
 }
 
-.grupos > div {
+#groupsPage .grupos > div {
   padding: 1rem;
   display: flex;
   border-radius: 15px;
@@ -36,22 +39,22 @@
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
 }
 
-.grupos.card-title {
+#groupsPage .grupos .card-title {
   margin-bottom: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
   color: #f0f0f0 !important;
 }
 
-.grupos.card-text {
+#groupsPage .grupos .card-text {
   color: #f0f0f0 !important;
 }
 
-.grupos .bottom-section {
+#groupsPage .grupos .bottom-section {
   margin-top: 1rem;
 }
 
-.grupos .top-section {
+#groupsPage .grupos .top-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

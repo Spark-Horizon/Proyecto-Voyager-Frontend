@@ -94,12 +94,10 @@ export const Groups = () => {
     if (idMateria === null) {
       return (
         <section id="groupsPage" style={{ paddingTop: '2.5rem', paddingBottom: '2rem' }}>
-          <Container>
-            <div className="card-container-wrapper">
-              <div className="groups-title-container">
-                <h2 className="groups-title">Grupos</h2>
-              </div>
-              <div className="group-button">
+          <div className="groups-title-container">
+            <h2 className="groups-title">Grupos</h2>
+          </div>
+          <div className="group-button">
                 <Button onClick={() => setShowModal(true)}>
                   {role === 'teacher' ? 'Crear grupo 🪐' : 'Unirse a grupo'}
                 </Button>
@@ -109,9 +107,11 @@ export const Groups = () => {
                   onHide={() => setShowModal(false)}
                   onGroupCreated={fetchGroups}
                 />
-              </div>
+          </div>
+          <Container>
+            <div className="card-container-wrapper">
               <div className="grupos">
-                {groups.map((group) => ( // TAL VEZ REGRESARLO A COMO ESTABA POR SI SE NECESITA EL NULL
+                {groups.map((group) => (
                   <div key={group.id}>
                     <Card>
                       <Card.Body> 
