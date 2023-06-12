@@ -5,6 +5,7 @@ import '../../styles/fonts.css';
 import '../../styles/buttons.css';
 import { useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask } from '../../hooks/useGetCRUDTask.js';
 import { getUpdateRandomExercise, getCreateAddRandomExercise  } from '../../helpers/getCRUDTask';
+import { Loading } from '../Loading';
 
 export const RandomExercise = (props) => {
   const [subtemaOption, setSubtemaOption] = useState(props.subtema || '');
@@ -50,7 +51,7 @@ export const RandomExercise = (props) => {
   }
 
   if (!data_subtema || !data_dificultad || !data_tipo) {
-    return <div>Cargando...</div>;
+    return <div className="container-cc loading-container"><Loading/></div>
   }
 
   return (

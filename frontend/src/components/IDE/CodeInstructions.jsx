@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useGetTask } from '../../hooks/useGetTask.js';
 import { useGetPractica } from '../../hooks/useGetPractica.js';
 import { useAuth } from '../../hooks/AuthContext.js';
+import { Loading } from '../Loading.jsx';
 import '../../styles/codeInstructions.css';
 
 export const CodeInstructions = () => {
@@ -29,6 +30,7 @@ export const CodeInstructions = () => {
     return (
       <div className='loading-code-instructions'>
         <p className='gradient'>Cargando...</p>
+        <Loading/>
       </div>
     )
   }

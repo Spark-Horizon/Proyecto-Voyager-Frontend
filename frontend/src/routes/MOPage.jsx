@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useGetPractica } from '../hooks/useGetPractica';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from "../hooks/AuthContext";
+import { Loading } from "../components/Loading";
 
 import '../styles/moPage.css'
 
@@ -23,7 +24,7 @@ export const MOPage = () => {
     }, [practica]);
 
     if (!practica) {
-        return <div>Cargando...</div>
+        return <div className="container-cc loading-container"><Loading/></div>
     }
 
     console.log(location.available);

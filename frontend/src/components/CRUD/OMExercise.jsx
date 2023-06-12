@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { CustomButton } from '../CustomButton';
 import {useGetFilSubtemaTask, useGetFilDificultadTask} from '../../hooks/useGetCRUDTask.js';
 import {useGetNameTask} from '../../hooks/useGetTeacherTask';
+import { Loading } from '../Loading';
 
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
@@ -100,7 +101,7 @@ export const OMExercise = (props) => {
   }
 
   if (!data_subtema || !data_dificultad) {
-    return <div>Cargando...</div>;
+    return <div className="container-cc loading-container"><Loading/></div>
   }
 
   console.log(props.idDocente, props.id_autor, props.rol);

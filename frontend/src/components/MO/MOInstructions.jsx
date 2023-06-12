@@ -2,6 +2,7 @@ import { CustomButton } from '../CustomButton'
 import { useState } from "react";
 import { useGetTask } from "../../hooks/useGetTask";
 import { submitPractica } from '../../helpers/indexHelpers';
+import { Loading } from '../Loading';
 
 import '../../styles/codeInstructions.css';
 
@@ -12,7 +13,7 @@ export const MOInstructions = ({ problem_id, attempt_id, handleNext, available }
     const { data } = useGetTask(problem_id);
 
     if (!data) {
-        return <div>Cargando...</div>;
+        return <div className="container-cc loading-container"><Loading/></div>;
     }
 
     const difficultyClass = 'code-instructions-difficulty badge ' + data.difficulty;

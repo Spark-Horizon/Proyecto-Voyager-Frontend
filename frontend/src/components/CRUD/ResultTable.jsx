@@ -5,6 +5,7 @@ import { CustomButton } from '../CustomButton';
 import { getDeleteExercise }  from '../../helpers/getCRUDTask.js';
 import { CodeExercise } from "./CodeExercise"
 import { OMExercise } from "./OMExercise"
+import { Loading } from '../Loading.jsx';
 
 export const ResultTable = (props) => {
   const [step, setStep] = useState(1);
@@ -110,7 +111,7 @@ export const ResultTable = (props) => {
   }
 
   if (!dataResult || !data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
-    return <div>Cargando...</div>;
+    return <div className="container-cc loading-container"><Loading/></div>;
   }
 
   console.log(step);

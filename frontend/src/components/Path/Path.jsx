@@ -4,6 +4,7 @@ import { useAvailableType } from '../../hooks/useAvailableType.js';
 import { useAuth } from '../../hooks/AuthContext.js';
 import { TemaCard } from './TemaCard.jsx';
 import { SubtemaCard } from './SubtemaCard.jsx';
+import { Loading } from '../Loading.jsx';
 
 export const Path = ({ materia_id }) => {
   const { user } = useAuth();
@@ -13,7 +14,7 @@ export const Path = ({ materia_id }) => {
   const { typeInfo } = useAvailableType(path, unlockedPath);
 
   if (!path || !unlockedPath || !temas || !typeInfo) {
-    return <div>Cargando...</div>; // Mostrar mensaje de carga si no hay datos disponibles
+    return <div className="container-cc loading-container"><Loading/></div>; // Mostrar mensaje de carga si no hay datos disponibles
   }
 
   console.log(typeInfo);
