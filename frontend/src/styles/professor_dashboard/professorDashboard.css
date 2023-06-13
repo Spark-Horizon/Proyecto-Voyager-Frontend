@@ -19,9 +19,12 @@
     align-items: center;
     justify-content: flex-start;
     font-family: 'Inter';
-    font-weight: bold;
-    font-size: 26px;
     padding-left: 30px;
+}
+
+.main-header {
+    font-size: 26px;
+    font-weight: bold;
 }
 
 .p-dash-main-container {
@@ -31,4 +34,30 @@
     align-items: center;
     justify-content: space-between;
     padding: 30px;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 1115px) { 
+    .main-professor-dashboard {
+        padding: 20px;
+        height: auto;
+    }
+
+    .p-dash-main-container {
+        height: auto;
+        width: 100%;
+        display: flex;
+        padding: 25px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }

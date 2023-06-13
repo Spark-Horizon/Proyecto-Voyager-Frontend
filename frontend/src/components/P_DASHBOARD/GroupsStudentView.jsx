@@ -1,19 +1,15 @@
-import { useEffect } from "react";
+import React from "react";
+import { PDSHPanelTemplate } from "./PDSHPanelTemplate";
 
-export const GroupsStudentView = ({setCurrentView, changeViewFunction, setCanReturn, setComponentTitle}) => {
-    const returnToPreviousView = () => {
-        changeViewFunction(null);
-        setCurrentView(0);
-        setCanReturn(false);
-    }
-
-    useEffect(() => {
-        setComponentTitle('Vista por estudiante')
-        setCanReturn(true);
-        changeViewFunction(() => returnToPreviousView);
-    }, [])
-
+export const GroupsStudentView = ({changeParentView}) => {
     return (
-        <div>GroupsStudentView</div>
+        <div>
+            <PDSHPanelTemplate
+                title={'Vista por estudiante'}
+                canReturn={true}
+                changeParentView={changeParentView}
+                previousComponentIndex={0}
+            />
+        </div>
     )
 }

@@ -34,19 +34,18 @@ export const OutputPanel = ({
       try {
         setRunIsLoading(true);
         // Pasamos los datos directamente a fetchSubmissionData
-        await fetchSubmissionData(`http://${backendUrl}:3000/compiler/problem/run`, 'post', runData);
+        await fetchSubmissionData(`http://${backendUrl}:3001/compiler/problem/run`, 'post', runData);
       } catch (error) {
         console.log(error);
       }
     }
   };
   
-
   const submitCode = async () => {
     if (!runIsLoading && !submitIsLoading) {
       try {
         setSubmitIsLoading(true);
-        await fetchSubmissionData(`http://${backendUrl}:3000/compiler/problem/run`, 'post');
+        await fetchSubmissionData(`http://${backendUrl}:3001/compiler/problem/run`, 'post');
       } catch (error) {
         console.log(error)
       }
@@ -95,7 +94,6 @@ export const OutputPanel = ({
         </div>
       </div>
       <TestCases tests={testsData} />
-      <Console stdOut={stdOut || stdErr || compInfo} />
     </div>
   );
 };

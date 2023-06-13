@@ -13,24 +13,8 @@ export const IdePage = () => {
   const [tests, setTests] = useState(
     [
       {
-        "input": "5,4",
-        "output": "9"
-      },
-      {
-        "input": "3,4",
-        "output": "7"
-      },
-      {
-        "input": "3,3",
-        "output": "6"
-      },
-      {
-        "input": "3,3",
-        "output": "7"
-      },
-      {
-        "input": "3,3",
-        "output": "6"
+        "input": "hola",
+        "output": "hola"
       }
     ]
   ); 

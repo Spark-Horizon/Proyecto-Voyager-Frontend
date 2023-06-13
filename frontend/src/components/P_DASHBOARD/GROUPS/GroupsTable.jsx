@@ -1,22 +1,36 @@
 import { useEffect } from "react";
+
 import { GroupsTableItem } from "./GroupsTableItem";
-import { useDashboardData } from '../../../hooks/useDashboardData';
+import { PDSHPanelTemplate } from "../PDSHPanelTemplate";
+
+import { useDashboardData } from "../../../hooks/useDashboardData";
 
 import '../../../styles/professor_dashboard/groupsTable.css';
 
-export const GroupsTable = ({ url, headers, changeView, setComponentTitle }) => {
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const port = process.env.REACT_APP_BACKEND_PORT;
+
+export const GroupsTable = ({ professorId, changeParentView }) => {
   const { data, axiosError, isLoading, getData } = useDashboardData();
 
+  const headers = ['ID', 'Código', 'Materia', 'Nombre del curso'];
+
   useEffect(() => {
-    setComponentTitle('Grupos')
-    getData(url);
-  }, []);
+    getData(`http://${backendUrl}:${port}/dashboard/profesor/entregas?id=${professorId}`)
+  }, [])
 
   return (
     <>
-      {isLoading && <div>Cargando...</div>}
-      {axiosError === null ? (
-        <table className='groups-table'>
+      <PDSHPanelTemplate
+        title={'Grupos'}
+        canReturn={false}
+      />
+      {
+        isLoading && axiosError === null
+        ? <div className='loading'></div>
+        : axiosError !== null
+        ? <div>{axiosError}</div>
+        : <table className='groups-table'>
           <thead>
             <tr className='groups-table-headers'>
               {headers !== null &&
@@ -33,7 +47,7 @@ export const GroupsTable = ({ url, headers, changeView, setComponentTitle }) => 
                     key={row.codigo + key}
                     classType={`groups-td-${index === 0 ? 'first' : index === arr.length - 1 ? 'last' : 'middle'}`}
                     isLast={index === arr.length - 1}
-                    changeView={changeView}
+                    changeParentView={changeParentView}
                     data={value}
                   />
                 ))}
@@ -41,9 +55,7 @@ export const GroupsTable = ({ url, headers, changeView, setComponentTitle }) => 
             ))}
           </tbody>
         </table>
-      ) : (
-        <div>{axiosError}</div>
-      )}
+      }
     </>
   );
 };

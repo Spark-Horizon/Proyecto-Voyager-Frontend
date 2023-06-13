@@ -1,55 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
-import { PDSHPanelTemplate } from './PDSHPanelTemplate';
 import { Groups } from './Groups';
 import { Progress } from './Progress';
 
+import { useDashboardView } from '../../hooks/useDashboardView';
+
 import '../../styles/professor_dashboard/mainPanel.css';
 
+export const PDSHPanel = ({index, professorId}) => {
+  const { setters, currentComponent } = useDashboardView();
+  const { setCurrentView, setComponentViews } = setters;
 
-export const PDSHPanel = ({
-  index,
-  professorId,
-  canReturn,
-  changeViewFunction,
-  currentComponent,
-  setCurrentView,
-  setCanReturn,
-  setChangeViewFunction,
-  setComponentViews,
-}) => {
-  const [componentTitle, setComponentTitle] = useState('Grupos');
+  useEffect(() => {
+    setComponentViews([
+      <Groups
+        professorId={professorId}
+      />,
+      <Progress
+        professorId={professorId}
+      />
+    ]);
+  }, [])
 
-  const components = [
-    <Groups
-      professorId={professorId}
-      setComponentViews={setComponentViews}
-      setCurrentView={setCurrentView}
-      setCanReturn={setCanReturn}
-      setChangeViewFunction={setChangeViewFunction}
-      currentComponent={currentComponent}
-      setComponentTitle={setComponentTitle}
-    />,
-    <Progress
-      professorId={professorId}
-      setComponentViews={setComponentViews}
-      setCurrentView={setCurrentView}
-      setCanReturn={setCanReturn}
-      setChangeViewFunction={setChangeViewFunction}
-      currentComponent={currentComponent}
-      setComponentTitle={setComponentTitle}
-    />,
-  ];
+  useEffect(() => {
+    setCurrentView(index)
+  }, [index])
 
   return (
     <div className="p-dash-panel">
       <div className="p-dash-panel-main">
-        <PDSHPanelTemplate
-          title={componentTitle}
-          canReturn={canReturn}
-          changeFunction={changeViewFunction}
-        />
-        {components[index]}
+        {currentComponent}
       </div>
     </div>
   );

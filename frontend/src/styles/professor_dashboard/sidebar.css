@@ -25,3 +25,40 @@
 .p-dash-sidebar-item-selected {
     border-right: 4px solid var(--middle-blue);
 }
+
+@media screen and (max-width: 1115px) { 
+    .p-dash-sidebar {
+        height: 70px;
+        width: 100%;
+        padding: 10px;
+        overflow-x: scroll;
+        display: flex;
+        background-color: var(--glassmorphism-bg);
+        backdrop-filter: blur(var(--glassmorphism-blur));
+        -webkit-backdrop-filter: blur(var(--glassmorphism-blur));
+        border: var(--glassmorphism-border);
+        border-radius: 10px;
+    }
+
+    .p-dash-sidebar-item {
+        padding: 0px;
+        margin-top: 0px;
+        margin-left: 5px;
+        margin-right: 5px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        font-family: 'Inter';
+        font-size: 13px;
+        font-weight: bold;
+        transition: border-right 0.2s ease;
+        cursor: pointer;
+    }
+    
+    .p-dash-sidebar-item-selected {
+        border-right: none;
+        border-bottom: 4px solid var(--middle-blue);
+    }
+}

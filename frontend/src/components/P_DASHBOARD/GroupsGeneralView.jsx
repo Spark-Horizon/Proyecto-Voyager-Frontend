@@ -1,26 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { PDSHPanelTemplate } from "./PDSHPanelTemplate";
 
-export const GroupsGeneralView = ({
-        setCurrentView,
-        changeViewFunction,
-        setCanReturn,
-        setComponentTitle
-    }) => {
-    const handleReturnToPreviousView = () => {
-        changeViewFunction(null);
-        setCurrentView(0);
-        setCanReturn(false);
-    };
-
-    useEffect(() => {
-        setComponentTitle('Vista general');
-        setCanReturn(true);
-        changeViewFunction(() => handleReturnToPreviousView);
-    }, []);
-
+export const GroupsGeneralView = ({changeParentView}) => {
     return (
         <div>
-            GroupsGeneralView
+            <PDSHPanelTemplate
+                title={'Vista general'}
+                canReturn={true}
+                changeParentView={changeParentView}
+                previousComponentIndex={0}
+            />
         </div>
     );
 };

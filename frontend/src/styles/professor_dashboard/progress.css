@@ -7,7 +7,7 @@ p {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-} 
+}
 
 .progress-headers {
     margin-top: 10px;
@@ -52,11 +52,11 @@ p {
     cursor: pointer;
 }
 
-.p-i-selected > div > p {
+.p-i-selected>div>p {
     color: var(--middle-blue);
 }
 
-.p-i-selected > div > b {
+.p-i-selected>div>b {
     color: var(--middle-blue);
 }
 
@@ -87,4 +87,218 @@ p {
 .a-l-selected {
     cursor: pointer;
     fill: var(--middle-blue);
+}
+
+.activities {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.sp-header {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.activities-cards-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.activitie-card {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 150px;
+    padding: 12px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: var(--glassmorphism-border);
+}
+
+.activitie-card-header-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.activitie-card-header {
+    width: 92%;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.activitie-card-header-large {
+    width: 92%;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.activitie-card-icon {
+    fill: var(--light-blue);
+    width: 8%;
+    margin-right: 10px;
+    margin-bottom: 1px;
+}
+
+.activitie-card-info {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: normal;
+}
+
+.exercises {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.exercises-cards-container {
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.exercise-card {
+    border-radius: 10px;
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    padding: 20px;
+    border: var(--glassmorphism-border);
+    margin-bottom: 20px;
+}
+
+.selected {
+    border: 1px solid var(--middle-blue);
+}
+
+.exercise-card-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exercise-topic-name {
+    font-weight: bold;
+    font-size: 18px;
+    transition: all ease 0.5s;
+}
+
+.exercise-card-icon {
+    height: 30px;
+    cursor: pointer;
+    fill: var(--light-blue);
+    transition: transform 0.2s ease;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.exercise-card-info {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.2s ease;
+}
+
+.subtopic-name-container {
+    display: flex; align-items: center;
+}
+
+.subtopic-name {
+    font-weight: bold;
+}
+
+.passed {
+    border-radius: 10px;
+    border: 1px solid rgb(90, 158, 22);
+    background-color: rgb(131, 229, 33);
+    font-size: 12px;
+    padding: 5px;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.failed {
+    margin-left: 20px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: rgb(223, 40, 40);
+    border: 1px solid rgb(158, 24, 24);
+    padding: 5px;
+}
+
+.subtopic-info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.subtopic-info-card {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-tracks: center;
+    width: 150px;
+    padding: 10px;
+}
+
+.subtopic-info-card-header {
+    margin-bottom: 10px;
+}
+
+.l-b {
+    color: var(--light-blue);
+}
+
+.toggle {
+    max-height: 200px;
+    overflow-y: scroll;
+    transition: max-height 0.2s ease;
+}
+
+@media screen and (max-width: 1115px) {
+    * {
+        font-size: 14px;
+    }
+
+    .progress-item {
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: var(--glassmorphism-border);
+        margin: 10px 20px;
+        align-items: center;
+        border-radius: 10px;
+        flex-direction: column;
+        transition: all ease 0.2s;
+    }
+
+    .progress-headers {
+        display: none;
+    }
+
+    .code-data {
+        justify-content: center;
+    }
+
+    .name-data {
+        flex-direction: column;
+        margin-left: 0px;
+    }
+
+    .arrow-left {
+        height: 15px;
+    }
 }

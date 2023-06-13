@@ -8,6 +8,7 @@
   --strong-blue: #096B95;
   --warning-color: #F24444;
   --bckg-color: #051923;
+  --bckg-gradient: linear-gradient(to right, var(--light-blue), var(--strong-blue));
   
   /* IDE PAGE VARS */
   --ide-components-padding: 30px 20px;
