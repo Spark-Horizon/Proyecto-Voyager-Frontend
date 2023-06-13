@@ -25,14 +25,9 @@ export const AdminSignIn = () => {
       setError('Correo o contraseña incorrectos');
     }
   };
-
-  const isAdminEmailValid = () => {
-    const AEmailRegex = /^(iCodeAdmin@gmail\.com|icodeadmin@gmail\.com)$/;
-    return AEmailRegex.test(Aemail);
-  };
   
   return (
-    <div>
+    <div id="adminSignInPage">
       <CustomNavbar/>
 
       <section id="adminSignInForm" className='container-cc'>
@@ -48,9 +43,6 @@ export const AdminSignIn = () => {
           <div className="form-group">
             <label htmlFor="email" className="text-center">Email</label>
             <input type="email" id="email" value={Aemail} onChange={(e) => setAEmail(e.target.value)} className="form-control" placeholder="your.email@gmail.com" required />
-            {!isAdminEmailValid() && (
-              <div className="text-danger">El correo electrónico es inválido</div>
-            )}
           </div>
 
           <div className="form-group mt-4">

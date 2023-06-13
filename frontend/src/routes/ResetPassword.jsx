@@ -52,21 +52,21 @@ export const ResetPassword = () => {
             <img className='"img-fluid"' id='astronautImage' src={require('../assets/img/astronaut.png')} alt="astronautImage" />
         </div>
 
-        <form onSubmit={handleResetPassword}>
+        <form id='resetPswdForm' onSubmit={handleResetPassword}>
 
 
           {step === 1 && (
             <div>
 
               <div className="text-center mb-4">
-                <h3 className="mb-0">Restablecer contraseña</h3>
+                <h3 className="mb-2">Restablecer contraseña</h3>
                 <span>Ingresa tu correo electrónico</span>
               </div>
 
               <div className="form-group mb-3">
                 <label htmlFor="email" className="text-center mb-2">Correo electrónico</label>
                 <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="your.email@tec.mx" required />
-                {!isEmailValid() && (
+                {email !== '' && !isEmailValid() && (
                   <div className="text-danger">El correo electrónico es inválido</div>
                 )}
               </div>
