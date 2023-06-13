@@ -1,60 +1,90 @@
-#groupsPage {
-  transition: all ease 0.5s;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+.groups-creation-main-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
 }
 
-#groupsPage .container {
+.grupo-card-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.grupo-card-info > h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.grupos-btns-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.grupos-btn {
+  height: 30px;
+  font-size: 80%;
+  text-overflow:ellipsis;
+  width: 45%;
+}
+
+.container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: calc(100vh - 10rem);
 }
 
-#groupsPage .groups-title-container {
+.groups-title-container {
   font-weight: bold;
   padding-left: 8rem;
 }
 
-#groupsPage .group-button {
+.group-button {
   padding-left: 9rem;
   padding-bottom: 0.5rem;
 }
 
-#groupsPage .grupos {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+.grupos {
+  display: flex;
+  flex-wrap: wrap;
   padding: 1rem;
 }
 
-#groupsPage .grupos > div {
+.grupos-card {
+  background-color: transparent;
+  border: none;
+}
+
+.grupos>div {
   padding: 1rem;
+  margin-right: 40px;
+  margin-bottom: 40px;
   display: flex;
   border-radius: 15px;
-  background: rgba(30, 30, 30, 0.25) !important;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
+  background-color: transparent;
   backdrop-filter: blur(11px) !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
 }
 
-#groupsPage .grupos .card-title {
+.grupos .card-title {
   margin-bottom: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
   color: #f0f0f0 !important;
 }
 
-#groupsPage .grupos .card-text {
+.grupos .card-text {
   color: #f0f0f0 !important;
 }
 
-#groupsPage .grupos .bottom-section {
+.grupos .bottom-section {
   margin-top: 1rem;
 }
 
-#groupsPage .grupos .top-section {
+.grupos .top-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

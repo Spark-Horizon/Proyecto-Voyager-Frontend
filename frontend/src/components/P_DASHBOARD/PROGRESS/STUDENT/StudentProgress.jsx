@@ -8,6 +8,7 @@ import { ReactComponent as AngleDownIcon } from '../../../../assets/svg/icons/an
 import { ReactComponent as ClipboardIcon } from '../../../../assets/svg/icons/clipboard-list-solid.svg';
 
 import { useDashboarMultipledData } from '../../../../hooks/useDashboardMultipleData';
+import { Loading } from '../../../Loading';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const port = process.env.REACT_APP_BACKEND_PORT;
@@ -61,7 +62,7 @@ export const StudentProgress = ({ studentId, studentName, changeParentView }) =>
             />
             {
                 isLoading && axiosError === null
-                    ? <div className='loading'><p className='gradient'>CARGANDO</p></div>
+                    ? <div className='loading'><Loading /></div>
                     : axiosError !== null
                         ? <div>{axiosError}</div>
                         : data.length > 0 && (

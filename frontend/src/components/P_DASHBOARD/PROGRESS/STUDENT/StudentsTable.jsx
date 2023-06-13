@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ReactComponent as ArrowLeft } from '../../../../assets/svg/icons/arrow-right-solid.svg';
 
 import { useDashboardData } from '../../../../hooks/useDashboardData';
+import { Loading } from '../../../Loading';
 import { PDSHPanelTemplate } from '../../PDSHPanelTemplate';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -50,7 +51,7 @@ export const StudentsTable = ({
       />
       {
         isLoading && axiosError === null
-        ? <div className='loading'><p className='gradient'>CARGANDO</p></div>
+        ? <div className='loading'><Loading /></div>
         : axiosError !== null
         ? <div>{axiosError}</div>
         : <div className="progress-main-container">

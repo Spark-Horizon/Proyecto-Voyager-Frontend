@@ -3,7 +3,7 @@ import '../../styles/professor_dashboard/sidebar.css';
 
 export const PDSHSidebar = ({ changeComponent }) => {
   const [selected, setSelected] = useState(0);
-  const options = ['Entregas', 'Revisión de avances', 'Creación de grupos'];
+  const options = ['Grupos', 'Revisión de avances'];
 
   const handleOnClick = (index) => {
     if (index !== selected) {

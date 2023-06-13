@@ -1,7 +1,7 @@
 .p-dash-panel {
     height: 100%;
+    max-width: 82%;
     flex-grow: 1;
-    margin-left: 30px;
     display: flex;
     justify-content: center;
     background-color: var(--glassmorphism-bg);
@@ -34,6 +34,14 @@
     font-weight: bold;
     font-size: 24px;
     margin: 0px;
+}
+
+.optional-items {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
 }
 
 .p-dash-top-container-search-bar {

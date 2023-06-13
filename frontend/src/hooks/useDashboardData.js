@@ -17,11 +17,14 @@ export const useDashboardData = () => {
 
             setIsLoading(true);
             const responses = await axios.get(url, config);;
-            setIsLoading(false);
-
+            
             const { data } = responses;
-
+            
+            console.log('Fetched data', data);
+            
             setData(data);
+
+            setIsLoading(false);
         } catch (error) {
             setAxiosError('Problemas con el servidor, intentar más tarde.');
         }

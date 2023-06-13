@@ -1,32 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Groups } from './Groups';
+import { GroupsManager } from './GROUPS/GroupsManager';
 import { Progress } from './Progress';
-import { Groups as GroupsCreation } from '../Groups/Groups';
-
-import { useDashboardView } from '../../hooks/useDashboardView';
 
 import '../../styles/professor_dashboard/mainPanel.css';
 
-export const PDSHPanel = ({index, professorId}) => {
-  const { setters, currentComponent } = useDashboardView();
-  const { setCurrentView, setComponentViews } = setters;
 
-  useEffect(() => {
-    setComponentViews([
-      <Groups
-        professorId={professorId}
-      />,
-      <Progress
-        professorId={professorId}
-      />,
-      <GroupsCreation />
-    ]);
-  }, [])
+export const PDSHPanel = ({ index, professorId }) => {
+  const [currentView, setCurrentView] = useState(0);
+
+  const componentViews = [
+    <GroupsManager 
+      professorId={professorId}
+    />,
+    <Progress
+      professorId={professorId}
+    />
+  ]
 
   useEffect(() => {
     setCurrentView(index)
   }, [index])
+
+  const currentComponent = componentViews[currentView];
 
   return (
     <div className="p-dash-panel">

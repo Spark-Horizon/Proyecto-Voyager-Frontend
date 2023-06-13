@@ -5,6 +5,7 @@ import { PDSHPanelTemplate } from '../PDSHPanelTemplate';
 import { ReactComponent as ArrowLeft } from '../../../assets/svg/icons/arrow-right-solid.svg';
 
 import { useDashboardData } from '../../../hooks/useDashboardData';
+import { Loading } from '../../Loading';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const port = process.env.REACT_APP_BACKEND_PORT;
@@ -37,10 +38,10 @@ export const ProgressGroups = ({professorId, setGroupId, changeParentView}) => {
 
     return (
         <> 
-            <PDSHPanelTemplate title={'Grupos'} />
+            <PDSHPanelTemplate title={'Grupos asignados'} />
             {
                 isLoading && axiosError === null
-                ? <div className='loading'><p className='gradient'>CARGANDO</p></div>
+                ? <div className='loading'><Loading /></div>
                 : axiosError !== null
                 ? <div>{axiosError}</div>
                 : <div className="progress-main-container">

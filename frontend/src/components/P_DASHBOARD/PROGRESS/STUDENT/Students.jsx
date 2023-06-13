@@ -11,16 +11,9 @@ import '../../../../styles/professor_dashboard/students.css';
 export const Students = ({ groupId, changeParentView }) => {
     const [studentId, setStudentId] = useState(null);
     const [studentName, setStudentName] = useState(null);
+    const [currentView, setCurrentView] = useState(0);
 
-    const { setters, currentComponent } = useDashboardView();
-    const { setCurrentView, setComponentViews } = setters;
-
-    useEffect(() => {
-        setCurrentView(0);
-    }, [])
-
-    useEffect(() => {
-    setComponentViews([
+    const componentViews = [
         <StudentsTable
             groupId={groupId}
             setStudentId={setStudentId}
@@ -33,9 +26,9 @@ export const Students = ({ groupId, changeParentView }) => {
             studentName={studentName}
             changeParentView={setCurrentView}
         />
-    ]);
+    ]
 
-    }, [studentId, studentName]);
+    const currentComponent = componentViews[currentView];
 
     return <>{currentComponent}</>;
 };

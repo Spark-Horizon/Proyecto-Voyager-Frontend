@@ -2,7 +2,7 @@ import { ReactComponent as AngleLeft } from '../../assets/svg/icons/angle-left-s
 
 import '../../styles/professor_dashboard/mainPanel.css';
 
-export const PDSHPanelTemplate = ({ title, canReturn, changeParentView, previousComponentIndex }) => {
+export const PDSHPanelTemplate = ({ title, canReturn, changeParentView, previousComponentIndex, optionalItems }) => {
     const handleOnReturnClick = () => {
         changeParentView(previousComponentIndex)
     }
@@ -11,12 +11,12 @@ export const PDSHPanelTemplate = ({ title, canReturn, changeParentView, previous
         <div className='p-dash-top-container'>
             { canReturn && <AngleLeft className='angle-left-solid' onClick={handleOnReturnClick} />}
             <h1 className='gradient'>{title}</h1>
-            {/* SEARCH BAR IMPLEMENTATION
-            <form className="p-dash-top-container-search-bar">
-                <input type="text" name="" id="" className='search-bar-input' />
-                <span className='search-bar-placeholder'>Search</span>
-                <MagnifyingGlassIcon className='magnifying-glass'/>
-            </form> */}
+            {
+                optionalItems && 
+                <div className="optional-items">
+                    {optionalItems.map((item, index) => <div key={index}>{item}</div>)}
+                </div>
+            }
         </div>
     )
 }

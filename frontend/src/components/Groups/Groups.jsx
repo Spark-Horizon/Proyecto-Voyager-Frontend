@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, Button, Container } from 'react-bootstrap';
+import { Card, Button, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { getGroups, deleteGroup, exitGroup } from "../../helpers/Groups/api";
 import { NewGroupModal } from "./NewGroupModal";
 import { useAuth } from '../../hooks/AuthContext';
@@ -10,6 +10,8 @@ import '../../styles/Groups/App.css';
 import '../../styles/Groups/Groups.css';
 import '../../styles/Groups/NewGroupModal.css';
 
+import { PDSHPanelTemplate } from "../P_DASHBOARD/PDSHPanelTemplate";
+
 export const Groups = () => {
   const { user } = useAuth();
   const { role, id } = user;
@@ -18,6 +20,7 @@ export const Groups = () => {
   const [groups, setGroups] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [idMateria, setIdMateria] = useState(null);
+  const [expandedActivitiesButton, setExpandedActivitiesButton] = useState(false);
 
   // Use Effect to get the groups on first render
   useEffect(() => {
@@ -90,47 +93,78 @@ export const Groups = () => {
     }
   };
 
+  const optionalItems = [
+    <Button onClick={() => setShowModal(true)}>
+      {role === 'teacher' ? 'Crear grupo 🪐' : 'Unirse a grupo'}
+    </Button>
+  ];
+
+  const handleMouseEnter = () => {
+    setExpandedActivitiesButton(true);
+  };
+
+  const handleMouseLeave = () => {
+    setExpandedActivitiesButton(false);
+  };
+
+  const renderTruncatedButton = (text) => {
+    return (
+      <OverlayTrigger
+        placement="bottom"
+        overlay={<Tooltip id="tooltip">{text}</Tooltip>}
+      >
+        <Button className={`text-truncate grupos-btn ${expandedActivitiesButton ? 'expanded' : ''}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          {text}
+        </Button>
+      </OverlayTrigger>
+    );
+  };
+
   const renderGroupsOrPath = () => {
     if (idMateria === null) {
       return (
-        <section id="groupsPage" style={{ paddingTop: '2.5rem', paddingBottom: '2rem' }}>
-          <div className="groups-title-container">
-            <h2 className="groups-title gradient">Grupos</h2>
-          </div>
-          <div className="group-button">
-                <Button onClick={() => setShowModal(true)}>
-                  {role === 'teacher' ? 'Crear grupo 🪐' : 'Unirse a grupo'}
-                </Button>
-                <NewGroupModal
-                  user={user}
-                  show={showModal}
-                  onHide={() => setShowModal(false)}
-                  onGroupCreated={fetchGroups}
-                />
-          </div>
-          <Container>
-            <div className="card-container-wrapper">
-              <div className="grupos">
-                {groups.map((group) => (
-                  <div key={group.id}>
-                    <Card>
-                      <Card.Body> 
-                        <Card.Title><strong>Código:</strong> {group.codigo}</Card.Title> 
-                        <Card.Title><strong>ID Materia:</strong> {group.id_materia}</Card.Title>
-                        <Button variant="danger" onClick={() => handleDelete(role, group.id, id, group.codigo)}>
-                          {role === 'teacher' ? 'Eliminar' : 'Salir'}
-                        </Button>
-                        {role === 'student' && (
-                          <CustomButton text={'Ir al path'} type={'btn btnPrimary'} func={() => setIdMateria(group.id_materia)} />
-                        )}
-                      </Card.Body>
-                    </Card>
-                  </div>
-                ))}
-              </div>
+        <>
+          <PDSHPanelTemplate title={'Grupos'} optionalItems={optionalItems} />
+          <div className="groups-creation-main-container">
+            <div className="group-button">
+              <NewGroupModal
+                user={user}
+                show={showModal}
+                onHide={() => setShowModal(false)}
+                onGroupCreated={fetchGroups}
+              />
             </div>
-          </Container>
-        </section>
+            <Container>
+              <div className="card-container-wrapper">
+                <div className="grupos">
+                  {groups.map((group) => (
+                    <div key={group.id}>
+                      <Card className="grupos-card">
+                        <Card.Body>
+                          <div className="grupo-card-info">
+                            <p className="gradient"><strong>Código:</strong></p>
+                            <h1>{group.codigo}</h1>
+                            <p className="gradient"><strong>ID Materia:</strong></p>
+                            <h1>{group.id_materia}</h1>
+                          </div>
+                          <div className="grupos-btns-container">
+                            <Button className="grupos-btn" variant="danger" onClick={() => handleDelete(role, group.id, id, group.codigo)}>
+                              {role === 'teacher' ? 'Eliminar' : 'Salir'}
+                            </Button>
+                            {role === 'teacher' && renderTruncatedButton('Ver actividades')}
+                          </div>
+                          {role === 'student' && (
+                            <CustomButton text={'Ir al path'} type={'btn btnPrimary'} func={() => setIdMateria(group.id_materia)} />
+                          )}
+                        </Card.Body>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Container>
+          </div>
+        </>
       );
     } else {
       return (
@@ -146,8 +180,8 @@ export const Groups = () => {
 
   // Return the JSX for the component
   return (
-    <div className="groups-page">
+    <>
       {renderGroupsOrPath()}
-    </div>
+    </>
   );
 };
