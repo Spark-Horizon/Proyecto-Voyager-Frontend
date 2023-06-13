@@ -1,0 +1,95 @@
+.groups-table {
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+.groups-table-headers {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.groups-table-headers > th {
+    padding: 10px;
+    font-family: 'Inter';
+    font-weight: bolder;
+}
+
+.groups-table-row {
+    display: flex;
+    width: 100%;
+}
+
+.groups-table-row > td {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.groups-td-last-container {
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    display: flex;
+}
+
+.groups-td-buttons {
+    display: flex;
+}
+
+.groups-td-buttons > button {
+    background-color: transparent;
+    border: var(--glassmorphism-border);
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    transition: all ease 0.4s;
+}
+
+.groups-td-buttons > button:hover {
+    background-color: var(--middle-blue);
+    border: 1px solid var(--middle-blue);
+    word-spacing: 2px;
+}
+
+.groups-td-data {
+    padding: 0px;
+    margin: 0px;
+}
+
+.groups-td-first {
+    border-left: 1px solid var(--glassmorphism-border-color);
+    border-bottom: 1px solid var(--glassmorphism-border-color);
+    border-top: 1px solid var(--glassmorphism-border-color);
+    border-radius: 5px 0px 0px 5px;
+}
+
+.groups-td-middle {
+    border-top: 1px solid var(--glassmorphism-border-color);
+    border-bottom: 1px solid var(--glassmorphism-border-color);
+}
+
+.groups-td-last {
+    flex-grow: 1;
+    justify-content: space-between;
+    border-right: 1px solid var(--glassmorphism-border-color);
+    border-bottom: 1px solid var(--glassmorphism-border-color);
+    border-top: 1px solid var(--glassmorphism-border-color);
+    border-radius: 0px 5px 5px 0px;
+}
+
+@media screen and (max-width: 1115px) {
+    .groups-table {
+        font-size: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-collapse: separate;
+        border-spacing: 10px;
+    }
+}

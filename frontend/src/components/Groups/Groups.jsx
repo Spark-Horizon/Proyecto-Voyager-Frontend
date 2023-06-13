@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Card, Button, Container, Row, Col } from 'react-bootstrap';
+import { Card, Button, Container } from 'react-bootstrap';
 import { getGroups, deleteGroup, exitGroup } from "../../helpers/Groups/api";
 import { NewGroupModal } from "./NewGroupModal";
 import { useAuth } from '../../hooks/AuthContext';
 import { CustomButton } from "../CustomButton";
 import { PathPage } from '../student/PathPage';
+
 import '../../styles/Groups/App.css';
 import '../../styles/Groups/Groups.css';
 import '../../styles/Groups/NewGroupModal.css';
@@ -30,7 +31,6 @@ export const Groups = () => {
       setGroups(fetchedGroups);
     } catch (error) {
       console.error(error);
-      // Aquí podrías agregar código para manejar el error de manera más específica
     }
   };
 
@@ -52,8 +52,7 @@ export const Groups = () => {
     }
   };
 
-
-  //Function to delete a group (TEACHER)
+  // Function to delete a group (TEACHER)
   const deleteGroupFront = async (role, id) => {
     let confirmation = window.confirm("¿Seguro que quieres eliminar?");
     if (confirmation) {
@@ -65,7 +64,6 @@ export const Groups = () => {
           setGroups(groups.filter(group => group.id !== id));
         } catch (error) {
           console.error(error);
-          // Aquí podrías agregar código para manejar el error de manera más específica
         }
       } else {
         alert("Operación cancelada.");
@@ -73,7 +71,7 @@ export const Groups = () => {
     }
   };
 
-  //Function to exit a group (STUDENT)
+  // Function to exit a group (STUDENT)
   const exitGroupFront = async (role, id, codigo) => {
     let confirmation = window.confirm("¿Seguro que quieres salir del grupo?");
     if (confirmation) {
@@ -85,58 +83,71 @@ export const Groups = () => {
           setGroups(groups.filter(group => group.id !== id));
         } catch (error) {
           console.error(error);
-          // Aquí podrías agregar código para manejar el error de manera más específica
         }
       } else {
         alert("Operación cancelada.");
       }
     }
-  }
+  };
 
   const renderGroupsOrPath = () => {
     if (idMateria === null) {
       return (
-        <Container>
-          <Button onClick={() => setShowModal(true)} className="mb-3">
-            {role === 'teacher' ? 'Crear grupo 🪐' : 'Unirse a grupo'}
-          </Button>
-          <NewGroupModal user={user} show={showModal} onHide={() => setShowModal(false)} onGroupCreated={fetchGroups} />
-          <Row className="container-cc">
-            {groups.map((group) => (
-              <Col md={4} key={group.id}>
-                <Card>
-                  <Card.Body>
-                    <Card.Title>{`Código: ${group.codigo}
-                      ID Materia: ${group.id_materia}`}</Card.Title>
-                    <Button variant="danger" onClick={() => handleDelete(role, group.id, id, group.codigo)}>
-                      {role === 'teacher' ? 'Eliminar' : 'Salir'}
-                    </Button>
-                    {role === 'student' && (
-                      <CustomButton text={'Ir al path'} type={'btn btnPrimary'} func={() => setIdMateria(group.id_materia)} />
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </Container>
+        <section id="groupsPage" style={{ paddingTop: '2.5rem', paddingBottom: '2rem' }}>
+          <div className="groups-title-container">
+            <h2 className="groups-title gradient">Grupos</h2>
+          </div>
+          <div className="group-button">
+                <Button onClick={() => setShowModal(true)}>
+                  {role === 'teacher' ? 'Crear grupo 🪐' : 'Unirse a grupo'}
+                </Button>
+                <NewGroupModal
+                  user={user}
+                  show={showModal}
+                  onHide={() => setShowModal(false)}
+                  onGroupCreated={fetchGroups}
+                />
+          </div>
+          <Container>
+            <div className="card-container-wrapper">
+              <div className="grupos">
+                {groups.map((group) => (
+                  <div key={group.id}>
+                    <Card>
+                      <Card.Body> 
+                        <Card.Title><strong>Código:</strong> {group.codigo}</Card.Title> 
+                        <Card.Title><strong>ID Materia:</strong> {group.id_materia}</Card.Title>
+                        <Button variant="danger" onClick={() => handleDelete(role, group.id, id, group.codigo)}>
+                          {role === 'teacher' ? 'Eliminar' : 'Salir'}
+                        </Button>
+                        {role === 'student' && (
+                          <CustomButton text={'Ir al path'} type={'btn btnPrimary'} func={() => setIdMateria(group.id_materia)} />
+                        )}
+                      </Card.Body>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Container>
+        </section>
       );
     } else {
       return (
-        <>
+        <div className="startSection">
           <Button onClick={() => setIdMateria(null)} className="mb-3">
             Regresar
           </Button>
           <PathPage materia_id={idMateria} />
-        </>
+        </div>
       );
     }
-  }
+  };
 
   // Return the JSX for the component
   return (
-    <>
+    <div className="groups-page">
       {renderGroupsOrPath()}
-    </>
+    </div>
   );
 };

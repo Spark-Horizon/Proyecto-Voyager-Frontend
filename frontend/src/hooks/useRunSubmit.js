@@ -20,7 +20,8 @@ export const useRunSubmit = () => {
         console.log(data)
     
         const responseData = await submit(url, method, data);
-    
+        console.log("Response Data:", responseData);
+
         setIsLoading(false);
         
         const { compInfo, stdout, stderr, testsInfo } = responseData;
@@ -40,7 +41,6 @@ export const useRunSubmit = () => {
       }
     };
     
-      
 
     return {
         data: {

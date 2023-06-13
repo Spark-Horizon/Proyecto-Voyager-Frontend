@@ -1,34 +1,11 @@
-import { useState, useEffect } from 'react';
-import { useGetTask } from '../../hooks/useGetTask.js';
-import { useGetPractica } from '../../hooks/useGetPractica.js';
-import { useAuth } from '../../hooks/AuthContext.js';
-import '../../styles/codeInstructions.css';
+import { Loading } from '../Loading.jsx';
+import '../../styles/ide/codeInstructions.css';
 
-export const CodeInstructions = () => {
-  const { user } = useAuth();
-  const user_id = user.id;
-  const [problem_id, setProblemID] = useState("");
-  const subtem_id = sessionStorage.getItem("curr_subtem");
-  const ejercicio_id = sessionStorage.getItem("curr_ejerci");
-  const { practica } = useGetPractica(subtem_id, "C", user_id);
-
-  useEffect(() => {
-    let problemId = "";
-    if (ejercicio_id != null) {
-      problemId = ejercicio_id;
-    } else if (practica != null) {
-      problemId = practica.id_ejercicio;
-    }
-    setProblemID(problemId);
-  }, [practica, ejercicio_id]);
-
-
-  const { data } = useGetTask(problem_id);
-
+export const CodeInstructions = ({data}) => {
   if (!data) {
     return (
       <div className='loading-code-instructions'>
-        <p className='gradient'>Cargando...</p>
+        <Loading/>
       </div>
     )
   }

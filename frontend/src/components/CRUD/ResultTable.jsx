@@ -5,6 +5,7 @@ import { CustomButton } from '../CustomButton';
 import { getDeleteExercise }  from '../../helpers/getCRUDTask.js';
 import { CodeExercise } from "./CodeExercise"
 import { OMExercise } from "./OMExercise"
+import { Loading } from '../Loading.jsx';
 
 export const ResultTable = (props) => {
   const [step, setStep] = useState(1);
@@ -25,19 +26,19 @@ export const ResultTable = (props) => {
   const [filtroOptions, setFiltroOptions] = useState(['id_resultado']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const { data_exercise } = useGetExerciseTask(exerciseID);
-  const { data_result, error, refetchData } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions, props.rol, props.id);
-  const { data_autor } = useGetFilAutorTask();
-  const { data_subtema } = useGetFilSubtemaTask();
-  const { data_tipo } = useGetFilTipoTask();
-  const { data_dificultad } = useGetFilDificultadTask();
-  const { data_autorizacion } = useGetFilAutorizacionTask();
+  const { data_result, refetchData } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions, props.rol, props.id);
+  const { data_autor, refetchDataAutor, loading_autor } = useGetFilAutorTask();
+  const { data_subtema, refetchDataSubtema } = useGetFilSubtemaTask();
+  const { data_tipo, refetchDataTipo } = useGetFilTipoTask();
+  const { data_dificultad, refetchDataDificultad } = useGetFilDificultadTask();
+  const { data_autorizacion, refetchDataAutorizacion } = useGetFilAutorizacionTask();
   
   const navigate = useNavigate();
   
   useEffect(() => {
     setDataResult(data_result);
   }, [data_result]);
-  
+
   useEffect(() => {
     if (data_exercise){
       setExerciseData(data_exercise);
@@ -55,6 +56,11 @@ export const ResultTable = (props) => {
       setExerciseID(null);
       setExerciseData(null);
       refetchData();
+      refetchDataAutor();
+      refetchDataAutorizacion();
+      refetchDataDificultad();
+      refetchDataSubtema();
+      refetchDataTipo();
     }
   }, [step]);
 
@@ -109,12 +115,9 @@ export const ResultTable = (props) => {
     props.onAddExercise(addExercise);
   }
 
-  if (!dataResult || !data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
-    return <div>Cargando...</div>;
+  if (!dataResult || !data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion || loading_autor) {
+    return <div className="container-cc loading-container"><Loading/></div>;
   }
-
-  console.log(step);
-  console.log(editStatus);
   
   return (
     <section id="crudSection">
@@ -292,7 +295,7 @@ export const ResultTable = (props) => {
                       func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
                     </div>
                   )}
-                  {(props.rol === 'Docente') && (
+                  {(props.rol === 'Docente' && props.onCheckDup(row.id_resultado)) && (
                     <div>
                       <CustomButton 
                       type={'btn btn-success btn-sm mr-2'} 
@@ -362,6 +365,7 @@ export const ResultTable = (props) => {
                 idDocente={props.id}
                 rol={props.rol}
                 onAddExercise = {props.onAddExercise}
+                onCheckDup = {props.onCheckDup}
               />
             )}
             {(!exerciseID || !exerciseData) && (
@@ -371,6 +375,7 @@ export const ResultTable = (props) => {
                 id_autor={props.id}
                 rol={props.rol}
                 onAddExercise = {props.onAddExercise}
+                onCheckDup = {props.onCheckDup}
               />
             )}
           </form>
@@ -398,6 +403,7 @@ export const ResultTable = (props) => {
                 idDocente={props.id}
                 rol={props.rol}
                 onAddExercise = {props.onAddExercise}
+                onCheckDup = {props.onCheckDup}
               />
             )}
             {(!exerciseID || !exerciseData) && (
@@ -407,6 +413,7 @@ export const ResultTable = (props) => {
                 id_autor={props.id}
                 rol={props.rol}
                 onAddExercise = {props.onAddExercise}
+                onCheckDup = {props.onCheckDup}
               />
             )}
           </form>

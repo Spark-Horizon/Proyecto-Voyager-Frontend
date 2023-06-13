@@ -14,10 +14,14 @@ export const OutputPanel = ({
   code,
   tests,
   driver,
+  submitFunc,
+  handleNext
 }) => {
   const { data, isLoading, setSubmitData, fetchSubmissionData } = useRunSubmit();
+  const [submitPressed, seTsubmitPressed] = useState(false)
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [runIsLoading, setRunIsLoading] = useState(false);
+  const [canChange, setCanChange] = useState(false);
   const isInitialRender = useRef(true);
   const submitRef = useRef(null);
   const runRef = useRef(null);
@@ -30,6 +34,8 @@ export const OutputPanel = ({
       tests: tests,
       driver: driver,
     };    
+
+    console.log('RUN DATA', runData)
     if (!submitIsLoading && !runIsLoading) {
       try {
         setRunIsLoading(true);
@@ -41,12 +47,17 @@ export const OutputPanel = ({
     }
   };
   
-
   const submitCode = async () => {
+    const runData = {
+      code: code,
+      tests: tests,
+      driver: driver,
+    }
     if (!runIsLoading && !submitIsLoading) {
       try {
         setSubmitIsLoading(true);
-        await fetchSubmissionData(`http://${backendUrl}:${port}/compiler/problem/run`, 'post');
+        seTsubmitPressed(true)
+        await fetchSubmissionData(`http://${backendUrl}:${port}/compiler/problem/run`, 'post', runData);
       } catch (error) {
         console.log(error)
       }
@@ -82,8 +93,14 @@ export const OutputPanel = ({
   }, [isLoading])
 
   useEffect(() => {
-
-  }, [submitData])
+    if (submitPressed) {
+      const correct = testsData.some(el => el.passed === false)
+      console.log('TESTDATAXD', testsData)
+      submitFunc({respuesta: code, correcto: !correct})
+      setCanChange(true)
+      seTsubmitPressed(false);
+    }
+  }, [testsData])
   
   return (
     <div className="output-panel-main-container">
@@ -92,10 +109,10 @@ export const OutputPanel = ({
         <div className="compiler-buttons-container">
           <button className="run" onClick={runCode} ref={runRef}></button>
           <button className="submit" onClick={submitCode} ref={submitRef}></button>
+          <button className="next" onClick={handleNext} style={{display: canChange ? 'inline-block' : 'none'}}></button>
         </div>
       </div>
       <TestCases tests={testsData} />
-      <Console stdOut={stdOut || stdErr || compInfo} />
     </div>
   );
 };

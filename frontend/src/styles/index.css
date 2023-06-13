@@ -8,6 +8,7 @@
   --strong-blue: #096B95;
   --warning-color: #F24444;
   --bckg-color: #051923;
+  --bckg-gradient: linear-gradient(to right, var(--light-blue), var(--strong-blue));
   
   /* IDE PAGE VARS */
   --ide-components-padding: 30px 20px;
@@ -15,6 +16,11 @@
   --compiler-theme-color: rgb(30, 30, 30);
   --button-ide-green: rgb(17, 226, 107);
   --button-ide-blue: #1CC6EC;
+
+  --glassmorphism-border: 1px solid rgba(255, 255, 255, 0.18);
+  --glassmorphism-blur: 10px;
+  --glassmorphism-bg: rgba(30, 30, 30, 0.25);
+  --glassmorphism-border-color: rgba(255, 255, 255, 0.18);
 }
 
 * {
@@ -77,6 +83,28 @@ body{
 .footer .container .fotterLinks a:hover{
   color: var(--light-blue);
 }
+.spinner{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #0000 10%,
+    var(--light-blue)
+  );
+  -webkit-mask: -webkit-radial-gradient(farthest-side, #0000 calc(100% - 6px), #000 0);
+  -moz-mask: radial-gradient(farthest-side, #0000 calc(100% - 6px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 6px), #000 0);
+  animation: spin 0.8s infinite linear;
+}
+@keyframes spin{
+  to{
+    transform: rotate(1turn);
+  }
+}
+.loading-container{
+  height: 100%;
+  width: 100%;
+}
 
 /*Scrollbar*/
 ::-webkit-scrollbar {
@@ -123,4 +151,30 @@ body{
   width: 40%;
   height: 100%;
   background-color: var(--bckg-color);
+}
+
+/* Estilos generales del scrollbar */
+::-webkit-scrollbar {
+  width: 2px; /* Ancho del scrollbar */
+}
+
+/* Estilos del track (fondo) del scrollbar */
+::-webkit-scrollbar-track {
+  background-color: var(--glassmorphism-border-color); /* Color de fondo del track */
+}
+
+/* Estilos del thumb (barra) del scrollbar */
+::-webkit-scrollbar-thumb {
+  background-color: var(--middle-blue); /* Color de fondo del thumb */
+  border-radius: 5px; /* Borde redondeado del thumb */
+}
+
+/* Estilos del thumb cuando se está interactuando con él */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Color de fondo del thumb al pasar el cursor sobre él */
+}
+
+/* Estilos del thumb cuando está en estado activo (presionado) */
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--strong-blue); /* Color de fondo del thumb al estar presionado */
 }

@@ -1,0 +1,27 @@
+.subtema-main-container{
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    padding: 1rem;
+    transition: all ease 400ms;
+}
+.subtema-main-container-hidden > .subtema-info-container {
+    display: none;
+}
+.subtema-available{
+    backdrop-filter: blur( 11px );
+    -webkit-backdrop-filter: blur( 11px );
+}
+.subtema-available:hover{
+    background-color: var(--middle-blue);
+    cursor: pointer;
+}
+.subtema-blocked{
+    background: rgba(12, 12, 12, 0.25);
+    backdrop-filter: blur( 11px );
+}
+.subtema-blocked span{
+    color: rgb(68, 68, 68);
+}
+.subtema-main-container span{
+    display: block;
+    width: 100%;
+}

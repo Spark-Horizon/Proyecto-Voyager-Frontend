@@ -1,6 +1,9 @@
 import { CustomNavbar } from "../CustomNavbar";
 import { UserDropdown } from '../UserDropdown';
 import { useAuth } from '../../hooks/AuthContext';
+import { ProfessorDashboard } from "../../routes/ProfessorDashboard";
+
+import '../../styles/professor_dashboard/professorDashboard.css';
 
 export const TeacherInterface = () => {
 
@@ -16,8 +19,7 @@ export const TeacherInterface = () => {
     <section className='teacher-page'>
       
       <CustomNavbar components={navbar.components}/>
-      
-      <div>Teacher Interface</div>
+      <ProfessorDashboard />
       
     </section>
   )

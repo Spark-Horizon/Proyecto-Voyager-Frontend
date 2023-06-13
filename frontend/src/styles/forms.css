@@ -1,4 +1,4 @@
-form{
+.custom-form {
     min-width: 35%;
     padding: 30px 40px;
     border-color: #d6d6d6;
@@ -7,41 +7,51 @@ form{
     border-radius: 15px;
     transition: all ease 0.5s;
 }
-form button{
+
+.custom-form button {
     transition: all ease 0.5s;
     width: 100%;
 }
-form .text-danger{
+
+.custom-form .text-danger {
     color: var(--warning-color);
     font-size: 0.8rem;
 }
+#adminSignInForm .form-group input,
 #signInForm .form-group input,
 #signUpForm .form-group input,
-#resetPasswordForm .form-group input{
+#resetPasswordForm .form-group input {
     background-color: rgba(0, 0, 0, 0);
     color: var(--light-blue);
+}
+#resetPswdForm{
+    background: rgba( 30, 30, 30, 0.25 );
+    backdrop-filter: blur( 11px );
+    -webkit-backdrop-filter: blur( 11px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .form-group input::placeholder{
     color: gray;
 }
+
 @media screen and (max-width: 600px) {
     form {
-      width: 90%;
+        width: 90%;
     }
 }
 
 #signInForm,
 #signUpForm,
-#resetPasswordForm{
-  color: #f0f0f0;
-  background-image: url("../assets/img/bkgr_spaceBackground.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+#resetPasswordForm {
+    color: #f0f0f0;
+    background-image: url("../assets/img/bkgr_spaceBackground.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 /*SignIn.jsx*/
-#signInForm .img{
+#signInForm .img {
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -50,75 +60,89 @@ form .text-danger{
     height: 17rem;
     overflow: hidden;
 }
-#signInForm #marsImage{
+
+#signInForm #marsImage {
     width: 100%;
     transform: translateY(10%);
 }
-#signInForm form{
+
+#signInForm form {
     border-width: 0px;
     transform: translateY(-7rem);
 }
+
 @media screen and (max-width: 600px) {
-    #signInForm .img{
+    #signInForm .img {
         max-width: 90%;
     }
 }
 
 /*SignUp.jsx*/
-#signUpForm form{
+#signUpForm form {
     border-width: 0px;
     min-width: 50%;
 }
-.select{
+
+.select {
     display: flex;
     justify-content: space-between;
 }
-.select .btnResize{
+
+.select .btnResize {
     margin: 5px;
     flex-basis: 50%;
     transition: flex-basis 0.3s ease-in-out;
 }
-.select .btnResize:hover{
+
+.select .btnResize:hover {
     flex-basis: 80%;
 }
-.next-back button{
+
+.next-back button {
     width: fit-content;
 }
 
 /*ResetPassword.jsx*/
-#resetPasswordForm .container{
+#resetPasswordForm .container {
     justify-content: space-around;
 }
-#resetPasswordForm form{
+
+#resetPasswordForm form {
     width: 25rem;
 }
-#resetPasswordForm form input{
+
+#resetPasswordForm form input {
     background-color: rgba(0, 0, 0, 0);
     color: var(--light-blue);
 }
-#resetPasswordForm form input::placeholder{
+
+#resetPasswordForm form input::placeholder {
     color: gray;
 }
-#resetPasswordForm .img{
+
+#resetPasswordForm .img {
     max-width: 25rem;
     position: relative;
     animation: up-down 2s ease-in-out infinite;
 }
+
 #resetPasswordForm #astronautImage {
     height: 100%;
     width: 100%;
 }
+
 @keyframes up-down {
     0% {
-      bottom: 0;
+        bottom: 0;
     }
     50% {
-      bottom: 15px;
+        bottom: 15px;
     }
     100% {
-      bottom: 0;
+        bottom: 0;
     }
 }
+
 @media screen and (max-width: 991px) {
     #resetPasswordForm .img {
         display: none;

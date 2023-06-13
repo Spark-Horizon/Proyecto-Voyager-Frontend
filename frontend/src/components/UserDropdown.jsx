@@ -26,7 +26,7 @@ export const UserDropdown = () => {
 
   return (
     <div className="dropdown">
-      <button className="userDropdown-btn dropdown-toggle" onClick={toggleDropdown} data-bs-toggle="dropdown">
+      <button className="userDropdown-btn dropdown-toggle" onClick={toggleDropdown} data-bs-toggle="dropdown" data-bs-auto-close="outside">
         {user.name}
       </button>
       {isOpen && (
