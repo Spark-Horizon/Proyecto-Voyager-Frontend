@@ -95,7 +95,7 @@ export const Groups = () => {
       return (
         <section id="groupsPage" style={{ paddingTop: '2.5rem', paddingBottom: '2rem' }}>
           <div className="groups-title-container">
-            <h2 className="groups-title">Grupos</h2>
+            <h2 className="groups-title gradient">Grupos</h2>
           </div>
           <div className="group-button">
                 <Button onClick={() => setShowModal(true)}>

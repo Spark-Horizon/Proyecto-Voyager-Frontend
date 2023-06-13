@@ -20,10 +20,10 @@ export const PendingQuizzes = () => {
   };
 
   return (
-    <section id='activitiesPage' style={{ paddingTop: '2.5rem', paddingBottom: '2rem' }}>
+    <section id='activitiesPage' className='startSection'>
       <div className="container">
         <div className="text-center">
-          <h2 className="mt-5 mb-4">Quizzes pendientes</h2>
+          <h2 className="mt-5 mb-4 gradient">Quizzes pendientes</h2>
           {dataPending === null ? (
             <p>No hay quizzes pendientes</p>
           ) : (
