@@ -8,6 +8,7 @@ import { RandomExercise } from "../CRUD/RandomExercise"
 import { useGetActivitiesTask, useGetActivityExercises, useGetActivityTask } from '../../hooks/useGetTeacherTask';
 import { useGetExerciseTask } from '../../hooks/useGetCRUDTask.js';
 import { getDeleteActivity } from '../../helpers/getTeacherTask';
+import { Loading } from '../Loading';
 
 export const TeacherActivity = (props) => {
   const [step, setStep] = useState(1);
@@ -314,7 +315,7 @@ export const TeacherActivity = (props) => {
   };
 
   if (!dataResult || !data_activities) {
-    return <div>Cargando...</div>;
+    return <div className="container-cc loading-container"><Loading/></div>;
   }
 
   return (

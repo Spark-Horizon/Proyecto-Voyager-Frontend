@@ -15,11 +15,18 @@ form .text-danger{
     color: var(--warning-color);
     font-size: 0.8rem;
 }
+#adminSignInForm .form-group input,
 #signInForm .form-group input,
 #signUpForm .form-group input,
 #resetPasswordForm .form-group input{
     background-color: rgba(0, 0, 0, 0);
     color: var(--light-blue);
+}
+#resetPswdForm{
+    background: rgba( 30, 30, 30, 0.25 );
+    backdrop-filter: blur( 11px );
+    -webkit-backdrop-filter: blur( 11px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .form-group input::placeholder{
     color: gray;

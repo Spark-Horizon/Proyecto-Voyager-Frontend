@@ -134,8 +134,8 @@ export const Groups = () => {
       );
     } else {
       return (
-        <div>
-          <Button onClick={() => setIdMateria(null)}>
+        <div className="startSection">
+          <Button onClick={() => setIdMateria(null)} className="mb-3">
             Regresar
           </Button>
           <PathPage materia_id={idMateria} />

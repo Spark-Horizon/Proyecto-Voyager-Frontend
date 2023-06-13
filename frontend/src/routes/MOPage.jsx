@@ -8,6 +8,7 @@ import { useGetUnlocked } from "../hooks/useGetUnlocked";
 import { useGetTask } from "../hooks/useGetTask";
 import { submitPractica } from "../helpers/indexHelpers";
 import { useAuth } from "../hooks/AuthContext";
+import { Loading } from "../components/Loading";
 
 import '../styles/moPage.css'
 
@@ -51,7 +52,7 @@ export const MOPage = () => {
     
     // Esperar a cargar la informacion de los hooks
     if (!practica || !typeInfo || !unlockedPath || !data || !user) {
-        return <div>Cargando...</div>
+        return <div className="container-cc loading-container"><Loading/></div>
     }
     
     // Funcion para el boton de submit

@@ -1,5 +1,6 @@
 import { CustomButton } from '../CustomButton'
-import { useState } from "react"
+import { useState } from "react";
+import { Loading } from '../Loading';
 
 import '../../styles/codeInstructions.css';
 
@@ -22,6 +23,9 @@ export const MOInstructions = ({ data, handleNext, submitFunc }) => {
             alert("Respuesta incorrecta.")
             setShowNextButton(true)
         }
+    }
+    if (!data) {
+        return <div className="container-cc vh-100 loading-container"><Loading/></div>;
     }
 
     const difficultyClass = 'code-instructions-difficulty badge ' + data.difficulty;

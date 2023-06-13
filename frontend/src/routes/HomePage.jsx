@@ -4,6 +4,7 @@ import { AdminInterface } from '../components/userInterface/AdminInterface';
 import { useNavigate } from 'react-router-dom';
 import { CustomButton } from '../components/CustomButton';
 import { useAuth } from '../hooks/AuthContext';
+import { Loading } from '../components/Loading';
 
 import '../styles/studentPage.css';
 
@@ -30,8 +31,8 @@ export const HomePage = () => {
 
   // Verifica si el usuario está definido antes de intentar acceder a sus propiedades
   if (!user) {
-    return <div>Loading...</div>; // Muestra un mensaje de carga mientras el usuario está indefinido
-  }
+    return <div className="container-cc loading-container"><Loading/></div>;
+  } 
 
   // Muestra diferentes interfaces dependiendo del rol del usuario
   switch(user.role){

@@ -4,6 +4,9 @@ import { useAvailableType } from '../../hooks/useAvailableType.js';
 import { useAuth } from '../../hooks/AuthContext.js';
 import { TemaCard } from './TemaCard.jsx';
 import { SubtemaCard } from './SubtemaCard.jsx';
+import { Loading } from '../Loading.jsx';
+
+import '../../styles/Path/path.css'
 
 export const Path = ({ materia_id }) => {
   const { user } = useAuth();
@@ -13,11 +16,12 @@ export const Path = ({ materia_id }) => {
   const { typeInfo } = useAvailableType(path, unlockedPath);
 
   if (!path || !unlockedPath || !temas || !typeInfo || !user) {
-    return <div>Cargando...</div>; // Mostrar mensaje de carga si no hay datos disponibles
+    return <div className="container-cc loading-container"><Loading/></div>; // Mostrar mensaje de carga si no hay datos disponibles
   }
 
   // Formateo general del contenido
-  const formattedTopics = Object.entries(temas).map(([tema_id, { nombre, subtemas }]) => (    
+  const formattedTopics = Object.entries(temas).map(([tema_id, { nombre, subtemas }], index) => (
+    
     <TemaCard key={tema_id}
       title={nombre}
       children={
@@ -36,7 +40,7 @@ export const Path = ({ materia_id }) => {
   ));
 
   return (
-    <div className='container-cc'>
+    <div className="container-cc">
       <div className='path-container'>
         {formattedTopics}
       </div>

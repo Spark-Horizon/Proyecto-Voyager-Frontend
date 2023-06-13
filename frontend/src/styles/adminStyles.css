@@ -1,10 +1,19 @@
-#adminSignInForm {
+#adminSignInPage{
     background-image: url("../assets/img/bkgr_spaceBackground.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    height: 100vh;
+}
+#adminSignInForm {
+    height: calc(100vh - 50px);
+}
+
+#adminSignInForm form{
+    background: rgba( 30, 30, 30, 0.25 );
+    backdrop-filter: blur( 11px );
+    -webkit-backdrop-filter: blur( 11px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 #crudSection {
