@@ -17,38 +17,7 @@ export const Path = ({ materia_id }) => {
   }
 
   // Formateo general del contenido
-  const formattedTopics = Object.entries(temas).map(([tema_id, { nombre, subtemas }]) => (
-    /*<div key={tema_id}>
-      <h3>{nombre}</h3>
-      {subtemas.map((subtem) => (
-        <div key={subtem.id}>
-          <span style={setStyle(subtem.id)}>{subtem.nombre}</span>
-          <br />
-          {practice(subtem.id) ? (
-            <span>
-              MODO PRACTICA:
-              <br />
-            </span>
-          ) : null}
-          {goals(subtem.id, "mo")}
-          <br />
-          <Link
-            to={{ pathname: '/MOPage' }}
-            state={{ subtem: subtem.id, practice_mode: practice(subtem.id), path: path, materia: materia_id }}
-            style={available(subtem.id, "mo")}>
-            Opción Múltiple</Link>
-          <br />
-          {goals(subtem.id, "c")}
-          <br />
-          <Link
-            to={{ pathname: '/Compiler' }}
-            state={{ subtem: subtem.id, practice_mode: practice(subtem.id), path: path, materia: materia_id }}
-            style={available(subtem.id, "c")}>
-            Código</Link>
-        </div>
-      ))}
-    </div>*/
-    
+  const formattedTopics = Object.entries(temas).map(([tema_id, { nombre, subtemas }]) => (    
     <TemaCard key={tema_id}
       title={nombre}
       children={

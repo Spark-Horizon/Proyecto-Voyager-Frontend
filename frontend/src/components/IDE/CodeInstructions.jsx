@@ -1,10 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useGetTask } from '../../hooks/useGetTask.js';
-import { useGetPractica } from '../../hooks/useGetPractica.js';
-import { useAuth } from '../../hooks/AuthContext.js';
 import '../../styles/codeInstructions.css';
 
-export const CodeInstructions = ({ data, handleNext, submitFunc }) => {
+export const CodeInstructions = ({ data }) => {
   const { author, title, description, topic, difficulty, tests } = data;
   const difficultyClass = 'code-instructions-difficulty badge ' + difficulty;
 
