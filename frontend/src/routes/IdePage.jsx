@@ -15,23 +15,25 @@ import { submitPractica } from '../helpers/indexHelpers';
 
 import '../styles/idePage.css';
 import '../styles/Compiler.css';
+import { useAuth } from '../hooks/AuthContext';
 
 export const IdePage = () => {
+  const { user } = useAuth();
+  const user_id = user.id;
   const [driver, setDriver] = useState('');
   const [tests, setTests] = useState([]);
   const [driverFunc, setDriverFunc] = useState('')
 
   const [code, setCode] = useState('');
-  const [id, setId] = useState(0);
 
   // Variable de informacion almancenada para la ruta
   const location = useLocation().state
   const navigate = useNavigate()
   //settear problem id y buscar su practica
   const [problem_id, setProblemID] = useState("")
-  const { practica } = useGetPractica(location.subtem, "C")
+  const { practica } = useGetPractica(location.subtem, "C", user_id)
   // Hook de bloqueo de nivel
-  const { unlockedPath } = useGetUnlocked(location.materia)
+  const { unlockedPath } = useGetUnlocked(location.materia, user_id)
   const { typeInfo } = useAvailableType(location.path, unlockedPath)
   // Hook de modo practica
   const [practiceMode, setPracticeMode] = useState(location.practiceMode)

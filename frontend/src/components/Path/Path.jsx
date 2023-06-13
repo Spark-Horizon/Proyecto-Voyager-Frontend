@@ -12,7 +12,7 @@ export const Path = ({ materia_id }) => {
   const { unlockedPath } = useGetUnlocked(materia_id, user_id); // Obtener datos desbloqueados basados en el ID de la materia
   const { typeInfo } = useAvailableType(path, unlockedPath);
 
-  if (!path || !unlockedPath || !temas || !typeInfo) {
+  if (!path || !unlockedPath || !temas || !typeInfo || !user) {
     return <div>Cargando...</div>; // Mostrar mensaje de carga si no hay datos disponibles
   }
 

@@ -74,7 +74,7 @@ export const SubtemaCard = (props) => {
                 {goals(props.id, "c")}
                 <Link
                     to={{ pathname: '/Compiler' }}
-                    state={{ subtem: props.id }} //practicemode?
+                    state={{ subtem: props.id, practice_mode: practice(props.id), path:(props.path), materia: (props.materia)}}
                     style={available(props.id, "c")}>
                     Código
                 </Link>
