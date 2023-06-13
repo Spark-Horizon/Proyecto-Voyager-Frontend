@@ -7,12 +7,15 @@ export const useGetTask = (problem_id) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const archivo = await getTask(problem_id);
-                console.log("Ejercicio:", archivo);
-                setProblemData(archivo);
-            } catch (error) {
-                setError(error);
+            // Verifica que problem_id no sea null antes de hacer la llamada
+            if (problem_id) {
+                try {
+                    const archivo = await getTask(problem_id);
+                    console.log("Ejercicio:", archivo);
+                    setProblemData(archivo);
+                } catch (error) {
+                    setError(error);
+                }
             }
         };
 

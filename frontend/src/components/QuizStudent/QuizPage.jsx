@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFetchQuizStudent } from "../../hooks/QuizStudent/useFetchQuizStudent";
-import { CompilerPage } from './CompilerPage'; 
-import { MultipleOptionPage } from './MultipleOptionPage'; 
+import { CompilerPage } from './CompilerPage';
+import { MultipleOptionPage } from './MultipleOptionPage';
+import { useGetTask } from '../../hooks/useGetTask';
 
-export const QuizPage = ({ id_activity }) => {
-  const { data, isLoading, error } = useFetchQuizStudent(10);
+export const QuizPage = () => {
+  const { id_activity } = useParams();
+  const { data, isLoading, error } = useFetchQuizStudent(id_activity);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [id_ejercicio, setIDEjercicio] = useState(null)
+  const { data: taskData } = useGetTask(id_ejercicio)
+
+  useEffect(() => {
+    if (data && data.length > 0 && data[currentIndex] && data[currentIndex].id) {
+      const new_id = data[currentIndex].id
+      setIDEjercicio(new_id)
+    }
+  }, [data, currentIndex])
+
   const navigate = useNavigate();
 
-  if (isLoading) {
-    return <p>Loading...</p>;
+  if (isLoading || !taskData || id_ejercicio === null) {
+    console.log(isLoading, taskData, id_ejercicio);
+    return <p>Loading de quizPage...</p>;
   }
 
   if (error) {
@@ -21,25 +35,38 @@ export const QuizPage = ({ id_activity }) => {
     setCurrentIndex(currentIndex + 1);
   };
 
-  const handleFinish = () => {
-    navigate('/home'); // Asume que la ruta de inicio es '/home'
+  const submitFunc = (attempt_id, respuesta) => {
+    alert("submitted")
   };
 
-  const currentItem = data[currentIndex];
+  const handleFinish = () => {
+    navigate('/home');
+  };
+
+  // Calcula el número total de preguntas
+  const totalQuestions = data ? data.length : 0;
 
   return (
     <div>
-      <p>Ejercicio {currentIndex + 1} de {data.length}</p>
+      {/* ... (resto del código) ... */}
 
-      {currentItem.tipo === "Código" ? <CompilerPage id={currentItem.id} /> : 
-      currentItem.tipo === "Opción múltiple" ? <MultipleOptionPage id={currentItem.id} /> : 
-      null}
+      {data && data[currentIndex] && (data[currentIndex].tipo === "Código" ?
+        <CompilerPage id={id_ejercicio} /> :
+        data[currentIndex].tipo === "Opción múltiple" ?
+          <MultipleOptionPage
+            data={taskData}
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+            totalQuestions={totalQuestions} // Pasamos el total de preguntas
+            submitFunc={submitFunc}
+            handleFinish={handleFinish}
+          /> :
+          null)}
 
-      {currentIndex < data.length - 1 ? (
-        <button onClick={handleNext}>Siguiente</button>
-      ) : (
+      {currentIndex === data.length - 1 && (
         <button onClick={handleFinish}>Terminar y volver al inicio</button>
       )}
     </div>
   );
+
 }
