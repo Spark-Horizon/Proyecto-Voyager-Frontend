@@ -110,3 +110,7 @@
   align-items: center;
   margin-top: 20px;
 }
+
+#teacherActivityFormat .button-cell {
+  width: 150px;
+}

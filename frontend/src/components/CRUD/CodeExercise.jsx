@@ -5,7 +5,7 @@ import {useGetNameTask} from '../../hooks/useGetTeacherTask';
 
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
-import { getUpdateCodeExercise, getCreateCodeExercise } from '../../helpers/getCRUDTask';
+import { getUpdateAddCodeExercise, getUpdateCodeExercise, getCreateCodeExercise } from '../../helpers/getCRUDTask';
 
 export const CodeExercise = (props) => {
   const [subtemaOptions, setSubtemaOptions] = useState(props.subtema || '');
@@ -91,11 +91,35 @@ export const CodeExercise = (props) => {
     props.onAddExercise(addExercise);
   }
 
+  const edit = async (id, aprobado, subtema, author, title, description, difficulty, driver, tests) => {
+    try {
+      const id_exercise = await getUpdateAddCodeExercise(id, aprobado, 'Código', subtema, author, title, description, difficulty, driver, tests);
+    
+      if (id && subtema && author && title && description && difficulty && driver && tests) {
+        const editExercise = {
+          "id": id_exercise['actualizarincluirejercicio'],
+          "?column?": title,
+          "tipo": "Código",
+          "id_subtema": subtema.split(',')[0]
+        };
+        props.onEditExercise(props.index, editExercise);
+      }
+    } catch (error) {
+      // Handle the error appropriately
+      console.error(error);
+    }
+  }
+
+  const handleRealTimeEdition = (id, aprobado, subtema, author, title, description, difficulty, driver, tests) => (e) => {
+    e.preventDefault();
+    edit(id, aprobado, subtema, author, title, description, difficulty, driver, tests);
+  }
+
   if (!data_subtema || !data_dificultad) {
     return <div>Cargando...</div>;
   }
 
-  console.log(props.idDocente, props.id_autor, props.rol);
+  console.log(subtemaOptions);
 
   return (
     <div>
@@ -169,7 +193,7 @@ export const CodeExercise = (props) => {
                 id="subtema" 
                 value={subtemaOptions}
                 onChange={(e) => setSubtemaOptions(e.target.value)}>
-                <option value={props.subtema}></option>
+                <option value={props.subtema}>{props.subtema ? props.subtema.split(',')[1] : ''}</option>
                 {data_subtema.map((row) => (
                   <option key={row.id_subtema} value={row.id_subtema+","+row.nombre}>
                     {row.nombre}
@@ -260,10 +284,26 @@ export const CodeExercise = (props) => {
           </div>
         ))}
 
-        <div className="d-flex justify-content-between">
-          <button type="button" onClick={handleAddBlockCode} className="btn btn-primary">Añadir</button>
-          <button type="button" onClick={handleRemoveBlockCode} className="btn btn-primary btn-danger">Quitar</button>
-        </div>
+        {(props.idDocente === props.id_autor || props.rol === 'Administrador') && (
+          <div className="d-flex justify-content-between">
+            <button
+              type="button"
+              onClick={handleAddBlockCode}
+              className="btn btn-primary"
+            >
+              Añadir
+            </button>
+            {exerciseBlocksCode.length > 1 && (
+              <button
+                type="button"
+                onClick={handleRemoveBlockCode}
+                className="btn btn-primary btn-danger"
+              >
+                Quitar
+              </button>
+            )}
+          </div>
+        )}
 
         <div className="select next-back mt-5">
           <CustomButton
@@ -271,18 +311,21 @@ export const CodeExercise = (props) => {
             text={'Atrás'}
             func={handlePrevious}
           />
-          { props.edicion && props.rol === 'Docente' && (
+          { props.edicion && props.rol === 'Docente' && props.onCheckDup(props.id) &&(
             <CustomButton
               type={'btn btn-success'}
               text={'Agregar ejercicio'}
               func={handleAddition(props.id, titleOption, 'Código', subtemaOptions, )}
             />
           )}
+
           {props.edicion && (props.idDocente === props.id_autor || props.rol === 'Administrador') && (
             <CustomButton
               type={'btn btn-success'}
               text={'Editar ejercicio'}
-              func={handleEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode))}
+              func={props.fromActivity 
+                ? handleRealTimeEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode))
+                : handleEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, driverOption, JSON.stringify(exerciseBlocksCode))}
               disabled={
                 !titleOption.trim() ||
                 !authorOption.trim() ||
@@ -294,6 +337,7 @@ export const CodeExercise = (props) => {
               }
             />
           )}
+
           {!props.edicion && (
             <CustomButton
               type={'btn btn-success'}

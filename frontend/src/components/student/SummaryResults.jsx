@@ -25,10 +25,10 @@ export const SummaryResults = () => {
   }
 
   return (
-    <section id='activitiesPage' style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
+    <section id='activitiesPage' style={{ paddingTop: '2.5rem', paddingBottom: '2rem' }}>
       <div className="container">
         <div className="text-center">
-          <h1 className="mt-5 mb-4">Resumen de resultados</h1>
+          <h2 className="mt-5 mb-4">Resumen de resultados</h2>
           {dataSummary === null ? (
             <p>No hay registro de intentos o de tareas completadas</p>
           ) : (
