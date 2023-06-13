@@ -25,19 +25,19 @@ export const ResultTable = (props) => {
   const [filtroOptions, setFiltroOptions] = useState(['id_resultado']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const { data_exercise } = useGetExerciseTask(exerciseID);
-  const { data_result, error, refetchData } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions, props.rol, props.id);
-  const { data_autor } = useGetFilAutorTask();
-  const { data_subtema } = useGetFilSubtemaTask();
-  const { data_tipo } = useGetFilTipoTask();
-  const { data_dificultad } = useGetFilDificultadTask();
-  const { data_autorizacion } = useGetFilAutorizacionTask();
+  const { data_result, refetchData } = useGetCRUDTask(autorOptions, subtemaOptions, tipoOptions, dificultadOptions, autorizacionOptions, filtroOptions, hierOptions, props.rol, props.id);
+  const { data_autor, refetchDataAutor, loading_autor } = useGetFilAutorTask();
+  const { data_subtema, refetchDataSubtema } = useGetFilSubtemaTask();
+  const { data_tipo, refetchDataTipo } = useGetFilTipoTask();
+  const { data_dificultad, refetchDataDificultad } = useGetFilDificultadTask();
+  const { data_autorizacion, refetchDataAutorizacion } = useGetFilAutorizacionTask();
   
   const navigate = useNavigate();
   
   useEffect(() => {
     setDataResult(data_result);
   }, [data_result]);
-  
+
   useEffect(() => {
     if (data_exercise){
       setExerciseData(data_exercise);
@@ -55,6 +55,11 @@ export const ResultTable = (props) => {
       setExerciseID(null);
       setExerciseData(null);
       refetchData();
+      refetchDataAutor();
+      refetchDataAutorizacion();
+      refetchDataDificultad();
+      refetchDataSubtema();
+      refetchDataTipo();
     }
   }, [step]);
 
@@ -109,7 +114,7 @@ export const ResultTable = (props) => {
     props.onAddExercise(addExercise);
   }
 
-  if (!dataResult || !data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion) {
+  if (!dataResult || !data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion || loading_autor) {
     return <div>Cargando...</div>;
   }
   

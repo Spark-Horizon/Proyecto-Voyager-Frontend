@@ -16,7 +16,7 @@ export const useGetActivitiesTask = (id, order, hier) => {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [id, order, hier]);
 
     useEffect(() => {
       fetchData();
