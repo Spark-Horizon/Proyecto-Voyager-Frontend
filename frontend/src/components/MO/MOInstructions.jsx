@@ -13,7 +13,7 @@ export const MOInstructions = ({ problem_id, attempt_id, handleNext, available }
     const { data } = useGetTask(problem_id);
 
     if (!data) {
-        return <div className="container-cc loading-container"><Loading/></div>;
+        return <div className="container-cc vh-100 loading-container"><Loading/></div>;
     }
 
     const difficultyClass = 'code-instructions-difficulty badge ' + data.difficulty;

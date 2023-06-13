@@ -101,7 +101,7 @@ export const OMExercise = (props) => {
   }
 
   if (!data_subtema || !data_dificultad) {
-    return <div className="container-cc loading-container"><Loading/></div>
+    return <div className="container-cc vh-100 loading-container"><Loading/></div>
   }
 
   console.log(props.idDocente, props.id_autor, props.rol);

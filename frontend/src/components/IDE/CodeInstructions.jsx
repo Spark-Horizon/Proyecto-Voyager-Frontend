@@ -29,7 +29,6 @@ export const CodeInstructions = () => {
   if (!data) {
     return (
       <div className='loading-code-instructions'>
-        <p className='gradient'>Cargando...</p>
         <Loading/>
       </div>
     )
