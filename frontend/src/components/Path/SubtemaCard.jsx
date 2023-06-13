@@ -46,7 +46,7 @@ export const SubtemaCard = (props) => {
     return (
         <div
         className={
-            `mb-2 subtema-main-container
+            `subtema-main-container
             ${!hidden ? 'subtema-main-container-hidden' : ''}
             ${blocked(props.id) ? 'subtema-available' : 'subtema-blocked'}
             `}

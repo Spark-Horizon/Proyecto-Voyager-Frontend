@@ -1,11 +1,24 @@
 .tema-main-container{
-    width: 600px;
-    transition: all ease 400ms;
-    display: flex;
+    width: 100%;
+    transition: all ease 4s;
 }
-.tema-main-container h3:hover{
-    cursor: pointer;
+.tema-subtemas-container{
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .tema-main-container-hidden > .tema-subtemas-container {
     display: none;
+}
+.tema-card{
+    width: 100%;
+    border-radius: 10px;
+    transition: text-align 0.5s ease; /* Define la duración, el tiempo de transición y la función de aceleración */
+}
+.tema-card:hover{
+    cursor: pointer;
+}
+.tema-main-container-show h3{
+    text-align: center;
 }

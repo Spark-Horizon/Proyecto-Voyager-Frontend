@@ -6,6 +6,8 @@ import { TemaCard } from './TemaCard.jsx';
 import { SubtemaCard } from './SubtemaCard.jsx';
 import { Loading } from '../Loading.jsx';
 
+import '../../styles/Path/path.css'
+
 export const Path = ({ materia_id }) => {
   const { user } = useAuth();
   const user_id = user.id;
@@ -20,7 +22,7 @@ export const Path = ({ materia_id }) => {
   console.log(typeInfo);
 
   // Formateo general del contenido
-  const formattedTopics = Object.entries(temas).map(([tema_id, { nombre, subtemas }]) => (
+  const formattedTopics = Object.entries(temas).map(([tema_id, { nombre, subtemas }], index) => (
     
     <TemaCard key={tema_id}
       title={nombre}
@@ -39,7 +41,7 @@ export const Path = ({ materia_id }) => {
   ));
 
   return (
-    <div className='container-cc'>
+    <div className="container-cc">
       <div className='path-container'>
         {formattedTopics}
       </div>

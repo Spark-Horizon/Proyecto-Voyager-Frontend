@@ -7,11 +7,13 @@ export const TemaCard = (props) => {
 
     return (
         <div
-        className={`mb-4 tema-main-container ${!hidden ? 'tema-main-container-hidden' : ''}`}
+        className={`mb-3 tema-main-container ${!hidden ? 'tema-main-container-hidden' : 'tema-main-container-show'}`}
         >
-            
-            <h3 onClick={() => setHidden(!hidden)}>{props.title}</h3>
-            <div className="tema-subtemas-container">
+            <div className="tema-card"
+            onClick={() => setHidden(!hidden)}>
+                <h3>{props.title}</h3>
+            </div>
+            <div className="mt-3 tema-subtemas-container">
                 {props.children}
             </div>
             
