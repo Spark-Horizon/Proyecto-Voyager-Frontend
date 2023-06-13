@@ -5,7 +5,7 @@ import {useGetNameTask} from '../../hooks/useGetTeacherTask';
 
 import '../../styles/fonts.css';
 import '../../styles/buttons.css';
-import { getUpdateOMExercise, getCreateOMExercise } from '../../helpers/getCRUDTask';
+import { getUpdateAddOMExercise, getUpdateOMExercise, getCreateOMExercise } from '../../helpers/getCRUDTask';
 
 export const OMExercise = (props) => {
   const [subtemaOptions, setSubtemaOptions] = useState(props.subtema || '');
@@ -99,6 +99,30 @@ export const OMExercise = (props) => {
     props.onAddExercise(addExercise);
   }
 
+  const edit = async (id, aprobado, subtema, author, title, description, difficulty, answer, hints, options) => {
+    try {
+      const id_exercise = await getUpdateAddOMExercise(id, aprobado, 'Opción múltiple', subtema, author, title, description, difficulty, answer, hints, options);
+    
+      if (id && subtema && author && title && description && difficulty && answer && options) {
+        const editExercise = {
+          "id": id_exercise['actualizarincluirejercicio'],
+          "?column?": title,
+          "tipo": "Código",
+          "id_subtema": subtema.split(',')[0]
+        };
+        props.onEditExercise(props.index, editExercise);
+      }
+    } catch (error) {
+      // Handle the error appropriately
+      console.error(error);
+    }
+  }
+
+  const handleRealTimeEdition = (id, aprobado, subtema, author, title, description, difficulty, answer, hints, options) => (e) => {
+    e.preventDefault();
+    edit(id, aprobado, subtema, author, title, description, difficulty, answer, hints, options);
+  }
+
   if (!data_subtema || !data_dificultad) {
     return <div>Cargando...</div>;
   }
@@ -177,7 +201,7 @@ export const OMExercise = (props) => {
                 id="subtema" 
                 value={subtemaOptions}
                 onChange={(e) => setSubtemaOptions(e.target.value)}>
-                <option value={props.subtema}></option>
+                <option value={props.subtema}>{props.subtema ? props.subtema.split(',')[1] : ''}</option>
                 {data_subtema.map((row) => (
                   <option key={row.id_subtema} value={row.id_subtema+","+row.nombre}>
                     {row.nombre}
@@ -284,10 +308,26 @@ export const OMExercise = (props) => {
           </div>
         ))}
 
-        <div className="d-flex justify-content-between">
-          <button type="button" onClick={handleAddBlockOM} className="btn btn-primary">Añadir</button>
-          <button type="button" onClick={handleRemoveBlockOM} className="btn btn-primary btn-danger">Quitar</button>
-        </div>
+        {(props.idDocente === props.id_autor || props.rol === 'Administrador') && (
+          <div className="d-flex justify-content-between">
+            <button
+              type="button"
+              onClick={handleAddBlockOM}
+              className="btn btn-primary"
+            >
+              Añadir
+            </button>
+            {exerciseBlocksOM.length > 1 && (
+              <button
+                type="button"
+                onClick={handleRemoveBlockOM}
+                className="btn btn-primary btn-danger"
+              >
+                Quitar
+              </button>
+            )}
+          </div>
+        )}
     
         <div className="select next-back mt-5">
           <CustomButton
@@ -295,11 +335,17 @@ export const OMExercise = (props) => {
               text={'Atrás'}
               func={handlePrevious}
           />
-          { props.edicion && props.rol === 'Docente' && (
+
+          { props.edicion && props.rol === 'Docente' && props.onCheckDup(props.id) && (
             <CustomButton
-                type={'btn btn-success'}
-                text={'Agregar ejercicio'}
-                func={handleAddition(props.id, titleOption, 'Opción múltiple', subtemaOptions, )}
+              type={'btn btn-success'}
+              text={'Agregar ejercicio'}
+              func={handleAddition(
+                props.id,
+                titleOption,
+                'Opción múltiple',
+                subtemaOptions
+              )}
             />
           )}
 
@@ -307,7 +353,9 @@ export const OMExercise = (props) => {
             <CustomButton
                 type={'btn btn-success'}
                 text={'Editar ejercicio'}
-                func={handleEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM))}
+                func={props.fromActivity 
+                  ? handleRealTimeEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM)) 
+                  : handleEdition(props.id, aprobadoOption, subtemaOptions, authorOption, titleOption, descriptionOption, difficultyOption, answerOption, hintsOption, JSON.stringify(exerciseBlocksOM))}
                 disabled={
                   !titleOption.trim() ||
                   !authorOption.trim() ||
@@ -319,6 +367,7 @@ export const OMExercise = (props) => {
                 }
             />
           )}
+
           {!props.edicion && (
             <CustomButton
                 type={'btn btn-success'}

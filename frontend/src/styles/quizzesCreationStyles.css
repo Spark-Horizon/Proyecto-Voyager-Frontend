@@ -73,6 +73,14 @@
   margin-top: 10px;
 }
 
+#teacherQuizSection .form-select optgroup option {
+  color: black;
+}
+
+#teacherQuizSection .form-select optgroup {
+  color: black;
+}
+
 #teacherActivityFormat {
   width: 50%;
   margin: 0 auto;
@@ -101,4 +109,8 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+}
+
+#teacherActivityFormat .button-cell {
+  width: 150px;
 }

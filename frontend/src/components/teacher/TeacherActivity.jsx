@@ -21,9 +21,7 @@ export const TeacherActivity = (props) => {
   const [activityData, setActivityData] = useState(null);
   const { data_activity } = useGetActivityTask(activityID);
   const [activityExData, setActivityExData] = useState(null);
-  const [editBlocks, setEditBlocks] = useState(null);
-  const [editCheck, setEditCheck] = useState(false);
-  const { data_activity_exercises, loading_activityEx, refetchDataActivityExercises } = useGetActivityExercises(activityID);
+  const { data_activity_exercises, loading_activityEx } = useGetActivityExercises(activityID);
 
   const [exerciseID, setExerciseID] = useState(null);
   const [exerciseData, setExerciseData] = useState(null);
@@ -33,7 +31,7 @@ export const TeacherActivity = (props) => {
   const [titleOption, setTitleOption] = useState(activityData ? activityData['titulo'] : '');
   const [inicioOption, setInicioOption] = useState(activityData ? activityData['inicio'] : '');
   const [finOption, setFinOption] = useState(activityData ? activityData['fin'] : '');
-  const [numIntentosOption, setNumIntentosOption] = useState(activityData ? activityData['intentos'] : -1);
+  const [numIntentosOption, setNumIntentosOption] = useState(activityData ? activityData['intentos'] : '1');
   const [bloqueoOption, setBloqueoOption] = useState(activityData ? activityData['bloqueo'] : false);
   const [visibleOption, setVisibleOption] = useState(activityData ? activityData['disponible'] : false);
   const [disponibleOption, setDisponibleOption] = useState(activityData ? activityData['visible'] : false);
@@ -41,9 +39,10 @@ export const TeacherActivity = (props) => {
   const [filtroOptions, setFiltroOptions] = useState(['id']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const [dataResult, setDataResult] = useState(['']);
-  const { data_activities, refetchDataActivities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
+  const { data_activities, refetchDataActivities, loading_activities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
 
   const handleMoveRowDown = (index) => {
+    
     if (index < activityExData.length - 1) {
       const reorderedBlocks = [...activityExData];
       const temp = reorderedBlocks[index];
@@ -55,8 +54,10 @@ export const TeacherActivity = (props) => {
 
   //useEffect de la vista general de todas las actividades
   useEffect(() => {
-    setDataResult(data_activities);
-  }, [data_activities]);
+    if (data_activities && !loading_activities){
+      setDataResult(data_activities);
+    }
+  }, [data_activities, loading_activities]);
 
   //useEffect de la vista de una actividad en particular
   useEffect(() => {
@@ -67,12 +68,12 @@ export const TeacherActivity = (props) => {
 
   //useEffect de los ejercicios de una vista de una actividad en particular
   useEffect(() => {
-    if (data_activity_exercises){
-      console.log("Actualizado...");
+    if (data_activity_exercises && !loading_activityEx){
+      //console.log("Actualizado...");
       setActivityExData(data_activity_exercises);
-      console.log(activityExData);
+      //console.log(activityExData);
     }
-  }, [data_activity_exercises]);
+  }, [data_activity_exercises, loading_activityEx]);
 
   //useEffect para dar el siguiente step cuando la informacion de la actividad se actualiza
   useEffect(() => {
@@ -90,6 +91,7 @@ export const TeacherActivity = (props) => {
 
   //useEffect para reiniciar los estados de la informacion de una actividad cuando vuelve a la pantalla inicial
   useEffect(() => {
+    
     if (step === 1){
       setActivityID(null);
       setActivityData(null);
@@ -97,7 +99,7 @@ export const TeacherActivity = (props) => {
       setTitleOption('');
       setInicioOption('');
       setFinOption('');
-      setNumIntentosOption(-1);
+      setNumIntentosOption('1');
       setBloqueoOption(false);
       setVisibleOption(false);
       setDisponibleOption(false);
@@ -105,9 +107,17 @@ export const TeacherActivity = (props) => {
     }
   }, [step]);
 
+  useEffect(() => {
+    if (step === 2){
+      //console.log("acaba en 4");
+      setExerciseID(null);
+      setExerciseData(null);
+    }
+  }, [step]);
+
   //useEffect de la vista de un ejercicio en particular
   useEffect(() => {
-    if (data_exercise && !loading_activityEx){
+    if (data_exercise){
       setExerciseData(data_exercise);
     }
   }, [data_exercise]);
@@ -119,47 +129,31 @@ export const TeacherActivity = (props) => {
     }
   }, [exerciseData]);
 
-  useEffect(() => {
-    if (editCheck){
-      setEditCheck(false);
-      console.log("... y merge!");
-      console.log("Actualmente, la información de la BD es:", activityExData);
-      console.log("Actualmente, la información adaptada es:", editBlocks);
-      
-      if (editBlocks){
-        const resultingBlocks = [...new Set([...editBlocks , ...activityExData])]
-        setActivityExData(resultingBlocks);
-        setEditBlocks(null);
-      }
-      else{
-        const resultingBlocks = [...activityExData]
-        setActivityExData(resultingBlocks);
-      }
-      console.log("Por último, la información final es:", activityExData);
-    }
-  }, [activityExData])
-
   const handleTitle = (titulo) => {
-    setTitleOption(titulo);
+    setTitleOption(titulo.length == 0 ? " " : titulo)
   };
 
   const handleInicio = (inicio) => {
+    
     setInicioOption(inicio);
   };
 
   const handleFin = (fin) => {
+    
     setFinOption(fin);
   };
 
   const handleIntentos = (intentos) => {
-    setNumIntentosOption(intentos);
+    setNumIntentosOption(intentos.length == 0 ? " " : intentos)
   };
 
   const handleBloqueo = (bloqueo) => {
+    
     setBloqueoOption(bloqueo);
   };
 
   const handleVisible = (visible) => {
+    
     setVisibleOption(visible);
   };
 
@@ -174,6 +168,7 @@ export const TeacherActivity = (props) => {
   };
   
   const handleNextStep = () => {
+    console.log("webos")
     setStep(step + 1);
     setShowCreatePopup(false);
     setShowUpdatePopup(false);
@@ -185,10 +180,11 @@ export const TeacherActivity = (props) => {
   };
 
   const handleUpdateExercise = () => {
+    //console.log("empieza 2");
     setStep(2);
-    setShowEditExercisePopup(true);
+    setShowEditExercisePopup(true);  
+    //console.log("termina 2");
   };
-
 
   const handleCreateActivity = () => {
     setStep(1);
@@ -199,17 +195,6 @@ export const TeacherActivity = (props) => {
     setStep(1);
     setShowUpdatePopup(true);
   };
-
-  //useEffect para reiniciar los estados de la informacion de un ejercicio cuando vuelve a la pantalla inicial
-  useEffect(() => {
-    if (step === 2){
-      setExerciseID(null);
-      setExerciseData(null);
-      if (editCheck){
-        refetchDataActivityExercises();
-      }
-    }
-  }, [step]);
 
   const handleStatusExercise = (id_hand, tipo_hand, index) => {
     setEditStatus(tipo_hand);
@@ -233,6 +218,7 @@ export const TeacherActivity = (props) => {
   };
 
   const handlePrevStepFour = () => {
+    
     setStep(step - 1);
     if (step == 4)
       setEditStatus('Normal');
@@ -241,6 +227,7 @@ export const TeacherActivity = (props) => {
   };
 
   const handlePrevStepFive = () => {
+    
     setStep(step - 1);
     if (step == 5)
       setEditStatus('Específico');
@@ -249,6 +236,7 @@ export const TeacherActivity = (props) => {
   };
 
   const handlePopupClose = () => {
+    
     setShowCreatePopup(false);
     setShowUpdatePopup(false);
     setShowSaveExercisePopup(false);
@@ -256,11 +244,23 @@ export const TeacherActivity = (props) => {
   };
 
   const handleEdition = (id_hand) => (e) => {
+    
     setActivityID(id_hand);
+  }
+
+  const handlePreventDup = (id_hand) => {
+    if (!activityExData){
+      return true;
+    }
+    if (activityExData.map(item => item.id).includes(id_hand)){
+      return false;
+    }
+    return true;
   }
 
   const handleDeletion = (id_hand) => (e) => {
     e.preventDefault();
+    
     if (window.confirm("¿Estás seguro de que deseas borrar esta actividad?")) {
       getDeleteActivity(id_hand);
       const newDataResult = dataResult.filter(row => row.id !== id_hand);
@@ -269,26 +269,31 @@ export const TeacherActivity = (props) => {
   }
 
   const formatDate = (dateString) => {
+    
     const date = new Date(dateString);
     return date.toLocaleString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
   };
 
   const handleAddExercise = (exerciseInfo) => {
-      const updatedBlocks = activityExData ? [...activityExData] : [];
-      updatedBlocks.push(exerciseInfo);
-      setActivityExData(updatedBlocks);
-      handleSaveExercise()
+    
+    const updatedBlocks = activityExData ? [...activityExData] : [];
+    updatedBlocks.push(exerciseInfo);
+    setActivityExData(updatedBlocks);
+    handleSaveExercise()
   };
 
-  const handleEditExercise = (index) => {
-    const tempBlocks = [...activityExData];
-    tempBlocks.splice(index, 1)
-    setEditBlocks(tempBlocks);
-    setEditCheck(true);
-    handleUpdateExercise();
+  const handleEditExercise = (index, exerciseInfo) => {
+    
+    //console.log("empieza 1");
+    const updatedBlocks = activityExData ? [...activityExData] : [];
+    updatedBlocks[index] = exerciseInfo;
+    setActivityExData(updatedBlocks);
+    handleUpdateExercise()
+    //console.log("termina 1");
   };
   
   const handleDeleteRow = (index) => {
+    
     const confirmed = window.confirm('¿Estás seguro de que deseas borrar este ejercicio?');
     if (confirmed) {
       const updatedBlocks = [...activityExData];
@@ -298,6 +303,7 @@ export const TeacherActivity = (props) => {
   };
   
   const handleMoveRowUp = (index) => {
+    
     if (index > 0) {
       const reorderedBlocks = [...activityExData];
       const temp = reorderedBlocks[index];
@@ -310,8 +316,6 @@ export const TeacherActivity = (props) => {
   if (!dataResult || !data_activities) {
     return <div>Cargando...</div>;
   }
-
-  console.log("La información al momento", activityExData);
 
   return (
     <section id="teacherQuizSection">
@@ -531,6 +535,8 @@ export const TeacherActivity = (props) => {
               rol={'Docente'}
               onAddExercise = {handleAddExercise}
               onEditExercise = {handleEditExercise}
+              onCheckDup = {handlePreventDup}
+              fromActivity = {true}
             />
           </form>
         </section>  
@@ -558,6 +564,8 @@ export const TeacherActivity = (props) => {
               rol={'Docente'}
               onAddExercise = {handleAddExercise}
               onEditExercise = {handleEditExercise}
+              onCheckDup = {handlePreventDup}
+              fromActivity = {true}
             />
           </form>
         </section>  
@@ -571,7 +579,6 @@ export const TeacherActivity = (props) => {
               subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
               difficulty={exerciseData['archivo']['difficulty']}
               tipo={exerciseData['archivo']['type']}
-              onExerciseAdd={handleSaveExercise}
               onStep={handlePrevStepFour}
               onAddExercise = {handleAddExercise}
               onEditExercise = {handleEditExercise}
@@ -582,7 +589,6 @@ export const TeacherActivity = (props) => {
           )}
           {(!exerciseID || !exerciseData) && (
             <RandomExercise
-              onExerciseAdd={handleSaveExercise}
               onStep={handlePrevStepFour}
               onAddExercise = {handleAddExercise}
               onEditExercise = {handleEditExercise}
@@ -637,6 +643,7 @@ export const TeacherActivity = (props) => {
             id={props.id}
             rol={'Docente'}
             onAddExercise = {handleAddExercise}
+            onCheckDup = {handlePreventDup}
           />
         </div>
       )}

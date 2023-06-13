@@ -7,10 +7,13 @@ import { useAvailableType } from "../hooks/useAvailableType";
 import { useGetUnlocked } from "../hooks/useGetUnlocked";
 import { useGetTask } from "../hooks/useGetTask";
 import { submitPractica } from "../helpers/indexHelpers";
+import { useAuth } from "../hooks/AuthContext";
 
 import '../styles/moPage.css'
 
 export const MOPage = () => {
+    //const { user } = useAuth();
+    //const user_id = user.id;
     // Variable de informacion almacenada para la ruta
     const location = useLocation().state
     const navigate = useNavigate()

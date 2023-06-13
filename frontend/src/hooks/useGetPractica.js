@@ -1,7 +1,7 @@
 import { getPractica } from "../helpers/indexHelpers.js";
 import { useState, useEffect } from 'react';
 
-export const useGetPractica = (subtema_id, task_type) => {
+export const useGetPractica = (subtema_id, task_type, user_id) => {
     const [ practica, setPractica ] = useState(null);
     const [error, setError] = useState(null);
 
@@ -9,7 +9,7 @@ export const useGetPractica = (subtema_id, task_type) => {
         if (subtema_id) {
             const fetchData = async () => {
                 try {
-                    const path = await getPractica(subtema_id, task_type);
+                    const path = await getPractica(subtema_id, task_type, user_id);
                     setPractica(path[0]);
                     //console.log("returned path: ", path[0]);
                 } catch (error) {
@@ -21,7 +21,7 @@ export const useGetPractica = (subtema_id, task_type) => {
             fetchData();
         }
 
-    }, [subtema_id, task_type]);
+    }, [subtema_id, task_type, user_id]);
 
     return { practica, error };
 }

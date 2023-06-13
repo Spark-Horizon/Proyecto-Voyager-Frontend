@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { Modal, Button, Form } from 'react-bootstrap';
 import { createGroup, getSubjects, enterGroup } from '../../helpers/Groups/api';
+import { useAuth } from "../../hooks/AuthContext";
 
 //A modal is something that is over the main screen
-export const NewGroupModal = ({ user, show, onHide, onGroupCreated }) => {
+export const NewGroupModal = ({ show, onHide, onGroupCreated }) => {
+
+    const { user } = useAuth();
+
     //Create state variable for form data
     const [groupData, setGroupData] = useState({
         idMateriaGrupo: '',

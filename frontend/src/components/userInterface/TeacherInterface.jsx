@@ -1,7 +1,10 @@
 import { CustomNavbar } from "../CustomNavbar";
 import { UserDropdown } from '../UserDropdown';
+import { useAuth } from '../../hooks/AuthContext';
 
-export const TeacherInterface = ({user}) => {
+export const TeacherInterface = () => {
+
+  const { user } = useAuth();
 
   // Links y componentes de Navbar
   const navbar = {

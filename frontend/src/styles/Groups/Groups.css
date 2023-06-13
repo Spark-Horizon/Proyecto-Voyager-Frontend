@@ -1,35 +1,61 @@
-.groups-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-gap: 20px;
-    padding: 20px;
-  }
-  
-  .group-card {
-    position: relative;
-    padding: 20px;
-    color: white;
-  }
-  
-  .group-delete {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    border: none;
-    background: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .new-group-button {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    border: none;
-    padding: 10px 20px;
-    background: var(--primary-color);
-    color: var(--secondary-color);
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+#groupsPage {
+  transition: all ease 0.5s;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#groupsPage .container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 10rem);
+}
+
+#groupsPage .groups-title-container {
+  font-weight: bold;
+  padding-left: 8rem;
+}
+
+#groupsPage .group-button {
+  padding-left: 9rem;
+  padding-bottom: 0.5rem;
+}
+
+#groupsPage .grupos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+#groupsPage .grupos > div {
+  padding: 1rem;
+  display: flex;
+  border-radius: 15px;
+  background: rgba(30, 30, 30, 0.25) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
+  backdrop-filter: blur(11px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+#groupsPage .grupos .card-title {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f0f0f0 !important;
+}
+
+#groupsPage .grupos .card-text {
+  color: #f0f0f0 !important;
+}
+
+#groupsPage .grupos .bottom-section {
+  margin-top: 1rem;
+}
+
+#groupsPage .grupos .top-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

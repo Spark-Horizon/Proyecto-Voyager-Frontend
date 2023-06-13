@@ -2,9 +2,8 @@ import axios from "axios";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL
 const port = process.env.REACT_APP_BACKEND_PORT
-const user_id = "A01732008"
 
-export const getUnlocked = async (materia_id) => {
+export const getUnlocked = async (materia_id, user_id) => {
     try {
       const options = {
         method: "get",

@@ -1,0 +1,32 @@
+.subtema-main-container{
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all ease 400ms;
+}
+.subtema-main-container-hidden > .subtema-info-container {
+    display: none;
+}
+.subtema-available{
+    background: rgba(0, 30, 95, 0.25);
+    backdrop-filter: blur( 11px );
+    -webkit-backdrop-filter: blur( 11px );
+}
+.subtema-available:hover{
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+}
+.subtema-available span:hover{
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    color: var(--light-blue);
+    cursor: pointer;
+}
+.subtema-blocked{
+    background: rgba(12, 12, 12, 0.25);
+    backdrop-filter: blur( 11px );
+}
+.subtema-blocked span{
+    color: rgb(66, 66, 66);
+}
+.subtema-main-container span{
+    width: 100%;
+}

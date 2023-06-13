@@ -7,10 +7,11 @@ import { useAuth } from '../hooks/AuthContext';
 
 import '../styles/studentPage.css';
 
-export const HomePage = ({user}) => {
+export const HomePage = () => {
 
   // Obtiene las funcionalidades proporcionadas por el contexto de autenticación
   const { logout } = useAuth();
+  const { user } = useAuth();
   
   // Obtiene la función navigate para redireccionar a otras páginas
   const navigate = useNavigate();
@@ -36,15 +37,15 @@ export const HomePage = ({user}) => {
   switch(user.role){
     case 'student':
       return (
-        <StudentInterface user={user}/>
+        <StudentInterface/>
       )
     case 'teacher':
       return (
-        <TeacherInterface user={user}/>
+        <TeacherInterface/>
       )
     case 'admin':
       return(
-        <AdminInterface user={user}/>
+        <AdminInterface/>
       )
     default:
       return(

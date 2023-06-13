@@ -81,6 +81,97 @@ export const getCreateAddRandomExercise = async (tipo, subtema, difficulty) => {
   }
 };
 
+export const getUpdateAddCodeExercise = async (id, autorizado, tipo, subtema, author, title, description, difficulty, driver, tests) => {
+  try {
+    const options = {
+      method: "post",
+      url: `http://${backendUrl}:${port}/CRUD/update/add/code`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        id: id,
+        autorizado: autorizado,
+        tipo: tipo,
+        subtema: subtema.split(','),
+        author: author,
+        title: title,
+        description: description,
+        difficulty: difficulty,
+        driver: driver,
+        tests: tests,
+      },
+    };
+
+    const response = await axios(options);
+    
+    return response.data[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  } 
+};
+
+export const getUpdateAddOMExercise = async (id, autorizado, tipo, subtema, author, title, description, difficulty, answer, hints, options) => {
+
+  try {
+    const optionsAx = {
+      method: "post",
+      url: `http://${backendUrl}:${port}/CRUD/update/add/om`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        id: id,
+        autorizado: autorizado,
+        tipo: tipo,
+        subtema: subtema.split(','),
+        author: author,
+        title: title,
+        description: description,
+        difficulty: difficulty,
+        answer: answer,
+        hints: hints,
+        options: options,
+      },
+    };
+
+    const response = await axios(optionsAx);
+    
+    return response.data[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getUpdateAddRandomExercise = async (id, tipo, subtema, difficulty) => {
+  try {
+    const optionsAx = {
+      method: "post",
+      url: `http://${backendUrl}:${port}/CRUD/update/add/random`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        id: id,
+        tipo: tipo,
+        subtema: subtema.split(','),
+        difficulty: difficulty,
+      },
+    };
+
+    console.log(optionsAx.data);
+
+    const response = await axios(optionsAx);
+    
+    return response.data[0];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getFilAutorTask = async () => {
   try {
     const options = {
