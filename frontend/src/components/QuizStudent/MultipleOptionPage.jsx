@@ -2,7 +2,7 @@ import { CustomButton } from '../CustomButton'
 import { useState } from "react";
 // import { Loading } from '../Loading';
 
-import '../../styles/codeInstructions.css';
+import '../../styles/ide/codeInstructions.css';
 
 export const MultipleOptionPage = ({ data, currentIndex, setCurrentIndex, totalQuestions, submitFunc, handleFinish }) => {
     console.log("INFO MOPAGE DATA:", data);
