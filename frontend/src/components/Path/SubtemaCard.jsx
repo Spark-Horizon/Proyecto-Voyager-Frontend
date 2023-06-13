@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import '../../styles/Path/subtemaCard.css'
 
 export const SubtemaCard = (props) => {
-
     const typeInfo = props.typeInfo;
     const unlockedPath = props.unlockedPath;
 
@@ -16,7 +15,11 @@ export const SubtemaCard = (props) => {
 
     // Estilo de link segun el subtema haya sido superado o no
     const practice = (id_subtem) => {
-        return unlockedPath.find(item => item.id_subtema === id_subtem && item.superado)
+        if(unlockedPath.find(item => item.id_subtema === id_subtem && item.superado === true)){
+            return true
+        }else{
+            return false
+        }
     }
 
     // Mostrar racha (user/tema) y requeridos (user/tema)
@@ -65,7 +68,7 @@ export const SubtemaCard = (props) => {
                 {goals(props.id, "mo")}
                 <Link
                     to={{ pathname: '/MOPage' }}
-                    state={{ subtem: props.id, practice_mode: props.practice, available: typeInfo[props.id]["mo"].available }}
+                    state={{ subtem: props.id, practice_mode: practice(props.id), path:(props.path), materia: (props.materia)}}
                     style={available(props.id, "mo")}>
                     Opción Múltiple</Link>
                 {goals(props.id, "c")}

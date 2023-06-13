@@ -12,22 +12,22 @@ import { useAuth } from "../hooks/AuthContext";
 import '../styles/moPage.css'
 
 export const MOPage = () => {
-    //const { user } = useAuth();
-    //const user_id = user.id;
+    const { user } = useAuth();
+    const user_id = user.id;
     // Variable de informacion almacenada para la ruta
     const location = useLocation().state
     const navigate = useNavigate()
     // Settear problem id y buscar su practica
     const [problem_id, setProblemID] = useState("");
-    const { practica } = useGetPractica(location.subtem, "MO");
+    const { practica } = useGetPractica(location.subtem, "MO", user_id);
     // Hook de bloqueo de nivel
-    const { unlockedPath } = useGetUnlocked(location.materia);
+    const { unlockedPath } = useGetUnlocked(location.materia, user_id);
     const { typeInfo } = useAvailableType(location.path, unlockedPath);
     // Hook de modo practica
-    const [practiceMode, setPracticeMode] = useState(location.practiceMode);
+    const [practiceMode, setPracticeMode] = useState(location.practice_mode);
     // Hook de ejercicio
     const { data } = useGetTask(problem_id)
-
+    
     // Cambiar el ejercicio
     useEffect(() => {
         if (practica != null) {
@@ -35,25 +35,30 @@ export const MOPage = () => {
             setProblemID(problemID);
         }
     }, [practica]);
-
+    
     // Cambiar el modo practica
     useEffect(() => {
         if (unlockedPath != null) {
-            const actualMode = unlockedPath.find(item => item.id_subtema === location.subtem && item.superado)
+            let actualMode
+            if(unlockedPath.find(item => item.id_subtema === location.subtem && item.superado === true)){
+                actualMode = true
+            }else{
+                actualMode = false
+            }
             setPracticeMode(actualMode)
         }
     }, [unlockedPath])
-
+    
     // Esperar a cargar la informacion de los hooks
-    if (!practica || !typeInfo || !unlockedPath || !data) {
+    if (!practica || !typeInfo || !unlockedPath || !data || !user) {
         return <div>Cargando...</div>
     }
-
+    
     // Funcion para el boton de submit
     const submitFunc = (respuesta) => {
         submitPractica(practica.id, respuesta)
     }
-
+    
     // Funcion para el boton de siguiente
     const handleNext = () => {
         if (typeInfo[location.subtem]["mo"].available === false) {
@@ -62,7 +67,7 @@ export const MOPage = () => {
             window.location.reload(); // Recargar la página
         }
     };
-
+    
     const handleRender = () => {
         if (!typeInfo[location.subtem]["mo"].available && !practiceMode) {
             return (
@@ -92,12 +97,12 @@ export const MOPage = () => {
                         <MOInstructions data={data} handleNext={handleNext} submitFunc={submitFunc} />
                     </div>
                 )
-            )
+                )
+            }
         }
-    }
-
-    return (
-        <div className="mo-route-container">
+        
+        return (
+            <div className="mo-route-container">
             <div className="mopage-main-container container-cc">
                 {handleRender()}
             </div>

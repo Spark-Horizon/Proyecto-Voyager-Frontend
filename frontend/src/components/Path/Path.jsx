@@ -16,8 +16,6 @@ export const Path = ({ materia_id }) => {
     return <div>Cargando...</div>; // Mostrar mensaje de carga si no hay datos disponibles
   }
 
-  console.log(unlockedPath);
-
   // Formateo general del contenido
   const formattedTopics = Object.entries(temas).map(([tema_id, { nombre, subtemas }]) => (
     /*<div key={tema_id}>
@@ -60,6 +58,8 @@ export const Path = ({ materia_id }) => {
             unlockedPath={unlockedPath}
             id={subtem.id}
             title={subtem.nombre}
+            path={path}
+            materia={materia_id}
           />
         ))
       }
