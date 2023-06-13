@@ -136,7 +136,7 @@ export const SignUp = (props) => {
 
         <div className="container-cc startSection">
           
-          <form onSubmit={handleSignUp}>
+          <form className='custom-form' onSubmit={handleSignUp}>
 
             {step === 1 && (
               <div>

@@ -9,7 +9,11 @@ export const Compiler = ({ setCode, initialCode }) => {
         language="python"
         value={initialCode}
         onChange={(newValue, e) => {
-          setCode(newValue);
+          try {
+            setCode(newValue);
+          } catch (error) {
+            console.error(error);
+          }
         }}
         options={{
           theme: 'vs-dark',

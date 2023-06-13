@@ -13,8 +13,8 @@ import { useGetUnlocked } from '../hooks/useGetUnlocked';
 import { useGetTask } from '../hooks/useGetTask';
 import { submitPractica } from '../helpers/indexHelpers';
 
-import '../styles/idePage.css';
-import '../styles/Compiler.css';
+import '../styles/ide/idePage.css';
+import '../styles/ide/compiler.css';
 import { useAuth } from '../hooks/AuthContext';
 
 export const IdePage = () => {

@@ -1,5 +1,5 @@
 import { Loading } from '../Loading.jsx';
-import '../../styles/codeInstructions.css';
+import '../../styles/ide/codeInstructions.css';
 
 export const CodeInstructions = ({data}) => {
   if (!data) {

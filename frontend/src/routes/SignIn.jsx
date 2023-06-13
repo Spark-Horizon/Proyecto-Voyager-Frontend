@@ -47,7 +47,7 @@ export const SignIn = () => {
           <div className="img">
               <img className='"img-fluid"' id='marsImage' src={require('../assets/img/image-mars.png')} alt="marsImage" />
           </div>
-          <form>
+          <form className='custom-form'>
 
             <div className="form-group">
               <label htmlFor="email" className="text-center">Correo electrónico</label>

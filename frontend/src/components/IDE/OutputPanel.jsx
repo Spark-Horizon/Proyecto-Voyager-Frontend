@@ -47,7 +47,6 @@ export const OutputPanel = ({
     }
   };
   
-
   const submitCode = async () => {
     const runData = {
       code: code,
@@ -58,7 +57,6 @@ export const OutputPanel = ({
       try {
         setSubmitIsLoading(true);
         seTsubmitPressed(true)
-        console.log('puta madre')
         await fetchSubmissionData(`http://${backendUrl}:${port}/compiler/problem/run`, 'post', runData);
       } catch (error) {
         console.log(error)
@@ -115,7 +113,6 @@ export const OutputPanel = ({
         </div>
       </div>
       <TestCases tests={testsData} />
-      <Console stdOut={stdOut || stdErr || compInfo} />
     </div>
   );
 };
