@@ -109,7 +109,7 @@ export const IdePage = () => {
       )
     } else {
       return (
-        <div className='ide-route-container'>
+        <div className='ide-route-container vh-100'>
           <CustomNavbar />
           <div className="idepage-main-container">
             {practiceMode ? (
