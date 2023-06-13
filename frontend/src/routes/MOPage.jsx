@@ -104,9 +104,7 @@ export const MOPage = () => {
         
         return (
             <div className="mo-route-container">
-            <div className="mopage-main-container container-cc">
                 {handleRender()}
-            </div>
-        </div >
+            </div >
     )
 }
