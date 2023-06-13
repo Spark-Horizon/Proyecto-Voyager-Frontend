@@ -1,5 +1,5 @@
 /* MAIN CONTAINER */
-.main-background {
+.teacher-page {
     background-image: url('../../assets/img/bkgr_spaceBackground.jpg');
 }
 
@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 5px 20px 20px 20px;
 }
 
 .main-professor-dash-header {
@@ -23,7 +23,7 @@
 }
 
 .main-header {
-    font-size: 26px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -33,7 +33,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 30px;
+    padding: 10px 30px 30px 30px;
 }
 
 .loading {

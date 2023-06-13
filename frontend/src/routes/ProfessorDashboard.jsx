@@ -3,13 +3,12 @@ import React from 'react'
 import { useState } from 'react';
 import { PDSHPanel } from '../components/P_DASHBOARD/PDSHPanel';
 import { PDSHSidebar } from '../components/P_DASHBOARD/PDSHSidebar';
-
-
-import '../styles/professor_dashboard/professorDashboard.css';
+import { useAuth } from '../hooks/AuthContext';
 
 export const ProfessorDashboard = () => {
   const [panelComponent, setPanelComponent] = useState(0);
-  const professorId = 'L01732008';
+  const { user } = useAuth();
+  const professorId = user.id;
   
   return (
     <div className='main-background'>
