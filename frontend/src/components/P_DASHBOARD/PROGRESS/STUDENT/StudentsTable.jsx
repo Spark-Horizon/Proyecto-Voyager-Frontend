@@ -43,7 +43,7 @@ export const StudentsTable = ({
   return (
     <>
       <PDSHPanelTemplate
-        title={'Estudiantes'}
+        title={`Estudiantes del grupo ${groupId}`}
         canReturn={true}
         changeParentView={changeGrandparentView}
         previousComponentIndex={0}

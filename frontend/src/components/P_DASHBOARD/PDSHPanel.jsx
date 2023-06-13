@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Groups } from './Groups';
 import { Progress } from './Progress';
+import { Groups as GroupsCreation } from '../Groups/Groups';
 
 import { useDashboardView } from '../../hooks/useDashboardView';
 
@@ -18,7 +19,8 @@ export const PDSHPanel = ({index, professorId}) => {
       />,
       <Progress
         professorId={professorId}
-      />
+      />,
+      <GroupsCreation />
     ]);
   }, [])
 
