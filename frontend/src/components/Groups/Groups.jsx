@@ -123,12 +123,12 @@ export const Groups = () => {
       );
     } else {
       return (
-        <>
+        <div className="startSection">
           <Button onClick={() => setIdMateria(null)} className="mb-3">
             Regresar
           </Button>
           <PathPage materia_id={idMateria} />
-        </>
+        </div>
       );
     }
   }
