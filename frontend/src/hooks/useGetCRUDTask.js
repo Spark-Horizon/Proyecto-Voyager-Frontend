@@ -76,101 +76,105 @@ export const useGetExerciseTask = (problem_id) => {
 export const useGetFilAutorTask = () => {
     const [data_autor, setProblemData] = useState(null);
     const [error, setError] = useState(null);
+    const [loading_autor, setLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = useCallback(async () => {
             try {
+                setLoading(true);
                 const resultado = await getFilAutorTask();
                 setProblemData(resultado);
             } catch (error) {
                 setError(error);
+            } finally {
+                setLoading(false);
             }
-        };
+        }, []);
 
+    useEffect(() => {
         fetchData();
-    }, []);
-
-    return { data_autor, error };
+      }, [fetchData]);
+    
+    return { data_autor, error, refetchDataAutor: fetchData, loading_autor };
 }
 
 export const useGetFilSubtemaTask = () => {
     const [data_subtema, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = useCallback(async () => {
             try {
                 const resultado = await getFilSubtemaTask();
                 setProblemData(resultado);
             } catch (error) {
                 setError(error);
             }
-        };
+        }, []);
 
+    useEffect(() => {
         fetchData();
-    }, []);
-
-    return { data_subtema, error };
+      }, [fetchData]);
+    
+    return { data_subtema, error, refetchDataSubtema: fetchData };
 }
 
 export const useGetFilTipoTask = () => {
     const [data_tipo, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = useCallback(async () => {
             try {
                 const resultado = await getFilTipoTask();
                 setProblemData(resultado);
             } catch (error) {
                 setError(error);
             }
-        };
+        }, []);
 
-        fetchData();
-    }, []);
+        useEffect(() => {
+            fetchData();
+          }, [fetchData]);
 
-    return { data_tipo, error };
+    return { data_tipo, error, refetchDataTipo: fetchData };
 }
 
 export const useGetFilDificultadTask = () => {
     const [data_dificultad, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = useCallback(async () => {
             try {
                 const resultado = await getFilDificultadTask();
                 setProblemData(resultado);
             } catch (error) {
                 setError(error);
             }
-        };
+        }, []);
 
-        fetchData();
-    }, []);
+        useEffect(() => {
+            fetchData();
+          }, [fetchData]);
 
-    return { data_dificultad, error };
+    return { data_dificultad, error, refetchDataDificultad: fetchData };
 }
 
 export const useGetFilAutorizacionTask = () => {
     const [data_autorizacion, setProblemData] = useState(null);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = useCallback(async () => {
             try {
                 const resultado = await getFilAutorizacionTask();
                 setProblemData(resultado);
             } catch (error) {
                 setError(error);
             }
-        };
+        }, []);
+        
+        useEffect(() => {
+            fetchData();
+          }, [fetchData]);
 
-        fetchData();
-    }, []);
-
-    return { data_autorizacion, error };
+    return { data_autorizacion, error, refetchDataAutorizacion: fetchData };
 }
 
 export const useGetDeleteExercise = (id) => {
