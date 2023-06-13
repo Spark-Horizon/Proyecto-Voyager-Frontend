@@ -161,6 +161,32 @@
   content: 'Run';
 }
 
+.next {
+  outline:none;
+  margin-left: 15px;
+  height: 100%;
+  text-align: center;
+  width: 80px;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid rgb(51, 222, 68);
+  color: rgb(51, 222, 68);
+  text-shadow: 0;
+  font-size: 13px;
+  font-weight: lighter;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.next::after {
+  content: 'Siguiente';
+}
+
+.next:hover {
+  background-color: rgb(51, 222, 68);
+  color: #fff;
+}
+
 .submit {
   outline:none;
   height: 100%;

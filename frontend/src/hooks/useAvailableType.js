@@ -8,7 +8,7 @@ export const useAvailableType = (path, unlockedPath) => {
         const unlocked = unlockedPath.find(item => item.id_subtema === id)
         if(unlocked != null){
             if (!unlocked.superado) {
-                if (rc === urc || rq === urq) {
+                if (rc <= urc || rq <= urq) {
                     return false
                 } else {
                     return true
