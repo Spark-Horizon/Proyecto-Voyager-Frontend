@@ -2,24 +2,24 @@ import { getIntento } from '../../helpers/quizStudent/getIntento';
 import { useState, useEffect } from 'react';
 
 export const useGetIntento = (user_id, activity_id) => {
-    const [ intento, setIntento ] = useState(null);
+    const [intento, setIntento] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (user_id && activity_id) {
+        console.log("USEGENTINTENTOOOO>>", user_id, activity_id);
+        if (user_id != null && activity_id != null) {
             const fetchData = async () => {
                 try {
                     const new_intento = await getIntento(user_id, activity_id);
-                    setIntento(new_intento[0]);
-                    //console.log("returned path: ", path[0]);
+                    setIntento(new_intento);
                 } catch (error) {
                     console.log(error)
                     setError(error);
                 }
-            };
+            }
 
             fetchData();
-        }
+        };
 
     }, [user_id, activity_id]);
 

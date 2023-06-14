@@ -11,26 +11,29 @@ import { submitRespuesta } from '../../helpers/quizStudent/submitRespuesta';
 export const QuizPage = () => {
   const { user } = useAuth();
   const user_id = user.id;
+  const navigate = useNavigate();
   const { id_activity } = useParams();
+  console.log(user_id, id_activity);
   const { intento } = useGetIntento(user_id, id_activity)
-  const { data, isLoading, error } = useFetchQuizStudent(id_activity);
+  const { data, isLoading, error } = useFetchQuizStudent(9);
   const [currentIndex, setCurrentIndex] = useState(0);
-  console.log('Esta es la data: ', data);
 
   const [id_ejercicio, setIDEjercicio] = useState(null)
+  const [tipo, setTipo] = useState(null)
   const { data: taskData } = useGetTask(id_ejercicio)
 
   useEffect(() => {
-    if (data && data.length > 0 && data[currentIndex] && data[currentIndex].id) {
+    if (data != null) {
+      console.log("/////////////", data[currentIndex]);
       const new_id = data[currentIndex].id
+      const new_tipo = data[currentIndex].tipo
       setIDEjercicio(new_id)
+      setTipo(new_tipo)
+      console.log("CURRENTINDEX>>>", currentIndex);
     }
-  }, [data, currentIndex])
+  }, [currentIndex])
 
-  const navigate = useNavigate();
-
-  if (isLoading || !taskData || id_ejercicio === null || !intento || !user) {
-    console.log(isLoading, taskData, id_ejercicio);
+  if (isLoading || !taskData || !id_ejercicio || !intento || !user || !data || !id_activity) {
     return <p>Loading de quizPage...</p>;
   }
 
@@ -55,19 +58,35 @@ export const QuizPage = () => {
     }
   };
 
+  const handleRender = () => {
+    if (tipo === "Código") {
+      return (
+        <div>
+          <p>Ejercicio {currentIndex + 1} de {data.length}</p>
+          <CompilerPage
+            data={taskData}
+            submitFunc={submitFunc}
+            handleNextQuestion={handleNextQuestion}
+          />
+        </div>
+      )
+    } else if (tipo === "Opción múltiple") {
+      return (
+        <div>
+          <p>Ejercicio {currentIndex + 1} de {data.length}</p>
+          <MultipleOptionPage
+            data={taskData}
+            submitFunc={submitFunc}
+            handleNextQuestion={handleNextQuestion}
+          />
+        </div>
+      )
+    }
+  }
+
   return (
     <div>
-      <p>Ejercicio {currentIndex + 1} de {data.length}</p>
-
-      {data && data[currentIndex] && (data[currentIndex].tipo === "Código" ? 
-        <CompilerPage id={id_ejercicio} /> : 
-        data[currentIndex].tipo === "Opción múltiple" ? 
-        <MultipleOptionPage 
-          data={taskData} 
-          submitFunc={submitFunc}
-          handleNextQuestion={handleNextQuestion}
-        /> : 
-      null)}
+      {handleRender()}
 
       {currentIndex === data.length - 1 && (
         <button onClick={handleFinish}>Terminar y volver al inicio</button>

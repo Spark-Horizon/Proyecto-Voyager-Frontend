@@ -5,26 +5,28 @@ import { Loading } from '../Loading';
 import '../../styles/ide/codeInstructions.css';
 import '../../styles/moPage.css'
 
-export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion }) => {
+export const MultipleOptionPage = ({ id, data, submitFunc, handleNextQuestion }) => {
     const [selectedOption, setSelectedOption] = useState(""); //Opcion seleccionada
 
     // Funcion para el boton de submit
     const handleSubmit = () => {
         if (selectedOption === data.options[data.answer].text) {
+            console.log("CLICKED");
+            handleNextQuestion();
             submitFunc({ respuesta: selectedOption, correcto: true })
             alert("Respuesta correcta.")
-            handleNextQuestion();
         } else if (selectedOption === "") {
             alert("Por favor selecciona una respuesta.")
         } else {
+            console.log("CLICKED");
+            handleNextQuestion();
             submitFunc({ respuesta: selectedOption, correcto: false })
             alert("Respuesta incorrecta.")
-            handleNextQuestion();
         }
     }
 
     if (!data) {
-        return <div className="container-cc vh-100 loading-container"><Loading/></div>;
+        return <div className="container-cc vh-100 loading-container"><Loading /></div>;
     }
 
     const difficultyClass = 'code-instructions-difficulty badge ' + data.difficulty;

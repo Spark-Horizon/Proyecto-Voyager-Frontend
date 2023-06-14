@@ -4,12 +4,12 @@ import axios from 'axios';
 const backendUrl = process.env.REACT_APP_BACKEND_URL
 const port = process.env.REACT_APP_BACKEND_PORT
 
-export const useFetchQuizStudent = (id_activity) => {
+export const useFetchQuizStudent = (intento) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  const url = `http://${backendUrl}:${port}/quizStudent/${id_activity}`
+  const url = `http://${backendUrl}:${port}/quizStudent/${intento}`
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -24,7 +24,7 @@ export const useFetchQuizStudent = (id_activity) => {
     }
 
     fetchQuiz();
-  }, [id_activity]);
+  }, [intento]);
 
   return { data, isLoading, error };
 }
