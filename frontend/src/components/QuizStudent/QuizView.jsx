@@ -13,6 +13,7 @@ export const QuizView = () => {
   const [taskData, setTaskData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDataReady, setIsDataReady] = useState(false);
+  const navigate = Navigate()
 
   const { data, isLoading: quizIsLoading, error } = useFetchQuizStudent(19);
 
@@ -43,7 +44,7 @@ export const QuizView = () => {
 
   const handleFinish = () => {
     submitIntento(19)
-    // navigate('/home');
+    navigate('/home');
   };
 
   const handleNextQuestion = () => {
