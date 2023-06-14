@@ -4,6 +4,7 @@ import { getTask } from '../../helpers/indexHelpers';
 import { CompilerPage } from './CompilerPage';
 import { MultipleOptionPage } from './MultipleOptionPage';
 import { submitRespuesta } from '../../helpers/quizStudent/submitRespuesta';
+import { submitIntento } from '../../helpers/quizStudent/submitIntento';
 import { Navigate } from 'react-router-dom';
 
 export const QuizView = () => {
@@ -13,7 +14,7 @@ export const QuizView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isDataReady, setIsDataReady] = useState(false);
 
-  const { data, isLoading: quizIsLoading, error } = useFetchQuizStudent(17);
+  const { data, isLoading: quizIsLoading, error } = useFetchQuizStudent(19);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +42,7 @@ export const QuizView = () => {
   };
 
   const handleFinish = () => {
+    submitIntento(19)
     // navigate('/home');
   };
 
