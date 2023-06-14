@@ -4,11 +4,17 @@ import { useFetchQuizStudent } from "../../hooks/QuizStudent/useFetchQuizStudent
 import { CompilerPage } from './CompilerPage';
 import { MultipleOptionPage } from './MultipleOptionPage';
 import { useGetTask } from '../../hooks/useGetTask';
+import { useGetIntento } from '../../hooks/QuizStudent/useGetIntento';
+import { useAuth } from '../../hooks/AuthContext';
 
 export const QuizPage = () => {
+  const { user } = useAuth();
+  const user_id = user.id;
   const { id_activity } = useParams();
+  const { intento } = useGetIntento(user_id, id_activity)
   const { data, isLoading, error } = useFetchQuizStudent(id_activity);
   const [currentIndex, setCurrentIndex] = useState(0);
+  console.log(intento);
 
   const [id_ejercicio, setIDEjercicio] = useState(null)
   const { data: taskData } = useGetTask(id_ejercicio)
@@ -22,7 +28,7 @@ export const QuizPage = () => {
 
   const navigate = useNavigate();
 
-  if (isLoading || !taskData || id_ejercicio === null) {
+  if (isLoading || !taskData || id_ejercicio === null || !intento || !user) {
     console.log(isLoading, taskData, id_ejercicio);
     return <p>Loading de quizPage...</p>;
   }

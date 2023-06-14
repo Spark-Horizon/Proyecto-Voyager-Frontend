@@ -3,6 +3,7 @@ import { useState } from "react";
 // import { Loading } from '../Loading';
 
 import '../../styles/ide/codeInstructions.css';
+import '../../styles/moPage.css'
 
 export const MultipleOptionPage = ({ data, currentIndex, setCurrentIndex, totalQuestions, submitFunc, handleFinish }) => {
     console.log("INFO MOPAGE DATA:", data);
@@ -29,13 +30,13 @@ export const MultipleOptionPage = ({ data, currentIndex, setCurrentIndex, totalQ
     // Añade esta función para manejar el paso a la siguiente pregunta
     const handleNextQuestion = () => {
         if (currentIndex < totalQuestions - 1) { // Ahora usamos totalQuestions
-          setCurrentIndex(currentIndex + 1);
-          setSelectedOption(""); // Resetea la opción seleccionada
-          setShowNextButton(false); // Oculta el botón siguiente
+            setCurrentIndex(currentIndex + 1);
+            setSelectedOption(""); // Resetea la opción seleccionada
+            setShowNextButton(false); // Oculta el botón siguiente
         } else {
-          handleFinish(); // Si es la última pregunta, termina el cuestionario
+            handleFinish(); // Si es la última pregunta, termina el cuestionario
         }
-      }
+    }
 
     if (!data) {
         //return <div className="container-cc vh-100 loading-container"><Loading/></div>;
@@ -52,30 +53,32 @@ export const MultipleOptionPage = ({ data, currentIndex, setCurrentIndex, totalQ
     ))
 
     return (
-        <div className="mo-instructions">
-            <p className="code-instructions-topic">{data.topic}</p>
-            <div className="mo-instructions-content">
-                <div className="mo-instructions-info">
-                    <div className="code-instructions-title">
-                        <h3>{data.title}</h3>
-                        {/* <span className={difficultyClass}>{data.difficulty}</span> */}
+        <div className="mopage-main-container container-cc">
+            <div className="mo-instructions">
+                <p className="code-instructions-topic">{data.topic}</p>
+                <div className="mo-instructions-content">
+                    <div className="mo-instructions-info">
+                        <div className="code-instructions-title">
+                            <h3>{data.title}</h3>
+                            {/* <span className={difficultyClass}>{data.difficulty}</span> */}
+                        </div>
+                        <div className="mo-instructions-description mb-4">
+                            {data.description}
+                        </div>
                     </div>
-                    <div className="mo-instructions-description mb-4">
-                        {data.description}
+                    <div className="mo-instructions-options mb-4">
+                        <fieldset className="options-field">
+                            <p className="fw-bold">Selecciona la respuesta correcta:</p>
+                            <div>{formattedOptions}</div>
+                        </fieldset>
                     </div>
-                </div>
-                <div className="mo-instructions-options mb-4">
-                    <fieldset className="options-field">
-                        <p className="fw-bold">Selecciona la respuesta correcta:</p>
-                        <div>{formattedOptions}</div>
-                    </fieldset>
-                </div>
-                <div className="mo-instructions-submit container-cc">
-                    {!showNextButton ? (
-                        <CustomButton type='btn' text={'Submit'} func={handleSubmit} />
-                    ) : (
-                        <CustomButton type='btn' text={'Siguiente'} func={handleNextQuestion} />
-                    )}
+                    <div className="mo-instructions-submit container-cc">
+                        {!showNextButton ? (
+                            <CustomButton type='btn' text={'Submit'} func={handleSubmit} />
+                        ) : (
+                            <CustomButton type='btn' text={'Siguiente'} func={handleNextQuestion} />
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
