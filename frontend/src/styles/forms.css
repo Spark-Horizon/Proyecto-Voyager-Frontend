@@ -17,6 +17,11 @@
     color: var(--warning-color);
     font-size: 0.8rem;
 }
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0) inset; /* Establece un sombreado blanco para anular el estilo predeterminado */
+    -webkit-text-fill-color: var(--light-blue); /* Establece el color del texto para anular el estilo predeterminado */
+}
+
 #adminSignInForm .form-group input,
 #signInForm .form-group input,
 #signUpForm .form-group input,
@@ -129,6 +134,15 @@
 #resetPasswordForm #astronautImage {
     height: 100%;
     width: 100%;
+}
+
+#resetPswdForm{
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.resetPswd-container{
+    align-items: center !important;
 }
 
 @keyframes up-down {
