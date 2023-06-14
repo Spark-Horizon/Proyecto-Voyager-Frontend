@@ -1,6 +1,6 @@
 import { CustomButton } from '../CustomButton'
 import { useState } from "react";
-// import { Loading } from '../Loading';
+import { Loading } from '../Loading';
 
 import '../../styles/ide/codeInstructions.css';
 import '../../styles/moPage.css'
@@ -24,8 +24,7 @@ export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion }) => 
     }
 
     if (!data) {
-        //return <div className="container-cc vh-100 loading-container"><Loading/></div>;
-        return <div>Cargando...</div>
+        return <div className="container-cc vh-100 loading-container"><Loading/></div>;
     }
 
     const difficultyClass = 'code-instructions-difficulty badge ' + data.difficulty;
@@ -45,7 +44,7 @@ export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion }) => 
                     <div className="mo-instructions-info">
                         <div className="code-instructions-title">
                             <h3>{data.title}</h3>
-                            {/* <span className={difficultyClass}>{data.difficulty}</span> */}
+                            <span className={difficultyClass}>{data.difficulty}</span>
                         </div>
                         <div className="mo-instructions-description mb-4">
                             {data.description}
