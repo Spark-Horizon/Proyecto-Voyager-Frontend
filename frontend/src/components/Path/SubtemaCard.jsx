@@ -4,6 +4,7 @@ import { CustomButton } from "../CustomButton";
 
 import { ReactComponent as StrikeActive } from '../../assets/svg/icons/strikeStar1.svg';
 import { ReactComponent as StrikeBlocked } from '../../assets/svg/icons/strikeStar2.svg';
+import { ReactComponent as Practice } from '../../assets/svg/icons/practice.svg';
 
 import '../../styles/Path/subtemaCard.css'
 
@@ -108,9 +109,9 @@ export const SubtemaCard = (props) => {
             </div>
             <div className="subtema-info-container">
                 {practice(props.id) ? (
-                    <span>
-                    MODO PRACTICA:
-                    </span>
+                    <div className="practice-svg container-cc">
+                        <Practice/>
+                    </div>
                 ) : null}
                 <div className="select">
                     <div className="btnResize excercise-link">

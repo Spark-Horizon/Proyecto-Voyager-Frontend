@@ -70,4 +70,16 @@
         text-align: center;
     }
 }
-
+.practice-svg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    width: 45px;
+    margin-right: 1rem;
+}
+.practice-svg svg{
+    height: 80%;
+    width: 100%;
+    fill: linear-gradient();
+}
