@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useGetActSummaryTask } from '../../hooks/useGetStudentTask';
 import { useAuth } from '../../hooks/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 import '../../styles/activitiesStyles.css';
 import { QuizAttempt } from '../QuizAttempt/QuizAttempt';
 import { PDSHPanelTemplate } from '../P_DASHBOARD/PDSHPanelTemplate';
+import { CustomButton } from '../CustomButton';
 
 export const SummaryResults = () => {
 
@@ -15,6 +17,12 @@ export const SummaryResults = () => {
   const { data_summary } = useGetActSummaryTask(user.id);
 
   const [currentAttempt, setCurrentAttempt] = useState(null);
+
+  const navigate = useNavigate();
+
+  const optionalItems = [
+    <CustomButton text={"Nuevo intento"} type={"btn btnPrimary"} disabled={currentAttempt ? currentAttempt.disponible : true} func={() => navigate(`/quizPage/${currentAttempt.id}`)}/>
+  ];
 
   useEffect(() => {
     setDataSummary(data_summary);
@@ -28,7 +36,7 @@ export const SummaryResults = () => {
   return (
     <>
       {currentAttempt ? (
-        <PDSHPanelTemplate title={currentAttempt.titulo} canReturn={true} hasCustomReturn={true} customReturn={() => setCurrentAttempt(null)} />
+        <PDSHPanelTemplate title={currentAttempt.titulo} canReturn={true} hasCustomReturn={true} customReturn={() => setCurrentAttempt(null)} optionalItems={optionalItems}/>
       ) : (
         <PDSHPanelTemplate title={'Resumen de resultados'} />
       )}
@@ -39,7 +47,7 @@ export const SummaryResults = () => {
               <p>No hay registro de intentos o de tareas completadas</p>
             ) : (
               currentAttempt ? (
-                <QuizAttempt act={currentHomework} handleBack={() => setCurrentAttempt(null)}/>
+                <QuizAttempt act={currentHomework}/>
               ) : (
                 <div className="card-container-wrapper">
                   <div className="card-container">

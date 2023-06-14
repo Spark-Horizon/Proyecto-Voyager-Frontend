@@ -8,6 +8,22 @@ export const AttemptCard = ({ eventKey, attempt }) => {
     setIsOpen(!isOpen);
   };
 
+  function formatearFechaHora(cadenaFechaHora) {
+    const fechaHora = new Date(cadenaFechaHora);
+    const dia = agregarCero(fechaHora.getUTCDate());
+    const mes = agregarCero(fechaHora.getUTCMonth() + 1);
+    const año = fechaHora.getUTCFullYear();
+    const horas = agregarCero(fechaHora.getUTCHours());
+    const minutos = agregarCero(fechaHora.getUTCMinutes());
+    const segundos = agregarCero(fechaHora.getUTCSeconds());
+  
+    return cadenaFechaHora ? `${dia}/${mes}/${año}, ${horas}:${minutos}:${segundos}` : 'En progreso';
+  }
+
+  function agregarCero(numero) {
+    return numero < 10 ? `0${numero}` : numero;
+  }
+
   return (
     <Card className="attempt-card">
       <Card.Header>
@@ -17,8 +33,8 @@ export const AttemptCard = ({ eventKey, attempt }) => {
       </Card.Header>
       {isOpen && (
         <Card.Body>
-          <Card.Text>Inicio: {attempt.inicio}</Card.Text>
-          <Card.Text>Fin: {attempt.fin}</Card.Text>
+          <Card.Text>Inicio: {formatearFechaHora(attempt.inicio)}</Card.Text>
+          <Card.Text>Fin: {formatearFechaHora(attempt.fin)}</Card.Text>
           <Card.Text>Respuestas Correctas: {attempt.correctos}</Card.Text>
           <Card.Text>Respuestas Incorrectas: {attempt.incorrectos}</Card.Text>
           {attempt.answers.respuestas.map((respuesta, index) => (
