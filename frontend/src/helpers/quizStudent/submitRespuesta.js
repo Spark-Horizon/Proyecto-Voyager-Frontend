@@ -3,7 +3,7 @@ import axios from "axios";
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const port = process.env.REACT_APP_BACKEND_PORT
 
-export const submitRespuesta = async (id_intento, answer) => {
+export const submitRespuesta = async (id_respuesta, answer) => {
     try {
         const options = {
             method: "post",
@@ -11,7 +11,7 @@ export const submitRespuesta = async (id_intento, answer) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            data: {id_respuesta: id_intento, answer: JSON.stringify(answer)}
+            data: {id_respuesta: id_respuesta, answer: JSON.stringify(answer)}
         }
 
         const response = await axios(options)
