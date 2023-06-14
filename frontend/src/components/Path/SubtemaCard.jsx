@@ -42,7 +42,7 @@ export const SubtemaCard = (props) => {
     // Rachas
     const generarStrikes = (n) => {
         const strikes = [];
-        const empty = 4 - n;
+        const empty = 5 - n;
 
         for (let i = 0; i < n; i++) {
             strikes.push(<StrikeActive key={i}/>);
@@ -57,7 +57,9 @@ export const SubtemaCard = (props) => {
     // Mostrar racha (user/tema)
     const racha = (id_subtem, type) => {
         let strike = (typeInfo[id_subtem][type].uRacha / typeInfo[id_subtem][type].racha) * 100
-        if (strike >= 80) {
+        if (strike === 100) {
+            strike = 5;
+        } else if (strike >= 80) {
             strike = 4;
         } else if (strike >= 60) {
             strike = 3;

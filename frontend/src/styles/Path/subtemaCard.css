@@ -58,7 +58,7 @@
 .subtema-main-container-show span{
     font-size: 18px;
 }
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 1115px) {
     .subtema-main-container {
         flex-direction: column;
     }
