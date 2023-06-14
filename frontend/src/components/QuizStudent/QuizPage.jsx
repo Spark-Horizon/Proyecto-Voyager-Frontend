@@ -20,7 +20,6 @@ export const QuizPage = () => {
 
   const [id_ejercicio, setIDEjercicio] = useState(null)
   const [tipo, setTipo] = useState(null)
-  const { data: taskData } = useGetTask(id_ejercicio)
 
   useEffect(() => {
     if (data != null) {

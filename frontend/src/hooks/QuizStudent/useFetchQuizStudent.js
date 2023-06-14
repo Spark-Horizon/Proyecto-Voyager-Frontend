@@ -15,6 +15,9 @@ export const useFetchQuizStudent = (intento) => {
     const fetchQuiz = async () => {
       try {
         const response = await axios.get(url);
+
+        console.log('RESPONSE DATA', response.data);
+
         setData(response.data);
         setIsLoading(false);
       } catch (error) {

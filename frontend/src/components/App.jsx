@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { PrivateRoute, LandingPage, IdePage, SignIn, SignUp, HomePage, MOPage, ResetPassword, AdminSignIn, TeacherQuizzes } from '../routes/indexRoutes';
 import { AuthProvider } from '../hooks/AuthContext';
-import { QuizPage } from './QuizStudent/QuizPage';
+import { QuizView } from './QuizStudent/QuizView';
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
         <Route path='/quizpage/:id_activity'
           element={
             <PrivateRoute logged={true} link='/home'>
-              <QuizPage />
+              <QuizView />
             </PrivateRoute>
           }
         />

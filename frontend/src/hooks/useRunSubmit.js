@@ -24,9 +24,9 @@ export const useRunSubmit = () => {
 
         setIsLoading(false);
         
-        const { compInfo, stdout, stderr, testsInfo } = responseData;
+        const { cmpInfo, stdout, stderr, testsInfo } = responseData;
         
-        setCompInfo(compInfo);
+        setCompInfo(cmpInfo);
         setStdOut(stdout);
         setStdErr(stderr);
         setTestsData(testsInfo);
