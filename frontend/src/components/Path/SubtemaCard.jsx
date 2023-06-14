@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
+import { CustomButton } from "../CustomButton";
+
 import '../../styles/Path/subtemaCard.css'
 
 export const SubtemaCard = (props) => {
     const typeInfo = props.typeInfo;
     const unlockedPath = props.unlockedPath;
-
-    const [hidden, setHidden] = useState(false);
 
     // Estilo del subtema segun este disponible o no
     const blocked = (id_subtem) => {
@@ -24,11 +24,21 @@ export const SubtemaCard = (props) => {
 
     // Mostrar racha (user/tema) y requeridos (user/tema)
     const goals = (id_subtem, type) => {
+        let racha = (typeInfo[id_subtem][type].uRacha / typeInfo[id_subtem][type].racha) * 100
+        let requeridos = (typeInfo[id_subtem][type].uRequeridos / typeInfo[id_subtem][type].requeridos) * 100
         return (
-        <span>
-            Racha: {typeInfo[id_subtem][type].uRacha}/{typeInfo[id_subtem][type].racha}
-            Requeridos: {typeInfo[id_subtem][type].uRequeridos}/{typeInfo[id_subtem][type].requeridos}
-        </span>
+            <div className="goals">
+                <div className="subtema-racha">
+                    <div class="progress" role="progressbar" aria-label="Example 20px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{ height: '5px' }}>
+                        <div class="progress-bar" style={{ width: racha + '%' }}/>
+                    </div>
+                </div>
+                <div className="subtema-requeridos">
+                    <div class="progress" role="progressbar" aria-label="Example 20px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{ height: '5px' }}>
+                        <div class="progress-bar" style={{ width: requeridos + '%' }}/>
+                    </div>
+                </div>
+            </div>
         )
     }
 
@@ -50,13 +60,10 @@ export const SubtemaCard = (props) => {
         <div
         className={
             `subtema-main-container
-            ${!hidden ? 'subtema-main-container-hidden' : ''}
             ${blocked(props.id) ? 'subtema-available' : 'subtema-blocked'}
             `}
         >
-            <span
-            onClick={()=> blocked(props.id) && setHidden(!hidden)}
-            >
+            <span>
                 {props.title}
             </span>
             <div className="subtema-info-container">
@@ -65,49 +72,27 @@ export const SubtemaCard = (props) => {
                     MODO PRACTICA:
                     </span>
                 ) : null}
-                {goals(props.id, "mo")}
-                <Link
-                    to={{ pathname: '/MOPage' }}
-                    state={{ subtem: props.id, practice_mode: practice(props.id), path:(props.path), materia: (props.materia)}}
-                    style={available(props.id, "mo")}>
-                    Opción Múltiple</Link>
-                {goals(props.id, "c")}
-                <Link
-                    to={{ pathname: '/Compiler' }}
-                    state={{ subtem: props.id, practice_mode: practice(props.id), path:(props.path), materia: (props.materia)}}
-                    style={available(props.id, "c")}>
-                    Código
-                </Link>
+                <div className="select">
+                    <div className="btnResize excercise-link">
+                        {goals(props.id, "mo")}
+                        <Link
+                            to={{ pathname: '/MOPage' }}
+                            state={{ subtem: props.id, practice_mode: practice(props.id), path:(props.path), materia: (props.materia)}}
+                            style={available(props.id, "mo")}>
+                            <CustomButton text={"Opción Múltiple"} type={"btn btn-sm btnPrimary selectBtn"}/>
+                        </Link>
+                    </div>
+                    <div className="btnResize excercise-link">
+                        {goals(props.id, "c")}
+                        <Link
+                            to={{ pathname: '/Compiler' }}
+                            state={{ subtem: props.id, practice_mode: practice(props.id), path:(props.path), materia: (props.materia)}}
+                            style={available(props.id, "c")}>
+                            <CustomButton text={"Código"} type={"btn btn-sm btnPrimary selectBtn"}/>
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
     )
 }
-
-/*
-<div>
-    <span style={setStyle(subtem.id)}>{subtem.nombre}</span>
-    <br />
-    {practice(subtem.id) ? (
-        <span>
-        MODO PRACTICA:
-        <br />
-        </span>
-    ) : null}
-    {goals(subtem.id, "mo")}
-    <br />
-    <Link
-        to={{ pathname: '/MOPage' }}
-        state={{ subtem: subtem.id, practice_mode: practice(subtem.id), available: typeInfo[subtem.id]["mo"].available }}
-        style={available(subtem.id, "mo")}>
-        Opción Múltiple</Link>
-    <br />
-    {goals(subtem.id, "c")}
-    <br />
-    <Link
-        to={{ pathname: '/Compiler' }}
-        state={{ subtem: subtem.id }} //practicemode?
-        style={available(subtem.id, "c")}>
-        Código
-    </Link>
-</div>
-*/

@@ -2,6 +2,7 @@
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     padding: 1rem;
     transition: all ease 400ms;
+    display: flex;
 }
 .subtema-main-container-hidden > .subtema-info-container {
     display: none;
@@ -11,7 +12,7 @@
     -webkit-backdrop-filter: blur( 11px );
 }
 .subtema-available:hover{
-    background-color: var(--middle-blue);
+    background-color: rgb(52, 52, 52);
     cursor: pointer;
 }
 .subtema-blocked{
@@ -21,7 +22,20 @@
 .subtema-blocked span{
     color: rgb(68, 68, 68);
 }
+.subtema-blocked .subtema-info-container{
+    display: none;
+}
 .subtema-main-container span{
     display: block;
+    width: 100%;
+}
+.subtema-info-container{
+    display: flex;
+}
+.excercise-link{
+    width: 200px;
+    text-align: center;
+}
+.selectBtn{
     width: 100%;
 }
