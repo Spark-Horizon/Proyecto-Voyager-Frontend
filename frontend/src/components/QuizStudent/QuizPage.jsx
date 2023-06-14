@@ -6,6 +6,7 @@ import { MultipleOptionPage } from './MultipleOptionPage';
 import { useGetTask } from '../../hooks/useGetTask';
 import { useGetIntento } from '../../hooks/QuizStudent/useGetIntento';
 import { useAuth } from '../../hooks/AuthContext';
+import { submitRespuesta } from '../../helpers/quizStudent/submitRespuesta';
 
 export const QuizPage = () => {
   const { user } = useAuth();
@@ -14,7 +15,7 @@ export const QuizPage = () => {
   const { intento } = useGetIntento(user_id, id_activity)
   const { data, isLoading, error } = useFetchQuizStudent(id_activity);
   const [currentIndex, setCurrentIndex] = useState(0);
-  console.log(intento);
+  console.log(data);
 
   const [id_ejercicio, setIDEjercicio] = useState(null)
   const { data: taskData } = useGetTask(id_ejercicio)
@@ -41,8 +42,8 @@ export const QuizPage = () => {
     setCurrentIndex(currentIndex + 1);
   };
 
-  const submitFunc = (attempt_id, respuesta) => {
-    alert("submitted")
+  const submitFunc = (respuesta) => {
+    submitRespuesta(data.id_respuesta[currentIndex], respuesta)
   };
 
   const handleFinish = () => {
