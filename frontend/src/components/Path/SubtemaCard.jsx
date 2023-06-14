@@ -2,6 +2,9 @@ import { useState } from "react"
 import { Link } from "react-router-dom";
 import { CustomButton } from "../CustomButton";
 
+import { ReactComponent as StrikeActive } from '../../assets/svg/icons/strikeStar1.svg';
+import { ReactComponent as StrikeBlocked } from '../../assets/svg/icons/strikeStar2.svg';
+
 import '../../styles/Path/subtemaCard.css'
 
 export const SubtemaCard = (props) => {
@@ -39,11 +42,14 @@ export const SubtemaCard = (props) => {
     // Rachas
     const generarStrikes = (n) => {
         const strikes = [];
-        if(n === 0)
-            strikes.push(<p>-</p>);
+        const empty = 4 - n;
 
         for (let i = 0; i < n; i++) {
-        strikes.push(<p key={i}>🔥</p>);
+            strikes.push(<StrikeActive key={i}/>);
+        }
+
+        for (let i = 0; i < empty; i++) {
+            strikes.push(<StrikeBlocked key={i}/>);
         }
     
         return strikes;
@@ -63,7 +69,7 @@ export const SubtemaCard = (props) => {
             strike = 0;
         }
         return (
-            <div className="excercise-racha">
+            <div className="excercise-racha mb-2">
                 {generarStrikes(strike)}
             </div>
         )
@@ -87,15 +93,17 @@ export const SubtemaCard = (props) => {
         <div
         className={
             `subtema-main-container
-            ${!hidden ? 'subtema-main-container-hidden' : ''}
+            ${!hidden ? 'subtema-main-container-show' : 'subtema-main-container-hidden'}
             ${blocked(props.id) ? 'subtema-available' : 'subtema-blocked'}
             `}
         >
-            <span
-            onClick={()=> blocked(props.id) && setHidden(!hidden)}
-            >
-                {props.title}
-            </span>
+            <div className="subtema-title">
+                <span
+                onClick={()=> blocked(props.id) && setHidden(!hidden)}
+                >
+                    {props.title}
+                </span>
+            </div>
             <div className="subtema-info-container">
                 {practice(props.id) ? (
                     <span>
