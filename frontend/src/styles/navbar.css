@@ -1,69 +1,108 @@
-.customNavbar{
+.customNavbar {
     height: 50px;
     padding: 20px;
     width: 100%;
     background: linear-gradient(to bottom, rgba(10, 10, 10, 1), rgba(255, 255, 255, 0));
 }
-.navContent{
+
+.navbarFixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.navbarPlaceholder {
+    height: 50px;
+}
+
+.navbarHidden {
+    position: fixed;
+    z-index: 2;
+}
+
+
+
+.navContent {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .navContent ul {
     margin: 0;
 }
-.brand{
+
+.brand {
     color: #f0f0f0;
     font-size: 1.3rem;
     font-weight: bold;
     margin-right: 10px;
-    text-decoration: none; 
+    text-decoration: none;
 }
-.navRight{
+
+.navRight {
     display: flex;
 }
-.navLinks, .navTabs{
+
+.navLinks,
+.navTabs {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
 }
-.navLinks a, .navTabs li{
+
+.navLinks a,
+.navTabs li {
     cursor: pointer;
     font-size: 14px;
     color: #f0f0f0;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
 }
-.navLinks a:hover, .navTabs li:hover{
+
+.navLinks a:hover,
+.navTabs li:hover {
     color: var(--light-blue);
 }
-.navItem{
+
+.navItem {
     margin: 0px 10px
 }
-.navComponent{
+
+.navComponent {
     margin-left: 15px;
 }
-.userDropdown-btn{
+
+.userDropdown-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 10px;
     border-width: 0;
     background-color: rgba(0, 0, 0, 0)
 }
-.dropdown-menu{
+
+.dropdown-menu {
     display: block;
     width: 15rem;
 }
-.dropdown-menu button{
+
+.dropdown-menu button {
     color: var(--warning-color);
 }
-.dropdown-menu button:hover{
+
+.dropdown-menu button:hover {
     color: var(--warning-color);
 }
-.userInfo *{
+
+.userInfo * {
     padding: 5px 15px;
 }
-.userDropdown-menu{
+
+.userDropdown-menu {
     right: 0;
     left: auto;
 }
@@ -119,7 +158,7 @@
 }*/
 
 /*Landing page navbar*/
-#landingPage .brand{
+#landingPage .brand {
     background: linear-gradient(to right, var(--light-blue), var(--strong-blue));
     background-clip: text;
     -webkit-background-clip: text;

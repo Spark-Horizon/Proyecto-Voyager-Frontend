@@ -27,7 +27,7 @@ export const UserDropdown = () => {
   return (
     <div className="dropdown">
       <button className="userDropdown-btn dropdown-toggle" onClick={toggleDropdown} data-bs-toggle="dropdown" data-bs-auto-close="outside">
-        {user.name}
+        <p style={{marginRight: 10}}>{user.name}</p>
       </button>
       {isOpen && (
         <ul className="userDropdown-menu dropdown-menu dropdown-menu-right dropdown-menu-dark">
