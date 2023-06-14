@@ -5,36 +5,21 @@ import { useState } from "react";
 import '../../styles/ide/codeInstructions.css';
 import '../../styles/moPage.css'
 
-export const MultipleOptionPage = ({ data, currentIndex, setCurrentIndex, totalQuestions, submitFunc, handleFinish }) => {
-    console.log("INFO MOPAGE DATA:", data);
+export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion }) => {
     const [selectedOption, setSelectedOption] = useState(""); //Opcion seleccionada
-    const [showNextButton, setShowNextButton] = useState(false);
-
-    console.log(data);
 
     // Funcion para el boton de submit
     const handleSubmit = () => {
         if (selectedOption === data.options[data.answer].text) {
             submitFunc({ respuesta: selectedOption, correcto: true })
             alert("Respuesta correcta.")
-            setShowNextButton(true)
+            handleNextQuestion();
         } else if (selectedOption === "") {
             alert("Por favor selecciona una respuesta.")
         } else {
             submitFunc({ respuesta: selectedOption, correcto: false })
             alert("Respuesta incorrecta.")
-            setShowNextButton(true)
-        }
-    }
-
-    // Añade esta función para manejar el paso a la siguiente pregunta
-    const handleNextQuestion = () => {
-        if (currentIndex < totalQuestions - 1) { // Ahora usamos totalQuestions
-            setCurrentIndex(currentIndex + 1);
-            setSelectedOption(""); // Resetea la opción seleccionada
-            setShowNextButton(false); // Oculta el botón siguiente
-        } else {
-            handleFinish(); // Si es la última pregunta, termina el cuestionario
+            handleNextQuestion();
         }
     }
 
@@ -73,11 +58,7 @@ export const MultipleOptionPage = ({ data, currentIndex, setCurrentIndex, totalQ
                         </fieldset>
                     </div>
                     <div className="mo-instructions-submit container-cc">
-                        {!showNextButton ? (
-                            <CustomButton type='btn' text={'Submit'} func={handleSubmit} />
-                        ) : (
-                            <CustomButton type='btn' text={'Siguiente'} func={handleNextQuestion} />
-                        )}
+                        <CustomButton type='btn' text={'Submit'} func={handleSubmit} />
                     </div>
                 </div>
             </div>

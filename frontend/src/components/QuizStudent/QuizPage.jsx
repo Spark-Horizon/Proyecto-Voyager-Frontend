@@ -38,10 +38,6 @@ export const QuizPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  const handleNext = () => {
-    setCurrentIndex(currentIndex + 1);
-  };
-
   const submitFunc = (respuesta) => {
     submitRespuesta(data.id_respuesta[currentIndex], respuesta)
   };
@@ -50,30 +46,31 @@ export const QuizPage = () => {
     navigate('/home');
   };
 
-  // Calcula el número total de preguntas
-  const totalQuestions = data ? data.length : 0;
+  const handleNextQuestion = () => {
+    if (currentIndex < data.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
+      handleFinish();
+    }
+  };
 
   return (
     <div>
-      <p>Ejercicio {currentIndex + 1} de {totalQuestions}</p>
-  
+      <p>Ejercicio {currentIndex + 1} de {data.length}</p>
+
       {data && data[currentIndex] && (data[currentIndex].tipo === "Código" ? 
         <CompilerPage id={id_ejercicio} /> : 
         data[currentIndex].tipo === "Opción múltiple" ? 
         <MultipleOptionPage 
           data={taskData} 
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
-          totalQuestions={totalQuestions}
           submitFunc={submitFunc}
-          handleFinish={handleFinish}
+          handleNextQuestion={handleNextQuestion}
         /> : 
       null)}
-  
+
       {currentIndex === data.length - 1 && (
         <button onClick={handleFinish}>Terminar y volver al inicio</button>
       )}
     </div>
   );
-
 }
