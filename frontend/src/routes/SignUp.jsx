@@ -303,7 +303,7 @@ export const SignUp = (props) => {
                 <div className="form-group mb-4">
                   <label htmlFor="confirmPassword" className="text-center">Confirma tu contraseña</label>
                   <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="form-control" placeholder="**********" required />
-                  {!isPasswordValid() && (
+                  {password !== '' && !isPasswordValid() && (
                     <>
                       {(password.length < 6 || password.length > 18) && <div className="text-danger">La contraseña debe tener mínimo 6 y máximo 18 caracteres</div>}
                       {!passwordRegex.test(password) && <div className="text-danger">La contraseña debe tener al menos una minúscula una mayúscula y un símbolo o número</div>}
