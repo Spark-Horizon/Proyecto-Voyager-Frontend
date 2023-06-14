@@ -107,18 +107,22 @@ export const Groups = () => {
     setExpandedActivitiesButton(false);
   };
 
-  const renderTruncatedButton = (text) => {
+  const renderTruncatedButton = (text, func) => {
     return (
       <OverlayTrigger
         placement="bottom"
         overlay={<Tooltip id="tooltip">{text}</Tooltip>}
       >
-        <Button className={`text-truncate grupos-btn ${expandedActivitiesButton ? 'expanded' : ''}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <Button  onClick={func ? func : null} className={`text-truncate grupos-btn ${expandedActivitiesButton ? 'expanded' : ''}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           {text}
         </Button>
       </OverlayTrigger>
     );
   };
+
+  const handleGoToPath = (group) => {
+    setIdMateria(group.id_materia);
+  }
 
   const renderGroupsOrPath = () => {
     if (idMateria === null) {
@@ -151,11 +155,11 @@ export const Groups = () => {
                             <Button className="grupos-btn" variant="danger" onClick={() => handleDelete(role, group.id, id, group.codigo)}>
                               {role === 'teacher' ? 'Eliminar' : 'Salir'}
                             </Button>
-                            {role === 'teacher' && renderTruncatedButton('Ver actividades')}
+                            {role === 'teacher' && renderTruncatedButton('Ver actividades', null)}
+                            {role === 'student' && (
+                              renderTruncatedButton('Ir al path', () => handleGoToPath(group))
+                            )}
                           </div>
-                          {role === 'student' && (
-                            <CustomButton text={'Ir al path'} type={'btn btnPrimary'} func={() => setIdMateria(group.id_materia)} />
-                          )}
                         </Card.Body>
                       </Card>
                     </div>
