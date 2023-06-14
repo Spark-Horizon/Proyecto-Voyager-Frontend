@@ -1,11 +1,3 @@
-#activitiesPage {
-  transition: all ease 0.5s;
-  background-image: url("../assets/img/bkgr_spaceBackground.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
 #activitiesPage .card-container-wrapper {
   max-height: calc(100vh - 10rem);
   overflow: auto;

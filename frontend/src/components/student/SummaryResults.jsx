@@ -25,7 +25,7 @@ export const SummaryResults = () => {
   }
 
   return (
-    <section id='activitiesPage' className='startSection'>
+    <section id='activitiesPage'>
       <div className="container">
         <div className="text-center">
           <h2 className="mt-5 mb-4 gradient">Resumen de resultados</h2>
