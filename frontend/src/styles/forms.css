@@ -136,9 +136,16 @@ input:-webkit-autofill {
     width: 100%;
 }
 
-#resetPswdForm{
+#resetPswdForm, #adminSInForm{
     border-radius: 10px;
     padding: 2rem;
+}
+
+#adminSInForm{
+    width: 400px;
+}
+#adminSInForm button{
+    width: 100%;
 }
 
 .resetPswd-container{

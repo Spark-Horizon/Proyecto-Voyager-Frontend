@@ -32,7 +32,7 @@ export const AdminSignIn = () => {
 
       <section id="adminSignInForm" className='container-cc'>
 
-        <form>
+        <form id='adminSInForm'>
 
           <div className="text-center mb-4">
             <h3 className="mb-0">Iniciar sesión</h3>
