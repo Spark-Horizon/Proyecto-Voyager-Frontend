@@ -15,7 +15,7 @@ export const QuizPage = () => {
   const { intento } = useGetIntento(user_id, id_activity)
   const { data, isLoading, error } = useFetchQuizStudent(id_activity);
   const [currentIndex, setCurrentIndex] = useState(0);
-  console.log(data);
+  console.log('Esta es la data: ', data);
 
   const [id_ejercicio, setIDEjercicio] = useState(null)
   const { data: taskData } = useGetTask(id_ejercicio)
@@ -39,7 +39,8 @@ export const QuizPage = () => {
   }
 
   const submitFunc = (respuesta) => {
-    submitRespuesta(data.id_respuesta[currentIndex], respuesta)
+    console.log('El id de la respuesta enviada es:', data[currentIndex].id_respuesta);
+    submitRespuesta(data[currentIndex].id_respuesta, respuesta)
   };
 
   const handleFinish = () => {
