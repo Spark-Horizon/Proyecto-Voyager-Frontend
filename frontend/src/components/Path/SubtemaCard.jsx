@@ -8,6 +8,8 @@ export const SubtemaCard = (props) => {
     const typeInfo = props.typeInfo;
     const unlockedPath = props.unlockedPath;
 
+    const [hidden, setHidden] = useState(true)
+
     // Estilo del subtema segun este disponible o no
     const blocked = (id_subtem) => {
         return unlockedPath.find(item => item.id_subtema === id_subtem)
@@ -85,10 +87,13 @@ export const SubtemaCard = (props) => {
         <div
         className={
             `subtema-main-container
+            ${!hidden ? 'subtema-main-container-hidden' : ''}
             ${blocked(props.id) ? 'subtema-available' : 'subtema-blocked'}
             `}
         >
-            <span>
+            <span
+            onClick={()=> blocked(props.id) && setHidden(!hidden)}
+            >
                 {props.title}
             </span>
             <div className="subtema-info-container">
