@@ -34,8 +34,8 @@ export const SubtemaCard = (props) => {
                     </div>
                 </div>
                 <div className="subtema-requeridos">
-                    <div class="progress" role="progressbar" aria-label="Example 20px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{ height: '5px' }}>
-                        <div class="progress-bar" style={{ width: requeridos + '%' }}/>
+                    <div class="progress" role="progressbar" aria-label="Example 20px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{ height: '10px' }}>
+                        <div class="customProgress progress-bar progress-bar-striped progress-bar-animated" style={{ width: requeridos + '%' }}/>
                     </div>
                 </div>
             </div>
