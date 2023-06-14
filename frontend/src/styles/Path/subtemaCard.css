@@ -4,6 +4,7 @@
     transition: all ease 400ms;
     display: flex;
     justify-content: space-between;
+    transition: all ease 0.5s;
 }
 .subtema-main-container-hidden > .subtema-info-container {
     display: none;
@@ -28,6 +29,7 @@
 .subtema-main-container span{
     display: block;
     cursor: pointer;
+    transition: all ease 0.5s;
 }
 .subtema-info-container{
     display: flex;
@@ -49,10 +51,14 @@
 .excercise-racha svg{
     height: 15px;
 }
+.subtema-main-container-show{
+    display: flex;
+    align-items: center;
+}
 .subtema-main-container-show span{
     font-size: 18px;
 }
-@media screen and (max-width: 1115px) {
+@media screen and (max-width: 990px) {
     .subtema-main-container {
         flex-direction: column;
     }
@@ -60,11 +66,8 @@
         justify-content: center;
     }
     .subtema-main-container-show span{
-        font-size: 16px !important;
         margin-bottom: 1rem;
         text-align: center;
     }
 }
-.subtema-main-container span{
-    font-size: 14px;
-}
+

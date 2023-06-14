@@ -1,6 +1,10 @@
 .tema-main-container{
     width: 100%;
-    transition: all ease 4s;
+    transition: all ease 0.5s;
+}
+.tema-main-container h3{
+    transition: all ease 0.5s;
+    font-weight: bold;
 }
 .tema-subtemas-container{
     border-radius: 10px;
@@ -13,7 +17,7 @@
 .tema-card{
     width: 100%;
     border-radius: 10px;
-    transition: text-align 0.5s ease; /* Define la duración, el tiempo de transición y la función de aceleración */
+    transition: text-align 0.5s ease;
 }
 .tema-card:hover{
     cursor: pointer;
