@@ -55,21 +55,21 @@ export const QuizPage = () => {
 
   return (
     <div>
-      {/* ... (resto del código) ... */}
-
-      {data && data[currentIndex] && (data[currentIndex].tipo === "Código" ?
-        <CompilerPage id={id_ejercicio} /> :
-        data[currentIndex].tipo === "Opción múltiple" ?
-          <MultipleOptionPage
-            data={taskData}
-            currentIndex={currentIndex}
-            setCurrentIndex={setCurrentIndex}
-            totalQuestions={totalQuestions} // Pasamos el total de preguntas
-            submitFunc={submitFunc}
-            handleFinish={handleFinish}
-          /> :
-          null)}
-
+      <p>Ejercicio {currentIndex + 1} de {totalQuestions}</p>
+  
+      {data && data[currentIndex] && (data[currentIndex].tipo === "Código" ? 
+        <CompilerPage id={id_ejercicio} /> : 
+        data[currentIndex].tipo === "Opción múltiple" ? 
+        <MultipleOptionPage 
+          data={taskData} 
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+          totalQuestions={totalQuestions}
+          submitFunc={submitFunc}
+          handleFinish={handleFinish}
+        /> : 
+      null)}
+  
       {currentIndex === data.length - 1 && (
         <button onClick={handleFinish}>Terminar y volver al inicio</button>
       )}
