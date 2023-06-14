@@ -2,6 +2,7 @@ import { Loading } from '../Loading.jsx';
 import '../../styles/ide/codeInstructions.css';
 
 export const CodeInstructions = ({data}) => {
+  console.log("DATACONDEINSTRUCTIONS>>>", data);
   if (!data) {
     return (
       <div className='loading-code-instructions'>

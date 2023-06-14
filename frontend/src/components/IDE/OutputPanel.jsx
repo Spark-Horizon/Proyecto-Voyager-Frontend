@@ -23,6 +23,7 @@ export const OutputPanel = ({
   const [runIsLoading, setRunIsLoading] = useState(false);
   const [canChange, setCanChange] = useState(false);
   const isInitialRender = useRef(true);
+
   const submitRef = useRef(null);
   const runRef = useRef(null);
 
@@ -86,7 +87,7 @@ export const OutputPanel = ({
         buttonLoadingAnimation(submitRef);
       } else {
         removeLoadingAnimation(submitRef);
-        setSubmitIsLoading(false);
+        setTimeout(() => setSubmitIsLoading(false), 1650);
       }
     }
 
@@ -109,10 +110,11 @@ export const OutputPanel = ({
         <div className="compiler-buttons-container">
           <button className="run" onClick={runCode} ref={runRef}></button>
           <button className="submit" onClick={submitCode} ref={submitRef}></button>
-          <button className="next" onClick={handleNext} style={{display: canChange ? 'inline-block' : 'none'}}></button>
+          {!submitIsLoading && <button className="next" onClick={handleNext} style={{display: canChange ? 'inline-block' : 'none'}}></button>}
         </div>
       </div>
       <TestCases tests={testsData} />
+      <Console stdOut={compInfo || stdOut || stdErr} />
     </div>
   );
 };
