@@ -22,12 +22,16 @@ export const SummaryResults = () => {
 
   let currentHomework = null;
   if (currentAttempt) {
-    currentHomework = dataSummary.find(homework => homework.id === currentAttempt);
+    currentHomework = dataSummary.find(homework => homework.id === currentAttempt.id);
   }
 
   return (
     <>
-      <PDSHPanelTemplate title={'Resumen de resultados'} />
+      {currentAttempt ? (
+        <PDSHPanelTemplate title={currentAttempt.titulo} canReturn={true} hasCustomReturn={true} customReturn={() => setCurrentAttempt(null)} />
+      ) : (
+        <PDSHPanelTemplate title={'Resumen de resultados'} />
+      )}
       <section id='activitiesPage'>
         <div className="container">
           <div className="text-center">
@@ -40,7 +44,7 @@ export const SummaryResults = () => {
                 <div className="card-container-wrapper">
                   <div className="card-container">
                     {dataSummary.map((homework) => (
-                      <div className="card bg-light mb-3" key={homework.id} onClick={() => setCurrentAttempt(homework.id)}>
+                      <div className="card bg-light mb-3" key={homework.id} onClick={() => setCurrentAttempt(homework)}>
                         <div className="card-body">
                           <div className="top-section">
                             {homework.titulo}
