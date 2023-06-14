@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useGetPendingTask } from '../../hooks/useGetStudentTask';
 
 import '../../styles/activitiesStyles.css';
+import { PDSHPanelTemplate } from '../P_DASHBOARD/PDSHPanelTemplate';
 
 export const PendingQuizzes = () => {
 
@@ -20,35 +21,37 @@ export const PendingQuizzes = () => {
   };
 
   return (
-    <section id='activitiesPage'>
-      <div className="container">
-        <div className="text-center">
-          <h2 className="mt-5 mb-4 gradient">Quizzes pendientes</h2>
-          {dataPending === null ? (
-            <p>No hay quizzes pendientes</p>
-          ) : (
-            <div className="card-container-wrapper">
-              <div className="card-container">
-                {dataPending.map((homework) => (
-                  <div className="card bg-light mb-3" key={homework.id}>
-                    <div className="card-body">
-                      <div className="top-section">
-                        <Link to={`/quizAttempt/${homework.id}`} className="card-title text-dark text-start">
-                          {homework.titulo}
-                        </Link>
-                        <p className="card-text text-dark text-start"><strong>Grupo:</strong> {homework.materia + "-" + homework.grupo}</p>
-                      </div>
-                      <div className="bottom-section text-end mt-5">
-                        <p className="card-text text-dark"><strong>Fecha límite:</strong> {formatDate(homework.fin)}</p>
+    <>
+      <PDSHPanelTemplate title={'Quizzes pendientes'} />
+      <section id='activitiesPage'>
+        <div className="container">
+          <div className="text-center">
+            {dataPending === null ? (
+              <p>No hay quizzes pendientes</p>
+            ) : (
+              <div className="card-container-wrapper">
+                <div className="card-container">
+                  {dataPending.map((homework) => (
+                    <div className="card bg-light mb-3" key={homework.id}>
+                      <div className="card-body">
+                        <div className="top-section">
+                          <Link to={`/quizAttempt/${homework.id}`} className="card-title text-dark text-start">
+                            {homework.titulo}
+                          </Link>
+                          <p className="card-text text-dark text-start"><strong>Grupo:</strong> {homework.materia + "-" + homework.grupo}</p>
+                        </div>
+                        <div className="bottom-section text-end mt-5">
+                          <p className="card-text text-dark"><strong>Fecha límite:</strong> {formatDate(homework.fin)}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };

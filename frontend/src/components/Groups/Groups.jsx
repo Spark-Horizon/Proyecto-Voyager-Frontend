@@ -183,11 +183,7 @@ export const Groups = ({setGroupId, changeParentView}) => {
     } else {
       return (
         <>
-          <div className="p-dash-top-container">            
-            <Button onClick={() => setIdMateria(null)} className="">
-              Regresar
-            </Button>
-          </div>
+          <PDSHPanelTemplate title={idMateria} canReturn={true} hasCustomReturn={true} customReturn={() => setIdMateria(null)} />
           <div className="progress-main-container">
             <PathPage materia_id={idMateria} />
           </div>

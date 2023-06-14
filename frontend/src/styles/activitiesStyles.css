@@ -1,6 +1,13 @@
+#activitiesPage {
+  display: flex;
+  margin-top: 25px;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: scroll;
+}
+
 #activitiesPage .card-container-wrapper {
   max-height: calc(100vh - 10rem);
-  overflow: auto;
   padding-right: 2.5rem;
 }
 
@@ -25,9 +32,7 @@
   padding: 1rem;
   display: flex;
   border-radius: 15px;
-  background: rgba(30, 30, 30, 0.25) !important;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
-  backdrop-filter: blur(11px) !important;
+  background-color: transparent !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
 }
 
