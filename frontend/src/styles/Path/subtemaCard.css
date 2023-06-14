@@ -42,3 +42,7 @@
 .progress{
     background-color: rgba(0, 0, 0, 0.268);
 }
+.excercise-racha{
+    display: flex;
+    justify-content: center;
+}
