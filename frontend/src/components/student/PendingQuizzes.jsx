@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useGetPendingTask } from '../../hooks/useGetStudentTask';
+import { useAuth } from '../../hooks/AuthContext';
 
 import '../../styles/activitiesStyles.css';
 import { PDSHPanelTemplate } from '../P_DASHBOARD/PDSHPanelTemplate';
@@ -9,7 +10,9 @@ export const PendingQuizzes = () => {
 
   const [dataPending, setDataPending] = useState(['']);
 
-  const { data_pending } = useGetPendingTask('A01732005');
+  const {user} = useAuth();
+
+  const { data_pending } = useGetPendingTask(user.id);
 
   useEffect(() => {
     setDataPending(data_pending);
