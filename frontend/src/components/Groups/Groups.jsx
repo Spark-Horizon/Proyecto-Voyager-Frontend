@@ -12,7 +12,7 @@ import '../../styles/Groups/NewGroupModal.css';
 
 import { PDSHPanelTemplate } from "../P_DASHBOARD/PDSHPanelTemplate";
 
-export const Groups = () => {
+export const Groups = ({setGroupId, changeParentView}) => {
   const { user } = useAuth();
   const { role, id } = user;
 
@@ -107,13 +107,23 @@ export const Groups = () => {
     setExpandedActivitiesButton(false);
   };
 
-  const renderTruncatedButton = (text) => {
+  const handleOnActividadesClick = (groupId) => {
+    setGroupId(groupId);
+    changeParentView(1);
+  }
+
+  const renderTruncatedButton = (text, func) => {
     return (
       <OverlayTrigger
         placement="bottom"
         overlay={<Tooltip id="tooltip">{text}</Tooltip>}
       >
-        <Button className={`text-truncate grupos-btn ${expandedActivitiesButton ? 'expanded' : ''}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <Button 
+          className={`text-truncate grupos-btn ${expandedActivitiesButton ? 'expanded' : ''}`} 
+          onMouseEnter={handleMouseEnter} 
+          onMouseLeave={handleMouseLeave}
+          onClick={func}
+        >
           {text}
         </Button>
       </OverlayTrigger>
@@ -151,7 +161,7 @@ export const Groups = () => {
                             <Button className="grupos-btn" variant="danger" onClick={() => handleDelete(role, group.id, id, group.codigo)}>
                               {role === 'teacher' ? 'Eliminar' : 'Salir'}
                             </Button>
-                            {role === 'teacher' && renderTruncatedButton('Ver actividades')}
+                            {role === 'teacher' && renderTruncatedButton('Ver actividades', () => handleOnActividadesClick(group.id))}
                           </div>
                           {role === 'student' && (
                             <CustomButton text={'Ir al path'} type={'btn btnPrimary'} func={() => setIdMateria(group.id_materia)} />

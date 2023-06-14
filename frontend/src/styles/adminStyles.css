@@ -17,13 +17,12 @@
 }
 
 #crudSection {
-    transition: all ease 0.5s;
-    background-image: url("../assets/img/bkgr_spaceBackground.jpg");
+    display: flex;
+    flex-direction: column;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    min-height: 100vh;
 }
 
 #crudSection table{

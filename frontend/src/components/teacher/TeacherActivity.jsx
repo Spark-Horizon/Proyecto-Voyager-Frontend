@@ -9,6 +9,7 @@ import { useGetActivitiesTask, useGetActivityExercises, useGetActivityTask } fro
 import { useGetExerciseTask } from '../../hooks/useGetCRUDTask.js';
 import { getDeleteActivity } from '../../helpers/getTeacherTask';
 import { Loading } from '../Loading';
+import { PDSHPanelTemplate } from '../P_DASHBOARD/PDSHPanelTemplate';
 
 export const TeacherActivity = (props) => {
   const [step, setStep] = useState(1);
@@ -36,14 +37,14 @@ export const TeacherActivity = (props) => {
   const [bloqueoOption, setBloqueoOption] = useState(activityData ? activityData['bloqueo'] : false);
   const [visibleOption, setVisibleOption] = useState(activityData ? activityData['disponible'] : false);
   const [disponibleOption, setDisponibleOption] = useState(activityData ? activityData['visible'] : false);
-  
+
   const [filtroOptions, setFiltroOptions] = useState(['id']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const [dataResult, setDataResult] = useState(['']);
   const { data_activities, refetchDataActivities, loading_activities } = useGetActivitiesTask(props.grupo, filtroOptions, hierOptions);
 
   const handleMoveRowDown = (index) => {
-    
+
     if (index < activityExData.length - 1) {
       const reorderedBlocks = [...activityExData];
       const temp = reorderedBlocks[index];
@@ -55,21 +56,21 @@ export const TeacherActivity = (props) => {
 
   //useEffect de la vista general de todas las actividades
   useEffect(() => {
-    if (data_activities && !loading_activities){
+    if (data_activities && !loading_activities) {
       setDataResult(data_activities);
     }
   }, [data_activities, loading_activities]);
 
   //useEffect de la vista de una actividad en particular
   useEffect(() => {
-    if (data_activity){
+    if (data_activity) {
       setActivityData(data_activity);
     }
   }, [data_activity]);
 
   //useEffect de los ejercicios de una vista de una actividad en particular
   useEffect(() => {
-    if (data_activity_exercises && !loading_activityEx){
+    if (data_activity_exercises && !loading_activityEx) {
       //console.log("Actualizado...");
       setActivityExData(data_activity_exercises);
       //console.log(activityExData);
@@ -78,22 +79,22 @@ export const TeacherActivity = (props) => {
 
   //useEffect para dar el siguiente step cuando la informacion de la actividad se actualiza
   useEffect(() => {
-    if (activityData !== null){
+    if (activityData !== null) {
       handleTitle(activityData['titulo'])
       handleInicio(activityData['inicio'])
       handleFin(activityData['fin'])
       handleIntentos(activityData['intentos'])
       handleBloqueo(activityData['bloqueo'])
       handleDisponible(activityData['disponible'])
-      handleVisible(activityData['visible'])      
+      handleVisible(activityData['visible'])
       handleNextStep();
     }
   }, [activityData]);
 
   //useEffect para reiniciar los estados de la informacion de una actividad cuando vuelve a la pantalla inicial
   useEffect(() => {
-    
-    if (step === 1){
+
+    if (step === 1) {
       setActivityID(null);
       setActivityData(null);
       setActivityExData(null);
@@ -109,7 +110,7 @@ export const TeacherActivity = (props) => {
   }, [step]);
 
   useEffect(() => {
-    if (step === 2){
+    if (step === 2) {
       //console.log("acaba en 4");
       setExerciseID(null);
       setExerciseData(null);
@@ -118,14 +119,14 @@ export const TeacherActivity = (props) => {
 
   //useEffect de la vista de un ejercicio en particular
   useEffect(() => {
-    if (data_exercise){
+    if (data_exercise) {
       setExerciseData(data_exercise);
     }
   }, [data_exercise]);
-  
+
   //useEffect para dar el siguiente step cuando la informacion del ejercicio se actualiza
   useEffect(() => {
-    if (exerciseData !== null){
+    if (exerciseData !== null) {
       handleNextStep();
     }
   }, [exerciseData]);
@@ -135,12 +136,12 @@ export const TeacherActivity = (props) => {
   };
 
   const handleInicio = (inicio) => {
-    
+
     setInicioOption(inicio);
   };
 
   const handleFin = (fin) => {
-    
+
     setFinOption(fin);
   };
 
@@ -149,12 +150,12 @@ export const TeacherActivity = (props) => {
   };
 
   const handleBloqueo = (bloqueo) => {
-    
+
     setBloqueoOption(bloqueo);
   };
 
   const handleVisible = (visible) => {
-    
+
     setVisibleOption(visible);
   };
 
@@ -167,14 +168,14 @@ export const TeacherActivity = (props) => {
     setShowCreatePopup(false);
     setShowUpdatePopup(false);
   };
-  
+
   const handleNextStep = () => {
     console.log("webos")
     setStep(step + 1);
     setShowCreatePopup(false);
     setShowUpdatePopup(false);
   };
-  
+
   const handleSaveExercise = () => {
     setStep(2);
     setShowSaveExercisePopup(true);
@@ -183,7 +184,7 @@ export const TeacherActivity = (props) => {
   const handleUpdateExercise = () => {
     //console.log("empieza 2");
     setStep(2);
-    setShowEditExercisePopup(true);  
+    setShowEditExercisePopup(true);
     //console.log("termina 2");
   };
 
@@ -219,25 +220,25 @@ export const TeacherActivity = (props) => {
   };
 
   const handlePrevStepFour = () => {
-    
+
     setStep(step - 1);
     if (step == 4)
       setEditStatus('Normal');
-    else 
+    else
       setEditStatus(null);
   };
 
   const handlePrevStepFive = () => {
-    
+
     setStep(step - 1);
     if (step == 5)
       setEditStatus('Específico');
-    else 
+    else
       setEditStatus(null);
   };
 
   const handlePopupClose = () => {
-    
+
     setShowCreatePopup(false);
     setShowUpdatePopup(false);
     setShowSaveExercisePopup(false);
@@ -245,15 +246,15 @@ export const TeacherActivity = (props) => {
   };
 
   const handleEdition = (id_hand) => (e) => {
-    
+
     setActivityID(id_hand);
   }
 
   const handlePreventDup = (id_hand) => {
-    if (!activityExData){
+    if (!activityExData) {
       return true;
     }
-    if (activityExData.map(item => item.id).includes(id_hand)){
+    if (activityExData.map(item => item.id).includes(id_hand)) {
       return false;
     }
     return true;
@@ -261,7 +262,7 @@ export const TeacherActivity = (props) => {
 
   const handleDeletion = (id_hand) => (e) => {
     e.preventDefault();
-    
+
     if (window.confirm("¿Estás seguro de que deseas borrar esta actividad?")) {
       getDeleteActivity(id_hand);
       const newDataResult = dataResult.filter(row => row.id !== id_hand);
@@ -270,13 +271,13 @@ export const TeacherActivity = (props) => {
   }
 
   const formatDate = (dateString) => {
-    
+
     const date = new Date(dateString);
     return date.toLocaleString('es-MX', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
   };
 
   const handleAddExercise = (exerciseInfo) => {
-    
+
     const updatedBlocks = activityExData ? [...activityExData] : [];
     updatedBlocks.push(exerciseInfo);
     setActivityExData(updatedBlocks);
@@ -284,7 +285,7 @@ export const TeacherActivity = (props) => {
   };
 
   const handleEditExercise = (index, exerciseInfo) => {
-    
+
     //console.log("empieza 1");
     const updatedBlocks = activityExData ? [...activityExData] : [];
     updatedBlocks[index] = exerciseInfo;
@@ -292,9 +293,9 @@ export const TeacherActivity = (props) => {
     handleUpdateExercise()
     //console.log("termina 1");
   };
-  
+
   const handleDeleteRow = (index) => {
-    
+
     const confirmed = window.confirm('¿Estás seguro de que deseas borrar este ejercicio?');
     if (confirmed) {
       const updatedBlocks = [...activityExData];
@@ -302,9 +303,9 @@ export const TeacherActivity = (props) => {
       setActivityExData(updatedBlocks);
     }
   };
-  
+
   const handleMoveRowUp = (index) => {
-    
+
     if (index > 0) {
       const reorderedBlocks = [...activityExData];
       const temp = reorderedBlocks[index];
@@ -315,12 +316,11 @@ export const TeacherActivity = (props) => {
   };
 
   if (!dataResult || !data_activities) {
-    return <div className="container-cc loading-container"><Loading/></div>;
+    return <div className="container-cc loading-container"><Loading /></div>;
   }
 
   return (
     <section id="teacherQuizSection">
-
       {showCreatePopup && (
         <div className="message-popup">
           <div className="message-content">
@@ -374,17 +374,18 @@ export const TeacherActivity = (props) => {
       )}
 
       {step === 1 && (
-        <div>
-          <h2>Crear Actividad</h2>
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Actividad</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Veces completada</th>
-                <th scope="col">Promedio grupal</th>
-                <th scope="col">
-                  Orden:
+        <>
+          <PDSHPanelTemplate title={'Actividades'} canReturn={true} changeParentView={props.changeParentView} previousComponentIndex={0} />
+          <div style={{ marginTop: 20, padding: '0px 15px', overflowY: 'scroll' }} >
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Actividad</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Veces completada</th>
+                  <th scope="col">Promedio grupal</th>
+                  <th scope="col">
+                    Orden:
                     <select
                       className="form-select form-select-sm"
                       aria-label="Filtro"
@@ -399,148 +400,151 @@ export const TeacherActivity = (props) => {
                         }
                       }}
                     >
-                    <optgroup label="Ascendente">
-                      <option value="titulo">Actividad</option>
-                      <option value="fecha">Fecha</option>
-                      <option value="total_intentos">Veces completada</option>
-                      <option value="promedio_correctas">Promedio grupal</option>
-                    </optgroup>
-                    <optgroup label="Descendente">
-                      <option value="titulo">Actividad</option>
-                      <option value="fecha">Fecha</option>
-                      <option value="total_intentos">Veces completada</option>
-                      <option value="promedio_correctas">Promedio grupal</option>
-                    </optgroup>
-                  </select>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {dataResult.map((row) => (
-                <tr key={row.id}>
-                  <td>{row.titulo}</td>
-                  <td>{formatDate(row.fecha)}</td>
-                  <td>{row.total_intentos}</td>
-                  <td>{row.promedio_correctas != null ? row.promedio_correctas+"/"+row.total_ejercicios : "-"}</td>
-                  <td>
-                    <div>
-                      <CustomButton
-                        type="btn btn-primary btn-sm"
-                        text="Editar"
-                        func={handleEdition(row.id)}
-                      />
-                    </div>
-                    <div>
-                      <CustomButton
-                        type="btn btn-danger btn-sm"
-                        text="Borrar"
-                        func={handleDeletion(row.id)}
-                      />
-                    </div>
-                  </td>
+                      <optgroup label="Ascendente">
+                        <option value="titulo">Actividad</option>
+                        <option value="fecha">Fecha</option>
+                        <option value="total_intentos">Veces completada</option>
+                        <option value="promedio_correctas">Promedio grupal</option>
+                      </optgroup>
+                      <optgroup label="Descendente">
+                        <option value="titulo">Actividad</option>
+                        <option value="fecha">Fecha</option>
+                        <option value="total_intentos">Veces completada</option>
+                        <option value="promedio_correctas">Promedio grupal</option>
+                      </optgroup>
+                    </select>
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {dataResult.map((row) => (
+                  <tr key={row.id}>
+                    <td>{row.titulo}</td>
+                    <td>{formatDate(row.fecha)}</td>
+                    <td>{row.total_intentos}</td>
+                    <td>{row.promedio_correctas != null ? row.promedio_correctas + "/" + row.total_ejercicios : "-"}</td>
+                    <td>
+                      <div>
+                        <CustomButton
+                          type="btn btn-primary btn-sm"
+                          text="Editar"
+                          func={handleEdition(row.id)}
+                        />
+                      </div>
+                      <div>
+                        <CustomButton
+                          type="btn btn-danger btn-sm"
+                          text="Borrar"
+                          func={handleDeletion(row.id)}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
-          <div className="addMoreActivitiesButton">
-            <CustomButton
-              type="btn btn-primary btn-lg mr-2"
-              text="+"
-              func={handleNextStep}
-            />
+            <div className="addMoreActivitiesButton">
+              <CustomButton
+                type="btn btn-primary btn-lg mr-2"
+                text="+"
+                func={handleNextStep}
+              />
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       {step === 2 && (
-        <div>
-          {activityID && activityData && activityExData &&(
+        <>
+          {activityID && activityData && activityExData && (
             <ActivityFormat
-              onDeleteRow = {handleDeleteRow}
-              onMoveRowUp = {handleMoveRowUp}
-              onMoveRowDown = {handleMoveRowDown}
+              onDeleteRow={handleDeleteRow}
+              onMoveRowUp={handleMoveRowUp}
+              onMoveRowDown={handleMoveRowDown}
               onPreviousStep={handlePrevStep}
               onNextStatus={handleStatusNormal}
               onNextExercise={handleStatusExercise}
               onActivityCreation={handleCreateActivity}
               onActivityUpdate={handleUpdateActivity}
               edicion={true}
-              id = {activityData['id']}
-              titulo = {titleOption}
-              onTitleChange = {handleTitle}
-              inicio = {inicioOption}
-              onInicioChange = {handleInicio}
-              fin = {finOption}
-              onFinChange = {handleFin}
-              intentos = {numIntentosOption}
-              onIntentosChange = {handleIntentos}
-              bloqueo = {bloqueoOption}
-              onBloqueoChange = {handleBloqueo}
-              disponible = {disponibleOption}
-              onDisponibleChange = {handleDisponible}
-              visible = {visibleOption}
-              onVisibleChange = {handleVisible}
-              ejercicios = {activityExData}
+              id={activityData['id']}
+              titulo={titleOption}
+              onTitleChange={handleTitle}
+              inicio={inicioOption}
+              onInicioChange={handleInicio}
+              fin={finOption}
+              onFinChange={handleFin}
+              intentos={numIntentosOption}
+              onIntentosChange={handleIntentos}
+              bloqueo={bloqueoOption}
+              onBloqueoChange={handleBloqueo}
+              disponible={disponibleOption}
+              onDisponibleChange={handleDisponible}
+              visible={visibleOption}
+              onVisibleChange={handleVisible}
+              ejercicios={activityExData}
             />
           )}
           {(!activityID || !activityData || !activityExData) && (
             <ActivityFormat
-              onDeleteRow = {handleDeleteRow}
-              onMoveRowUp = {handleMoveRowUp}
-              onMoveRowDown = {handleMoveRowDown}
+              onDeleteRow={handleDeleteRow}
+              onMoveRowUp={handleMoveRowUp}
+              onMoveRowDown={handleMoveRowDown}
               onPreviousStep={handlePrevStep}
               onNextStatus={handleStatusNormal}
               onNextExercise={handleStatusExercise}
               onActivityCreation={handleCreateActivity}
               onActivityUpdate={handleUpdateActivity}
-              grupo = {props.grupo}
-              titulo = {titleOption}
-              onTitleChange = {handleTitle}
-              inicio = {inicioOption}
-              onInicioChange = {handleInicio}
-              fin = {finOption}
-              onFinChange = {handleFin}
-              intentos = {numIntentosOption}
-              onIntentosChange = {handleIntentos}
-              bloqueo = {bloqueoOption}
-              onBloqueoChange = {handleBloqueo}
-              disponible = {disponibleOption}
-              onDisponibleChange = {handleDisponible}
-              visible = {visibleOption}
-              onVisibleChange = {handleVisible}
-              ejercicios = {activityExData}
+              grupo={props.grupo}
+              titulo={titleOption}
+              onTitleChange={handleTitle}
+              inicio={inicioOption}
+              onInicioChange={handleInicio}
+              fin={finOption}
+              onFinChange={handleFin}
+              intentos={numIntentosOption}
+              onIntentosChange={handleIntentos}
+              bloqueo={bloqueoOption}
+              onBloqueoChange={handleBloqueo}
+              disponible={disponibleOption}
+              onDisponibleChange={handleDisponible}
+              visible={visibleOption}
+              onVisibleChange={handleVisible}
+              ejercicios={activityExData}
             />
           )}
-        </div>
+        </>
       )}
 
       {(step === 3 || step === 5) && editStatus === 'Código' && (
-        <section id="exerciseCreationForm" className="container-cc">
-         <form>
-            <CodeExercise
-              id={exerciseID}
-              author={exerciseData['archivo']['author']}
-              title={exerciseData['archivo']['title']}
-              description={exerciseData['archivo']['description']}
-              subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
-              difficulty={exerciseData['archivo']['difficulty']}
-              driver={exerciseData['archivo']['driver']}
-              tests={exerciseData['archivo']['tests']}
-              aprobado={exerciseData.autorizado}
-              id_autor={exerciseData.id_autor}
-              index={exerciseIndex}
-              edicion={true}
-              onStep={handlePrevStepFive}
-              idDocente={props.id}
-              rol={'Docente'}
-              onAddExercise = {handleAddExercise}
-              onEditExercise = {handleEditExercise}
-              onCheckDup = {handlePreventDup}
-              fromActivity = {true}
-            />
-          </form>
-        </section>  
+        <>
+          <section id="exerciseCreationForm" className="container-cc">
+            <form>
+              <CodeExercise
+                id={exerciseID}
+                author={exerciseData['archivo']['author']}
+                title={exerciseData['archivo']['title']}
+                description={exerciseData['archivo']['description']}
+                subtema={exerciseData.id_subtema + "," + exerciseData['archivo']['topic']}
+                difficulty={exerciseData['archivo']['difficulty']}
+                driver={exerciseData['archivo']['driver']}
+                tests={exerciseData['archivo']['tests']}
+                aprobado={exerciseData.autorizado}
+                id_autor={exerciseData.id_autor}
+                index={exerciseIndex}
+                edicion={true}
+                onStep={handlePrevStepFive}
+                idDocente={props.id}
+                rol={'Docente'}
+                onAddExercise={handleAddExercise}
+                onEditExercise={handleEditExercise}
+                onCheckDup={handlePreventDup}
+                fromActivity={true}
+              />
+            </form>
+          </section>
+        </>
       )}
 
       {(step === 3 || step === 5) && editStatus === 'Opción múltiple' && (
@@ -551,7 +555,7 @@ export const TeacherActivity = (props) => {
               author={exerciseData['archivo']['author']}
               title={exerciseData['archivo']['title']}
               description={exerciseData['archivo']['description']}
-              subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+              subtema={exerciseData.id_subtema + "," + exerciseData['archivo']['topic']}
               difficulty={exerciseData['archivo']['difficulty']}
               answer={exerciseData['archivo']['answer']}
               hints={exerciseData['archivo']['hints']}
@@ -563,13 +567,13 @@ export const TeacherActivity = (props) => {
               onStep={handlePrevStepFive}
               idDocente={props.id}
               rol={'Docente'}
-              onAddExercise = {handleAddExercise}
-              onEditExercise = {handleEditExercise}
-              onCheckDup = {handlePreventDup}
-              fromActivity = {true}
+              onAddExercise={handleAddExercise}
+              onEditExercise={handleEditExercise}
+              onCheckDup={handlePreventDup}
+              fromActivity={true}
             />
           </form>
-        </section>  
+        </section>
       )}
 
       {(step === 3 || step === 4) && editStatus === 'Aleatorio' && (
@@ -577,12 +581,12 @@ export const TeacherActivity = (props) => {
           {exerciseID && exerciseData && (
             <RandomExercise
               id={exerciseID}
-              subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+              subtema={exerciseData.id_subtema + "," + exerciseData['archivo']['topic']}
               difficulty={exerciseData['archivo']['difficulty']}
               tipo={exerciseData['archivo']['type']}
               onStep={handlePrevStepFour}
-              onAddExercise = {handleAddExercise}
-              onEditExercise = {handleEditExercise}
+              onAddExercise={handleAddExercise}
+              onEditExercise={handleEditExercise}
               idDocente={props.id}
               index={exerciseIndex}
               edicion={true}
@@ -591,8 +595,8 @@ export const TeacherActivity = (props) => {
           {(!exerciseID || !exerciseData) && (
             <RandomExercise
               onStep={handlePrevStepFour}
-              onAddExercise = {handleAddExercise}
-              onEditExercise = {handleEditExercise}
+              onAddExercise={handleAddExercise}
+              onEditExercise={handleEditExercise}
               idDocente={props.id}
             />
           )}
@@ -600,53 +604,45 @@ export const TeacherActivity = (props) => {
       )}
 
       {step === 3 && editStatus === 'Normal' && (
-        <section id="exerciseChoosingForm" className="container-cc">
-          <form>
-          <div>
-            <div className="text-center mb-4">
-              <h3 className="mb-0">Elección de ejercicio</h3>
-              <span>Selecciona el tipo de ejercicio que añadir</span>
-            </div>
+        <>
+          <PDSHPanelTemplate title={'Elección de ejercicio'} canReturn={true} hasCustomReturn={true} customReturn={handlePrevStep} />
+          <section id="exerciseChoosingForm" className="container-cc">
+            <form>
+              <div>
+                <div className="text-center mb-4 mt-4">
+                  <b>Selecciona el tipo de ejercicio que añadir</b>
+                </div>
 
-            <div className="select">
-              <CustomButton
-                type="btn btnPrimary btnResize"
-                text="Específico"
-                func={handleStatusEspecífico}
-              />
-              <CustomButton
-                type="btn btnPrimary btnResize"
-                text="Aleatorio"
-                func={handleStatusAleatorio}
-              />
-            </div>
-
-            <div className="select next-back mt-5">
-              <CustomButton
-                type="btn mt-3 btnPrimary"
-                text="Atrás"
-                func={handlePrevStep}
-              />
-            </div>
-          </div>
-          </form>
-        </section>
+                <div className="select">
+                  <CustomButton
+                    type="btn btnPrimary btnResize"
+                    text="Específico"
+                    func={handleStatusEspecífico}
+                  />
+                  <CustomButton
+                    type="btn btnPrimary btnResize"
+                    text="Aleatorio"
+                    func={handleStatusAleatorio}
+                  />
+                </div>
+              </div>
+            </form>
+          </section>
+        </>
       )}
 
       {step === 4 && editStatus === 'Específico' && (
-        <div>
-          <CustomButton
-            type="btn mt-3 mb-3 btnPrimary btn-lg"
-            text="Atrás"
-            func={handlePrevStepFour}
-          />
-          <ResultTable
-            id={props.id}
-            rol={'Docente'}
-            onAddExercise = {handleAddExercise}
-            onCheckDup = {handlePreventDup}
-          />
-        </div>
+        <>
+          <PDSHPanelTemplate title={'Ejercicio específico'} canReturn={true} hasCustomReturn={true} customReturn={handlePrevStepFour} />
+          <div style={{ marginTop: 20, padding: '0px 15px', overflowY: 'scroll', height: '100%' }} >
+            <ResultTable
+              id={props.id}
+              rol={'Docente'}
+              onAddExercise={handleAddExercise}
+              onCheckDup={handlePreventDup}
+            />
+          </div>
+        </>
       )}
     </section>
   );

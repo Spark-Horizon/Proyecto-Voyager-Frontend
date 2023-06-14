@@ -1,11 +1,7 @@
 #teacherQuizSection {
-  transition: all ease 0.5s;
-  background-image: url("../assets/img/bkgr_spaceBackground.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 #teacherQuizSection table {
@@ -36,9 +32,6 @@
 #teacherQuizSection th {
   padding: 1rem;
   border-radius: 15px;
-  background: rgba(30, 30, 30, 0.25) !important;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
-  backdrop-filter: blur(11px) !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
   font-weight: bold;
 }
@@ -46,9 +39,6 @@
 #teacherQuizSection td {
   padding: 1rem;
   border-radius: 15px;
-  background: rgba(30, 30, 30, 0.25) !important;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
-  backdrop-filter: blur(11px) !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
 }
 
@@ -82,9 +72,11 @@
 }
 
 #teacherActivityFormat {
-  width: 50%;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
+  display: flex;
+  overflow-y: scroll;
+  padding: 30px;
+  flex-direction: column;
 }
 
 #teacherActivityFormat .exercise-table {

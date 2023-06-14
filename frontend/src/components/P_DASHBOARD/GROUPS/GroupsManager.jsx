@@ -7,14 +7,17 @@ export const GroupsManager = ({professorId}) => {
     const [currentView, setCurrentView] = useState(0);
     const [groupId, setGroupId] = useState(null);
 
+    console.log('Current index: ', currentView)
+
     const componentViews = [
         <Groups 
             setGroupId={setGroupId}
             changeParentView={setCurrentView}
         />,
         <TeacherActivity 
-            professorId={professorId}
-            groupId={groupId}
+            id={professorId}
+            grupo={groupId}
+            changeParentView={setCurrentView}
         />
     ];
 

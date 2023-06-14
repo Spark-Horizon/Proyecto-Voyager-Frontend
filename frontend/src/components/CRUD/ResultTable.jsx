@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGetExerciseTask, useGetCRUDTask, useGetFilAutorTask, useGetFilSubtemaTask, useGetFilTipoTask, useGetFilDificultadTask, useGetFilAutorizacionTask, useGetDeleteExercise } from '../../hooks/useGetCRUDTask.js';
 import { CustomButton } from '../CustomButton';
-import { getDeleteExercise }  from '../../helpers/getCRUDTask.js';
+import { getDeleteExercise } from '../../helpers/getCRUDTask.js';
 import { CodeExercise } from "./CodeExercise"
 import { OMExercise } from "./OMExercise"
 import { Loading } from '../Loading.jsx';
@@ -12,17 +12,18 @@ export const ResultTable = (props) => {
 
   const [exerciseID, setExerciseID] = useState(null);
   const [exerciseData, setExerciseData] = useState(null);
+  const [areVisible, setAreVisible] = useState(true)
 
   const [editStatus, setEditStatus] = useState(null);
 
   const [dataResult, setDataResult] = useState(['']);
-  
+
   const [autorOptions, setAutorOptions] = useState(['X']);
   const [subtemaOptions, setSubtemaOptions] = useState(['X']);
   const [tipoOptions, setTipoOptions] = useState(['X']);
   const [dificultadOptions, setDificultadOptions] = useState(['X']);
   const [autorizacionOptions, setAutorizacionOptions] = useState(['X']);
-  
+
   const [filtroOptions, setFiltroOptions] = useState(['id_resultado']);
   const [hierOptions, setHierOptions] = useState(['ASC']);
   const { data_exercise } = useGetExerciseTask(exerciseID);
@@ -32,27 +33,27 @@ export const ResultTable = (props) => {
   const { data_tipo, refetchDataTipo } = useGetFilTipoTask();
   const { data_dificultad, refetchDataDificultad } = useGetFilDificultadTask();
   const { data_autorizacion, refetchDataAutorizacion } = useGetFilAutorizacionTask();
-  
+
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     setDataResult(data_result);
   }, [data_result]);
 
   useEffect(() => {
-    if (data_exercise){
+    if (data_exercise) {
       setExerciseData(data_exercise);
     }
   }, [data_exercise]);
 
   useEffect(() => {
-    if (exerciseData !== null){
+    if (exerciseData !== null) {
       handleNextStep();
     }
   }, [exerciseData]);
 
   useEffect(() => {
-    if (step === 1){
+    if (step === 1) {
       setExerciseID(null);
       setExerciseData(null);
       refetchData();
@@ -74,15 +75,15 @@ export const ResultTable = (props) => {
     setFiltroOptions(['id_resultado']);
     setHierOptions(['ASC']);
   }
-  
+
   const handlePrevStep = () => {
     setStep(step - 1);
   };
-  
+
   const handleNextStep = () => {
     setStep(step + 1);
   };
-  
+
   const handleDeletion = (id_hand) => (e) => {
     e.preventDefault();
     if (window.confirm("¿Estás seguro de que deseas borrar este ejercicio?")) {
@@ -91,12 +92,12 @@ export const ResultTable = (props) => {
       setDataResult(newDataResult);
     }
   }
-  
+
   const handleEdition = (tipo_hand, id_hand) => (e) => {
     setExerciseID(id_hand);
-    if (tipo_hand === 'Código'){
+    if (tipo_hand === 'Código') {
       setEditStatus('Código');
-    }else{
+    } else {
       setEditStatus('Opción múltiple');
     }
   }
@@ -108,110 +109,124 @@ export const ResultTable = (props) => {
   }
 
   const handleAddition = (id, titulo, tipo, id_subtema) => (e) => {
-    const addExercise = {"id": id, 
-                         "?column?": titulo,
-                         "tipo": tipo,
-                         "id_subtema": id_subtema};
+    const addExercise = {
+      "id": id,
+      "?column?": titulo,
+      "tipo": tipo,
+      "id_subtema": id_subtema
+    };
     props.onAddExercise(addExercise);
   }
 
   if (!dataResult || !data_result || !data_autor || !data_subtema || !data_tipo || !data_dificultad || !data_autorizacion || loading_autor) {
-    return <div className="container-cc loading-container"><Loading/></div>;
+    return <div className="container-cc loading-container"><Loading /></div>;
   }
-  
+
   return (
     <section id="crudSection">
       {step === 1 && (
-        <div className="table-responsive">
-          <table className="table table-hover">
-            <thead>
-              <tr>
+        <>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '20px 0px' }}>
+            <CustomButton
+              type={'btn btn-primary btn-block'}
+              text={'Reiniciar filtros'}
+              func={handleReset} />
+            <div style={{ width: '30px' }}></div>
+            <CustomButton
+              type={'btn btn-primary btn-block btn-success'}
+              text={'Añadir ejercicio'}
+              func={handleCreation} />
+          </div>
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
 
-                <th scope="col">ID:</th>
-                <th scope="col">Título:</th>
+                  <th scope="col">ID:</th>
+                  <th scope="col">Título:</th>
 
-                <th scope="col">
-                  <select
-                    className="form-select form-select-sm multiselect-dropdown"
-                    aria-label="Filtro"
-                    multiple
-                    value={autorOptions}
-                    onChange={(autorvar) => setAutorOptions(Array.from(autorvar.target.selectedOptions, option => option.value))} >
-                    <option value="">Autor: </option>
-                    {data_autor.map((row) => (
-                      <option key={row['?column?']} value={row['?column?']}>
-                        {row['?column?']}
-                      </option>
-                    ))}
-                  </select>
-                </th>
+                  <th scope="col">
+                    <select
+                      className="form-select form-select-sm multiselect-dropdown"
+                      aria-label="Filtro"
+                      multiple
+                      value={autorOptions}
+                      onChange={(autorvar) => setAutorOptions(Array.from(autorvar.target.selectedOptions, option => option.value))} >
+                      <option value="">Autor: </option>
+                      {data_autor.map((row) => (
+                        <option key={row['?column?']} value={row['?column?']}>
+                          {row['?column?']}
+                        </option>
+                      ))}
+                    </select>
+                  </th>
 
-                <th scope="col">
-                  <select
-                    className="form-select form-select-sm multiselect-dropdown"
-                    aria-label="Filtro"
-                    multiple
-                    value={subtemaOptions}
-                    onChange={(subtemavar) => setSubtemaOptions(Array.from(subtemavar.target.selectedOptions, option => option.value))}>
-                    <option value="">Subtema: </option>
-                    {data_subtema.map((row) => (
-                      <option key={row.nombre} value={row.nombre}>
-                        {row.nombre}
-                      </option>
-                    ))}
-                  </select>
-                </th>
+                  <th scope="col">
+                    <select
+                      className="form-select form-select-sm multiselect-dropdown"
+                      aria-label="Filtro"
+                      multiple
+                      value={subtemaOptions}
+                      onChange={(subtemavar) => setSubtemaOptions(Array.from(subtemavar.target.selectedOptions, option => option.value))}>
+                      <option value="">Subtema: </option>
+                      {data_subtema.map((row) => (
+                        <option key={row.nombre} value={row.nombre}>
+                          {row.nombre}
+                        </option>
+                      ))}
+                    </select>
+                  </th>
 
-                <th scope="col">
-                  <select
-                    className="form-select form-select-sm multiselect-dropdown"
-                    aria-label="Filtro"
-                    multiple
-                    value={tipoOptions}  
-                    onChange={(tipovar) => setTipoOptions(Array.from(tipovar.target.selectedOptions, option => option.value))}>
-                    <option value="">Tipo: </option>  
-                    {data_tipo.map((row) => (
-                      <option key={row.tipo} value={row.tipo}>
-                        {row.tipo}
-                      </option>
-                    ))}
-                  </select>
-                </th>
+                  <th scope="col">
+                    <select
+                      className="form-select form-select-sm multiselect-dropdown"
+                      aria-label="Filtro"
+                      multiple
+                      value={tipoOptions}
+                      onChange={(tipovar) => setTipoOptions(Array.from(tipovar.target.selectedOptions, option => option.value))}>
+                      <option value="">Tipo: </option>
+                      {data_tipo.map((row) => (
+                        <option key={row.tipo} value={row.tipo}>
+                          {row.tipo}
+                        </option>
+                      ))}
+                    </select>
+                  </th>
 
-                <th scope="col">
-                  <select
-                    className="form-select form-select-sm multiselect-dropdown"
-                    aria-label="Filtro"
-                    multiple
-                    value={dificultadOptions}
-                    onChange={(dificultadvar) => setDificultadOptions(Array.from(dificultadvar.target.selectedOptions, option => option.value))}>
-                    <option value="">Dificultad: </option>
-                    {data_dificultad.map((row) => (
-                      <option key={row['?column?']} value={row['?column?']}>
-                        {row['?column?']}
-                      </option>
-                    ))}
-                  </select>
-                </th>
+                  <th scope="col">
+                    <select
+                      className="form-select form-select-sm multiselect-dropdown"
+                      aria-label="Filtro"
+                      multiple
+                      value={dificultadOptions}
+                      onChange={(dificultadvar) => setDificultadOptions(Array.from(dificultadvar.target.selectedOptions, option => option.value))}>
+                      <option value="">Dificultad: </option>
+                      {data_dificultad.map((row) => (
+                        <option key={row['?column?']} value={row['?column?']}>
+                          {row['?column?']}
+                        </option>
+                      ))}
+                    </select>
+                  </th>
 
-                <th scope="col">
-                  <select
-                    className="form-select form-select-sm multiselect-dropdown"
-                    aria-label="Filtro"
-                    multiple
-                    value={autorizacionOptions}
-                    onChange={(autorizadovar) => setAutorizacionOptions(Array.from(autorizadovar.target.selectedOptions, option => option.value))}>
-                    <option value="">Aprobación: </option>
-                    {data_autorizacion.map((row) => (
-                      <option key={row.autorizado} value={row.autorizado}>
-                        {row.autorizado ? "Aprobado" : "Rechazado"}
-                      </option>
-                    ))}
-                  </select>
-                </th>
+                  <th scope="col">
+                    <select
+                      className="form-select form-select-sm multiselect-dropdown"
+                      aria-label="Filtro"
+                      multiple
+                      value={autorizacionOptions}
+                      onChange={(autorizadovar) => setAutorizacionOptions(Array.from(autorizadovar.target.selectedOptions, option => option.value))}>
+                      <option value="">Aprobación: </option>
+                      {data_autorizacion.map((row) => (
+                        <option key={row.autorizado} value={row.autorizado}>
+                          {row.autorizado ? "Aprobado" : "Rechazado"}
+                        </option>
+                      ))}
+                    </select>
+                  </th>
 
-                <th scope="col">
-                  Orden:
+                  <th scope="col">
+                    Orden:
                     <select
                       className="form-select form-select-sm"
                       aria-label="Filtro"
@@ -245,102 +260,88 @@ export const ResultTable = (props) => {
                         <option value="autorizado_resultado">Aprobado</option>
                       </optgroup>
                     </select>
-                </th>
+                  </th>
+                </tr>
+              </thead>
 
-                <th scope="col">
-                  <CustomButton 
-                  type={'btn btn-primary btn-block'} 
-                  text={'Reiniciar filtros'} 
-                  func={handleReset}/>
-                </th>
-
-                <th scope="col">
-                  <CustomButton 
-                  type={'btn btn-primary btn-block btn-success'} 
-                  text={'Añadir ejercicio'}
-                  func={handleCreation}/>
-                </th>
-
-              </tr>
-            </thead>
-
-            <tbody >
-            {dataResult.map((row) => (
-              <tr key={row.id_resultado}>
-                <td>{row.id_resultado}</td>
-                <td>{row.titulo}</td>
-                <td>{row.autor}</td>
-                <td>{row.subtema}</td>
-                <td>{row.tipo_resultado}</td>
-                <td>{row.dificultad}</td>
-                <td>{row.autorizado_resultado ? "Aprobado" : "Rechazado"}</td>
-                <td>
-                  {(row.id_autor === props.id || props.rol === 'Administrador') && (
-                    <div>
-                      <CustomButton 
-                      type={'btn btn-primary btn-sm mr-2'} 
-                      text={'Editar'} 
-                      func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
-                      <CustomButton 
-                      type={'btn btn-danger btn-sm'} 
-                      text={'Borrar'} 
-                      func={handleDeletion(row.id_resultado)}/>
-                    </div>
-                  )}
-                  {(row.id_autor !== props.id && props.rol !== 'Administrador') && (
-                    <div>
-                      <CustomButton 
-                      type={'btn btn-primary btn-sm mr-2'} 
-                      text={'Ver'} 
-                      func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)}/>
-                    </div>
-                  )}
-                  {(props.rol === 'Docente' && props.onCheckDup(row.id_resultado)) && (
-                    <div>
-                      <CustomButton 
-                      type={'btn btn-success btn-sm mr-2'} 
-                      text={'Agregar'} 
-                      func={handleAddition(row.id_resultado, row.titulo, row.tipo_resultado, row.subtema)}/>
-                    </div>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+              <tbody >
+                {dataResult.map((row) => (
+                  <tr key={row.id_resultado}>
+                    <td>{row.id_resultado}</td>
+                    <td>{row.titulo}</td>
+                    <td>{row.autor}</td>
+                    <td>{row.subtema}</td>
+                    <td>{row.tipo_resultado}</td>
+                    <td>{row.dificultad}</td>
+                    <td>{row.autorizado_resultado ? "Aprobado" : "Rechazado"}</td>
+                    <td>
+                      {(row.id_autor === props.id || props.rol === 'Administrador') && (
+                        <div>
+                          <CustomButton
+                            type={'btn btn-primary btn-sm mr-2'}
+                            text={'Editar'}
+                            func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)} />
+                          <CustomButton
+                            type={'btn btn-danger btn-sm'}
+                            text={'Borrar'}
+                            func={handleDeletion(row.id_resultado)} />
+                        </div>
+                      )}
+                      {(row.id_autor !== props.id && props.rol !== 'Administrador') && (
+                        <div>
+                          <CustomButton
+                            type={'btn btn-primary btn-sm mr-2'}
+                            text={'Ver'}
+                            func={handleEdition(row.tipo_resultado, row.id_resultado, row.subtema)} />
+                        </div>
+                      )}
+                      {(props.rol === 'Docente' && props.onCheckDup(row.id_resultado)) && (
+                        <div>
+                          <CustomButton
+                            type={'btn btn-success btn-sm mr-2'}
+                            text={'Agregar'}
+                            func={handleAddition(row.id_resultado, row.titulo, row.tipo_resultado, row.subtema)} />
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
-      
+
       {step === 2 && editStatus === 'Pendiente' && (
         <section id="exerciseCreationForm" className="container-cc">
           <form>
-          <div>
-            <div className="text-center mb-4">
-              <h3 className="mb-0">Creación de ejercicios</h3>
-              <span>Selecciona el tipo de ejercicio que quieres crear</span>
-            </div>
+            <div>
+              <div className="text-center mb-4">
+                <h3 className="mb-0">Creación de ejercicios</h3>
+                <span>Selecciona el tipo de ejercicio que quieres crear</span>
+              </div>
 
-            <div className="select">
-              <CustomButton
-                type="btn btnPrimary btnResize"
-                text="Código"
-                func={() => setEditStatus('Código')}
-              />
-              <CustomButton
-                type="btn btnPrimary btnResize"
-                text="Opción múltiple"
-                func={() => setEditStatus('Opción múltiple')}
-              />
-            </div>
+              <div className="select">
+                <CustomButton
+                  type="btn btnPrimary btnResize"
+                  text="Código"
+                  func={() => setEditStatus('Código')}
+                />
+                <CustomButton
+                  type="btn btnPrimary btnResize"
+                  text="Opción múltiple"
+                  func={() => setEditStatus('Opción múltiple')}
+                />
+              </div>
 
-            <div className="select next-back mt-5">
-              <CustomButton
-                type="btn mt-3 btnPrimary"
-                text="Regresar a inicio"
-                func={handlePrevStep}
-              />
+              <div className="select next-back mt-5">
+                <CustomButton
+                  type="btn mt-3 btnPrimary"
+                  text="Regresar a inicio"
+                  func={handlePrevStep}
+                />
+              </div>
             </div>
-          </div>
           </form>
         </section>
       )}
@@ -349,12 +350,12 @@ export const ResultTable = (props) => {
         <section id="exerciseCreationForm" className="container-cc">
           <form>
             {exerciseID && exerciseData && (
-              <CodeExercise 
+              <CodeExercise
                 id={exerciseID}
                 author={exerciseData['archivo']['author']}
                 title={exerciseData['archivo']['title']}
                 description={exerciseData['archivo']['description']}
-                subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
+                subtema={exerciseData.id_subtema + "," + exerciseData['archivo']['topic']}
                 difficulty={exerciseData['archivo']['difficulty']}
                 driver={exerciseData['archivo']['driver']}
                 tests={exerciseData['archivo']['tests']}
@@ -364,62 +365,65 @@ export const ResultTable = (props) => {
                 edicion={true}
                 idDocente={props.id}
                 rol={props.rol}
-                onAddExercise = {props.onAddExercise}
-                onCheckDup = {props.onCheckDup}
+                onAddExercise={props.onAddExercise}
+                onCheckDup={props.onCheckDup}
               />
             )}
             {(!exerciseID || !exerciseData) && (
-              <CodeExercise 
+              <CodeExercise
                 onStep={handlePrevStep}
                 idDocente={props.id}
                 id_autor={props.id}
                 rol={props.rol}
-                onAddExercise = {props.onAddExercise}
-                onCheckDup = {props.onCheckDup}
-              />
-            )}
-          </form>
-        </section>       
-      )}
-
-      {step === 2 && editStatus === 'Opción múltiple'&& (
-        <section id="exerciseCreationForm" className="container-cc">
-          <form>
-            {exerciseID && exerciseData && (
-              <OMExercise 
-                id={exerciseID}
-                author={exerciseData['archivo']['author']}
-                title={exerciseData['archivo']['title']}
-                description={exerciseData['archivo']['description']}
-                subtema={exerciseData.id_subtema+","+exerciseData['archivo']['topic']}
-                difficulty={exerciseData['archivo']['difficulty']}
-                answer={exerciseData['archivo']['answer']}
-                hints={exerciseData['archivo']['hints']}
-                options={exerciseData['archivo']['options']}
-                aprobado={exerciseData.autorizado}
-                id_autor={exerciseData.id_autor}
-                onStep={handlePrevStep}
-                edicion={true}
-                idDocente={props.id}
-                rol={props.rol}
-                onAddExercise = {props.onAddExercise}
-                onCheckDup = {props.onCheckDup}
-              />
-            )}
-            {(!exerciseID || !exerciseData) && (
-              <OMExercise 
-                onStep={handlePrevStep}
-                idDocente={props.id}
-                id_autor={props.id}
-                rol={props.rol}
-                onAddExercise = {props.onAddExercise}
-                onCheckDup = {props.onCheckDup}
+                onAddExercise={props.onAddExercise}
+                onCheckDup={props.onCheckDup}
               />
             )}
           </form>
         </section>
-      )}
-      
-    </section>
+      )
+      }
+
+      {
+        step === 2 && editStatus === 'Opción múltiple' && (
+          <section id="exerciseCreationForm" className="container-cc">
+            <form>
+              {exerciseID && exerciseData && (
+                <OMExercise
+                  id={exerciseID}
+                  author={exerciseData['archivo']['author']}
+                  title={exerciseData['archivo']['title']}
+                  description={exerciseData['archivo']['description']}
+                  subtema={exerciseData.id_subtema + "," + exerciseData['archivo']['topic']}
+                  difficulty={exerciseData['archivo']['difficulty']}
+                  answer={exerciseData['archivo']['answer']}
+                  hints={exerciseData['archivo']['hints']}
+                  options={exerciseData['archivo']['options']}
+                  aprobado={exerciseData.autorizado}
+                  id_autor={exerciseData.id_autor}
+                  onStep={handlePrevStep}
+                  edicion={true}
+                  idDocente={props.id}
+                  rol={props.rol}
+                  onAddExercise={props.onAddExercise}
+                  onCheckDup={props.onCheckDup}
+                />
+              )}
+              {(!exerciseID || !exerciseData) && (
+                <OMExercise
+                  onStep={handlePrevStep}
+                  idDocente={props.id}
+                  id_autor={props.id}
+                  rol={props.rol}
+                  onAddExercise={props.onAddExercise}
+                  onCheckDup={props.onCheckDup}
+                />
+              )}
+            </form>
+          </section>
+        )
+      }
+
+    </section >
   );
 };
