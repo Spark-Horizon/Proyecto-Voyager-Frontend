@@ -50,8 +50,8 @@ body{
   height:80px;
   width: 100%;
 }
-.footer .container{
-  padding: 25px;
+.footer .footer-container{
+  padding: 25px 100px;
   color: silver;
   display: flex;
   flex-direction: column;
@@ -60,27 +60,27 @@ body{
   font-size: 12px;
   text-align: center;
 }
-.footer .container *{
+.footer .footer-container *{
   margin-bottom: 20px;
 }
-.footer .container p{
+.footer .footer-container p{
   max-width: 90%;
 }
-.footer .container .fotterLinks{
+.footer .footer-container .fotterLinks{
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 0;
 }
-.footer .container .fotterLinks li{
+.footer .footer-container .fotterLinks li{
   margin: 5px 10px;
 }
-.footer .container .fotterLinks a{
+.footer .footer-container .fotterLinks a{
   color: silver;
   text-decoration: none;
 }
-.footer .container .fotterLinks a:hover{
+.footer .footer-container .fotterLinks a:hover{
   color: var(--light-blue);
 }
 .spinner{

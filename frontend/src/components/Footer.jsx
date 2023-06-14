@@ -6,7 +6,7 @@ export const Footer = () => {
 
   return (
     <footer className='footer'>
-      <div className="container">
+      <div className="footer-container">
         <SparkHorizonLogo/>
         <ul className='fotterLinks'>
           <li><Link to='/'>La tripulación</Link></li>
