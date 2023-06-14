@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CustomButton } from '../CustomButton';
 import { getCreateActivity, getUpdateActivity } from '../../helpers/getTeacherTask';
+import { PDSHPanelTemplate } from '../P_DASHBOARD/PDSHPanelTemplate';
 
 export const ActivityFormat = (props) => {
   const [titleOption, setTitleOption] = useState(props.titulo || '');
@@ -13,31 +14,31 @@ export const ActivityFormat = (props) => {
   const [exerciseBlocksCode, setExerciseBlocksCode] = useState(props.ejercicios || []);
 
   useEffect(() => {
-    if (props.titulo){
+    if (props.titulo) {
       setTitleOption(props.titulo);
     }
   }, [props.titulo]);
 
   useEffect(() => {
-    if (props.inicio){
+    if (props.inicio) {
       setInicioOption(props.inicio);
     }
   }, [props.inicio]);
 
   useEffect(() => {
-    if (props.fin){
+    if (props.fin) {
       setFinOption(props.fin);
     }
   }, [props.fin]);
 
   useEffect(() => {
-    if (props.intentos){
+    if (props.intentos) {
       setNumIntentosOption(props.intentos);
     }
   }, [props.intentos]);
 
   useEffect(() => {
-    if (props.bloqueo){
+    if (props.bloqueo) {
       setBloqueoOption(props.bloqueo);
     } else {
       setBloqueoOption(false);
@@ -45,7 +46,7 @@ export const ActivityFormat = (props) => {
   }, [props.bloqueo]);
 
   useEffect(() => {
-    if (props.visible){
+    if (props.visible) {
       setVisibleOption(props.visible);
     } else {
       setVisibleOption(false);
@@ -53,7 +54,7 @@ export const ActivityFormat = (props) => {
   }, [props.visible]);
 
   useEffect(() => {
-    if (props.disponible){
+    if (props.disponible) {
       setDisponibleOption(props.disponible);
     } else {
       setDisponibleOption(false);
@@ -61,7 +62,7 @@ export const ActivityFormat = (props) => {
   }, [props.disponible]);
 
   useEffect(() => {
-    if (props.ejercicios){
+    if (props.ejercicios) {
       setExerciseBlocksCode(props.ejercicios);
     }
   }, [props.ejercicios]);
@@ -77,13 +78,13 @@ export const ActivityFormat = (props) => {
   const handleCreation = (titulo, inicio, fin, intentos, bloqueo, disponible, visible, id_grupo, ejercicios) => (e) => {
     e.preventDefault();
     getCreateActivity(titulo, inicio, fin, intentos, bloqueo, disponible, visible, id_grupo, ejercicios);
-    props.onActivityCreation();  
+    props.onActivityCreation();
   }
 
   const handleEdition = (id, titulo, inicio, fin, intentos, bloqueo, disponible, visible, ejercicios) => (e) => {
     e.preventDefault();
     getUpdateActivity(id, titulo, inicio, fin, intentos, bloqueo, disponible, visible, ejercicios);
-    props.onActivityUpdate();  
+    props.onActivityUpdate();
   }
 
   const handleEjercicio = (id_hand, tipo_hand, index) => {
@@ -97,7 +98,7 @@ export const ActivityFormat = (props) => {
       props.onIntentosChange(trimmedValue);
     }
   };
-  
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -107,7 +108,7 @@ export const ActivityFormat = (props) => {
     const minute = String(date.getMinutes()).padStart(2, '0');
     return `${year}-${month}-${day}T${hour}:${minute}`;
   };
-  
+
   const handleDeleteRow = (index) => {
     props.onDeleteRow(index);
   };
@@ -120,207 +121,208 @@ export const ActivityFormat = (props) => {
     props.onMoveRowDown(index);
   };
 
+  const optionalItems = [
+    <div className="d-flex justify-content-between align-items-center" style={{marginLeft: '20px'}}>
+      {props.edicion && (
+        <CustomButton
+          type={'btn btn-success'}
+          text={'Guardar actividad'}
+          func={handleEdition(props.id, titleOption, inicioOption, finOption, numIntentosOption, bloqueoOption, disponibleOption, visibleOption, exerciseBlocksCode.map(item => item.id))}
+          disabled={
+            !titleOption.trim() ||
+            !inicioOption ||
+            !finOption ||
+            !numIntentosOption || //EL TRIM ANDABA AQUÍ
+            numIntentosOption < -1 ||
+            numIntentosOption == ' ' ||
+            exerciseBlocksCode.length < 1
+          }
+        />
+      )}
+      {!props.edicion && (
+        <CustomButton
+          type={'btn btn-success'}
+          text={'Crear actividad'}
+          func={handleCreation(titleOption, inicioOption, finOption, numIntentosOption, bloqueoOption, disponibleOption, visibleOption, props.grupo, exerciseBlocksCode.map(item => item.id))}
+          disabled={
+            !titleOption.trim() ||
+            !inicioOption ||
+            !finOption ||
+            !numIntentosOption || //EL TRIM ANDABA AQUÍ
+            numIntentosOption < -1 ||
+            numIntentosOption == ' ' ||
+            exerciseBlocksCode.length < 1
+          }
+        />
+      )}
+    </div>
+  ]
+
   return (
-    <section id="teacherActivityFormat">
-      <h2>Crear Actividad</h2>
-
-      <div className="form-group mb-4">
-        <label htmlFor="título">Título</label>
-        <input
-          type="text"
-          id="título"
-          value={titleOption}
-          onChange={(event) => props.onTitleChange(event.target.value)}
-          className="form-control"
-          placeholder="Título del ejercicio"
-          required
-        />
-      </div>
-
-      <div className="form-group mb-4">
-        <label htmlFor="inicio">Inicio</label>
-        <input
-          type="datetime-local"
-          id="inicio"
-          value={formatDate(inicioOption)}
-          onChange={(event) => props.onInicioChange(event.target.value)}
-          className="form-control"
-          required
-        />
-      </div>
-
-      <div className="form-group mb-4">
-        <label htmlFor="fin">Fin</label>
-        <input
-          type="datetime-local"
-          id="fin"
-          value={formatDate(finOption)}
-          onChange={(event) => props.onFinChange(event.target.value)}
-          className="form-control"
-          required
-        />
-      </div>
-
-      <div className="form-group mb-4">
-        <label htmlFor="numIntentos">Número de Intentos</label>
-        <input
-          type="text"
-          id="numIntentos"
-          value={numIntentosOption}
-          onChange={handleIntentosChange}
-          className="form-control"
-          placeholder=" "
-          required
-        />
-      </div>
-
-      <div className="form-group mb-4">
-        <label htmlFor="bloqueo" className="text-center mt-3">
-          ¿La actividad se bloquea tras la fecha de fin?
-        </label>
-        <div className="form-check">
+    <>
+      <PDSHPanelTemplate title={'Crear actividad'} canReturn={true} optionalItems={optionalItems} hasCustomReturn={true} customReturn={handlePrevious} />
+      <section id="teacherActivityFormat">
+        <div className="form-group mb-4">
+          <label htmlFor="título" className='mb-2'><b>Título</b></label>
           <input
-            type="checkbox"
-            id="bloqueo"
-            checked={bloqueoOption}
-            onChange={(e) => props.onBloqueoChange(e.target.checked)}
-            className="form-check-input"
+            type="text"
+            id="título"
+            value={titleOption}
+            onChange={(event) => props.onTitleChange(event.target.value)}
+            className="form-control"
+            placeholder="Título del ejercicio"
             required
           />
-          <label className="form-check-label" htmlFor="bloqueo">
-            Sí se bloquea
-          </label>
         </div>
-      </div>
 
-      <div className="form-group mb-4">
-        <label htmlFor="visible" className="text-center">
-          ¿La actividad es visible?
-        </label>
-        <div className="form-check">
+        <div className="form-group mb-4">
+          <label htmlFor="inicio" className='mb-2'><b>Inicio</b></label>
           <input
-            type="checkbox"
-            id="visible"
-            checked={visibleOption}
-            onChange={(e) => props.onVisibleChange(e.target.checked)}
-            className="form-check-input"
+            type="datetime-local"
+            id="inicio"
+            value={formatDate(inicioOption)}
+            onChange={(event) => props.onInicioChange(event.target.value)}
+            className="form-control"
             required
           />
-          <label className="form-check-label" htmlFor="visible">
-            Sí es visible para los alumnos
-          </label>
         </div>
-      </div>
 
-      <div className="form-group mb-4">
-        <label htmlFor="disponible" className="text-center">
-          ¿La actividad está disponible?
-        </label>
-        <div className="form-check">
+        <div className="form-group mb-4">
+          <label htmlFor="fin" className='mb-2'><b>Fin</b></label>
           <input
-            type="checkbox"
-            id="disponible"
-            checked={disponibleOption}
-            onChange={(e) => props.onDisponibleChange(e.target.checked)}
-            className="form-check-input"
+            type="datetime-local"
+            id="fin"
+            value={formatDate(finOption)}
+            onChange={(event) => props.onFinChange(event.target.value)}
+            className="form-control"
             required
           />
-          <label className="form-check-label" htmlFor="disponible">
-            Sí está disponible para los alumnos
-          </label>
         </div>
-      </div>
 
-      <h3>Ejercicios</h3>
-      <table className="exercise-table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Tipo</th>
-            <th>Subtema</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {exerciseBlocksCode.map((block, index) => (
-            <tr key={index}>
-              <td>{block.id}</td>
-              <td>{block['?column?']}</td>
-              <td>{block.tipo}</td>
-              <td>{block.id_subtema}</td>
-              <td className="button-cell">
-                <div>
-                  <CustomButton
-                    type="btn btn-primary btn-sm mr-2"
-                    text="Ver"
-                    func={() => handleEjercicio(block.id, block.tipo, index)}
-                  />
-                  <CustomButton
-                    type="btn btn-danger btn-sm mr-2"
-                    text="Borrar"
-                    func={() => handleDeleteRow(index)}
-                  />
-                  <CustomButton
-                    type="btn btn-secondary btn-sm mr-2"
-                    text="↑"
-                    func={() => handleMoveRowUp(index)}
-                    disabled={index === 0}
-                  />
-                  <CustomButton
-                    type="btn btn-secondary btn-sm mr-2"
-                    text="↓"
-                    func={() => handleMoveRowDown(index)}
-                    disabled={index === exerciseBlocksCode.length - 1}
-                  />
-                </div>
-              </td>
+        <div className="form-group mb-4">
+          <label htmlFor="numIntentos" className='mb-2'><b>Número de Intentos</b></label>
+          <input
+            type="text"
+            id="numIntentos"
+            value={numIntentosOption}
+            onChange={handleIntentosChange}
+            className="form-control"
+            placeholder=" "
+            required
+          />
+        </div>
+
+        <div className="form-group mb-4">
+          <label htmlFor="bloqueo" className="text-center mt-3 mb-2">
+            <b>¿La actividad se bloquea tras la fecha de fin?</b>
+          </label>
+          <div className="form-check">
+            <input
+              type="checkbox"
+              id="bloqueo"
+              checked={bloqueoOption}
+              onChange={(e) => props.onBloqueoChange(e.target.checked)}
+              className="form-check-input"
+              required
+            />
+            <label className="form-check-label" htmlFor="bloqueo">
+              Sí se bloquea
+            </label>
+          </div>
+        </div>
+
+        <div className="form-group mb-4">
+          <label htmlFor="visible" className="text-center mb-2">
+            <b>¿La actividad es visible?</b>
+          </label>
+          <div className="form-check">
+            <input
+              type="checkbox"
+              id="visible"
+              checked={visibleOption}
+              onChange={(e) => props.onVisibleChange(e.target.checked)}
+              className="form-check-input"
+              required
+            />
+            <label className="form-check-label" htmlFor="visible">
+              Sí es visible para los alumnos
+            </label>
+          </div>
+        </div>
+
+        <div className="form-group mb-4">
+          <label htmlFor="disponible" className="text-center mb-2">
+            <b>¿La actividad está disponible?</b>
+          </label>
+          <div className="form-check">
+            <input
+              type="checkbox"
+              id="disponible"
+              checked={disponibleOption}
+              onChange={(e) => props.onDisponibleChange(e.target.checked)}
+              className="form-check-input"
+              required
+            />
+            <label className="form-check-label" htmlFor="disponible">
+              Sí está disponible para los alumnos
+            </label>
+          </div>
+        </div>
+
+        <h3>Ejercicios</h3>
+        <table className="exercise-table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Subtema</th>
+              <th>Acciones</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
+          <tbody>
+            {exerciseBlocksCode.map((block, index) => (
+              <tr key={index}>
+                <td>{block.id}</td>
+                <td>{block['?column?']}</td>
+                <td>{block.tipo}</td>
+                <td>{block.id_subtema}</td>
+                <td className="button-cell">
+                  <div>
+                    <CustomButton
+                      type="btn btn-primary btn-sm mr-2"
+                      text="Ver"
+                      func={() => handleEjercicio(block.id, block.tipo, index)}
+                    />
+                    <CustomButton
+                      type="btn btn-danger btn-sm mr-2"
+                      text="Borrar"
+                      func={() => handleDeleteRow(index)}
+                    />
+                    <CustomButton
+                      type="btn btn-secondary btn-sm mr-2"
+                      text="↑"
+                      func={() => handleMoveRowUp(index)}
+                      disabled={index === 0}
+                    />
+                    <CustomButton
+                      type="btn btn-secondary btn-sm mr-2"
+                      text="↓"
+                      func={() => handleMoveRowDown(index)}
+                      disabled={index === exerciseBlocksCode.length - 1}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
 
-      </table>
+        </table>
 
         <div className="d-flex flex-column align-items-center mt-4">
           <CustomButton type={'btn btn-primary'} func={handleNext} text={'Añadir ejercicio'} />
         </div>
-
-        <div className="d-flex justify-content-between align-items-center mt-4">
-          <CustomButton type={'btn btn-primary'} func={handlePrevious} text={'Atrás'} />
-
-          {props.edicion && (
-            <CustomButton
-              type={'btn btn-success'}
-              text={'Editar actividad'}
-              func={handleEdition(props.id, titleOption, inicioOption, finOption, numIntentosOption, bloqueoOption, disponibleOption, visibleOption, exerciseBlocksCode.map(item => item.id))}
-              disabled={
-                !titleOption.trim() ||
-                !inicioOption ||
-                !finOption ||
-                !numIntentosOption || //EL TRIM ANDABA AQUÍ
-                numIntentosOption < -1 ||
-                numIntentosOption == ' ' ||
-                exerciseBlocksCode.length < 1
-              }
-            />
-          )}
-          {!props.edicion && (
-            <CustomButton
-              type={'btn btn-success'}
-              text={'Crear actividad'}
-              func={handleCreation(titleOption, inicioOption, finOption, numIntentosOption, bloqueoOption, disponibleOption, visibleOption, props.grupo, exerciseBlocksCode.map(item => item.id))}
-              disabled={
-                !titleOption.trim() ||
-                !inicioOption ||
-                !finOption ||
-                !numIntentosOption || //EL TRIM ANDABA AQUÍ
-                numIntentosOption < -1 ||
-                numIntentosOption == ' ' ||
-                exerciseBlocksCode.length < 1
-              }
-            />
-          )}
-      </div>
-    </section>
+      </section>
+    </>
   );
 };

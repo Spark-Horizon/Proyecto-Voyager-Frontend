@@ -12,7 +12,7 @@ import '../../styles/Groups/NewGroupModal.css';
 
 import { PDSHPanelTemplate } from "../P_DASHBOARD/PDSHPanelTemplate";
 
-export const Groups = () => {
+export const Groups = ({setGroupId, changeParentView}) => {
   const { user } = useAuth();
   const { role, id } = user;
 
@@ -107,13 +107,23 @@ export const Groups = () => {
     setExpandedActivitiesButton(false);
   };
 
+  const handleOnActividadesClick = (groupId) => {
+    setGroupId(groupId);
+    changeParentView(1);
+  }
+
   const renderTruncatedButton = (text, func) => {
     return (
       <OverlayTrigger
         placement="bottom"
         overlay={<Tooltip id="tooltip">{text}</Tooltip>}
       >
-        <Button  onClick={func ? func : null} className={`text-truncate grupos-btn ${expandedActivitiesButton ? 'expanded' : ''}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <Button 
+          className={`text-truncate grupos-btn ${expandedActivitiesButton ? 'expanded' : ''}`} 
+          onMouseEnter={handleMouseEnter} 
+          onMouseLeave={handleMouseLeave}
+          onClick={func}
+        >
           {text}
         </Button>
       </OverlayTrigger>
