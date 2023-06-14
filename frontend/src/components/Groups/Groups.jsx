@@ -165,7 +165,7 @@ export const Groups = ({setGroupId, changeParentView}) => {
                             <Button className="grupos-btn" variant="danger" onClick={() => handleDelete(role, group.id, id, group.codigo)}>
                               {role === 'teacher' ? 'Eliminar' : 'Salir'}
                             </Button>
-                            {role === 'teacher' && renderTruncatedButton('Ver actividades', null)}
+                            {role === 'teacher' && renderTruncatedButton('Ver actividades', () => handleOnActividadesClick(group.id))}
                             {role === 'student' && (
                               renderTruncatedButton('Ir al path', () => handleGoToPath(group))
                             )}
