@@ -5,6 +5,7 @@ import { AttemptCard } from './AttemptCard';
 import { ActivityCard } from './ActivityCard';
 import { useAuth } from '../../hooks/AuthContext';
 import { CustomButton } from '../CustomButton';
+import { useNavigate } from 'react-router-dom';
 
 import '../../styles/QuizAttempt/QuizAttempt.css';
 
@@ -13,6 +14,7 @@ export const QuizAttempt = ({ act, handleBack }) => { // Recibe act como prop
   const { id:id_student } = user;
   const [quizData, setQuizData] = useState(null);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +43,7 @@ export const QuizAttempt = ({ act, handleBack }) => { // Recibe act como prop
       {quizData.attempts.map((attempt, index) => (
         <AttemptCard key={attempt.id_intento} eventKey={index} attempt={attempt} />
       ))}
+      <CustomButton text={"Nuevo intento"} type={"btn btnPrimary"} disabled={quizData.activity.disponible ? false : true} func={() => navigate(`/quizPage/${quizData.activity.id}`)}/>
     </Container>
   );
   
