@@ -1,10 +1,6 @@
 .path-container{
+    margin-top: 30px;
     transition: all ease 400ms;
-    width: 95%;
-    background: rgba(30, 30, 30, 0.25);
-    backdrop-filter: blur( 11px );
-    -webkit-backdrop-filter: blur( 11px );
-    border-radius: 15px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
-    padding: 2rem;
+    width: 100%;
+    padding-right: 20px;
 }

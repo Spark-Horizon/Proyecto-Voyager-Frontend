@@ -1,12 +1,10 @@
 import { UserDropdown } from '../UserDropdown';
 
-import { useAuth } from '../../hooks/AuthContext';
 import { CustomNavbar } from '../CustomNavbar';
+import { Footer } from '../Footer';
 import { StudentDashboard } from '../../routes/StudentDashboard';
 
 export const StudentInterface = () => {
-
-  const { user } = useAuth();
 
   // Links y componentes de Navbar
   const navbar = {
@@ -15,12 +13,13 @@ export const StudentInterface = () => {
     ]
   };
 
-  // Tabs
-
   return (
-    <section id='activitiesPage'>
+    <section id='student-interface'>
       <CustomNavbar components={navbar.components}/>
-      <StudentDashboard />
+      <div className="startSection">
+        <StudentDashboard />
+      </div>
+      <Footer/>
     </section>
   );
 }

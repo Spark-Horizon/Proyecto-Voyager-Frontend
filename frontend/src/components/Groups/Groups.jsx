@@ -95,7 +95,7 @@ export const Groups = () => {
 
   const optionalItems = [
     <Button onClick={() => setShowModal(true)}>
-      {role === 'teacher' ? 'Crear grupo 🪐' : 'Unirse a grupo'}
+      {role === 'teacher' ? 'Crear grupo 🪐' : 'Unirse a grupo 🚀'}
     </Button>
   ];
 
@@ -172,12 +172,16 @@ export const Groups = () => {
       );
     } else {
       return (
-        <div className="startSection">
-          <Button onClick={() => setIdMateria(null)} className="mb-3">
-            Regresar
-          </Button>
-          <PathPage materia_id={idMateria} />
-        </div>
+        <>
+          <div className="p-dash-top-container">            
+            <Button onClick={() => setIdMateria(null)} className="">
+              Regresar
+            </Button>
+          </div>
+          <div className="progress-main-container">
+            <PathPage materia_id={idMateria} />
+          </div>
+        </>
       );
     }
   };

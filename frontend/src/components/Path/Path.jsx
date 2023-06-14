@@ -7,6 +7,7 @@ import { SubtemaCard } from './SubtemaCard.jsx';
 import { Loading } from '../Loading.jsx';
 
 import '../../styles/Path/path.css'
+import '../../styles/Groups/Groups.css'
 
 export const Path = ({ materia_id }) => {
   const { user } = useAuth();
@@ -40,10 +41,8 @@ export const Path = ({ materia_id }) => {
   ));
 
   return (
-    <div className="container-cc">
-      <div className='path-container'>
-        {formattedTopics}
-      </div>
+    <div className='path-container'>
+      {formattedTopics}
     </div>
   )
 }

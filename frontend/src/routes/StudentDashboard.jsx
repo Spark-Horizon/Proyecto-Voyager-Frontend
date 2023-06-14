@@ -14,9 +14,6 @@ export const StudentDashboard = () => {
     return (
         <div className='main-background'>
             <div className='main-professor-dashboard'>
-                <div className='main-professor-dash-header'>
-                    <h1 className='main-header'>Dashboard de alumno</h1>
-                </div>
                 <div className="p-dash-main-container">
                     <SDSHidebar changeComponent={setPanelComponent} />
                     <SDSHPanel index={panelComponent} />

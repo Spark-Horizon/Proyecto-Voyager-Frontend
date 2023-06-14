@@ -9,7 +9,7 @@ export const TemaCard = (props) => {
         <div
         className={`mb-3 tema-main-container ${!hidden ? 'tema-main-container-hidden' : 'tema-main-container-show'}`}
         >
-            <div className="tema-card"
+            <div className="tema-card mb-2"
             onClick={() => setHidden(!hidden)}>
                 <h3>{props.title}</h3>
             </div>
