@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
 import { fetchQuizData } from '../../hooks/QuizAttempt/useFetchQuizData';
 import { AttemptCard } from './AttemptCard';
 import { ActivityCard } from './ActivityCard';
 import { useAuth } from '../../hooks/AuthContext';
-import { CustomButton } from '../CustomButton';
-import { useNavigate } from 'react-router-dom';
+import { Loading } from '../Loading';
 
 import '../../styles/QuizAttempt/QuizAttempt.css';
 
@@ -14,7 +12,6 @@ export const QuizAttempt = ({ act }) => {
   const { id:id_student } = user;
   const [quizData, setQuizData] = useState(null);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,16 +30,16 @@ export const QuizAttempt = ({ act }) => {
   }
 
   if (!quizData) {
-    return <p>Loading...</p>;
+    return <Loading/>;
   }
 
   return (
-    <Container className="quiz-container">
+    <div className="quiz-container">
       <ActivityCard activity={quizData.activity} />
       {quizData.attempts.map((attempt, index) => (
         <AttemptCard key={attempt.id_intento} eventKey={index} attempt={attempt} />
       ))}
-    </Container>
+    </div>
   );
   
 };

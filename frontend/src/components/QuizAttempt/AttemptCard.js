@@ -27,7 +27,7 @@ export const AttemptCard = ({ eventKey, attempt }) => {
   return (
     <Card className="attempt-card">
       <Card.Header>
-        <Button variant="link" onClick={handleToggle}>
+        <Button className='btn btnPrimary' onClick={handleToggle}>
           Intento {eventKey + 1}
         </Button>
       </Card.Header>
