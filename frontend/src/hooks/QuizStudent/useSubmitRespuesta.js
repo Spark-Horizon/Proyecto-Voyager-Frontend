@@ -8,7 +8,7 @@ export const useSubmitRespuesta = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const url = `http://${backendUrl}:${port}/quizStudent/${intento}`
+  const url = `http://${backendUrl}:${port}/quizStudent/submitRespuesta`;
 
   const submitRespuesta = async (id_respuesta, answer_JSON) => {
     setLoading(true);

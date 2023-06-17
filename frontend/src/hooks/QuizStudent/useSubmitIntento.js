@@ -8,7 +8,7 @@ export const useSubmitIntento = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const url = `http://${backendUrl}:${port}/quizStudent/${intento}`
+  const url = `http://${backendUrl}:${port}/quizStudent/submitIntento`;
 
   const submitIntento = async (id_intento) => {
     setLoading(true);

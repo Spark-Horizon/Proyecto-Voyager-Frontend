@@ -9,7 +9,7 @@ export const useGetOrSet = (matricula, quiz) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
 
-  const url = `http://${backendUrl}:${port}/quizStudent/${intento}`
+  const url = `http://${backendUrl}:${port}/quizStudent/${matricula}/${quiz}`
 
   useEffect(() => {
     const fetchData = async () => {
