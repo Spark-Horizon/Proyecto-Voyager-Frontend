@@ -96,7 +96,7 @@ export const OutputPanel = ({
   useEffect(() => {
     if (submitPressed) {
       const correct = testsData.some(el => el.passed === false)
-      console.log('TESTDATAXD', testsData)
+      console.log('TESTDATA in OutputPanel.jsx: ', testsData)
       submitFunc({respuesta: code, correcto: !correct})
       setCanChange(true)
       seTsubmitPressed(false);
