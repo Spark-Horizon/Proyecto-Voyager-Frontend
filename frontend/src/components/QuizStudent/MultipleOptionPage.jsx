@@ -5,23 +5,24 @@ import { Loading } from '../Loading';
 import '../../styles/ide/codeInstructions.css';
 import '../../styles/moPage.css'
 
-export const MultipleOptionPage = ({ id, data, submitFunc, handleNextQuestion }) => {
+export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion }) => {
     const [selectedOption, setSelectedOption] = useState(""); //Opcion seleccionada
 
     // Funcion para el boton de submit
+    //AQUÍ SE PUEDE HACER SIMPLEMENTE UN IF Y UN ELSE PORQUE PODEMOS OCUPAR LA HINT Y UNA TERNARIA PARA SI CORRECTO ES true OR false
     const handleSubmit = () => {
         if (selectedOption === data.options[data.answer].text) {
             console.log("CLICKED");
             handleNextQuestion();
             submitFunc({ respuesta: selectedOption, correcto: true })
-            alert("Respuesta correcta.")
+            alert("Respuesta correcta.") //CAMBIAR ESTA PARTE POR HINT
         } else if (selectedOption === "") {
             alert("Por favor selecciona una respuesta.")
         } else {
             console.log("CLICKED");
             handleNextQuestion();
             submitFunc({ respuesta: selectedOption, correcto: false })
-            alert("Respuesta incorrecta.")
+            alert("Respuesta incorrecta.") //CAMBIAR ESTA PARTE POR HINT
         }
     }
 

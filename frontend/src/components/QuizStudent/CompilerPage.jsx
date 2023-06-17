@@ -9,7 +9,7 @@ import '../../styles/ide/idePage.css';
 import '../../styles/ide/compiler.css';
 
 export const CompilerPage = ({ data, submitFunc, handleNextQuestion }) => {
-  console.log('RECEIVED DATA', data);
+  console.log('Compiler Received this data: ', data);
 
   const [driver, setDriver] = useState(null); 
   const [tests, setTests] = useState([]);
