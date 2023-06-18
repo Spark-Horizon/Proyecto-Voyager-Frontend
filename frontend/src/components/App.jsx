@@ -32,7 +32,7 @@ function App() {
         <Route path='/teacherquizzes'
           element={<PrivateRoute logged={false} children={<TeacherQuizzes/>} link='/home'/>}
         />
-        <Route path='/quizpage/:id_activity'
+        <Route path='/quizPage/:id_activity'
           element={
             <PrivateRoute logged={true} link='/home'>
               <QuizPage />
