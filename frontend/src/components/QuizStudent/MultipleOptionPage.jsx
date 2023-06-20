@@ -7,19 +7,19 @@ import '../../styles/moPage.css'
 
 export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion, id_respuesta }) => {
     const [selectedOption, setSelectedOption] = useState(""); //Opcion seleccionada
+    const [selectedIndex, setSelectedIndex] = useState(null); //Indice de la opción seleccionada
 
     // Funcion para el boton de submit
-    //AQUÍ SE PUEDE HACER SIMPLEMENTE UN IF Y UN ELSE PORQUE PODEMOS OCUPAR LA HINT Y UNA TERNARIA PARA SI CORRECTO ES true OR false
     const handleSubmit = () => {
-        if (selectedOption === data.options[data.answer].text) {
+        if (selectedIndex === data.answer) {
             console.log("CLICKED");
             handleNextQuestion();
             if(id_respuesta){
                 submitFunc(id_respuesta,{ respuesta: selectedOption, correcto: true })
-                alert("Respuesta correcta.") //CAMBIAR ESTA PARTE POR HINT
+                alert(data.options[selectedIndex].explanation) //CAMBIAR ESTA PARTE POR HINT
             }else{
                 submitFunc({ respuesta: selectedOption, correcto: true })
-                alert("Respuesta correcta.") //CAMBIAR ESTA PARTE POR HINT
+                alert(data.options[selectedIndex].explanation) //CAMBIAR ESTA PARTE POR HINT
             }
         } else if (selectedOption === "") {
             alert("Por favor selecciona una respuesta.")
@@ -28,10 +28,10 @@ export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion, id_re
             handleNextQuestion();
             if(id_respuesta){
                 submitFunc(id_respuesta, { respuesta: selectedOption, correcto: false })
-                alert("Respuesta incorrecta.") //CAMBIAR ESTA PARTE POR HINT 
+                alert(data.options[selectedIndex].explanation) //CAMBIAR ESTA PARTE POR HINT 
             }else{
                 submitFunc({ respuesta: selectedOption, correcto: false })
-                alert("Respuesta incorrecta.") //CAMBIAR ESTA PARTE POR HINT
+                alert(data.options[selectedIndex].explanation) //CAMBIAR ESTA PARTE POR HINT
             }
         }
     }
@@ -42,9 +42,9 @@ export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion, id_re
 
     const difficultyClass = 'code-instructions-difficulty badge ' + data.difficulty;
 
-    const formattedOptions = data.options.map((option) => (
+    const formattedOptions = data.options.map((option, index) => (
         <div key={option.id} className="container-cl mb-3">
-            <input className="radio" type="radio" id={option.text} name="opciones" value={option.text} checked={selectedOption === option.text} onChange={() => setSelectedOption(option.text)} />
+            <input className="radio" type="radio" id={option.text} name="opciones" value={option.text} checked={selectedOption === option.text} onChange={() => {setSelectedOption(option.text); setSelectedIndex(index)}} />
             <label htmlFor={option.text}>{option.text}</label>
         </div>
     ))
