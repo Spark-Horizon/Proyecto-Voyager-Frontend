@@ -5,7 +5,7 @@ import { Loading } from '../Loading';
 import '../../styles/ide/codeInstructions.css';
 import '../../styles/moPage.css'
 
-export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion }) => {
+export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion, id_respuesta }) => {
     const [selectedOption, setSelectedOption] = useState(""); //Opcion seleccionada
 
     // Funcion para el boton de submit
@@ -14,15 +14,25 @@ export const MultipleOptionPage = ({ data, submitFunc, handleNextQuestion }) => 
         if (selectedOption === data.options[data.answer].text) {
             console.log("CLICKED");
             handleNextQuestion();
-            submitFunc({ respuesta: selectedOption, correcto: true })
-            alert("Respuesta correcta.") //CAMBIAR ESTA PARTE POR HINT
+            if(id_respuesta){
+                submitFunc(id_respuesta,{ respuesta: selectedOption, correcto: true })
+                alert("Respuesta correcta.") //CAMBIAR ESTA PARTE POR HINT
+            }else{
+                submitFunc({ respuesta: selectedOption, correcto: true })
+                alert("Respuesta correcta.") //CAMBIAR ESTA PARTE POR HINT
+            }
         } else if (selectedOption === "") {
             alert("Por favor selecciona una respuesta.")
         } else {
             console.log("CLICKED");
             handleNextQuestion();
-            submitFunc({ respuesta: selectedOption, correcto: false })
-            alert("Respuesta incorrecta.") //CAMBIAR ESTA PARTE POR HINT
+            if(id_respuesta){
+                submitFunc(id_respuesta, { respuesta: selectedOption, correcto: false })
+                alert("Respuesta incorrecta.") //CAMBIAR ESTA PARTE POR HINT 
+            }else{
+                submitFunc({ respuesta: selectedOption, correcto: false })
+                alert("Respuesta incorrecta.") //CAMBIAR ESTA PARTE POR HINT
+            }
         }
     }
 

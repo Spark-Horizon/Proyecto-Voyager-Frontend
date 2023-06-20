@@ -15,7 +15,8 @@ export const OutputPanel = ({
   tests,
   driver,
   submitFunc,
-  handleNext
+  handleNext,
+  id_respuesta
 }) => {
   const { data, isLoading, setSubmitData, fetchSubmissionData } = useRunSubmit();
   const [submitPressed, seTsubmitPressed] = useState(false)
@@ -97,7 +98,11 @@ export const OutputPanel = ({
     if (submitPressed) {
       const correct = testsData.some(el => el.passed === false)
       console.log('TESTDATA in OutputPanel.jsx: ', testsData)
-      submitFunc({respuesta: code, correcto: !correct})
+      if(id_respuesta){
+        submitFunc(id_respuesta, {respuesta: code, correcto: !correct})
+      }else{
+        submitFunc({respuesta: code, correcto: !correct})
+      }
       setCanChange(true)
       seTsubmitPressed(false);
     }

@@ -27,6 +27,11 @@ export const QuizPage = () => {
     }
   }
 
+  const handleNext = () => {
+    // No se realiza ninguna acción
+  };
+  
+
   const handleSubmitIntento = () => {
     submitIntento(id_intento)
   }
@@ -49,9 +54,9 @@ export const QuizPage = () => {
         <div>
           {data.respuestas.map((respuesta) =>
             respuesta.tipo === "Código"
-              ? <CompilerPage data={respuesta.ejercicio_archivo} submitFunc={handleSubmitRespuesta} />
+              ? <CompilerPage data={respuesta.ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={respuesta.id_respuesta} handleNextQuestion={handleNext} />
               : respuesta.tipo === "Opción múltiple"
-                ? <MultipleOptionPage data={respuesta.ejercicio_archivo} submitFunc={handleSubmitRespuesta} />
+                ? <MultipleOptionPage data={respuesta.ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={respuesta.id_respuesta} handleNextQuestion={handleNext} />
                 : null
           )}
           <button

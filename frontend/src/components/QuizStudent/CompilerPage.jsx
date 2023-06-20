@@ -8,7 +8,7 @@ import { OutputPanel } from "../IDE/OutputPanel";
 import '../../styles/ide/idePage.css';
 import '../../styles/ide/compiler.css';
 
-export const CompilerPage = ({ data, submitFunc, handleNextQuestion }) => {
+export const CompilerPage = ({ data, submitFunc, handleNextQuestion, id_respuesta }) => {
   console.log('Compiler Received this data: ', data);
 
   const [driver, setDriver] = useState(null); 
@@ -47,6 +47,7 @@ export const CompilerPage = ({ data, submitFunc, handleNextQuestion }) => {
             driver={driver}
             submitFunc={submitFunc}
             handleNext={handleNextQuestion}
+            id_respuesta={id_respuesta}
           />
         </div>
       </div>
