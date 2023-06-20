@@ -21,7 +21,7 @@ export const SummaryResults = () => {
   const navigate = useNavigate();
 
   const optionalItems = [
-    <CustomButton text={"Nuevo intento"} type={"btn btnPrimary"} disabled={currentAttempt ? currentAttempt.disponible : true} func={() => navigate(`/quizPage/${currentAttempt.id}`)}/>
+    <CustomButton text={"Nuevo intento"} type={"btn btnPrimary"} disabled={currentAttempt ? (currentAttempt.intentos >= currentAttempt.limite) : true} func={() => navigate(`/quizPage/${currentAttempt.id}`)}/>
   ];
 
   useEffect(() => {
