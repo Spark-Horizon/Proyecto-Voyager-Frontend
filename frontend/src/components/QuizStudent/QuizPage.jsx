@@ -35,7 +35,9 @@ export const QuizPage = () => {
 
   const handleSubmitIntento = () => {
     submitIntento(id_intento)
-    navigate('/home');
+    if(!finishError && !finishLoading){
+      navigate('/home');
+    }
   }
 
   useEffect(() => {
@@ -53,6 +55,12 @@ export const QuizPage = () => {
     <div>
       {data ?
         <div>
+          {data.respuestas.length > 0 && data.respuestas[currentExercise].tipo === "Código"
+            ? <CompilerPage key={currentExercise} data={data.respuestas[currentExercise].ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={data.respuestas[currentExercise].id_respuesta} handleNextQuestion={handleNext} />
+            : data.respuestas.length > 0 && data.respuestas[currentExercise].tipo === "Opción múltiple"
+              ? <MultipleOptionPage key={currentExercise} data={data.respuestas[currentExercise].ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={data.respuestas[currentExercise].id_respuesta} handleNextQuestion={handleNext} />
+              : null
+          }
           {(data.respuestas.length === 0 || currentExercise === data.respuestas.length - 1) &&
             <button
               onClick={handleSubmitIntento}
