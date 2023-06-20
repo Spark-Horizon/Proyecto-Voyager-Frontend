@@ -50,13 +50,13 @@ export const QuizPage = () => {
     <div>
       {data ?
         <div>
-          {data.respuestas[currentExercise].tipo === "Código"
-            ? <CompilerPage data={data.respuestas[currentExercise].ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={data.respuestas[currentExercise].id_respuesta} handleNextQuestion={handleNext} />
-            : data.respuestas[currentExercise].tipo === "Opción múltiple"
-              ? <MultipleOptionPage data={data.respuestas[currentExercise].ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={data.respuestas[currentExercise].id_respuesta} handleNextQuestion={handleNext} />
+          {data.respuestas.length > 0 && data.respuestas[currentExercise].tipo === "Código"
+            ? <CompilerPage key={currentExercise} data={data.respuestas[currentExercise].ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={data.respuestas[currentExercise].id_respuesta} handleNextQuestion={handleNext} />
+            : data.respuestas.length > 0 && data.respuestas[currentExercise].tipo === "Opción múltiple"
+              ? <MultipleOptionPage key={currentExercise} data={data.respuestas[currentExercise].ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={data.respuestas[currentExercise].id_respuesta} handleNextQuestion={handleNext} />
               : null
           }
-          {currentExercise === data.respuestas.length - 1 &&
+          {(data.respuestas.length === 0 || currentExercise === data.respuestas.length - 1) &&
             <button
               onClick={handleSubmitIntento}
               style={{
