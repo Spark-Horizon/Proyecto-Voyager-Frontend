@@ -37,11 +37,11 @@ export const AttemptCard = ({ eventKey, attempt }) => {
           <Card.Text>Fin: {formatearFechaHora(attempt.fin)}</Card.Text>
           <Card.Text>Respuestas Correctas: {attempt.correctos}</Card.Text>
           <Card.Text>Respuestas Incorrectas: {attempt.incorrectos}</Card.Text>
-          {attempt.answers.respuestas.map((respuesta, index) => (
+          {/* {attempt.answers.respuestas.map((respuesta, index) => (
             <Card.Text key={index}>
               Respuesta {index+1}: {respuesta.respuesta ? respuesta.respuesta : 'N/A'} - Correcto: {respuesta.correcto ? 'Si' : 'No'}
             </Card.Text>
-          ))}
+          ))} */}
         </Card.Body>
       )}
     </Card>
