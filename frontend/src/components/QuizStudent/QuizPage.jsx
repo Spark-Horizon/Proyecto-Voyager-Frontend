@@ -53,18 +53,12 @@ export const QuizPage = () => {
     <div>
       {data ?
         <div>
-          {data.respuestas.length > 0 && data.respuestas[currentExercise].tipo === "Código"
-            ? <CompilerPage key={currentExercise} data={data.respuestas[currentExercise].ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={data.respuestas[currentExercise].id_respuesta} handleNextQuestion={handleNext} />
-            : data.respuestas.length > 0 && data.respuestas[currentExercise].tipo === "Opción múltiple"
-              ? <MultipleOptionPage key={currentExercise} data={data.respuestas[currentExercise].ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={data.respuestas[currentExercise].id_respuesta} handleNextQuestion={handleNext} />
-              : null
-          }
           {(data.respuestas.length === 0 || currentExercise === data.respuestas.length - 1) &&
             <button
               onClick={handleSubmitIntento}
               style={{
                 display: 'block',
-                width: '200px',
+                width: currentExercise === data.respuestas.length - 1 ? '100%' : '200px', // Ancho completo si es el último ejercicio
                 height: '50px',
                 margin: '20px auto',
                 fontSize: '18px',
@@ -77,7 +71,11 @@ export const QuizPage = () => {
                 pointerEvents: 'auto',
                 color: '#fff',
                 textAlign: 'center',
-                lineHeight: '50px'
+                lineHeight: '50px',
+                position: currentExercise === data.respuestas.length - 1 ? 'fixed' : 'relative', // Fijo si es el último ejercicio
+                bottom: '0', // Alineado al final de la pantalla
+                left: '0', // Alineado al inicio de la pantalla
+                zIndex: '1' // Enfrente de otros elementos
               }}
             >
               Finalizar Quiz
