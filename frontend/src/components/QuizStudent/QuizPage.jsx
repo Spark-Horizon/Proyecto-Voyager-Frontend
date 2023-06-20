@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CompilerPage } from './CompilerPage';
 import { MultipleOptionPage } from './MultipleOptionPage';
 import { useAuth } from '../../hooks/AuthContext';
@@ -9,6 +10,7 @@ import { useSubmitIntento } from '../../hooks/QuizStudent/useSubmitIntento';
 
 export const QuizPage = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const matricula = user.id;
   const { id_activity: quiz } = useParams()
 
@@ -33,6 +35,7 @@ export const QuizPage = () => {
 
   const handleSubmitIntento = () => {
     submitIntento(id_intento)
+    navigate('/home');
   }
 
   useEffect(() => {
