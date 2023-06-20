@@ -16,21 +16,20 @@ export const QuizPage = () => {
   const { loading: submitLoading, error: submitError, submitRespuesta } = useSubmitRespuesta();
   const { loading: finishLoading, error: finishError, submitIntento } = useSubmitIntento();
 
-  const [renderizedExercises, setRenderizedExercises] = useState(0);
+  const [currentExercise, setCurrentExercise] = useState(0);
   const [id_intento, setIdIntento] = useState(null);
 
 
   const handleSubmitRespuesta = (id_respuesta, answer_JSON) => {
     submitRespuesta(id_respuesta, answer_JSON)
-    if (!submitError && !submitLoading) {
-      setRenderizedExercises(renderizedExercises - 1);
-    }
   }
 
   const handleNext = () => {
-    // No se realiza ninguna acción
+    // Incrementar el índice del ejercicio actual para pasar al siguiente ejercicio, solo si no estamos en el último ejercicio
+    if (currentExercise < data.respuestas.length - 1 && !submitError && !submitLoading) {
+      setCurrentExercise(currentExercise + 1);
+    }
   };
-  
 
   const handleSubmitIntento = () => {
     submitIntento(id_intento)
@@ -42,7 +41,6 @@ export const QuizPage = () => {
         console.error(error);
       } else {
         console.log(data);
-        setRenderizedExercises(data.respuestas.length);
         setIdIntento(data.intento)
       }
     }
@@ -52,36 +50,36 @@ export const QuizPage = () => {
     <div>
       {data ?
         <div>
-          {data.respuestas.map((respuesta) =>
-            respuesta.tipo === "Código"
-              ? <CompilerPage data={respuesta.ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={respuesta.id_respuesta} handleNextQuestion={handleNext} />
-              : respuesta.tipo === "Opción múltiple"
-                ? <MultipleOptionPage data={respuesta.ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={respuesta.id_respuesta} handleNextQuestion={handleNext} />
-                : null
-          )}
-          <button
-            onClick={handleSubmitIntento}
-            disabled={renderizedExercises !== 0}
-            style={{
-              display: 'block',
-              width: '200px',
-              height: '50px',
-              margin: '20px auto',
-              fontSize: '18px',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              backdropFilter: 'blur(10px)',
-              webkitBackdropFilter: 'blur(10px)',
-              borderRadius: '5px',
-              cursor: renderizedExercises === 0 ? 'pointer' : 'not-allowed',
-              pointerEvents: 'auto',
-              color: '#fff',
-              textAlign: 'center',
-              lineHeight: '50px'
-            }}
-          >
-            Finalizar Quiz
-          </button>
+          {data.respuestas[currentExercise].tipo === "Código"
+            ? <CompilerPage data={data.respuestas[currentExercise].ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={data.respuestas[currentExercise].id_respuesta} handleNextQuestion={handleNext} />
+            : data.respuestas[currentExercise].tipo === "Opción múltiple"
+              ? <MultipleOptionPage data={data.respuestas[currentExercise].ejercicio_archivo} submitFunc={handleSubmitRespuesta} id_respuesta={data.respuestas[currentExercise].id_respuesta} handleNextQuestion={handleNext} />
+              : null
+          }
+          {currentExercise === data.respuestas.length - 1 &&
+            <button
+              onClick={handleSubmitIntento}
+              style={{
+                display: 'block',
+                width: '200px',
+                height: '50px',
+                margin: '20px auto',
+                fontSize: '18px',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                backdropFilter: 'blur(10px)',
+                webkitBackdropFilter: 'blur(10px)',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                pointerEvents: 'auto',
+                color: '#fff',
+                textAlign: 'center',
+                lineHeight: '50px'
+              }}
+            >
+              Finalizar Quiz
+            </button>
+          }
         </div>
         :
         <p>Loading...</p>
